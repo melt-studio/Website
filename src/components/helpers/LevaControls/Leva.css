@@ -1,0 +1,27 @@
+body.controls {
+  width: 100%;
+  height: 100vh;
+  background: #1b1b1d;
+}
+
+#passwordMessage {
+  color: orangered;
+  margin: 10px 0 5px;
+  display: none;
+}
+
+#passwordMessage.success {
+  color: limegreen;
+}
+
+#passwordMessage.show {
+  display: block;
+}
+
+#download-image {
+  display: none;
+}
+
+#download-image.show {
+  display: grid;
+}

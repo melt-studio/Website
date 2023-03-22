@@ -1,0 +1,10 @@
+.isVisible{
+  display: flex;
+  position: sticky;
+  top: 0px;
+  color: black;
+  z-index: 999;
+  }
+  .isHidden{
+    display: none;
+  }

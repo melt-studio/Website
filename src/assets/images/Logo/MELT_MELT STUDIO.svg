@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128.36 15.18">
+  <defs>
+    <style>
+      .b {
+        letter-spacing: -.14em;
+      }
+
+      .c {
+        letter-spacing: -.08em;
+      }
+
+      .d {
+        fill: #fff;
+        font-family: Archivo-Medium, Archivo;
+        font-size: 21.29px;
+        font-weight: 500;
+      }
+
+      .e {
+        letter-spacing: -.07em;
+      }
+
+      .f {
+        letter-spacing: -.07em;
+      }
+    </style>
+  </defs>
+  <text class="d" transform="translate(-1.64 14.94)"><tspan class="e" x="0" y="0">ME</tspan><tspan class="b" x="28.95" y="0">L</tspan><tspan class="c" x="38.08" y="0">T</tspan><tspan class="f" x="49.34" y="0" xml:space="preserve"> STUDIO</tspan></text>
+</svg>
