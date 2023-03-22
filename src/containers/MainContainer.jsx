@@ -7,21 +7,18 @@ import Home from '../screens/Home/Home';
 import ProjectFullPage from '../screens/Project/ProjectFullPage/ProjectFullPage';
 import ProtectedPage from '../screens/ProtectedPage/ProtectedPage';
 import TempLandingPage from '../screens/TempLandingPage/TempLandingPage';
-import Unofficials from '../screens/Unofficials/Unofficials';
 
 export default function MainContainer(props) {
   // console.log('from Main Container', props.projects)
   return (
     <Routes>
-    <Route path="/temporary-landing-page" element={<TempLandingPage />} />
-    <Route path="/working-components" element={<ProtectedPage miscPageInfo={props.miscPageInfo} />} />
-    <Route path="/unofficials" element={<Unofficials setVisible={props.setVisible} miscPageInfo={props.miscPageInfo} unofficials={props.unofficials} setShowHamburger={props.setShowHamburger} />} />
-    <Route path="/contact" element={<Contact navTextColor={props.navTextColor} />} />
-    <Route path="/about" element={<About aboutInfo={props.aboutInfo} navTextColor={props.navTextColor} />} />
-    <Route path="/:id" element={<ProjectFullPage setBackgroundColor={props.setBackgroundColor} showHamburger={props.showHamburger} setShowHamburger={props.setShowHamburger} navTextColor={props.navTextColor} setNavColor={props.setNavColor} projects={props.projects} setVisible={props.setVisible}  />}  />
-    <Route path="/" element={<Home clicks={props.clicks} setClicks={props.setClicks} fadeInText={props.fadeInText} setFadeInText={props.setFadeInText} setShowHamburger={props.setShowHamburger} mobileIntroLogo={props.mobileIntroLogo} setMobileIntroLogo={props.setMobileIntroLogo} backgroundColor={props.backgroundColor} setBackgroundColor={props.setBackgroundColor} scroll={props.scroll} showHamburger={props.showHamburger} navTextColor={props.navTextColor} projects={props.projects} setVisible={props.setVisible} setStickyIsVis={props.setStickyIsVis} />} />
-    
+      <Route path="/" element={ <TempLandingPage />}/>
     </Routes>
     ) 
   }
-  // <Route path="/" element={ <TempLandingPage />}/>
+  // <Route path="/temporary-landing-page" element={<TempLandingPage />} />
+  // <Route path="/working-components" element={<ProtectedPage />} />
+  // <Route path="/contact" element={<Contact navTextColor={props.navTextColor} />} />
+  // <Route path="/about" element={<About aboutInfo={props.aboutInfo} navTextColor={props.navTextColor} />} />
+  // <Route path="/:id" element={<ProjectFullPage showHamburger={props.showHamburger} setShowHamburger={props.setShowHamburger} navTextColor={props.navTextColor} setNavColor={props.setNavColor} projects={props.projects} setVisible={props.setVisible}  />} />
+  // <Route path="/" element={<Home showHamburger={props.showHamburger} setShowHamburger={props.setShowHamburger} navTextColor={props.navTextColor} projects={props.projects} setVisible={props.setVisible} setStickyIsVis={props.setStickyIsVis} />} />
