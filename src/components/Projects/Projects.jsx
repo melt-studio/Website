@@ -153,7 +153,7 @@ to {
                             if (proj.fields.unofficials === true) {
                               console.log("yaaas")
                               // testImage
-                              let cursor = "url('https://res.cloudinary.com/bobalobbadingdong/image/upload/c_scale,w_50/v1677874584/MELT%20Works/MELT_WEBSITE_ICONS__X-white_irckou.png'), auto";
+                              let cursor = "url('https://res.cloudinary.com/bobalobbadingdong/image/upload/c_scale,w_50/v1679765286/MELT%20Works/unofficials_gikmrv.png'), auto";
                               document.body.style.cursor = cursor;
                             } else {
                               hoverEvent(proj.fields.cursorColor, "none");
