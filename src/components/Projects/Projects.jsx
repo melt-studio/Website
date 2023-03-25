@@ -152,29 +152,29 @@ to {
                     // ref={ref.current[index]}
                     onMouseEnter={() => {
                       if (proj.fields.unofficials === true) {
-                        const cursorImg = document.createElement("img");
-                        cursorImg.src = "https://res.cloudinary.com/bobalobbadingdong/image/upload/c_scale,w_200/v1679765286/MELT%20Works/unofficials_gikmrv.png";
-                        cursorImg.style.position = "fixed";
-                        cursorImg.style.pointerEvents = "none";
-                        cursorImg.style.zIndex = "99999";
-                        cursorImg.style.width = "200px"; // Set the size of the cursor image
-                        cursorImg.style.height = "auto";
-                        cursorImg.style.backgroundColor = proj.fields.cursorColor
-                        cursorImg.style.borderRadius="60%"
-                        document.body.style.cursor = "none"; // Hide the default cursor
+                        // const cursorImg = document.createElement("img");
+                        // cursorImg.src = "https://res.cloudinary.com/bobalobbadingdong/image/upload/c_scale,w_200/v1679765286/MELT%20Works/unofficials_gikmrv.png";
+                        // cursorImg.style.position = "fixed";
+                        // cursorImg.style.pointerEvents = "none";
+                        // cursorImg.style.zIndex = "99999";
+                        // cursorImg.style.width = "200px"; // Set the size of the cursor image
+                        // cursorImg.style.height = "auto";
+                        // cursorImg.style.backgroundColor = proj.fields.cursorColor
+                        // cursorImg.style.borderRadius="60%"
+                        // document.body.style.cursor = "none"; // Hide the default cursor
                     
-                        document.addEventListener("mousemove", (e) => {
-                          cursorImg.style.left = e.clientX + "px";
-                          cursorImg.style.top = e.clientY + "px";
-                        });
+                        // document.addEventListener("mousemove", (e) => {
+                        //   cursorImg.style.left = e.clientX + "px";
+                        //   cursorImg.style.top = e.clientY + "px";
+                        // });
                     
-                        document.body.appendChild(cursorImg);
+                        // document.body.appendChild(cursorImg);
                     
-                        // Remove the image element on mouse out
-                        cursorImg.addEventListener("mouseout", () => {
-                          cursorImg.remove();
-                          document.body.style.cursor = "default";
-                        });
+                        // // Remove the image element on mouse out
+                        // cursorImg.addEventListener("mouseout", () => {
+                        //   cursorImg.remove();
+                        //   document.body.style.cursor = "default";
+                        // });
                       } else {
                         hoverEvent(proj.fields.cursorColor, "none");
                         function hexToRgb(hex) {
