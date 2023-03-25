@@ -355,8 +355,11 @@ to {
           const rect = Posterref.current.getBoundingClientRect();
         if (rect.top < window.innerHeight && rect.bottom > 0) {
               // console.log("Is Visible");
-          document.querySelector('.fade-in-up-element__proj').classList.add('out-up');
-          document.querySelector('.fade-in-up-element-background__proj').classList.remove('show');
+          document.querySelector('.fade-in-up-element-background__proj').classList.add('no-more');
+          setTimeout(() => {
+            
+            document.querySelector('.fade-in-up-element__proj').classList.add('out-up');
+          }, 800);
           props.setVisible(true)
           // document.querySelector('.back-button__holder').classList.add('visible');
                } 
@@ -375,8 +378,11 @@ to {
           const rect = PosterrefTop.current.getBoundingClientRect();
         if (rect.top < window.innerHeight && rect.bottom > 0) {
               // console.log("Is Visible AGAIN");
-          document.querySelector('.fade-in-up-element__proj').classList.remove('out-up');
-          document.querySelector('.fade-in-up-element-background__proj').classList.add('show');
+          document.querySelector('.fade-in-up-element-background__proj').classList.remove('no-more');
+          setTimeout(() => {
+            
+            document.querySelector('.fade-in-up-element__proj').classList.remove('out-up');
+          }, 800);
           props.setVisible(false)
           // document.querySelector('.back-button__holder').classList.remove('visible');
             } 
