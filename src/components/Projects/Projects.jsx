@@ -158,7 +158,7 @@ to {
                               cursorImg.style.zIndex = "99999";
                               cursorImg.style.width = "200px"; // Set the size of the cursor image
                               cursorImg.style.height = "auto";
-                              cursorImg.style.backgroundColor = "red"
+                              cursorImg.style.backgroundColor = proj.fields.cursorColor
                               cursorImg.style.borderRadius="60%"
                               document.body.style.cursor = "none"; // Hide the default cursor
                               
