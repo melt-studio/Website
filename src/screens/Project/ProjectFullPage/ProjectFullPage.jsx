@@ -25,7 +25,7 @@ export default function ProjectFullPage(props) {
     // props.setVisible(true)
     
     if (props.projects.length) {
-      // console.log(props.projects)
+      console.log(props.projects)
       const proj = props.projects.find(element => "/" + element.fields.projectUrl === `${window.location.pathname}`)
       setProject(proj)
       isLoading(true)
@@ -778,7 +778,25 @@ to {
               triggerOnce={false}
               fraction={0}
                 >
-                  <img className='project__images' key={`project ${index}`} alt={`project ${index}`} src={image.url} />
+                {image.type === "video/mp4" ? (
+                  <>
+                  <ReactPlayer
+                            // style={{backgroundColor:project.fields.cursorColor}}
+                            // className="fade-in-up-element__proj"
+                            width='90vw'
+                            height="auto"
+                            url={image.url}
+                            // url="https://res.cloudinary.com/bobalobbadingdong/video/upload/v1673907034/Cherry/Cherry%20Clients/Graphic%20Assets/P1022_CRIME_SCENE_S03_OPEN_R06_4444_CROP_hokk8v.mp4"
+                            // onStart={() => }
+                            // playing={vidPlay}
+                          controls
+                        />
+                  </>
+                ) : (
+                    <>
+                      <img className='project__images' key={`project ${index}`} alt={`project ${index}`} src={image.url} />
+                    </>
+                )}
                   </Fade>
                 
                 </div>
@@ -817,8 +835,27 @@ to {
                       delay={0}
                       triggerOnce={false}
                       fraction={0}
-                        >
-                          <img className='project__images' key={`project ${index}`} alt={`project ${index}`} src={image.url} />
+                          >
+                            {image.type === "video/mp4" ? (
+                              <>
+                              <ReactPlayer
+                            // style={{backgroundColor:project.fields.cursorColor}}
+                            // className="fade-in-up-element__proj"
+                            width='90vw'
+                            height="auto"
+                            url={image.url}
+                            // url="https://res.cloudinary.com/bobalobbadingdong/video/upload/v1673907034/Cherry/Cherry%20Clients/Graphic%20Assets/P1022_CRIME_SCENE_S03_OPEN_R06_4444_CROP_hokk8v.mp4"
+                            // onStart={() => }
+                            // playing={vidPlay}
+                                  controls
+                        />
+                              </>
+                            ) : (
+                                <>
+                                  <img className='project__images' key={`project ${index}`} alt={`project ${index}`} src={image.url} />
+                                 
+                                </>
+                            )}
                           </Fade>
                         
                         </div>
