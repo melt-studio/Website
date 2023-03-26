@@ -5,7 +5,6 @@ import Layout from './layouts/MainLayout.jsx';
 
 import { getAllProjects } from './services/projects';
 import { getAllAboutInfo } from "./services/about"
-import { getAllUnofficials } from "./services/unofficials"
 import {getAllMiscInfo} from "./services/miscPages"
 
 import MeltLogo from "./assets/images/Logo/MELT_LOGO WHT_SM.png"
@@ -14,7 +13,6 @@ import xForOpenMenu from "./assets/Cursors/MELT_WEBSITE ICONS__X.png"
 function App() {
   const [projects, setProjects]=useState([])
   const [aboutInfo, setAboutInfo] = useState({})
-  const [unofficials, setUnofficials] = useState([])
   const [miscPageInfo, setMiscPageInfo]=useState([])
   const [navTextColor, setNavColor] = useState("white")
   const [stickyisVis, setStickyIsVis] = useState("sticky-info")
@@ -90,10 +88,6 @@ function App() {
       const aboutInfo = await getAllAboutInfo();
       setAboutInfo(aboutInfo)
     }
-    const fetchUnofficials = async () => {
-      const unofficialInfo = await getAllUnofficials();
-      setUnofficials(unofficialInfo)
-    }
 
     const fetchMiscPageInfo = async () => {
       const miscInfo = await getAllMiscInfo();
@@ -102,7 +96,6 @@ function App() {
 
     fetchProjects()
     fetchAboutInfo()
-    fetchUnofficials()
     fetchMiscPageInfo()
     setTimeout(() => {
       setMobileIntroLogo("drippy-logo__mobile-intro-fade-in")
@@ -175,7 +168,6 @@ function App() {
         setStickyIsVis={setStickyIsVis}
         setVisible={setVisible}
         projects={projects}
-        unofficials={unofficials}
         setNavColor={setNavColor}
         mobileIntroLogo={mobileIntroLogo}
         setMobileIntroLogo={setMobileIntroLogo}
