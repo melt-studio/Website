@@ -2,6 +2,7 @@
   /* color: white; */
   display: flex;
   flex-direction: column;
+  -webkit-transform: translate3d(0,0,0);
 }
 .animate__animated.animate__fadeInUp{
   --animate-duration: 5s;
@@ -9,6 +10,8 @@
 }
 .project-cover-img{
   z-index: 1;
+  -webkit-transform: translate3d(0,0,0);
+  /* will-change: transform; */
 }
 .rollover-vid-div{
   

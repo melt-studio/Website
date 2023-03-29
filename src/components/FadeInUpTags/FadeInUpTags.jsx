@@ -1,5 +1,4 @@
-import { useLayoutEffect, useEffect, useRef, useState } from 'react';
-
+import { useLayoutEffect, useEffect, useRef, useState } from "react";
 
 export default function FadeInUpTags({ aboutInfo }) {
   const [tagsVisible, setTagsVisible] = useState(false);
@@ -22,7 +21,7 @@ export default function FadeInUpTags({ aboutInfo }) {
       if (index >= currentTagIndex.current && currentTagIndex.current < tags.length) {
         const tag = tags[currentTagIndex.current];
         tag.style.opacity = 1;
-        tag.style.transform = 'translateY(0)';
+        tag.style.transform = "translateY(0)";
         currentTagIndex.current += 1;
       }
 
@@ -41,14 +40,14 @@ export default function FadeInUpTags({ aboutInfo }) {
   }, [aboutInfo]);
 
   return (
-    <div ref={tagsRef}>
+    <div ref={tagsRef} className="tag-container">
       {aboutInfo[0].fields.whatWeDo.map((tag, index) => (
         <h3
           key={tag + index}
           style={{
-            marginTop: '5px',
+            // marginTop: "5px",
             opacity: tagsVisible ? 0 : 1,
-            transform: 'translateY(10px)',
+            transform: "translateY(10px)",
             transition: `opacity 0.5s ease ${0.1 + 0.2 * index}s, transform 0.5s ease ${0.1 + 0.2 * index}s`,
           }}
         >

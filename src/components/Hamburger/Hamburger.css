@@ -1,4 +1,4 @@
-.hamburger__container{
+.hamburger__container {
   color: white;
   display: flex;
   /* float: right; */
@@ -6,7 +6,7 @@
   justify-content: space-between;
   /* background-color: blue; */
 }
-.logo__mobile-nav__container{
+.logo__mobile-nav__container {
   /* background-color: rgba(0, 0, 0, 0.7) */
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
   width: 100%;
@@ -14,23 +14,25 @@
   flex-direction: column;
   align-items: center;
 }
-.logo__mobile-nav__container--about{
+.logo__mobile-nav__container--about {
   /* background-color: rgba(0, 0, 0, 0.7) */
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, 0) 100%);
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  opacity: .5;
+  opacity: 0.5;
+  padding: 2.5%;
 }
-.logo__mobile-nav{
+.logo__mobile-nav {
   /* height: 50px; */
-  width: 95%;
-  position: relative;
-  top: 15px;
+  /* width: 95%; */
+  /* position: relative; */
+  /* top: 15px; */
+  width: 100%;
 }
 
-.logo__mobile-nav-x{
+.logo__mobile-nav-x {
   height: 50px;
   position: relative;
   top: 57vh;
@@ -41,11 +43,14 @@
 /* https://www.sliderrevolution.com/resources/css-hamburger-menu/ */
 /* GENERAL STYLES */
 .visuallyHidden {
-  position: absolute; 
-  overflow: hidden; 
-  clip: rect(0 0 0 0); 
-  height: 1px; width: 1px; 
-  margin: -1px; padding: 0; border: 0; 
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
 }
 
 .container {
@@ -72,7 +77,7 @@
   display: block;
   /* border-radius: 4px; */
   transition: all 0.4s ease-in-out;
-  position: absolute; 
+  position: absolute;
 }
 
 .bar1 {
@@ -102,26 +107,26 @@
   transform-origin: 15%;
 }
 
-.checkbox3:checked + label > .hamburger3 > .bar1{
+.checkbox3:checked + label > .hamburger3 > .bar1 {
   transform: rotate(45deg);
-  height:  3.5px;
+  height: 3.5px;
   width: 45px;
 }
 
-.checkbox3:checked + label > .hamburger3 > .bar3{
+.checkbox3:checked + label > .hamburger3 > .bar3 {
   transform: rotate(45deg);
-  height:  3.5px;
+  height: 3.5px;
   background-color: transparent;
 }
 
-.checkbox3:checked + label > .hamburger3 > .bar2{
+.checkbox3:checked + label > .hamburger3 > .bar2 {
   transform: rotate(-45deg);
-  height:  3.5px;
+  height: 3.5px;
   background-color: transparent;
 }
 
-.checkbox3:checked + label > .hamburger3 > .bar4{
+.checkbox3:checked + label > .hamburger3 > .bar4 {
   transform: rotate(-45deg);
-  height:  3.5px;
+  height: 3.5px;
   width: 45px;
 }

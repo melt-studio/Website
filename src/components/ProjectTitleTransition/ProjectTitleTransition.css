@@ -1,4 +1,4 @@
-.proj-title-transition__container{
+.proj-title-transition__container {
   z-index: 999;
   position: fixed;
   top: 0;
@@ -12,7 +12,7 @@
   align-items: center;
   text-align: center;
 }
-.proj-title-transition__container.hidden{
+.proj-title-transition__container.hidden {
   opacity: 0;
   z-index: 999;
   position: fixed;
@@ -27,67 +27,68 @@
   align-items: center;
   text-align: center;
 }
-.transition-text__holder{
-opacity: 1;
-transition: all 1s ease-in-out;
-width: 100%;
+.transition-text__holder {
+  opacity: 1;
+  transition: all 1s ease-in-out;
+  width: 100%;
 }
-.transition-text__holder.hidden{
+.transition-text__holder.hidden {
   opacity: 0;
   transition: all 1s ease-in-out;
 }
 
-.transition-title{
+.transition-title {
   color: transparent;
-    -webkit-text-stroke-width: 1px;
-    transition: all .25s ease-in-out;
-    font-size: 19rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: -7px;
-    line-height:147px;
-    padding: 0;
-    padding-left: 6%;
-    padding-right: 6%;
-    /* word-wrap: break-word;
+  /* -webkit-text-stroke-width: 1px; */
+  -webkit-text-stroke-width: 2px;
+  transition: all 0.25s ease-in-out;
+  font-size: 19rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -7px;
+  line-height: 147px;
+  padding: 0;
+  padding-left: 6%;
+  padding-right: 6%;
+  /* word-wrap: break-word;
   overflow-wrap: break-word;
 
 -webkit-hyphens: auto;
    -moz-hyphens: auto;
         hyphens: auto; */
 }
-.transition-title.hidden{
+.transition-title.hidden {
   opacity: 0;
   font-size: 6rem;
   font-weight: 600;
 }
 
-.transition-description{
+.transition-description {
   /* font-size: 1.9rem; */
   position: relative;
   bottom: 130px;
   /* font-weight: 500; */
   z-index: 999;
 }
-.subtitle{
+.subtitle {
   position: relative;
   bottom: 300px;
 }
 
-@media (max-width:2530px){
-  .transition-title{
+@media (max-width: 2530px) {
+  .transition-title {
     color: transparent;
-      /* -webkit-text-stroke-width: 2.5px; */
-      transition: all .25s ease-in-out;
-      font-size: 11.5rem;
-      /* font-weight: 700; */
-      text-transform: uppercase;
-      /* letter-spacing: -5px; */
-      /* line-height: 185px; */
-      /* padding-left: 1%;
+    /* -webkit-text-stroke-width: 2.5px; */
+    transition: all 0.25s ease-in-out;
+    font-size: 11.5rem;
+    /* font-weight: 700; */
+    text-transform: uppercase;
+    /* letter-spacing: -5px; */
+    /* line-height: 185px; */
+    /* padding-left: 1%;
       padding-right: 1%; */
   }
-  .transition-description{
+  .transition-description {
     /* font-size: 1.9rem; */
     position: relative;
     bottom: 100px;
@@ -96,19 +97,19 @@ width: 100%;
   }
 }
 
-@media (max-width:1600px){
-  .transition-title{
-      color: transparent;
-      /* -webkit-text-stroke-width: 2.5px; */
-      transition: all .25s ease-in-out;
-      font-size: 6rem;
-      /* font-weight: 700; */
-      text-transform: uppercase;
-      letter-spacing: -5px;
-      line-height: 100px;
-      padding: 0
+@media (max-width: 1600px) {
+  .transition-title {
+    color: transparent;
+    /* -webkit-text-stroke-width: 2.5px; */
+    transition: all 0.25s ease-in-out;
+    font-size: 6rem;
+    /* font-weight: 700; */
+    text-transform: uppercase;
+    letter-spacing: -5px;
+    line-height: 100px;
+    padding: 0;
   }
-  .transition-description{
+  .transition-description {
     /* font-size: 1.9rem; */
     position: relative;
     bottom: 10px;
@@ -117,69 +118,68 @@ width: 100%;
   }
 }
 
-@media (max-height: 800px), screen and (max-width: 800px){
-  .transition-title{
+@media (max-height: 800px), screen and (max-width: 800px) {
+  .transition-title {
     font-size: 5rem;
     /* font-weight: 700; */
   }
-  .transition-description{
-    font-size: .9rem;
+  .transition-description {
+    font-size: 0.9rem;
     position: relative;
     bottom: 50px;
     /* font-weight: 500; */
   }
 }
-@media (max-width:800px){
-  .transition-title{
+@media (max-width: 800px) {
+  .transition-title {
     font-size: 5rem;
     letter-spacing: -5px;
     line-height: 70px;
-    -webkit-text-stroke-width: .6px;
+    -webkit-text-stroke-width: 0.6px;
   }
-  .transition-description{
-    font-size: .9rem;
+  .transition-description {
+    font-size: 0.9rem;
     position: relative;
     bottom: 30px;
   }
 }
 
-@media (max-width:650px){
-  .transition-title{
+@media (max-width: 650px) {
+  .transition-title {
     font-size: 4rem;
     letter-spacing: -2px;
     line-height: 60px;
   }
-  .transition-description{
-    font-size: .9rem;
+  .transition-description {
+    font-size: 0.9rem;
     position: relative;
     bottom: 30px;
   }
 }
-@media (max-width:500px){
-  .transition-title{
+@media (max-width: 500px) {
+  .transition-title {
     font-size: 3rem;
     letter-spacing: -1px;
     line-height: 50px;
   }
-  .transition-description{
-    font-size: .9rem;
+  .transition-description {
+    font-size: 0.9rem;
     position: relative;
     bottom: 30px;
   }
 }
-@media (max-width:400px){
-  .transition-title{
+@media (max-width: 400px) {
+  .transition-title {
     font-size: 2.8rem;
     letter-spacing: -2px;
     line-height: 45px;
   }
-  .transition-description{
-    font-size: .9rem;
+  .transition-description {
+    font-size: 0.9rem;
     position: relative;
     bottom: 20px;
   }
 }
-
 
 /* Color Themes currently */
 /* #00a742
