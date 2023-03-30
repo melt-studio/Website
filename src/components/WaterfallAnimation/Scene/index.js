@@ -238,7 +238,7 @@ const Scene = ({
       mesh.current.material.uniforms.uMouse.value.set(mouse.x, mouse.y)
     }
 
-    if (!controls) handleFadeOut()
+    // if (!controls) handleFadeOut()
   })
 
   return (
