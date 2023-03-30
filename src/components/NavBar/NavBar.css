@@ -1,3 +1,39 @@
+.sticky-info-holder {
+  display: none;
+  position: fixed;
+  top: 0;
+  padding-top: 15px;
+  width: 100%;
+  z-index: 999;
+}
+.smiley-hamburger {
+  width: 10vw;
+  background-color: black;
+  border-radius: 50%;
+}
+
+.sticky-info {
+  /* position: fixed; */
+  /* width: 100%; */
+  /* top: -105px; */
+  /* text-decoration: none; */
+  /* height: 180px; */
+  /* background-color: transparent; */
+}
+.nav__logo {
+  height: 40px;
+  position: relative;
+  top: 11px;
+}
+
+/* } */
+
+@media (min-width: 800px) {
+  .sticky-info-holder {
+    display: block;
+  }
+}
+
 a {
   /* cursor: pointer; */
 }
@@ -23,11 +59,12 @@ a {
   align-items: center;
   justify-content: space-between;
   position: relative;
-  top: 200px;
+  /* top: 200px; */
   padding-left: 2%;
   padding-right: 2%;
   background-color: transparent;
-  margin-top: 25px;
+  /* margin-top: 25px; */
+  /* margin-top: 15px; */
   font-weight: 500;
   font-size: 0.8rem;
   width: 96%;

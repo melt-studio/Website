@@ -36,6 +36,8 @@ function App() {
   // console.log("projects", projects)
   // console.log("backgroundColor", backgroundColor)
 
+  const [navMenuOpen, setNavMenuOpen] = useState(false);
+
   const homeClick = () => {
     window.location.reload();
     window.scrollTo(0, 0);
@@ -187,6 +189,8 @@ function App() {
         setNavColorTheme={setNavColorTheme}
         homeClick={homeClick}
         logoXToggle={logoXToggle}
+        navMenuOpen={navMenuOpen}
+        setNavMenuOpen={setNavMenuOpen}
       >
         <MainContainer
           fadeInText={fadeInText}

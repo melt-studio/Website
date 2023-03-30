@@ -1,21 +1,19 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-// import { NavHashLink } from "react-router-hash-link";
 import { Fade } from "react-awesome-reveal";
 import { keyframes } from "@emotion/react";
 import "./NavMenu.css";
-
-import logo from "../../assets/images/Logo/MELT_DRIPPY WHT.png";
+import DrippyLogo from "../../assets/images/Logo/MELT_DRIPPY WHT.png";
 
 const customAnimation = keyframes`
-from {
-  opacity: 0;
-  transform: translate3d(0, 20px, 0);
-}
-to {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 `;
 
 const links = [
@@ -27,64 +25,64 @@ const links = [
 
 const NavMenuLogo = () => {
   return (
-    <div className="nav_menu-logo">
-      <img src={logo} />
+    <div className="nav-menu__logo">
+      <img src={DrippyLogo} />
     </div>
   );
 };
-const NavMenuClose = ({ handleClose }) => {
+const NavMenuClose = ({ closeNavMenu }) => {
   return (
-    <div className="nav_menu-close-container">
-      <div className="nav_menu-close" onClick={handleClose}>
-        <div className="nav_menu-close-bar left"></div>
-        <div className="nav_menu-close-bar right"></div>
+    <div className="nav-menu__close">
+      <div className="nav-menu__close-container" onClick={closeNavMenu}>
+        <div className="nav-menu__close-bar left"></div>
+        <div className="nav-menu__close-bar right"></div>
       </div>
     </div>
   );
 };
 
-const NavMenuItemText = ({ text }) => <p className="hamburger-info__link ">{text}</p>;
+const NavMenuLinkText = ({ text }) => <p className="nav-menu__link">{text}</p>;
 
-const NavMenuItem = ({ link }) => {
+const NavMenuLink = ({ link, closeNavMenu }) => {
   if (link.nav) {
     return (
       <Link
         to={link.href}
+        onClick={closeNavMenu}
         // onClick={props.HamburgerMenuLinkClickAbout}
       >
-        <NavMenuItemText text={link.text} />
+        <NavMenuLinkText text={link.text} />
       </Link>
     );
   }
 
   return (
     <a target="_blank" rel="noopener noreferrer" href={link.href}>
-      <NavMenuItemText text={link.text} />
+      <NavMenuLinkText text={link.text} />
     </a>
   );
 };
 
-function NavMenuItems({ handleClose }) {
+function NavMenuItems({ closeNavMenu }) {
   return (
-    <div className="hamburger-info__container">
-      <div className="hamburger-info__mobile-smaller">
-        <Fade
-          keyframes={customAnimation}
-          direction="up"
-          delay={1000}
-          duration={800}
-          triggerOnce={true}
-          cascade
-          damping={0.1}
-        >
-          <NavMenuLogo />
-          {links.map((link) => (
-            <NavMenuItem key={link.href} link={link} />
-          ))}
-        </Fade>
-        <NavMenuClose handleClose={handleClose} />
+    <div className="nav-menu__items">
+      <Fade
+        keyframes={customAnimation}
+        direction="up"
+        delay={1000}
+        duration={800}
+        triggerOnce={true}
+        cascade
+        damping={0.1}
+      >
+        <NavMenuLogo />
+        {links.map((link) => (
+          <NavMenuLink key={link.href} link={link} closeNavMenu={closeNavMenu} />
+        ))}
+      </Fade>
+      <NavMenuClose closeNavMenu={closeNavMenu} />
 
-        {/* <Fade keyframes={customAnimation} direction="up" delay={1000} duration={800} triggerOnce={true} cascade>
+      {/* <Fade keyframes={customAnimation} direction="up" delay={1000} duration={800} triggerOnce={true} cascade>
           <NavHashLink
             style={{ textDecoration: "none" }}
             onClick={props.HamburgerMenuLinkClickWork}
@@ -115,23 +113,19 @@ function NavMenuItems({ handleClose }) {
             <p className="hamburger-info__link ">Follow</p>
           </a>
         </Fade> */}
-      </div>
     </div>
   );
 }
 
-const NavMenu = ({ closeMenu }) => {
+const NavMenu = ({ setNavMenuOpen }) => {
+  const closeNavMenu = () => {
+    document.body.classList.remove("nav-menu-open");
+    setNavMenuOpen(false);
+  };
+
   return (
-    <div className="hamburger-menu__container">
-      <div className="hamburger-info__holder">
-        <NavMenuItems
-          handleClose={closeMenu}
-          // setFadeInText={props.setFadeInText}
-          // setShowHamburger={props.setShowHamburger}
-          // HamburgerMenuLinkClickAbout={props.HamburgerMenuLinkClickAbout}
-          // HamburgerMenuLinkClickWork={props.HamburgerMenuLinkClickWork}
-        />
-      </div>
+    <div className="nav-menu">
+      <NavMenuItems closeNavMenu={closeNavMenu} />
     </div>
   );
 };
