@@ -262,7 +262,7 @@ to {
                               ((window.innerWidth * proj.fields.width) / 100) *
                               (proj.fields.coverImg[0].height / proj.fields.coverImg[0].width)
                             }px`,
-                            backgroundColor: "red",
+                            // backgroundColor: "red",
                           }}
                           className="  project-cover-img"
                           loading="lazy"

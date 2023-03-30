@@ -12,16 +12,7 @@ import xForOpenMenu from "./assets/Cursors/MELT_WEBSITE ICONS__X.png";
 
 // import projArray2 from "./projects.json";
 
-const Cursor = forwardRef((props, ref) => {
-  return (
-    <span ref={ref} className="cursor">
-      <span className="cursor-unofficial-container">
-        <span className="cursor-unofficial">Unofficial</span>
-      </span>
-    </span>
-  );
-});
-Cursor.displayName = "Cursor";
+import Cursor from "./components/Cursor/Cursor";
 
 function App() {
   const [projects, setProjects] = useState([]);

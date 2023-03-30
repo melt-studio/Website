@@ -2,12 +2,14 @@
   width: fit-content;
   height: fit-content;
   position: relative;
+  margin: 0 0 1rem;
+}
+
+.tag-link-nav {
   margin: 1rem 0;
 }
 
 .tag-link-nav h3 {
-  font-size: 0.8rem;
-  font-weight: 500;
   text-transform: uppercase;
 }
 

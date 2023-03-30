@@ -5,12 +5,12 @@ import "./TagLink.css";
 const TagLinkAnchor = ({ nav, tag, cursor, underline, children }) => {
   const handleEnter = () => {
     if (cursor) cursor.classList.add("link");
-    if (underline.current) underline.current.classList.add("hover");
+    if (underline && underline.current) underline.current.classList.add("hover");
   };
 
   const handleLeave = () => {
     if (cursor) cursor.classList.remove("link");
-    if (underline.current) underline.current.classList.remove("hover");
+    if (underline && underline.current) underline.current.classList.remove("hover");
   };
 
   if (nav) {
@@ -28,17 +28,19 @@ const TagLinkAnchor = ({ nav, tag, cursor, underline, children }) => {
   );
 };
 
-const TagLink = ({ nav, tag }) => {
-  const underline = useRef();
+const TagLink = ({ nav, tag, underline = true }) => {
+  const underlineRef = useRef();
   const cursor = document.querySelector(".cursor");
 
   return (
     <div className={nav ? "tag-link tag-link-nav" : "tag-link"}>
-      <TagLinkAnchor nav={nav} tag={tag} cursor={cursor} underline={underline}>
+      <TagLinkAnchor nav={nav} tag={tag} cursor={cursor} underline={underlineRef}>
         <h3>{tag.text}</h3>
-        <div ref={underline} className="tag-link-underline">
-          <hr />
-        </div>
+        {underline && (
+          <div ref={underlineRef} className="tag-link-underline">
+            <hr />
+          </div>
+        )}
       </TagLinkAnchor>
     </div>
   );

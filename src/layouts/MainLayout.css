@@ -1,10 +1,11 @@
 .hamburger__holder {
   display: none;
 }
-.hamburger-menu-visible {
-}
-.hamburger-menu-not-visible {
+.hamburger-menu {
   display: none;
+}
+.hamburger-menu.visible {
+  display: block;
 }
 
 .footer__holder {
@@ -21,11 +22,11 @@
     right: 20px; */
     top: 0px;
     z-index: 998;
-    transform: translateY(0px);
-    transition: all 1s ease-in-out, transform 1s ease-in-out;
+    /* transform: translateY(0px);
+    transition: all 1s ease-in-out, transform 1s ease-in-out; */
     /* background-color: red; */
   }
-  .hamburger__holder.hidden {
+  /* .hamburger__holder.hidden {
     opacity: 0;
     transform: translateY(10px);
     display: block;
@@ -34,8 +35,7 @@
     right: 20px;
     z-index: 998;
     transition: all 1s ease-in-out, transform 1s ease-in-out;
-    /* background-color: red; */
-  }
+  } */
   .sticky-info-holder {
     display: none;
   }
