@@ -3,12 +3,13 @@
   position: absolute;
   top: 0;
   left: 0;
-  /* height: 100%; */
-  height: 100vh;
+  height: 100%;
+  /* height: 100vh; */
   width: 100%;
   background-color: #000000;
   transition: opacity 5s;
   pointer-events: none;
+  display: none;
 }
 
 .transition-fade__about.hide {
@@ -29,7 +30,7 @@
 .inner-container {
   display: flex;
   flex-direction: column;
-  padding: 34vw 0 100px;
+  padding: 40vw 0 100px;
   width: 100%;
 }
 

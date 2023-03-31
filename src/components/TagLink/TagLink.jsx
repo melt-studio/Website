@@ -1,15 +1,18 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { cursorEvents } from "../Cursor/Cursor.jsx";
 import "./TagLink.css";
 
-const TagLinkAnchor = ({ nav, tag, cursor, underline, children }) => {
+const TagLinkAnchor = ({ nav, tag, underline, children }) => {
   const handleEnter = () => {
-    if (cursor) cursor.classList.add("link");
+    cursorEvents.onMouseEnter();
+    // if (cursor) cursor.classList.add("link");
     if (underline && underline.current) underline.current.classList.add("hover");
   };
 
   const handleLeave = () => {
-    if (cursor) cursor.classList.remove("link");
+    cursorEvents.onMouseLeave();
+    // if (cursor) cursor.classList.remove("link");
     if (underline && underline.current) underline.current.classList.remove("hover");
   };
 
@@ -30,11 +33,11 @@ const TagLinkAnchor = ({ nav, tag, cursor, underline, children }) => {
 
 const TagLink = ({ nav, tag, underline = true }) => {
   const underlineRef = useRef();
-  const cursor = document.querySelector(".cursor");
+  // const cursor = document.querySelector(".cursor");
 
   return (
     <div className={nav ? "tag-link tag-link-nav" : "tag-link"}>
-      <TagLinkAnchor nav={nav} tag={tag} cursor={cursor} underline={underlineRef}>
+      <TagLinkAnchor nav={nav} tag={tag} underline={underlineRef}>
         <h3>{tag.text}</h3>
         {underline && (
           <div ref={underlineRef} className="tag-link-underline">

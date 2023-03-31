@@ -85,19 +85,19 @@ export default function Home(props) {
     // return () => observer.unobserve(fadeInTriggerRef.current);
   }, [updateFadeEffect]);
 
-  window.addEventListener("scroll", function () {
-    if (window.location.pathname === "/") {
-      var distanceFromTop = document.querySelector(".spacer-mobile").getBoundingClientRect().top;
-      if (distanceFromTop < 0.345 * window.innerHeight) {
-        // document.querySelector('.mobile__info').classList.add('hide');
-        // console.log("50%")
-      } else {
-        // document.querySelector('.mobile__info').classList.remove('hide');
-        // document.querySelector('.mobile-logo__holder').classList.remove('mobile-logo__holder-active');
-        // console.log("OTHER%")
-      }
-    }
-  });
+  // window.addEventListener("scroll", function () {
+  //   if (window.location.pathname === "/") {
+  //     var distanceFromTop = document.querySelector(".spacer-mobile").getBoundingClientRect().top;
+  //     if (distanceFromTop < 0.345 * window.innerHeight) {
+  //       // document.querySelector('.mobile__info').classList.add('hide');
+  //       // console.log("50%")
+  //     } else {
+  //       // document.querySelector('.mobile__info').classList.remove('hide');
+  //       // document.querySelector('.mobile-logo__holder').classList.remove('mobile-logo__holder-active');
+  //       // console.log("OTHER%")
+  //     }
+  //   }
+  // });
 
   const scrollRef = useRef();
   useEffect(() => {
@@ -150,7 +150,8 @@ export default function Home(props) {
 
   // useEffect(() => {
   //   // window.location.reload();
-  //   window.scrollTo(0, 0);
+  //   console.log("scrolling");
+  //   // window.scrollTo(0, 0);
   // }, []);
 
   return (

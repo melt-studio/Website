@@ -1,20 +1,35 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { Fade } from "react-awesome-reveal";
-import { keyframes } from "@emotion/react";
+import { motion } from "framer-motion";
+import FadeInOut from "../FadeInOut/FadeInOut.jsx";
+import { cursorEvents } from "../Cursor/Cursor.jsx";
 import "./NavMenu.css";
 import DrippyLogo from "../../assets/images/Logo/MELT_DRIPPY WHT.png";
 
-const customAnimation = keyframes`
-  from {
-    opacity: 0;
-    transform: translate3d(0, 20px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-`;
+const keyframesContainer = {
+  enter: { opacity: [0, 1, 1], y: 0 },
+  exit: { opacity: [1, 1, 0], y: "-100%" },
+};
+
+const keyframesItems = {
+  enter: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.9 },
+  },
+  exit: {
+    transition: { staggerChildren: 0.05, staggerDirection: -1 },
+  },
+};
+
+const keyframesItem = {
+  enter: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.5, ease: "easeInOut" },
+  },
+  exit: {
+    y: 20,
+    opacity: 0,
+  },
+};
 
 const links = [
   { text: "Works", href: "/#projects", nav: true },
@@ -25,32 +40,32 @@ const links = [
 
 const NavMenuLogo = () => {
   return (
-    <div className="nav-menu__logo">
+    <motion.div className="nav-menu__logo" variants={keyframesItem}>
       <img src={DrippyLogo} />
-    </div>
+    </motion.div>
   );
 };
 const NavMenuClose = ({ closeNavMenu }) => {
   return (
-    <div className="nav-menu__close">
-      <div className="nav-menu__close-container" onClick={closeNavMenu}>
+    <motion.div className="nav-menu__close" variants={keyframesItem}>
+      <div className="nav-menu__close-container" onClick={closeNavMenu} {...cursorEvents}>
         <div className="nav-menu__close-bar left"></div>
         <div className="nav-menu__close-bar right"></div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
-const NavMenuLinkText = ({ text }) => <p className="nav-menu__link">{text}</p>;
+const NavMenuLinkText = ({ text }) => (
+  <motion.p className="nav-menu__link" variants={keyframesItem} {...cursorEvents}>
+    {text}
+  </motion.p>
+);
 
 const NavMenuLink = ({ link, closeNavMenu }) => {
   if (link.nav) {
     return (
-      <Link
-        to={link.href}
-        onClick={closeNavMenu}
-        // onClick={props.HamburgerMenuLinkClickAbout}
-      >
+      <Link to={link.href} onClick={closeNavMenu}>
         <NavMenuLinkText text={link.text} />
       </Link>
     );
@@ -65,69 +80,93 @@ const NavMenuLink = ({ link, closeNavMenu }) => {
 
 function NavMenuItems({ closeNavMenu }) {
   return (
-    <div className="nav-menu__items">
-      <Fade
-        keyframes={customAnimation}
-        direction="up"
-        delay={1000}
-        duration={800}
-        triggerOnce={true}
-        cascade
-        damping={0.1}
-      >
-        <NavMenuLogo />
-        {links.map((link) => (
-          <NavMenuLink key={link.href} link={link} closeNavMenu={closeNavMenu} />
-        ))}
-      </Fade>
+    <motion.div className="nav-menu__items" variants={keyframesItems}>
+      <NavMenuLogo />
+      {links.map((link) => (
+        <NavMenuLink key={link.href} link={link} closeNavMenu={closeNavMenu} />
+      ))}
       <NavMenuClose closeNavMenu={closeNavMenu} />
-
-      {/* <Fade keyframes={customAnimation} direction="up" delay={1000} duration={800} triggerOnce={true} cascade>
-          <NavHashLink
-            style={{ textDecoration: "none" }}
-            onClick={props.HamburgerMenuLinkClickWork}
-            smooth
-            to="/#projects"
-          >
-            <p className="hamburger-info__link ">Work</p>
-          </NavHashLink>
-        </Fade>
-
-        <Fade keyframes={customAnimation} direction="up" delay={1100} duration={800} triggerOnce={true} cascade>
-          <Link style={{ textDecoration: "none" }} to="/about" onClick={props.HamburgerMenuLinkClickAbout}>
-            <p className="hamburger-info__link ">About Us</p>
-          </Link>
-        </Fade>
-        <Fade keyframes={customAnimation} direction="up" delay={1150} duration={800} triggerOnce={true} cascade>
-          <a style={{ textDecoration: "none" }} href="mailto:hello@melt.works">
-            <p className="hamburger-info__link ">Say Hello</p>
-          </a>
-        </Fade>
-        <Fade keyframes={customAnimation} direction="up" delay={1200} duration={800} triggerOnce={true} cascade>
-          <a
-            style={{ textDecoration: "none" }}
-            href="https://www.instagram.com/mellllllllllt/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <p className="hamburger-info__link ">Follow</p>
-          </a>
-        </Fade> */}
-    </div>
+    </motion.div>
   );
 }
 
-const NavMenu = ({ setNavMenuOpen }) => {
+const NavMenu = ({ navMenuOpen, setNavMenuOpen }) => {
   const closeNavMenu = () => {
-    document.body.classList.remove("nav-menu-open");
     setNavMenuOpen(false);
   };
 
   return (
-    <div className="nav-menu">
+    <FadeInOut isVisible={navMenuOpen} keyframes={keyframesContainer} className="nav-menu">
       <NavMenuItems closeNavMenu={closeNavMenu} />
-    </div>
+    </FadeInOut>
   );
 };
 
 export default NavMenu;
+
+// <AnimatePresence>
+//   {navMenuOpen && (
+//     <motion.div
+//       transition={{
+//         duration: 1,
+//         delay: 0,
+//         ease: "easeInOut",
+//       }}
+//       key="nav-menu"
+//       variants={variantsContainer}
+//       initial="exit"
+//       animate="enter"
+//       exit="exit"
+//       className="nav-menu"
+//     >
+//       <NavMenuItems closeNavMenu={closeNavMenu} />
+//     </motion.div>
+//   )}
+// </AnimatePresence>
+
+// <Fade2
+//   isVisible={navMenuOpen}
+//   duration={1}
+//   delay={0}
+//   keyframes={{
+//     initial: { opacity: 0, y: "-100%" },
+//     animate: { opacity: [0, 1, 1], y: 0 },
+//     exit: { opacity: [1, 1, 0], y: "-100%" },
+//   }}
+//   // y={20}
+//   className="nav-menu"
+// >
+//   {/* <div ref={navMenu} className="nav-menu"> */}
+//   <NavMenuItems navMenuOpen={navMenuOpen} closeNavMenu={closeNavMenu} />
+//   {/* </div> */}
+// </Fade2>
+
+// const Fade2 = ({ isVisible, duration = 1, delay = 0, ease = "easeInOut", keyframes, className, children }) => {
+//   return (
+//     <AnimatePresence>
+//       {isVisible && (
+//         <motion.div
+//           transition={{ duration, delay, ease }}
+//           key="nav-menu"
+//           // initial={{ opacity: 0, y }}
+//           // animate={{ opacity: 1, y: 0 }}
+//           // exit={{ opacity: 0, y }}
+//           {...keyframes}
+//           className={className}
+//         >
+//           {children}
+//         </motion.div>
+//       )}
+//     </AnimatePresence>
+//   );
+// };
+
+// <motion.nav
+//   animate={navMenuOpen ? "open" : "closed"}
+//   variants={variants}
+//   initial={false}
+//   transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
+//   className="nav-menu"
+// >
+//   <NavMenuItems closeNavMenu={closeNavMenu} />
+// </motion.nav>

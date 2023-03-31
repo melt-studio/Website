@@ -1,4 +1,4 @@
-import { Perf } from 'r3f-perf'
+import { Perf } from "r3f-perf";
 
 const PerfMonitor = () => {
   return (
@@ -6,11 +6,11 @@ const PerfMonitor = () => {
       position="bottom-left"
       className="r3f-perf"
       style={{
-        visibility: 'visible',
-        pointerEvents: 'none',
+        visibility: "visible",
+        pointerEvents: "none",
       }}
     />
-  )
-}
+  );
+};
 
-export default PerfMonitor
+export default PerfMonitor;

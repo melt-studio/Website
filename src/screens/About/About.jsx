@@ -38,7 +38,7 @@ const customAnimationTags = keyframes`
 const FadeText = ({ children }) => (
   <Fade
     direction="up"
-    delay={1500}
+    delay={500}
     duration={2500}
     triggerOnce={true}
     cascade
@@ -63,7 +63,7 @@ const FadeTags2 = ({ property, info, manual }) => {
 
   const tags = info[0].fields[property];
 
-  const delay = 3300;
+  const delay = 3000;
   const duration = 1000;
   const damping = 0;
 
@@ -154,10 +154,10 @@ export default function About(props) {
   const [aboutTexts, setAboutTexts] = useState([]);
 
   useEffect(() => {
-    setTimeout(() => {
-      // This hides a black overlay on page load
-      document.querySelector(".transition-fade__about").classList.add("hide");
-    }, 1000);
+    // setTimeout(() => {
+    //   // This hides a black overlay on page load
+    //   document.querySelector(".transition-fade__about").classList.add("hide");
+    // }, 1000);
 
     // window.scrollTo(0, document.body.clientHeight);
     // window.scrollTo(0, 0);
@@ -181,7 +181,7 @@ export default function About(props) {
 
   return (
     <div className="about__container page">
-      <div className="transition-fade__about" />
+      {/* <div className="transition-fade__about" /> */}
 
       <Helmet>
         <meta charSet="utf-8" />

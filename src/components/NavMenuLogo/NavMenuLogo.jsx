@@ -1,34 +1,49 @@
-import React from "react";
-import { Fade } from "react-awesome-reveal";
-import { keyframes } from "@emotion/react";
+import { useEffect, useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useScroll, useMotionValueEvent } from "framer-motion";
+import FadeInOut from "../FadeInOut/FadeInOut.jsx";
+import { cursorEvents } from "../Cursor/Cursor.jsx";
 import "./NavMenuLogo.css";
 import MeltLogo from "../../assets/images/Logo/MELT_LOGO WHT_SM.png";
 
-const customAnimation = keyframes`
-  from {
-    opacity: 0;
-    transform: translate3d(0, 20px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-`;
+const keyframes = {
+  enter: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: 20 },
+};
 
-const NavMenuLogo = ({ setNavMenuOpen }) => {
-  // const navigate = useNavigate();
-  // const HomeClick = () => {
-  //   navigate("/")
-  //   props.setIsVis("hamburger-menu-not-visible")
-  //     document.body.style.background = "#000000"
-  //     window.scrollTo(0, 0);
-  //   window.scrollBy(0, 0);
-  //   props.setShowHamburger("hamburger__holder hidden")
-  //   setTimeout(() => {
-  //     props.setShowHamburger("hamburger__holder hidden")
-  //   }, 1000);
-  // }
+const NavMenuLogo = ({ setNavMenuOpen, viewport, widthCutOff, scrollCutOff }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const location = useLocation();
+  const { scrollY } = useScroll();
+
+  // const widthCutOff = useMemo(() => {
+  //   return 800;
   // }, []);
+  // const scrollCutOff = useMemo(() => {
+  //   return viewport.height * 0.8;
+  // }, [viewport]);
+
+  useEffect(() => {
+    if (viewport.width >= widthCutOff) {
+      setIsVisible(false);
+    } else {
+      if (location.pathname === "/about" || window.scrollY >= scrollCutOff) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    }
+  }, [location, viewport, widthCutOff, scrollCutOff]);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (viewport.width >= widthCutOff || location.pathname === "/about") return;
+
+    if (!isVisible && latest >= scrollCutOff) {
+      setIsVisible(true);
+    } else if (isVisible && latest < scrollCutOff) {
+      setIsVisible(false);
+    }
+  });
 
   const openNavMenu = () => {
     document.body.classList.add("nav-menu-open");
@@ -36,20 +51,26 @@ const NavMenuLogo = ({ setNavMenuOpen }) => {
   };
 
   return (
-    <div className="nav-menu-logo">
-      <Fade
-        keyframes={customAnimation}
-        direction="up"
-        delay={1250}
-        duration={1000}
-        triggerOnce={true}
-        className="nav-menu-logo__fade"
+    <>
+      <FadeInOut
+        isVisible={isVisible}
+        transition={{ duration: 1, delay: location.pathname === "/about" ? 0.5 : 0, ease: "easeInOut" }}
+        keyframes={keyframes}
+        className="nav-menu-logo"
       >
-        <div className="nav-menu-logo__gradient">
-          <img onClick={openNavMenu} className="nav-menu-logo__img" src={MeltLogo} alt="MELT Logo" />
+        <div className="nav-menu-logo__fade">
+          <div className="nav-menu-logo__gradient">
+            <img
+              onClick={openNavMenu}
+              className="nav-menu-logo__img"
+              src={MeltLogo}
+              alt="MELT Logo"
+              {...cursorEvents}
+            />
+          </div>
         </div>
-      </Fade>
-    </div>
+      </FadeInOut>
+    </>
   );
 };
 

@@ -12,9 +12,9 @@
 
       .d {
         fill: #fff;
-        font-family: Archivo-Medium, Archivo;
-        font-size: 21.29px;
-        font-weight: 500;
+        <!-- font-family: Archivo-Medium, Archivo; -->
+        <!-- font-size: 21.29px; -->
+        <!-- font-weight: 500; -->
       }
 
       .e {

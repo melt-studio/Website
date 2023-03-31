@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, forwardRef } from "react";
+import React, { useState, useEffect, useRef, forwardRef, useMemo } from "react";
 import "./App.css";
 import MainContainer from "./containers/MainContainer";
 import Layout from "./layouts/MainLayout.jsx";
@@ -13,6 +13,7 @@ import xForOpenMenu from "./assets/Cursors/MELT_WEBSITE ICONS__X.png";
 // import projArray2 from "./projects.json";
 
 import Cursor from "./components/Cursor/Cursor";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const [projects, setProjects] = useState([]);
@@ -37,11 +38,37 @@ function App() {
   // console.log("backgroundColor", backgroundColor)
 
   const [navMenuOpen, setNavMenuOpen] = useState(false);
+  // const [navMenuLogoShow, setNavMenuLogoShow] = useState(false);
+  const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
+
+  const widthCutOff = useMemo(() => {
+    return 800;
+  }, []);
+
+  const scrollCutOff = useMemo(() => {
+    return viewport.height * 0.8;
+  }, [viewport]);
 
   const homeClick = () => {
     window.location.reload();
     window.scrollTo(0, 0);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      console.log("viewport");
+      setViewport({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const logoXToggle = () => {
     if (logoForNavHamburger === MeltLogo) {
@@ -71,6 +98,7 @@ function App() {
 
     const updateCursorPos = (e) => {
       if (cursor.current) {
+        // console.log(e.target);
         cursor.current.style.left = `${e.clientX}px`;
         cursor.current.style.top = `${e.clientY}px`;
       }
@@ -165,6 +193,30 @@ function App() {
     document.body.style.background = backgroundColor;
   }, [backgroundColor]);
 
+  // const location = useLocation();
+  // useEffect(() => {
+  //   console.log(location);
+  //   // if (location === "/about") {
+  //   //   window.removeEventListener("scroll", handleScroll, { passive: true });
+  //   // }
+
+  //   const handleScroll = () => {
+  //     if (!navMenuLogoShow && window.scrollY >= window.innerHeight) {
+  //       console.log("ok");
+  //       setNavMenuLogoShow(true);
+  //     } else if (navMenuLogoShow && window.scrollY < window.innerHeight) {
+  //       console.log("ok2");
+  //       setNavMenuLogoShow(false);
+  //     }
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll, { passive: true });
+
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll, { passive: true });
+  //   };
+  // }, [navMenuLogoShow, location]);
+
   // console.log("miscPageInfo", miscPageInfo)
   return (
     <>
@@ -191,6 +243,12 @@ function App() {
         logoXToggle={logoXToggle}
         navMenuOpen={navMenuOpen}
         setNavMenuOpen={setNavMenuOpen}
+        cursor={cursor}
+        // navMenuLogoShow={navMenuLogoShow}
+        // setNavMenuLogoShow={setNavMenuLogoShow}
+        viewport={viewport}
+        widthCutOff={widthCutOff}
+        scrollCutOff={scrollCutOff}
       >
         <MainContainer
           fadeInText={fadeInText}

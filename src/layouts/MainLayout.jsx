@@ -68,19 +68,22 @@ export default function Layout(props) {
     <div style={{ height: "100%" }}>
       {/* {window.location.pathname === "/about" ? ( */}
       <NavBar
-        homeClick={props.homeClick}
-        setScroll={props.setScroll}
-        setVisible={props.setVisible}
-        setNavColor={props.setNavColor}
-        hideStickyInfo={hideStickyInfo}
-        visible={props.visible}
-        isVis={props.stickyisVis}
-        cursorUrl="https://res.cloudinary.com/bobalobbadingdong/image/upload/v1670881191/Cherry/Cherry%20Clients/Graphic%20Assets/MELT-Yellow-ICON-BIG-PLUS_gsiugq"
-        color={props.navTextColor}
-        text="ABOUT"
-        linkTo="/about"
-        navColorTheme={props.navColorTheme}
-        setNavColorTheme={props.setNavColorTheme}
+        // homeClick={props.homeClick}
+        // setScroll={props.setScroll}
+        // setVisible={props.setVisible}
+        // setNavColor={props.setNavColor}
+        // hideStickyInfo={hideStickyInfo}
+        // visible={props.visible}
+        // isVis={props.stickyisVis}
+        // cursorUrl="https://res.cloudinary.com/bobalobbadingdong/image/upload/v1670881191/Cherry/Cherry%20Clients/Graphic%20Assets/MELT-Yellow-ICON-BIG-PLUS_gsiugq"
+        // color={props.navTextColor}
+        // text="ABOUT"
+        // linkTo="/about"
+        // navColorTheme={props.navColorTheme}
+        // setNavColorTheme={props.setNavColorTheme}
+        viewport={props.viewport}
+        widthCutOff={props.widthCutOff}
+        scrollCutOff={props.scrollCutOff}
       />
       {/* ) : (
           <DrippyAndAboutNav
@@ -110,21 +113,26 @@ export default function Layout(props) {
         // logoForNavHamburger={props.logoForNavHamburger}
         // navMenuRef={navMenu}
         setNavMenuOpen={props.setNavMenuOpen}
+        viewport={props.viewport}
+        widthCutOff={props.widthCutOff}
+        scrollCutOff={props.scrollCutOff}
+        // navMenuLogoShow={props.navMenuLogoShow}
       />
 
       {/* <div className={props.hamburgerMenuIsVis}> */}
 
-      {props.navMenuOpen && (
-        // <div ref={navMenu} className="hamburger-menu">
-        <NavMenu
-          // setFadeInText={props.setFadeInText}
-          // setShowHamburger={props.setShowHamburger}
-          // HamburgerMenuLinkClickAbout={HamburgerMenuLinkClickAbout}
-          // HamburgerMenuLinkClickWork={HamburgerMenuLinkClickWork}
-          // closeMenu={closeMenu}
-          setNavMenuOpen={props.setNavMenuOpen}
-        />
-      )}
+      {/* {props.navMenuOpen && (}
+        // <div ref={navMenu} className="hamburger-menu"> */}
+      <NavMenu
+        // setFadeInText={props.setFadeInText}
+        // setShowHamburger={props.setShowHamburger}
+        // HamburgerMenuLinkClickAbout={HamburgerMenuLinkClickAbout}
+        // HamburgerMenuLinkClickWork={HamburgerMenuLinkClickWork}
+        // closeMenu={closeMenu}
+        navMenuOpen={props.navMenuOpen}
+        setNavMenuOpen={props.setNavMenuOpen}
+      />
+      {/* )} */}
 
       <main>{props.children}</main>
     </div>

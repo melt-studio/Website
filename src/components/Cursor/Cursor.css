@@ -11,9 +11,6 @@
   /* background: #000000; */
   background: yellow;
 }
-.cursor.link {
-  transform: translate(-50%, -50%) scale(40%);
-}
 .cursor.unofficial {
   background: transparent;
 }
@@ -30,8 +27,8 @@
   transform: translate(-50%, -25%);
   padding: 25px;
   border-radius: 50%;
-  font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  /* font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; */
   letter-spacing: -0.1rem;
 }
 .cursor.unofficial .cursor-unofficial-container {
@@ -57,4 +54,7 @@
 .cursor.project {
   /* opacity: 1; */
   transform: translate(-50%, -50%) scale(200%);
+}
+.cursor.link {
+  transform: translate(-50%, -50%) scale(40%);
 }

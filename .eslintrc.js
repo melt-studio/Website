@@ -60,4 +60,9 @@ module.exports = {
       version: "detect",
     },
   },
+
+  // rules: {
+  //   eqeqeq: "off",
+  //   "no-console": "off",
+  // },
 };

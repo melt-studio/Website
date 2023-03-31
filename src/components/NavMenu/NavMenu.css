@@ -6,11 +6,42 @@
   height: 100dvh;
   overflow-y: auto;
   z-index: 999;
-  background-color: black;
-  animation: color-transition 300s linear infinite;
-  animation-delay: 2s;
+  background-color: #aacc12;
+  /* animation: color-transition-menu 300s linear 0s infinite forwards, menuOpen 1s ease-out 0s 1 forwards; */
+  animation: color-transition-menu 300s linear 0s infinite forwards;
   display: flex;
   justify-content: center;
+  /* transform: translate(0, 0); */
+}
+
+/* .nav-menu.closing {
+  animation: color-transition-menu 300s linear 0s infinite forwards, menuClose 1s ease-in 0s 1 forwards;
+} */
+
+@keyframes menuOpen {
+  0% {
+    transform: translate(0, -100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes menuClose {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, -100%);
+    opacity: 0;
+  }
 }
 
 .nav-menu__items {
@@ -31,11 +62,10 @@
   width: fit-content;
   color: white;
   text-transform: uppercase;
-  color: white;
   font-weight: 600;
   font-size: 3.5rem;
-  letter-spacing: -4px;
-  word-spacing: 3px;
+  letter-spacing: -0.25rem;
+  word-spacing: 0.2rem;
   margin: 0;
 }
 
@@ -55,6 +85,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 20px 0 0;
+  padding-bottom: 40px;
 }
 
 .nav-menu__close-container {
@@ -74,14 +106,14 @@
   top: 49%;
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
-  animation-delay: 2s;
+  animation-delay: 1.25s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
-  animation-name: nav_menu-close;
+  animation-name: nav-menu__close-bar-left;
 }
 
 .nav-menu__close-bar.right {
-  animation-name: nav_menu-close-right;
+  animation-name: nav-menu__close-bar-right;
 }
 
 @media (min-width: 800px) {
@@ -90,10 +122,7 @@
   }
 }
 
-@keyframes color-transition {
-  0% {
-    /* background-color: #000000; */
-  }
+@keyframes color-transition-menu {
   0% {
     background-color: #aacc12;
   }
@@ -170,49 +199,91 @@
     background-color: #aacc12;
   }
 }
-@-webkit-keyframes background {
+
+@keyframes color-transition {
+  /* for background */
   0% {
     background-color: #000000;
+    /* background-color: #aacc12; */
   }
-  30% {
-    background-color: #000000;
+  0.5% {
+    background-color: #aacc12;
   }
-  50% {
-    background-color: #dbee48;
+  6% {
+    background-color: #00a742;
   }
-  70% {
-    background-color: #1b884b;
-  }
-  80% {
+  8.33% {
     background-color: #f95300;
   }
+  12.5% {
+    background-color: #66ac83;
+  }
+  16.67% {
+    background-color: #5b622c;
+  }
+  20.83% {
+    background-color: #88b6a9;
+  }
+  25% {
+    background-color: #e34165;
+  }
+  29.17% {
+    background-color: #ff3312;
+  }
+  33.33% {
+    background-color: #485db3;
+  }
+  37.5% {
+    background-color: #e74e21;
+  }
+  41.67% {
+    background-color: #e5f1b8;
+  }
+  45.83% {
+    background-color: #c3a875;
+  }
+  50% {
+    background-color: #991f22;
+  }
+  54.17% {
+    background-color: #f67133;
+  }
+  58.33% {
+    background-color: #f1f3e9;
+  }
+  62.5% {
+    background-color: #f8bb00;
+  }
+  66.67% {
+    background-color: #4766b2;
+  }
+  70.83% {
+    background-color: #ed1e24;
+  }
+  75% {
+    background-color: #7d9fad;
+  }
+  79.17% {
+    background-color: #296eae;
+  }
+  83.33% {
+    background-color: #babcbe;
+  }
+  87.5% {
+    background-color: #ff6c2f;
+  }
+  91.67% {
+    background-color: #f9db16;
+  }
+  95.83% {
+    background-color: #e1e9ef;
+  }
   100% {
-    background-color: #000000;
+    background-color: #aacc12;
   }
 }
 
-@keyframes background {
-  0% {
-    background-color: #000000;
-  }
-  30% {
-    background-color: #000000;
-  }
-  50% {
-    background-color: #dbee48;
-  }
-  70% {
-    background-color: #1b884b;
-  }
-  80% {
-    background-color: #f95300;
-  }
-  100% {
-    background-color: #000000;
-  }
-}
-
-@keyframes nav_menu-close {
+@keyframes nav-menu__close-bar-left {
   0% {
     transform: scaleX(0) rotateZ(0);
     opacity: 0;
@@ -226,7 +297,7 @@
   }
 }
 
-@keyframes nav_menu-close-right {
+@keyframes nav-menu__close-bar-right {
   0% {
     transform: scaleX(0) rotateZ(0);
     opacity: 0;

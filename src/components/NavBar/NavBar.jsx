@@ -1,59 +1,81 @@
-import React, { useEffect } from "react";
-import "./NavBar.css";
-import { Animated } from "react-animated-css";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useScroll, useMotionValueEvent } from "framer-motion";
 import TagLink from "../TagLink/TagLink";
+import FadeInOut from "../FadeInOut/FadeInOut.jsx";
+import { cursorEvents } from "../Cursor/Cursor";
+import "./NavBar.css";
 import DrippyLogo from "../../assets/images/Logo/MELT_DRIPPY WHT.png";
 
-const NavBar = (props) => {
-  // const navigate = useNavigate();
-  // const [aboutUnderline, setAboutUnderline]=useState('about-underline')
+const keyframes = {
+  enter: {
+    opacity: 1,
+    y: 0,
+  },
+  exit: {
+    opacity: 0,
+    y: "-100%",
+  },
+};
+
+const NavBar = ({ viewport, widthCutOff, scrollCutOff }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const location = useLocation();
+  const { scrollY } = useScroll();
 
   useEffect(() => {
-    // console.log(props);
-    if (window.location.pathname === "/about") {
-      // setAboutUnderline("always-underlined")
-      // props.setStickyIsVis("sticky-info")
-      setTimeout(() => {
-        props.setVisible(true);
-      }, 3000);
+    if (viewport.width < widthCutOff) {
+      setIsVisible(false);
+    } else {
+      if (location.pathname === "/about" || window.scrollY >= scrollCutOff) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
     }
-  }, []);
+  }, [location, viewport, scrollCutOff, widthCutOff]);
 
-  // const homeCLick = () => {
-  //   navigate("/");
-  //   props.homeClick();
-  // };
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (viewport.width < widthCutOff || location.pathname === "/about") return;
+
+    if (!isVisible && latest >= scrollCutOff) {
+      setIsVisible(true);
+    } else if (isVisible && latest < scrollCutOff) {
+      setIsVisible(false);
+    }
+  });
 
   return (
-    <div className="sticky-info-holder">
-      <Animated
-        className={props.isVis}
-        animationIn="fadeInDown"
-        animationOut="fadeOutUp"
-        animationInDuration={1000}
-        animationOutDuration={2000}
-        isVisible={props.visible}
-      >
-        <div className={props.isVis}>
-          <div className="nav-item__holder nav">
-            <TagLink tag={{ text: "MELT Studio", href: "/" }} nav />
+    // <motion.div
+    //   animate={isVisible ? "enter" : "exit"}
+    //   initial="exit"
+    //   variants={keyframes}
+    //   transition={{ duration: 1, ease: "easeInOut" }}
+    //   className="nav-bar"
+    // >
+    <FadeInOut
+      isVisible={isVisible}
+      transition={{ duration: 1, delay: location.pathname === "/about" ? 0.5 : 0, ease: "easeInOut" }}
+      keyframes={keyframes}
+      className="nav-bar"
+    >
+      <div className="nav-bar__items">
+        <TagLink tag={{ text: "MELT Studio", href: "/" }} nav />
 
-            <div className="logo-holder__nav">
-              <img
-                onClick={() => {
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-                className="drippy__nav"
-                src={DrippyLogo}
-                alt="logo"
-              />
-            </div>
-
-            <TagLink tag={{ text: "About Us", href: "/about" }} nav />
-          </div>
+        <div className="nav-bar__logo">
+          <img
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            {...cursorEvents}
+            src={DrippyLogo}
+            alt="MELT Logo"
+          />
         </div>
-      </Animated>
-    </div>
+
+        <TagLink tag={{ text: "About Us", href: "/about" }} nav />
+      </div>
+    </FadeInOut>
   );
 };
 
