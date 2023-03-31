@@ -193,31 +193,6 @@ function App() {
     document.body.style.background = backgroundColor;
   }, [backgroundColor]);
 
-  // const location = useLocation();
-  // useEffect(() => {
-  //   console.log(location);
-  //   // if (location === "/about") {
-  //   //   window.removeEventListener("scroll", handleScroll, { passive: true });
-  //   // }
-
-  //   const handleScroll = () => {
-  //     if (!navMenuLogoShow && window.scrollY >= window.innerHeight) {
-  //       console.log("ok");
-  //       setNavMenuLogoShow(true);
-  //     } else if (navMenuLogoShow && window.scrollY < window.innerHeight) {
-  //       console.log("ok2");
-  //       setNavMenuLogoShow(false);
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll, { passive: true });
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll, { passive: true });
-  //   };
-  // }, [navMenuLogoShow, location]);
-
-  // console.log("miscPageInfo", miscPageInfo)
   return (
     <>
       <Layout

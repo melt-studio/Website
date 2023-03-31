@@ -4,28 +4,27 @@ import { cursorEvents } from "../Cursor/Cursor.jsx";
 import "./TagLink.css";
 
 const TagLinkAnchor = ({ nav, tag, underline, children }) => {
-  const handleEnter = () => {
-    cursorEvents.onMouseEnter();
-    // if (cursor) cursor.classList.add("link");
-    if (underline && underline.current) underline.current.classList.add("hover");
-  };
-
-  const handleLeave = () => {
-    cursorEvents.onMouseLeave();
-    // if (cursor) cursor.classList.remove("link");
-    if (underline && underline.current) underline.current.classList.remove("hover");
+  const mouseEvents = {
+    onMouseEnter: () => {
+      cursorEvents.onMouseEnter();
+      if (underline && underline.current) underline.current.classList.add("hover");
+    },
+    onMouseLeave: () => {
+      cursorEvents.onMouseLeave();
+      if (underline && underline.current) underline.current.classList.remove("hover");
+    },
   };
 
   if (nav) {
     return (
-      <Link to={tag.href} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+      <Link to={tag.href} {...mouseEvents}>
         {children}
       </Link>
     );
   }
 
   return (
-    <a target="_blank" rel="noopener noreferrer" href={tag.href} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+    <a target="_blank" rel="noopener noreferrer" href={tag.href} {...mouseEvents}>
       {children}
     </a>
   );

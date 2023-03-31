@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Projects.css";
 import { useNavigate } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
-// import {Animated} from "react-animated-css";
 import { keyframes } from "@emotion/react";
-// import ProjectTitleTransition from '../ProjectTitleTransition/ProjectTitleTransition';
 
 import testImage from "../../assets/Cursors/MELT_WEBSITE ICONS__X.png";
 
@@ -298,8 +296,14 @@ to {
                         props.setShowHamburger("hamburger__holder hidden");
                       }}
                       className="project-cover-img"
-                      src={proj.fields.coverImg[0].url}
+                      // src={proj.fields.coverImg[0].url}
+                      src={
+                        proj.fields.coverImg[0].thumbnails
+                          ? proj.fields.coverImg[0].thumbnails.large.url
+                          : proj.fields.coverImg[0].url
+                      }
                       alt={proj.fields.name}
+                      loading="lazy"
                     />
                   </Fade>
                 </div>

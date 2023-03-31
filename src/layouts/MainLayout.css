@@ -1,0 +1,46 @@
+.description-text {
+  display: flex;
+  flex-direction: column;
+  max-width: 1400px;
+}
+
+.page-container {
+  display: flex;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+}
+
+.col {
+  padding: 0 5%;
+}
+
+.sticky {
+  margin-top: 30px;
+}
+
+@media (min-width: 800px) {
+  .row {
+    flex-direction: row;
+    gap: 0 4%;
+    padding: 0 2%;
+  }
+
+  .col {
+    padding: 0 0 0 8%;
+  }
+
+  .col.primary {
+    width: 50%;
+    padding: 0;
+  }
+
+  .sticky {
+    top: 50px;
+    position: sticky;
+  }
+}

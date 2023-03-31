@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
@@ -15,13 +15,6 @@ const NavMenuLogo = ({ setNavMenuOpen, viewport, widthCutOff, scrollCutOff }) =>
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
-
-  // const widthCutOff = useMemo(() => {
-  //   return 800;
-  // }, []);
-  // const scrollCutOff = useMemo(() => {
-  //   return viewport.height * 0.8;
-  // }, [viewport]);
 
   useEffect(() => {
     if (viewport.width >= widthCutOff) {

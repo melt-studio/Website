@@ -13,6 +13,10 @@ a {
   text-decoration: none;
 }
 
+.page a {
+  color: #000000;
+}
+
 .page {
   /* font-family: "Archivo", sans-serif; */
   /* color: red; */

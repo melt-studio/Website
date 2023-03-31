@@ -1,8 +1,3 @@
-/* @font-face {
-  font-family: Archivo;
-  src: url(./fonts/Archivo-VariableFont.ttf);
-} */
-
 body {
   margin: 0;
   font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
@@ -10,22 +5,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: black;
-  /* overflow-x: hidden */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
-
-body.nav-menu-open {
-  /* overflow: hidden; */
-}
-
-@media (max-width: 800px) {
-  body {
-    /* background-color: black; */
-    /* height: 100vh; */
-  }
 }
 
 body.about {
