@@ -165,22 +165,8 @@ function App() {
     fetchProjects();
     fetchAboutInfo();
     fetchMiscPageInfo();
-    setTimeout(() => {
-      setMobileIntroLogo("drippy-logo__mobile-intro-fade-in");
-
-      setTimeout(() => {
-        setMobileIntroLogo("drippy-logo__mobile-intro-fade-out");
-
-        setTimeout(() => {
-          setMobileIntroLogo("drippy-logo__mobile-intro-gone");
-          setFadeInText("inline");
-          // setTimeout(() => {
-          // }, 500);
-        }, 800);
-      }, 3000);
-    }, 1000);
   }, []);
-  // console.log('App About', aboutInfo)
+
   setTimeout(() => {
     if (projects.length) {
       const theColors = projects.map((project) => project.fields.colorTheme);
@@ -240,8 +226,8 @@ function App() {
           setVisible={setVisible}
           projects={projects}
           setNavColor={setNavColor}
-          mobileIntroLogo={mobileIntroLogo}
-          setMobileIntroLogo={setMobileIntroLogo}
+          // mobileIntroLogo={mobileIntroLogo}
+          // setMobileIntroLogo={setMobileIntroLogo}
           clicks={clicks}
           setClicks={setClicks}
           miscPageInfo={miscPageInfo}

@@ -1,0 +1,44 @@
+.mobile-intro {
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  position: relative; /* for logo */
+  display: flex;
+  align-items: center;
+}
+
+.mobile-intro__logo {
+  height: 150px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mobile-intro__logo img {
+  height: 100%;
+  width: auto;
+}
+
+.mobile-intro__text {
+  display: flex;
+  flex-direction: column;
+  padding: 5%;
+}
+
+.mobile-intro__text p {
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 3.5rem;
+  letter-spacing: -0.25rem;
+  word-spacing: 0.2rem;
+  margin: 0;
+  color: white;
+  line-height: 0.8;
+}
+
+@media (min-width: 800px) {
+  .mobile-intro {
+    display: none;
+  }
+}

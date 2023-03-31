@@ -85,9 +85,7 @@
 .spacer-mobile {
   display: none;
 }
-.mobile-intro__holder {
-  display: none;
-}
+
 @media (max-height: 1760px) {
   .fade-in-up-element.visible {
     opacity: 1;
@@ -96,9 +94,6 @@
   }
 }
 @media (max-width: 800px) {
-  .mobile-intro__holder {
-    display: inline;
-  }
   .proj-tag {
     height: 50px;
     width: 50px;

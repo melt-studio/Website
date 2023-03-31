@@ -6,7 +6,7 @@ import Projects from "../../components/Projects/Projects";
 import LogoAnimation from "../../components/LogoAnimation/index.js";
 import FooterSmaller from "../../components/Footer/FooterSmaller/FooterSmaller";
 import { useFadeEffect } from "../../components/helpers/fadeEffect.js";
-import MobileLogoAnimationStart from "../../components/MobileLogoAnimationStart/MobileLogoAnimationStart";
+import MobileAnimation from "../../components/MobileAnimation/MobileAnimation.jsx";
 // import MobileLogoHome from '../../components/MobileLogoHome/MobileLogoHome';
 
 export default function Home(props) {
@@ -14,19 +14,6 @@ export default function Home(props) {
   const fadeInTriggerRef = useRef(null);
   const [backgroundImage, setBackgroundImage] = useState("none");
   const [spacingOnReentry, setSpacingOnReentry] = useState("0px");
-
-  // This is from MobileLogoHome
-  // useEffect(() => {
-  // //  console.log("mobileIntro", props.mobileIntro)
-  //   if (window.innerWidth < 800) {
-  //     if(props.mobileIntro === "mobile-logo-home__container"){
-  //       document.body.style.overflow = 'hidden';
-  //     } else if (props.mobileIntro === "mobile-logo-home__container hide"){
-  //       document.body.style.overflow = 'auto';
-  //     }
-  //   }
-
-  // }, [props.mobileIntro])
 
   const { effectRef, updateFadeEffect } = useFadeEffect();
   useEffect(() => {
@@ -84,20 +71,6 @@ export default function Home(props) {
 
     // return () => observer.unobserve(fadeInTriggerRef.current);
   }, [updateFadeEffect]);
-
-  // window.addEventListener("scroll", function () {
-  //   if (window.location.pathname === "/") {
-  //     var distanceFromTop = document.querySelector(".spacer-mobile").getBoundingClientRect().top;
-  //     if (distanceFromTop < 0.345 * window.innerHeight) {
-  //       // document.querySelector('.mobile__info').classList.add('hide');
-  //       // console.log("50%")
-  //     } else {
-  //       // document.querySelector('.mobile__info').classList.remove('hide');
-  //       // document.querySelector('.mobile-logo__holder').classList.remove('mobile-logo__holder-active');
-  //       // console.log("OTHER%")
-  //     }
-  //   }
-  // });
 
   const scrollRef = useRef();
   useEffect(() => {
@@ -162,13 +135,7 @@ export default function Home(props) {
       }}
       className="home__container hover-background"
     >
-      <div className="mobile-intro__holder">
-        <MobileLogoAnimationStart
-          fadeInText={props.fadeInText}
-          mobileIntroLogo={props.mobileIntroLogo}
-          setMobileIntroLogo={props.setMobileIntroLogo}
-        />
-      </div>
+      <MobileAnimation />
 
       <div className="spacer-mobile"></div>
 
