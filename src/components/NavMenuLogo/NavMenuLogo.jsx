@@ -58,7 +58,8 @@ const NavMenuLogo = ({ setNavMenuOpen, viewport, widthCutOff, scrollCutOff }) =>
               className="nav-menu-logo__img"
               src={MeltLogo}
               alt="MELT Logo"
-              {...cursorEvents}
+              onMouseEnter={() => cursorEvents.onMouseEnter()}
+              onMouseLeave={() => cursorEvents.onMouseLeave()}
             />
           </div>
         </div>

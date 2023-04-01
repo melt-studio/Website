@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, forwardRef, useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import "./App.css";
 import MainContainer from "./containers/MainContainer";
 import Layout from "./layouts/MainLayout.jsx";
@@ -7,39 +7,23 @@ import { getAllProjects } from "./services/projects";
 import { getAllAboutInfo } from "./services/about";
 import { getAllMiscInfo } from "./services/miscPages";
 
-import MeltLogo from "./assets/images/Logo/MELT_LOGO WHT_SM.png";
-import xForOpenMenu from "./assets/Cursors/MELT_WEBSITE ICONS__X.png";
-
-// import projArray2 from "./projects.json";
-
 import Cursor from "./components/Cursor/Cursor";
-import { useLocation } from "react-router-dom";
 
 function App() {
   const [projects, setProjects] = useState([]);
   const [aboutInfo, setAboutInfo] = useState({});
   const [miscPageInfo, setMiscPageInfo] = useState([]);
   const [navTextColor, setNavColor] = useState("white");
-  const [stickyisVis, setStickyIsVis] = useState("sticky-info");
   const [visible, setVisible] = useState(false);
   const [hamburgerMenuIsVis, sethamburgerMenuIsVis] = useState("hamburger-menu-not-visible");
-  // const [lastKnownScrollPosition, setLastKnownScrollPosition] = useState(0);
   const [showHamburger, setShowHamburger] = useState("hamburger__holder hidden"); ///hidden
-  // const [ticking, setTicking] = useState(false);
-  const [projectBackgroundColors, setColors] = useState([]);
   const [scroll, setScroll] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState("#000000");
-  const [mobileIntroLogo, setMobileIntroLogo] = useState("drippy-logo__mobile-intro");
-  const [fadeInText, setFadeInText] = useState("none"); //inline to activate
   const [clicks, setClicks] = useState(0);
   const [navColorTheme, setNavColorTheme] = useState("nav__with__footer__hover-effect");
-  const [logoForNavHamburger, setLogoForNavHamburger] = useState(MeltLogo);
-  // console.log("projects", projects)
-  // console.log("backgroundColor", backgroundColor)
 
-  const [navMenuOpen, setNavMenuOpen] = useState(false);
-  // const [navMenuLogoShow, setNavMenuLogoShow] = useState(false);
   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
+  const [backgroundColor, setBackgroundColor] = useState("#000000");
+  const [navMenuOpen, setNavMenuOpen] = useState(false);
 
   const widthCutOff = useMemo(() => {
     return 800;
@@ -48,11 +32,6 @@ function App() {
   const scrollCutOff = useMemo(() => {
     return viewport.height * 0.8;
   }, [viewport]);
-
-  const homeClick = () => {
-    window.location.reload();
-    window.scrollTo(0, 0);
-  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -70,87 +49,18 @@ function App() {
     };
   }, []);
 
-  const logoXToggle = () => {
-    if (logoForNavHamburger === MeltLogo) {
-      setLogoForNavHamburger(xForOpenMenu);
-    } else {
-      setLogoForNavHamburger(MeltLogo);
-    }
+  const homeClick = () => {
+    window.location.reload();
+    window.scrollTo(0, 0);
   };
 
   const cursor = useRef();
-  useEffect(() => {
-    // const circle = document.createElement("span");
-    // circle.classList.add("cursor");
-    // document.body.appendChild(circle);
 
-    // const updateCirclePos = (e) => {
-    //   circle.style.left = `${e.clientX}px`;
-    //   circle.style.top = `${e.clientY}px`;
-    // };
-
-    // document.addEventListener("mousemove", updateCirclePos);
-
-    // return () => {
-    //   document.removeEventListener("mousemove", updateCirclePos);
-    //   circle.remove();
-    // };
-
-    const updateCursorPos = (e) => {
-      if (cursor.current) {
-        // console.log(e.target);
-        cursor.current.style.left = `${e.clientX}px`;
-        cursor.current.style.top = `${e.clientY}px`;
-      }
-    };
-
-    document.addEventListener("mousemove", updateCursorPos);
-
-    return () => {
-      document.removeEventListener("mousemove", updateCursorPos);
-    };
-  }, []);
-
-  // useEffect(() => { ///// This is to show / hide nav bar Desktop
-  //   function handleScroll() {
-  //     setLastKnownScrollPosition(window.scrollY);
-  //     if (!ticking) {
-  //       if ( window.location.pathname !== "/working-components") {
-  //         window.requestAnimationFrame(() => {
-  //           if (lastKnownScrollPosition > window.scrollY) {
-  //             // console.log('up');
-  // setStickyIsVis("sticky-info")
-  // setVisible(true)
-  //           } else {
-  //             // console.log('down');
-  //              // setStickyIsVis("isNotVis")
-  //             setVisible(false)
-  //           }
-  //           setTicking(false);
-  //         });
-  //         setTicking(true);
-  //       }
-  //       }
-
-  //   }
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, [lastKnownScrollPosition, ticking]);
-
-  // console.log("navTextColor", navTextColor)
   useEffect(() => {
     const fetchProjects = async () => {
       const projArray = await getAllProjects();
-      // console.log(projArray)
-      // console.log(projArray.map(p => p.fields.coverImg[0].thumbnails))
       setProjects(projArray);
     };
-
-    // const fetchProjects = () => {
-    //   setProjects(projArray2);
-    // };
 
     const fetchAboutInfo = async () => {
       const aboutInfo = await getAllAboutInfo();
@@ -167,74 +77,53 @@ function App() {
     fetchMiscPageInfo();
   }, []);
 
-  setTimeout(() => {
-    if (projects.length) {
-      const theColors = projects.map((project) => project.fields.colorTheme);
-      setColors(theColors);
-      // console.log("projectBackgroundColors", projectBackgroundColors)
-    }
-  }, 2000);
-
   useEffect(() => {
-    document.body.style.background = backgroundColor;
+    document.body.style.backgroundColor = backgroundColor;
   }, [backgroundColor]);
 
   return (
     <>
       <Layout
-        logoForNavHamburger={logoForNavHamburger}
+        // logoForNavHamburger={logoForNavHamburger}
         hamburgerMenuIsVis={hamburgerMenuIsVis}
         sethamburgerMenuIsVis={sethamburgerMenuIsVis}
-        fadeInText={fadeInText}
-        setFadeInText={setFadeInText}
         setScroll={setScroll}
         showHamburger={showHamburger}
         setShowHamburger={setShowHamburger}
         setVisible={setVisible}
         visible={visible}
-        stickyisVis={stickyisVis}
-        setStickyIsVis={setStickyIsVis}
         navTextColor={navTextColor}
         setNavColor={setNavColor}
-        // mobileIntro={mobileIntro}
-        // setMobileIntro={setMobileIntro}
         navColorTheme={navColorTheme}
         setNavColorTheme={setNavColorTheme}
         homeClick={homeClick}
-        logoXToggle={logoXToggle}
         navMenuOpen={navMenuOpen}
         setNavMenuOpen={setNavMenuOpen}
         cursor={cursor}
-        // navMenuLogoShow={navMenuLogoShow}
-        // setNavMenuLogoShow={setNavMenuLogoShow}
         viewport={viewport}
         widthCutOff={widthCutOff}
         scrollCutOff={scrollCutOff}
       >
         <MainContainer
-          fadeInText={fadeInText}
-          setFadeInText={setFadeInText}
           backgroundColor={backgroundColor}
           setBackgroundColor={setBackgroundColor}
           scroll={scroll}
-          projectBackgroundColors={projectBackgroundColors}
           showHamburger={showHamburger}
           setShowHamburger={setShowHamburger}
           aboutInfo={aboutInfo}
           navTextColor={navTextColor}
-          setStickyIsVis={setStickyIsVis}
           setVisible={setVisible}
           projects={projects}
           setNavColor={setNavColor}
-          // mobileIntroLogo={mobileIntroLogo}
-          // setMobileIntroLogo={setMobileIntroLogo}
           clicks={clicks}
           setClicks={setClicks}
           miscPageInfo={miscPageInfo}
           cursor={cursor}
+          viewport={viewport}
+          widthCutOff={widthCutOff}
         />
       </Layout>
-      <Cursor ref={cursor} />
+      {viewport.width >= widthCutOff && <Cursor ref={cursor} />}
     </>
   );
 }

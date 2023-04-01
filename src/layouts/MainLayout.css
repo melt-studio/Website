@@ -8,6 +8,10 @@
   display: flex;
 }
 
+.page-container.loading {
+  min-height: 100vh;
+}
+
 .row {
   display: flex;
   flex-direction: column;

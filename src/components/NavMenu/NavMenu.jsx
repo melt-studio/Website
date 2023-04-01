@@ -48,7 +48,12 @@ const NavMenuLogo = () => {
 const NavMenuClose = ({ closeNavMenu }) => {
   return (
     <motion.div className="nav-menu__close" variants={keyframesItem}>
-      <div className="nav-menu__close-container" onClick={closeNavMenu} {...cursorEvents}>
+      <div
+        className="nav-menu__close-container"
+        onClick={closeNavMenu}
+        onMouseEnter={() => cursorEvents.onMouseEnter()}
+        onMouseLeave={() => cursorEvents.onMouseLeave()}
+      >
         <div className="nav-menu__close-bar left"></div>
         <div className="nav-menu__close-bar right"></div>
       </div>
@@ -57,7 +62,12 @@ const NavMenuClose = ({ closeNavMenu }) => {
 };
 
 const NavMenuLinkText = ({ text }) => (
-  <motion.p className="nav-menu__link" variants={keyframesItem} {...cursorEvents}>
+  <motion.p
+    className="nav-menu__link"
+    variants={keyframesItem}
+    onMouseEnter={() => cursorEvents.onMouseEnter()}
+    onMouseLeave={() => cursorEvents.onMouseLeave()}
+  >
     {text}
   </motion.p>
 );

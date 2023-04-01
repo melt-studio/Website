@@ -67,7 +67,8 @@ const NavBar = ({ viewport, widthCutOff, scrollCutOff }) => {
             onClick={() => {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            {...cursorEvents}
+            onMouseEnter={() => cursorEvents.onMouseEnter()}
+            onMouseLeave={() => cursorEvents.onMouseLeave()}
             src={DrippyLogo}
             alt="MELT Logo"
           />

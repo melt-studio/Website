@@ -32,20 +32,18 @@ export default function MainContainer(props) {
           <Home
             clicks={props.clicks}
             setClicks={props.setClicks}
-            fadeInText={props.fadeInText}
-            setFadeInText={props.setFadeInText}
             setShowHamburger={props.setShowHamburger}
-            mobileIntroLogo={props.mobileIntroLogo}
-            setMobileIntroLogo={props.setMobileIntroLogo}
+            // mobileIntroLogo={props.mobileIntroLogo}
+            // setMobileIntroLogo={props.setMobileIntroLogo}
             backgroundColor={props.backgroundColor}
             setBackgroundColor={props.setBackgroundColor}
             scroll={props.scroll}
             showHamburger={props.showHamburger}
             navTextColor={props.navTextColor}
             projects={props.projects}
-            setVisible={props.setVisible}
-            setStickyIsVis={props.setStickyIsVis}
             cursor={props.cursor}
+            viewport={props.viewport}
+            widthCutOff={props.widthCutOff}
           />
         }
       />

@@ -1,19 +1,29 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Home.css";
-// import { Fade } from "react-awesome-reveal";
-// import { keyframes } from "@emotion/react";
 import Projects from "../../components/Projects/Projects";
+import MobileAnimation from "../../components/MobileAnimation/MobileAnimation.jsx";
 import LogoAnimation from "../../components/LogoAnimation/index.js";
 import FooterSmaller from "../../components/Footer/FooterSmaller/FooterSmaller";
 import { useFadeEffect } from "../../components/helpers/fadeEffect.js";
-import MobileAnimation from "../../components/MobileAnimation/MobileAnimation.jsx";
-// import MobileLogoHome from '../../components/MobileLogoHome/MobileLogoHome';
 
 export default function Home(props) {
   const fadeInRef = useRef(null);
   const fadeInTriggerRef = useRef(null);
   const [backgroundImage, setBackgroundImage] = useState("none");
   const [spacingOnReentry, setSpacingOnReentry] = useState("0px");
+
+  useEffect(() => {
+    // console.log("hello");
+    // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    document.body.classList.add("home");
+
+    return () => {
+      document.body.classList.remove("home");
+    };
+  }, []);
 
   const { effectRef, updateFadeEffect } = useFadeEffect();
   useEffect(() => {
@@ -103,23 +113,23 @@ export default function Home(props) {
     };
   }, [props]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY >= window.innerHeight) {
-        // console.log("100vh!");
-        props.setStickyIsVis("sticky-info");
-        props.setVisible(true);
-      } else {
-        props.setVisible(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (window.scrollY >= window.innerHeight) {
+  //       // console.log("100vh!");
+  //       props.setStickyIsVis("sticky-info");
+  //       props.setVisible(true);
+  //     } else {
+  //       props.setVisible(false);
+  //     }
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
 
   // useEffect(() => {
   //   // window.location.reload();
@@ -129,10 +139,12 @@ export default function Home(props) {
 
   return (
     <div
-      style={{
-        backgroundColor: props.backgroundColor,
-        backgroundImage: `url(${backgroundImage})`,
-      }}
+      style={
+        {
+          // backgroundColor: props.backgroundColor,
+          // backgroundImage: `url(${backgroundImage})`,
+        }
+      }
       className="home__container hover-background"
     >
       <MobileAnimation />
@@ -177,12 +189,12 @@ export default function Home(props) {
       <Projects
         showHamburger={props.showHamburger}
         setShowHamburger={props.setShowHamburger}
-        setStickyIsVis={props.setStickyIsVis}
-        setVisible={props.setVisible}
         projects={props.projects}
         setBackgroundImage={setBackgroundImage}
         setBackgroundColor={props.setBackgroundColor}
         cursor={props.cursor}
+        viewport={props.viewport}
+        widthCutOff={props.widthCutOff}
       />
 
       <div className="footer__spacer" />
@@ -191,5 +203,3 @@ export default function Home(props) {
     </div>
   );
 }
-
-// <MobileLogoHome clicks={props.clicks} setClicks={props.setClicks} setFadeInText={props.setFadeInText} setMobileIntro={props.setMobileIntro} />

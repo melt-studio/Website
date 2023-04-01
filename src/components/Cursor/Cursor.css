@@ -1,61 +1,69 @@
 .cursor {
-  transform: translate(-50%, -50%) scale(100%);
-  transition: transform 0.2s ease-in-out, background 0.2s ease-in-out;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
   width: 35px;
   height: 35px;
   border-radius: 50%;
   position: fixed;
   z-index: 9999;
   pointer-events: none;
+  background-color: transparent;
   opacity: 1;
-  /* background: #000000; */
-  background: yellow;
 }
-.cursor.unofficial {
-  background: transparent;
+
+.home .cursor {
+  opacity: 1;
+  background-color: transparent;
+  transform: translate(-50%, -50%) scale(0);
 }
-.cursor:after {
-  opacity: 0;
+
+.about .cursor {
+  opacity: 1;
+  background-color: yellow;
+  transform: translate(-50%, -50%) scale(1);
 }
+
+.cursor.project {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(2);
+}
+
+.cursor.link {
+  opacity: 1;
+  background-color: yellow;
+  transform: translate(-50%, -50%) scale(0.4);
+}
+
 .cursor .cursor-unofficial-container {
   overflow: hidden;
   display: inline-block;
   width: fit-content;
   height: fit-content;
-  background: transparent;
+  background-color: transparent;
   transition: all 0.2s ease-in-out;
   transform: translate(-50%, -25%);
   padding: 25px;
   border-radius: 50%;
-  /* font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; */
   letter-spacing: -0.1rem;
+  display: none;
 }
-.cursor.unofficial .cursor-unofficial-container {
-  /* background: yellow; */
-}
+
 .cursor .cursor-unofficial {
   display: inline-block;
   font-size: 20px;
   font-weight: bold;
   text-transform: uppercase;
-  transform: translate(0%, 100%);
+  transform: translate(0, 100%);
   transition: all 0.2s ease-in-out;
   color: transparent;
 }
+
+.cursor.unofficial {
+  background-color: transparent;
+  transform: translate(-50%, -50%) scale(2);
+}
+
 .cursor.unofficial .cursor-unofficial {
   transform: translate(0, 0);
   color: #000;
-}
-.cursor.home {
-  opacity: 1;
-  /* background-color: transparent; */
-  transform: translate(-50%, -50%) scale(100%);
-}
-.cursor.project {
-  /* opacity: 1; */
-  transform: translate(-50%, -50%) scale(200%);
-}
-.cursor.link {
-  transform: translate(-50%, -50%) scale(40%);
 }
