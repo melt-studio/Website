@@ -56,9 +56,10 @@ a {
   /* word-spacing: 0.125rem; */
   /* line-height: 1.1; */
 
-  /* text-transform: uppercase; */
+  text-transform: uppercase;
   /* letter-spacing: -0.06rem; */
-  line-height: normal;
+  /* line-height: normal; */
+  line-height: 1;
   font-weight: 700;
   /* visibility: hidden; */
 }
@@ -76,9 +77,10 @@ a {
     line-height: 0.9;
     font-weight: 600;
 
-    letter-spacing: 0;
+    /* letter-spacing: 0; */
     word-spacing: 0;
     line-height: normal;
+    line-height: 1;
     font-weight: 600;
   }
 

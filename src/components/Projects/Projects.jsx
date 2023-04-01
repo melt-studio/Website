@@ -62,8 +62,8 @@ export default function Projects(props) {
         };
       });
 
-      // console.log(props.projects);
-      // console.log(projectsMapped);
+      console.log(props.projects);
+      console.log(projectsMapped);
 
       setProjects(projectsMapped);
     }
@@ -91,7 +91,9 @@ export default function Projects(props) {
   };
 
   const handleClick = (project) => {
+    console.log(project);
     navigate(`/${project.projectUrl}`);
+    cursorEvents.onMouseLeave(project.unofficials ? "unofficial" : "project");
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };
@@ -162,8 +164,8 @@ export default function Projects(props) {
           <motion.div
             key={project.id}
             initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: [0, 0.5, 1, 1], scale: [0.9, 1, 1] }}
-            transition={{ duration: 2, ease: "easeInOut" }}
+            whileInView={{ opacity: [0, 0, 1, 1], scale: [0.9, 1, 1] }}
+            transition={{ times: [0, 0.1, 0.75, 1], duration: 2, ease: "easeInOut" }}
             // transition={{ type: "spring", stiffness: 50 }}
             // viewport={{ amount: 0.5 }}
           >

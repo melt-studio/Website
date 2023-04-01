@@ -7,15 +7,20 @@ import FadeInOut from "../../../components/FadeInOutAnimation/FadeInOutAnimation
 import { Helmet } from "react-helmet";
 import ReactPlayer from "react-player";
 import { keyframes } from "@emotion/react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 // import FooterSmaller from '../../../components/Footer/FooterSmaller/FooterSmaller.jsx';
 import ProjectTitleTransition from "../../../components/ProjectTitleTransition/ProjectTitleTransition.jsx";
 
 export default function ProjectFullPage(props) {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // console.log(location);
 
   const [loaded, isLoading] = useState(false);
   const [project, setProject] = useState({});
+  const [prev, setPrev] = useState(null);
+  const [next, setNext] = useState(null);
   const [vidCursor, setVidCursor] = useState(
     "https://res.cloudinary.com/bobalobbadingdong/image/upload/c_scale,w_80/v1677874584/MELT%20Works/MELT_WEBSITE_ICONS__Arrow-white_ehf6vp.png"
   );
@@ -23,11 +28,21 @@ export default function ProjectFullPage(props) {
   const [animatedIsVisible, setAnimatedIsVisible] = useState(true);
 
   useEffect(() => {
+    document.body.classList.add("project");
+
+    return () => document.body.classList.remove("project");
+  }, []);
+
+  useEffect(() => {
     // props.setVisible(true)
 
     if (props.projects.length) {
       console.log(props.projects);
       const proj = props.projects.find((element) => "/" + element.fields.projectUrl === `${window.location.pathname}`);
+      const prevProj = props.projects.find((e) => e.fields.order === proj.fields.order - 1);
+      const nextProj = props.projects.find((e) => e.fields.order === proj.fields.order + 1);
+      if (prevProj) setPrev(prevProj);
+      if (nextProj) setNext(nextProj);
       setProject(proj);
       isLoading(true);
       // console.log('loaded ONE')
@@ -120,7 +135,7 @@ export default function ProjectFullPage(props) {
       }, 1000);
     }
     // eslint-disable-next-line
-  }, [props.projects, loaded]);
+  }, [props.projects, loaded, location.pathname]);
 
   const ref = useRef(null);
   useEffect(() => {
@@ -355,7 +370,7 @@ to {
           document.querySelector(".fade-in-up-element-background__proj").classList.add("no-more");
           setTimeout(() => {
             document.querySelector(".fade-in-up-element__proj").classList.add("out-up");
-          }, 800);
+          }, 400);
           props.setVisible(true);
           // document.querySelector('.back-button__holder').classList.add('visible');
         }
@@ -377,7 +392,7 @@ to {
           document.querySelector(".fade-in-up-element-background__proj").classList.remove("no-more");
           setTimeout(() => {
             document.querySelector(".fade-in-up-element__proj").classList.remove("out-up");
-          }, 800);
+          }, 400);
           props.setVisible(false);
           // document.querySelector('.back-button__holder').classList.remove('visible');
         }
@@ -606,25 +621,27 @@ to {
                       <div className="project-about__section-two-mobile">
                         <hr className="hr-line" style={{ backgroundColor: `${project.fields.colorText}` }} />
                       </div>
-                      <Fade
-                        keyframes={customAnimationProjectKeyWords}
-                        className="project__tags"
-                        cascade
-                        // direction="left"
-                        duration={700}
-                        delay={1500}
-                        triggerOnce={true}
-                        fraction={0}
-                      >
-                        {project.fields.projectScope.map((tag) => (
-                          <div key={`tag: ${tag}`}>
-                            <h3 key={`tag h3: ${tag}`} className="project__tags">
-                              {tag}
-                            </h3>
-                            <div id="proj-content-holder" />
-                          </div>
-                        ))}
-                      </Fade>
+                      <div className="project__tags-list">
+                        <Fade
+                          keyframes={customAnimationProjectKeyWords}
+                          className="project__tags"
+                          cascade
+                          // direction="left"
+                          duration={700}
+                          delay={1500}
+                          triggerOnce={true}
+                          fraction={0}
+                        >
+                          {project.fields.projectScope.map((tag) => (
+                            <div key={`tag: ${tag}`}>
+                              <h3 key={`tag h3: ${tag}`} className="project__tags">
+                                {tag}
+                              </h3>
+                              <div id="proj-content-holder" />
+                            </div>
+                          ))}
+                        </Fade>
+                      </div>
                     </>
                   )}
                   {project.fields.projectCollaborators && (
@@ -634,13 +651,16 @@ to {
                       </div>
                       <Fade cascade={true} direction="up" duration={1500} delay={1000} triggerOnce={false} fraction={0}>
                         <h1 className="project_scope">Collaborators</h1>
-                        {project.fields.projectCollaborators.map((collaborator, index) => (
-                          <div key={`${collaborator}+${index}+holder`}>
-                            <h3 key={collaborator + index} className="project-collaborators">
-                              {collaborator}
-                            </h3>
-                          </div>
-                        ))}
+
+                        <div className="project__tags-list">
+                          {project.fields.projectCollaborators.map((collaborator, index) => (
+                            <div key={`${collaborator}+${index}+holder`}>
+                              <h3 key={collaborator + index} className="project-collaborators">
+                                {collaborator}
+                              </h3>
+                            </div>
+                          ))}
+                        </div>
                       </Fade>
                     </div>
                   )}
@@ -866,6 +886,52 @@ to {
                 <div
                   onClick={() => {
                     /// Hide Nav Bar
+                    // navigate(-1);
+                    // props.setBackgroundColor("#000000");
+                    if (prev) {
+                      // console.log(next);
+                      navigate(`/${prev.fields.projectUrl}`);
+                      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                      props.setBackgroundColor("#000000");
+                    }
+                  }}
+                  onMouseEnter={() => {
+                    const hoverFill = document.querySelector(".prev-project-underline");
+                    hoverFill.classList.add("hovered");
+                  }}
+                  onMouseLeave={() => {
+                    const hoverFill = document.querySelector(".prev-project-underline");
+                    hoverFill.classList.add("mouse-leave");
+                    setTimeout(() => {
+                      hoverFill.classList.remove("mouse-leave");
+                      hoverFill.classList.remove("hovered");
+                    }, 300);
+                  }}
+                  className="back-button_holder"
+                >
+                  {prev && (
+                    <>
+                      <p
+                        style={{
+                          // color: `${project.fields.colorText}`
+                          color: "white",
+                        }}
+                        className="close-proj__text"
+                      >
+                        PREV PROJECT
+                      </p>
+                      <div className="prev-project-underline">
+                        <hr
+                          style={{ backgroundColor: "white" }}
+                          // style={{ backgroundColor: `${project.fields.colorText}` }}
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+                <div
+                  onClick={() => {
+                    /// Hide Nav Bar
                     navigate(-1);
                     props.setBackgroundColor("#000000");
                   }}
@@ -898,6 +964,52 @@ to {
                       // style={{ backgroundColor: `${project.fields.colorText}` }}
                     />
                   </div>
+                </div>
+                <div
+                  onClick={() => {
+                    /// Hide Nav Bar
+                    // navigate(-1);
+
+                    if (next) {
+                      // console.log(next);
+                      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                      navigate(`/${next.fields.projectUrl}`);
+                      props.setBackgroundColor("#000000");
+                    }
+                  }}
+                  onMouseEnter={() => {
+                    const hoverFill = document.querySelector(".next-project-underline");
+                    hoverFill.classList.add("hovered");
+                  }}
+                  onMouseLeave={() => {
+                    const hoverFill = document.querySelector(".next-project-underline");
+                    hoverFill.classList.add("mouse-leave");
+                    setTimeout(() => {
+                      hoverFill.classList.remove("mouse-leave");
+                      hoverFill.classList.remove("hovered");
+                    }, 300);
+                  }}
+                  className="back-button_holder"
+                >
+                  {next && (
+                    <>
+                      <p
+                        style={{
+                          // color: `${project.fields.colorText}`
+                          color: "white",
+                        }}
+                        className="close-proj__text"
+                      >
+                        NEXT PROJECT
+                      </p>
+                      <div className="next-project-underline">
+                        <hr
+                          style={{ backgroundColor: "white" }}
+                          // style={{ backgroundColor: `${project.fields.colorText}` }}
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
