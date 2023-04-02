@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate, useParams } from "react-router-dom";
 import ProjectCover from "../../components/ProjectCover/ProjectCover.jsx";
@@ -16,6 +16,8 @@ const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
   const [prev, setPrev] = useState(null);
   const [next, setNext] = useState(null);
 
+  const overlay = useRef();
+
   useEffect(() => {
     document.body.classList.add("project-page");
 
@@ -25,18 +27,7 @@ const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
   }, []);
 
   useEffect(() => {
-    if (projects.length) {
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-
-      const project = projects.find((project) => project.fields.projectUrl === id);
-
-      if (!project) {
-        setProject(null);
-        setPrev(null);
-        setNext(null);
-        return navigate("/");
-      }
-
+    const updateProject = (project) => {
       setProject(project);
 
       // Update cursor color to current project color
@@ -56,25 +47,75 @@ const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
       else setNext(null);
 
       setLoading(false);
+
+      // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      window.scrollTo(0, 0);
+    };
+
+    if (projects.length) {
+      const project = projects.find((project) => project.fields.projectUrl === id);
+
+      if (!project) {
+        setProject(null);
+        setPrev(null);
+        setNext(null);
+        return navigate("/");
+      }
+
+      // if (overlay && overlay.current) {
+      //   overlay.current.addEventListener("transitionend", () => {
+      //     console.log("ok");
+      //     // overlay.current.removeEventListener("transitionend", handleTransition, false);
+      //     // console.log("removed");
+      //     overlay.current.classList.remove("show");
+      //     // overlay.current.removeAttribute("style");
+      //     updateProject(project);
+      //   });
+      // }
+
+      // overlay.current.style.backgroundColor = project.fields.cursorColor;
+      // overlay.current.classList.add("show");
+
+      updateProject(project);
+
+      // if (overlay && overlay.current) {
+      //   overlay.current.style.backgroundColor = project.fields.cursorColor;
+      //   overlay.current.classList.add("show");
+      // }
+
+      // setTimeout(() => {
+      //   updateProject(project);
+      //   if (overlay && overlay.current) {
+      //     overlay.current.classList.remove("show");
+      //     // overlay.current.removeAttribute("style");
+      //   }
+      // }, 1000);
     }
   }, [projects, cursor, id, navigate]);
 
   return (
-    <div className="page" style={loading ? null : { color: `${project.fields.colorText}` }}>
+    <div className="page" style={!loading && project ? { color: project.fields.colorText } : null}>
       <div className={`page-container${loading ? " loading" : ""}`}>
-        {!loading && (
+        {!loading && project && (
           <>
             <Helmet>
               <title>MELLLLLLT - {project.fields.name}</title>
             </Helmet>
 
-            <ProjectCover project={project} viewport={viewport} widthCutOff={widthCutOff} />
+            <ProjectCover
+              overlay={overlay}
+              key={project.id}
+              project={project}
+              viewport={viewport}
+              widthCutOff={widthCutOff}
+            />
             <ProjectText project={project} />
             <ProjectImages project={project} viewport={viewport} widthCutOff={widthCutOff} />
             <ProjectNav prev={prev} next={next} />
           </>
         )}
       </div>
+      {/* <div id="overlay" ref={overlay}></div> */}
     </div>
   );
 };

@@ -1,41 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import ProjectCoverMedia from "../ProjectCoverMedia/ProjectCoverMedia.jsx";
 import FadeScroll from "../FadeScroll/FadeScroll.jsx";
 import "./ProjectCover.css";
 
-const ProjectCover = ({ project, viewport, widthCutOff }) => {
+import cursorPlay from "../../assets/cursors/MELT__PLAY.svg";
+import cursorPause from "../../assets/cursors/MELT__PAUSE.svg";
+
+const ProjectCover = ({ project, overlay, viewport, widthCutOff }) => {
   const [vidPlay, setVidPlay] = useState(false);
-  const [vidCursor, setVidCursor] = useState(
-    "https://res.cloudinary.com/bobalobbadingdong/image/upload/c_scale,w_80/v1677874584/MELT%20Works/MELT_WEBSITE_ICONS__Arrow-white_ehf6vp.png"
-  );
+  const [vidCursor, setVidCursor] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const toggleVidPlay = () => {
+    setVidPlay(!vidPlay);
+  };
+
+  useEffect(() => {
+    console.log("PROJECT COVER");
+  }, []);
+
+  useEffect(() => {
+    if (!loading) setVidCursor(vidPlay ? cursorPause : cursorPlay);
+  }, [loading, vidPlay]);
 
   const { mainImage, mainVid } = project.fields;
   if (!mainImage && !mainVid) return null;
-
-  const cursorToggle = () => {
-    if (
-      vidCursor ===
-      "https://res.cloudinary.com/bobalobbadingdong/image/upload/c_scale,w_80/v1677874584/MELT%20Works/MELT_WEBSITE_ICONS__Arrow-white_ehf6vp.png"
-    ) {
-      setVidCursor(
-        "https://res.cloudinary.com/bobalobbadingdong/image/upload/c_scale,w_80/v1677874584/MELT%20Works/MELT_WEBSITE_ICONS__X-white_irckou.png"
-      );
-    } else {
-      setVidCursor(
-        "https://res.cloudinary.com/bobalobbadingdong/image/upload/c_scale,w_80/v1677874584/MELT%20Works/MELT_WEBSITE_ICONS__Arrow-white_ehf6vp.png"
-      );
-    }
-  };
-
-  const toggleVidPlay = () => {
-    if (vidPlay === false) {
-      setVidPlay(true);
-      cursorToggle();
-    } else {
-      setVidPlay(false);
-      cursorToggle();
-    }
-  };
 
   return (
     <>
@@ -44,16 +33,17 @@ const ProjectCover = ({ project, viewport, widthCutOff }) => {
         className={`project-cover-full${mainVid ? " wide" : ""}`}
         style={{
           backgroundColor: viewport.width < widthCutOff ? "transparent" : project.fields.cursorColor,
+          // backgroundColor: project.fields.cursorColor,
         }}
       >
         <div
-          className="project-cover-full__background"
+          className={`project-cover-full__background${loading ? " loading" : ""}`}
           onClick={mainVid ? () => toggleVidPlay() : null}
           style={{
-            cursor: mainVid ? `url(${vidCursor}), auto` : "default",
+            cursor: mainVid && vidCursor ? `url(${vidCursor}) 40 40, auto` : "default",
           }}
         >
-          <ProjectCoverMedia project={project} vidPlay={vidPlay} />
+          <ProjectCoverMedia overlay={overlay} project={project} setLoading={setLoading} vidPlay={vidPlay} />
         </div>
       </FadeScroll>
     </>

@@ -1,6 +1,7 @@
 .mobile-intro {
   height: 100vh;
   height: 100dvh;
+  transition: height 1s;
   width: 100%;
   position: relative; /* for logo */
   display: flex;

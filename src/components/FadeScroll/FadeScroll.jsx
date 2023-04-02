@@ -7,7 +7,9 @@ const FadeScroll = ({ viewport = { amount: 0.5 }, className, style, children }) 
   const handleEntry = {
     onViewportEnter: () => {
       if (ref.current) {
-        ref.current.classList.add("show");
+        if (!ref.current.classList.contains("show")) {
+          ref.current.classList.add("show");
+        }
       }
     },
     onViewportLeave: () => {

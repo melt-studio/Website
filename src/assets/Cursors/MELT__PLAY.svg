@@ -1,25 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg id="a" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.8 192.8">
-  <defs>
-    <style>
-      .b {
-        font-family: Archivo-SemiBold, Archivo;
-        font-size: 28.1px;
-        font-variation-settings: 'wght' 600, 'wdth' 100;
-        font-weight: 600;
-      }
-    </style>
-  </defs>
-  <text class="b" transform="translate(15.9 -157.1) rotate(107)"><tspan x="0" y="0">U</tspan></text>
-  <text class="b" transform="translate(9.3 -133.9) rotate(91.2)"><tspan x="0" y="0">N</tspan></text>
-  <text class="b" transform="translate(9.3 -109.3) rotate(74.6)"><tspan x="0" y="0">O</tspan></text>
-  <text class="b" transform="translate(16.8 -85) rotate(59.5)"><tspan x="0" y="0">F</tspan></text>
-  <text class="b" transform="translate(27.3 -67.8) rotate(46.3)"><tspan x="0" y="0">F</tspan></text>
-  <text class="b" transform="translate(40.9 -54.4) rotate(36.7)"><tspan x="0" y="0">I</tspan></text>
-  <text class="b" transform="translate(48.9 -48) rotate(26)"><tspan x="0" y="0">C</tspan></text>
-  <text class="b" transform="translate(69.5 -38.8) rotate(15.3)"><tspan x="0" y="0">I</tspan></text>
-  <text class="b" transform="translate(79.3 -35.8) rotate(4.7)"><tspan x="0" y="0">A</tspan></text>
-  <text class="b" transform="translate(102.3 -34.5) rotate(-9.3)"><tspan x="0" y="0">L</tspan></text>
-  <text class="b" transform="translate(121.1 -37.8) rotate(-22.7)"><tspan x="0" y="0">S</tspan></text>
-  <path d="m96.6.6C43.7.6.8,43.5.8,96.4s42.9,95.8,95.8,95.8,95.8-42.9,95.8-95.8S149.5.6,96.6.6Zm37.5,98.6l-53.2,33.4c-2.2,1.4-5-.2-5-2.7V63c0-2.6,2.8-4.1,5-2.7l53.2,33.4c2,1.3,2,4.2,0,5.5Z"/>
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g>
+<path d="M40.083 0.248962C18.1328 0.248962 0.33197 18.0498 0.33197 40C0.33197 61.9502 18.1328 79.751 40.083 79.751C62.0332 79.751 79.834 61.9502 79.834 40C79.834 18.0498 62.0332 0.248962 40.083 0.248962ZM55.6432 41.1618L33.5685 55.0207C32.6556 55.6017 31.4938 54.9378 31.4938 53.9004V26.1411C31.4938 25.0622 32.6556 24.4398 33.5685 25.0207L55.6432 38.8797C56.473 39.4191 56.473 40.6224 55.6432 41.1618Z" fill="white"/>
+</g>
 </svg>

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import ReactPlayer from "react-player";
 import "./ProjectCoverMedia.css";
 
-const ProjectCoverMedia = ({ project, vidPlay }) => {
+const ProjectCoverMedia = ({ project, overlay, setLoading, vidPlay }) => {
   const ref = useRef();
 
   const { mainImage, mainVid } = project.fields;
@@ -18,14 +18,21 @@ const ProjectCoverMedia = ({ project, vidPlay }) => {
         ref.current.classList.add("loaded");
       }
     }
+
+    // if (overlay && overlay.current) {
+    //   overlay.current.classList.remove("show");
+    // }
+
+    setLoading(false);
   };
 
   if (mainImage && mainImage[0] && mainImage[0].url) {
     return (
       <img
+        src={project.fields.mainImage[0].url}
+        key={project.fields.mainImage[0].url}
         onLoad={handleLoad}
         className={className}
-        src={project.fields.mainImage[0].url}
         alt={project.fields.name}
         loading="lazy"
         ref={ref}
@@ -36,10 +43,11 @@ const ProjectCoverMedia = ({ project, vidPlay }) => {
   if (mainVid && mainVid[0] && mainVid[0].url) {
     return (
       <ReactPlayer
+        url={project.fields.mainVid[0].url}
+        key={project.fields.mainVid[0].url}
         width="100%"
         height="auto"
         className={`${className} video`}
-        url={project.fields.mainVid[0].url}
         playing={vidPlay}
         onReady={handleLoad}
         ref={ref}
