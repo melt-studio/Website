@@ -3,7 +3,6 @@ import "./Home.css";
 import Projects from "../../components/Projects/Projects";
 import MobileAnimation from "../../components/MobileAnimation/MobileAnimation.jsx";
 import LogoAnimation from "../../components/LogoAnimation/index.js";
-import FooterSmaller from "../../components/Footer/FooterSmaller/FooterSmaller";
 import { useFadeEffect } from "../../components/helpers/fadeEffect.js";
 
 export default function Home(props) {
@@ -18,10 +17,10 @@ export default function Home(props) {
 
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    document.body.classList.add("home");
+    document.body.classList.add("home-page");
 
     return () => {
-      document.body.classList.remove("home");
+      document.body.classList.remove("home-page");
     };
   }, []);
 
@@ -196,10 +195,6 @@ export default function Home(props) {
         viewport={props.viewport}
         widthCutOff={props.widthCutOff}
       />
-
-      <div className="footer__spacer" />
-
-      {window.location.pathname !== "/working-components" && <FooterSmaller color={props.navTextColor} />}
     </div>
   );
 }

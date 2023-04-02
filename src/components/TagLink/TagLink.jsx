@@ -35,7 +35,7 @@ const TagLink = ({ nav, tag, underline = true }) => {
   // const cursor = document.querySelector(".cursor");
 
   return (
-    <div className={nav ? "tag-link tag-link-nav" : "tag-link"}>
+    <div className={nav ? "tag tag-link tag-link-nav" : "tag tag-link"}>
       <TagLinkAnchor nav={nav} tag={tag} underline={underlineRef}>
         <h3>{tag.text}</h3>
         {underline && (

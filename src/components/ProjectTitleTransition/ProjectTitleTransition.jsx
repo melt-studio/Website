@@ -45,15 +45,3 @@ export default function ProjectTitleTransition(props) {
     </div>
   );
 }
-// <Fade
-// delay={1300}
-// duration={2000}
-// keyframes={customAnimation}
-// // isVisible={props.visibleText}
-// className='transition-description'
-// // animationInDelay={500}
-// >
-//     <h3
-//       // style={{ fontWeight: '700' }}
-//       className='transition-description'>{props.subtitle}</h3>
-// </Fade>

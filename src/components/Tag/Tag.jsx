@@ -4,7 +4,11 @@ const Tag = ({ tag }) => {
   if (tag.href) {
     return <TagLink tag={tag} />;
   }
-  return <h3>{tag.text}</h3>;
+  return (
+    <div className="tag">
+      <h3>{tag.text}</h3>
+    </div>
+  );
 };
 
 export default Tag;

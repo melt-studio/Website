@@ -30,7 +30,7 @@ a {
 }
 
 .page h3,
-.tag-link h3 {
+.tag h3 {
   /* font-size: .6rem; */
   /* font-weight: 300; */
   /* letter-spacing: 0.5px; */
@@ -41,6 +41,10 @@ a {
   line-height: 1;
   font-weight: 400;
   margin: 0;
+}
+
+.tag h3 {
+  text-transform: uppercase;
 }
 
 .tag-container {
@@ -85,7 +89,7 @@ a {
   }
 
   .page h3,
-  .tag-link h3 {
+  .tag h3 {
     font-size: 0.9rem;
   }
 }

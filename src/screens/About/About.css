@@ -1,9 +1,9 @@
-.about .page-container {
+.about-page .page-container {
   padding: 40vw 0 100px;
 }
 
 @media (min-width: 800px) {
-  .about .page-container {
+  .about-page .page-container {
     padding-top: 200px;
   }
 }

@@ -49,10 +49,10 @@ export default function About(props) {
     // }, 1000);
 
     window.scrollTo(0, 0);
-    document.body.classList.add("about");
+    document.body.classList.add("about-page");
 
     return () => {
-      document.body.classList.remove("about");
+      document.body.classList.remove("about-page");
     };
   }, []);
 

@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import "./App.css";
 import MainContainer from "./containers/MainContainer";
 import Layout from "./layouts/MainLayout.jsx";
+import Background from "./Background";
 
 import { getAllProjects } from "./services/projects";
 import { getAllAboutInfo } from "./services/about";
 import { getAllMiscInfo } from "./services/miscPages";
 
 import Cursor from "./components/Cursor/Cursor";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const [projects, setProjects] = useState([]);
@@ -24,6 +26,8 @@ function App() {
   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
   const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [navMenuOpen, setNavMenuOpen] = useState(false);
+
+  const location = useLocation();
 
   const widthCutOff = useMemo(() => {
     return 800;
@@ -77,12 +81,51 @@ function App() {
     fetchMiscPageInfo();
   }, []);
 
+  const background = useRef();
+  const background1 = useRef();
+  const background2 = useRef();
   useEffect(() => {
-    document.body.style.backgroundColor = backgroundColor;
+    const color = backgroundColor;
+    let c = [];
+    if (color && typeof color === "string" && color.length > 0) {
+      c = color.split(",").map((hex) => hex.trim());
+    }
+
+    if (background1 && background1.current) {
+      if (c[0]) {
+        background1.current.style.backgroundColor = c[0];
+      } else {
+        background1.current.style.backgroundColor = "#000000";
+      }
+    }
+
+    if (background2 && background2.current) {
+      if (c[1]) {
+        background2.current.style.backgroundColor = c[1];
+      } else {
+        background2.current.style.backgroundColor = background1.current.style.backgroundColor;
+      }
+    }
+
+    // if (background2.current) {
+    //   background2.current.style.backgroundColor = backgroundColor;
+    // }
+    // console.log(backgroundColor);
+    // document.body.style.backgroundColor = backgroundColor;
+    // setBackground(backgroundColor, background);
   }, [backgroundColor]);
 
   return (
     <>
+      {location.pathname === "/" && (
+        <>
+          <div id="background">
+            <div ref={background1}></div>
+            <div ref={background2}></div>
+          </div>
+          <Background background={background} background1={background1} background2={background2} />
+        </>
+      )}
       <Layout
         // logoForNavHamburger={logoForNavHamburger}
         hamburgerMenuIsVis={hamburgerMenuIsVis}

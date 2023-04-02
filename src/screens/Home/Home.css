@@ -77,11 +77,6 @@
 .mobile-logo__holder {
   display: none;
 }
-
-.footer__spacer {
-  height: 30vh;
-}
-
 .spacer-mobile {
   display: none;
 }
@@ -158,8 +153,5 @@
     transition: all 1s ease-in-out;
     /* position:fixed;
     top: 0px; */
-  }
-  .footer__spacer {
-    height: 50vh;
   }
 }

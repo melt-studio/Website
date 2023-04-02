@@ -11,14 +11,14 @@
   opacity: 1;
 }
 
-.home .cursor,
-.project .cursor {
+.home-page .cursor,
+.project-page .cursor {
   opacity: 1;
   background-color: transparent;
   transform: translate(-50%, -50%) scale(0);
 }
 
-.about .cursor {
+.about-page .cursor {
   opacity: 1;
   background-color: yellow;
   transform: translate(-50%, -50%) scale(1);

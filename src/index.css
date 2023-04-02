@@ -9,7 +9,8 @@ body {
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: black;
+  /* background-color: black; */
+  background: transparent;
   transition: background-color 1s ease;
 }
 
@@ -17,8 +18,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-body.about {
+body.about-page {
   background-color: #aacc12;
   /* Run first animation once as has black fade in at start, then run secondary without black after infinitely (saves needing fade in element) */
   animation: color-transition 300s linear 1 forwards, color-transition-menu 300s linear 300s infinite forwards;
+}
+
+#background {
+  width: 0px;
+  height: 0px;
+  pointer-events: none;
+  position: fixed;
+  top: -1px;
+  left: -1px;
+  z-index: -9999;
+}
+#background div {
+  background-color: #000000;
+  transition: background-color 1s ease;
 }

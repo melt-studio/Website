@@ -1,6 +1,7 @@
 import NavMenuLogo from "../components/NavMenuLogo/NavMenuLogo.jsx";
 import NavMenu from "../components/NavMenu/NavMenu.jsx";
 import NavBar from "../components/NavBar/NavBar.jsx";
+import Footer from "../components/Footer/Footer.jsx";
 import "./MainLayout.css";
 
 export default function Layout(props) {
@@ -55,6 +56,11 @@ export default function Layout(props) {
       </nav>
 
       <main>{props.children}</main>
+
+      <footer>
+        {/* {window.location.pathname !== "/working-components" && <Footer />} */}
+        <Footer />
+      </footer>
     </div>
   );
 }

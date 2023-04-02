@@ -105,8 +105,9 @@ export default function Projects(props) {
     if (props.cursor && props.cursor.current) {
       props.cursor.current.style.backgroundColor = project.color.cursor;
     }
-    // props.setBackgroundColor(project.color.cursor);
-    document.body.style.backgroundColor = project.color.cursor;
+    // props.setBackgroundColor(`${project.color.cursor}, #0000ff`);
+    props.setBackgroundColor(project.color.cursor);
+    // document.body.style.backgroundColor = project.color.cursor;
     // document.documentElement.style.setProperty("background-color", project.color.cursor);
   };
 
@@ -115,8 +116,9 @@ export default function Projects(props) {
     if (props.cursor && props.cursor.current) {
       props.cursor.current.style.removeProperty("background-color");
     }
+    props.setBackgroundColor("#000000");
     // props.setBackgroundColor("#000000");
-    document.body.style.backgroundColor = "#000000";
+    // document.body.style.backgroundColor = "#000000";
     // document.documentElement.style.setProperty("background-color", "#000000");
   };
 

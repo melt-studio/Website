@@ -23,6 +23,9 @@ export default function MainContainer(props) {
             setNavColor={props.setNavColor}
             projects={props.projects}
             setVisible={props.setVisible}
+            cursor={props.cursor}
+            viewport={props.viewport}
+            widthCutOff={props.widthCutOff}
           />
         }
       />

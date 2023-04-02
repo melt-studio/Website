@@ -35,7 +35,7 @@ const FadeInOut = (props) => {
   }, [ref]);
 
   return (
-    <div ref={ref} className="fade-out">
+    <div ref={ref} className="fade-out" style={props.style}>
       {props.children}
     </div>
   );
