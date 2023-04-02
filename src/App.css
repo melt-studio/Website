@@ -20,6 +20,7 @@ a {
 .page {
   /* font-family: "Archivo", sans-serif; */
   /* color: red; */
+  transition: color 1s ease;
 }
 .page h1 {
   font-size: 1rem;
@@ -43,6 +44,7 @@ a {
   margin: 0;
 }
 
+.subtitle-text,
 .tag h3 {
   text-transform: uppercase;
 }

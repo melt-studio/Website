@@ -8,9 +8,14 @@
 
 .tag-block__title__underline {
   display: flex;
-  background-color: black;
+  /* background-color: #000000; */
+  background-color: #ffffff;
   width: 100%;
   margin-top: -5px;
+}
+
+.about-page .tag-block__title__underline {
+  background-color: #000000;
 }
 
 .tag-block__tags {

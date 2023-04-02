@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import TagBlock from "../../components/TagBlock/TagBlock.jsx";
 import FadeIn from "../../components/FadeIn/FadeIn.jsx";
@@ -35,12 +35,12 @@ const contactInfo = [
 const followInfo = [{ text: "Instagram", href: "https://www.instagram.com/melt.works/" }];
 
 export default function About(props) {
+  const [loading, setLoading] = useState(true);
   const [aboutTexts, setAboutTexts] = useState([]);
   const [contactTags, setContactTags] = useState([]);
   const [followTags, setFollowTags] = useState([]);
   const [whatWeDoTags, setWhatWeDoTags] = useState([]);
   const [whatWeDontDoTags, setWhatWeDontDoTags] = useState([]);
-  const containerRef = useRef();
 
   useEffect(() => {
     // setTimeout(() => {
@@ -78,14 +78,12 @@ export default function About(props) {
       setContactTags(contactInfo);
       setFollowTags(followInfo);
 
-      if (containerRef.current) {
-        containerRef.current.classList.remove("loading");
-      }
+      setLoading(false);
     }
   }, [props.aboutInfo]);
 
   return (
-    <div className="page about">
+    <div className="page">
       {/* <div className="transition-fade__about" /> */}
 
       <Helmet>
@@ -93,7 +91,7 @@ export default function About(props) {
         <title>MELLLLLLT - About</title>
       </Helmet>
 
-      <div ref={containerRef} className="page-container loading">
+      <div className={`page-container${loading ? " loading" : ""}`}>
         <div className="row">
           <div className="col primary">
             <div className="description-text jumbo-text">

@@ -1,0 +1,33 @@
+.project-images {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px 0;
+}
+
+.project-images__image-container {
+  width: 100%;
+}
+
+.project-images__image {
+  opacity: 0;
+  transform: translate(0, 30px);
+  transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+  width: 100%;
+}
+
+.project-images__image-container.show .project-images__image {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.project-images__image.video {
+  max-width: 90%;
+}
+
+@media (min-width: 800px) {
+  .project-images {
+    gap: 100px 0;
+  }
+}

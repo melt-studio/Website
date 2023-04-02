@@ -1,7 +1,6 @@
 .project-cover-full {
   width: 100%;
-  height: 100vh;
-  height: 100dvh;
+  height: fit-content;
 
   display: flex;
   justify-content: center;
@@ -35,6 +34,7 @@
   width: 100%;
   height: 100vh;
   height: 100dvh;
+  /* height: 100%; */
 
   display: flex;
   justify-content: center;
@@ -44,10 +44,22 @@
   background-color: #000000;
   transition: background-color 1s;
   /* transition: all 1s; */
+  /* padding: 5% 0; */
 }
 
-.show .project-cover-full__background {
+.project-cover-full.show .project-cover-full__background {
   /* opacity: 1; */
   background-color: transparent;
   /* transition: all 1s; */
 }
+
+/* @media (min-width: 800px) {
+  .project-cover-full {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .project-cover-full__background {
+    padding: 0;
+  }
+} */

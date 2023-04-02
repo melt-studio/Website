@@ -6,16 +6,17 @@
 
 .page-container {
   display: flex;
+  flex-direction: column;
 }
 
 .page-container.loading {
-  min-height: 100vh;
+  min-height: 101vh;
 }
 
 .row {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  /* width: 100%; */
   gap: 20px;
 }
 

@@ -1,13 +1,13 @@
 .footer {
   display: flex;
-  padding: 30px 5%;
+  padding: 50px 5% 30px;
   justify-content: space-between;
   color: #ffffff;
-  margin-top: 50px;
+  /* margin-top: 50px; */
 }
 
 .about-page .footer {
-  /* color: #000000; */
+  color: #000000;
 }
 
 .footer .tag h3 {
@@ -16,6 +16,6 @@
 
 @media (min-width: 800px) {
   .footer {
-    padding: 30px 2%;
+    padding: 50px 2% 30px;
   }
 }
