@@ -29,8 +29,10 @@
 
 .mobile-intro__text p {
   text-transform: uppercase;
-  font-weight: 900;
-  font-size: 3.5rem;
+  /* font-weight: 900;
+  font-size: 3.5rem; */
+  font-weight: 700;
+  font-size: max(min(15vw, 5rem), 3.5rem);
   letter-spacing: -0.25rem;
   word-spacing: 0.2rem;
   margin: 0;

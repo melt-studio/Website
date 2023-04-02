@@ -2,7 +2,7 @@ import { useRef } from "react";
 import ReactPlayer from "react-player";
 import "./ProjectCoverMedia.css";
 
-const ProjectCoverMedia = ({ project, overlay, setLoading, vidPlay }) => {
+const ProjectCoverMedia = ({ project, setLoading, vidPlay }) => {
   const ref = useRef();
 
   const { mainImage, mainVid } = project.fields;

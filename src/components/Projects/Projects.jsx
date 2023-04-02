@@ -69,26 +69,26 @@ export default function Projects(props) {
     }
   }, [props.projects]);
 
-  const goToProject = (id) => {
-    if (id === "Unofficials") {
-      props.setBackgroundColor("#000000");
-      navigate(`/${id}`);
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    } else {
-      // document.getElementById("mobile-logo__div-z-index").style.zIndex = "0";
-      navigate(`/${id}`);
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-      props.setShowHamburger("hamburger__holder hidden");
-      document.body.style.cursor = "default";
-      document.body.style.overflow = "hidden";
-      props.setShowHamburger("hamburger__holder hidden");
-      setTimeout(() => {
-        props.setShowHamburger("hamburger__holder hidden");
-      }, 1000);
-    }
-  };
+  // const goToProject = (id) => {
+  //   if (id === "Unofficials") {
+  //     props.setBackgroundColor("#000000");
+  //     navigate(`/${id}`);
+  //     document.body.scrollTop = 0; // For Safari
+  //     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  //   } else {
+  //     // document.getElementById("mobile-logo__div-z-index").style.zIndex = "0";
+  //     navigate(`/${id}`);
+  //     document.body.scrollTop = 0; // For Safari
+  //     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  //     props.setShowHamburger("hamburger__holder hidden");
+  //     document.body.style.cursor = "default";
+  //     document.body.style.overflow = "hidden";
+  //     props.setShowHamburger("hamburger__holder hidden");
+  //     setTimeout(() => {
+  //       props.setShowHamburger("hamburger__holder hidden");
+  //     }, 1000);
+  //   }
+  // };
 
   const handleClick = (project) => {
     console.log(project);

@@ -11,7 +11,7 @@ export default function MainContainer(props) {
     <Routes>
       <Route path="/temporary-landing-page" element={<TempLandingPage />} />
       <Route path="/working-components" element={<ProtectedPage miscPageInfo={props.miscPageInfo} />} />
-      <Route path="/about" element={<About aboutInfo={props.aboutInfo} />} />
+      <Route path="/about" element={<About aboutInfo={props.aboutInfo} cursor={props.cursor} />} />
       <Route
         path="/:id"
         element={

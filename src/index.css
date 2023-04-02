@@ -24,6 +24,7 @@ body.about-page {
   background-color: #bcfc45;
   /* Run first animation once as has black fade in at start, then run secondary without black after infinitely (saves needing fade in element) */
   animation: color-transition 300s linear 1 forwards, color-transition-menu 300s linear 300s infinite forwards;
+  cursor: none;
 }
 
 #background {
@@ -38,4 +39,87 @@ body.about-page {
 #background div {
   background-color: #000000;
   transition: background-color 1s ease;
+}
+
+@keyframes color-transition {
+  /* for background */
+  0% {
+    background-color: #000000;
+    /* background-color: #aacc12; */
+  }
+  0.5% {
+    background-color: var(--yellow);
+  }
+  6% {
+    background-color: #00a742;
+  }
+  8.33% {
+    background-color: #f95300;
+  }
+  12.5% {
+    background-color: #66ac83;
+  }
+  16.67% {
+    background-color: #5b622c;
+  }
+  20.83% {
+    background-color: #88b6a9;
+  }
+  25% {
+    background-color: #e34165;
+  }
+  29.17% {
+    background-color: #ff3312;
+  }
+  33.33% {
+    background-color: #485db3;
+  }
+  37.5% {
+    background-color: #e74e21;
+  }
+  41.67% {
+    background-color: #e5f1b8;
+  }
+  45.83% {
+    background-color: #c3a875;
+  }
+  50% {
+    background-color: #991f22;
+  }
+  54.17% {
+    background-color: #f67133;
+  }
+  58.33% {
+    background-color: #f1f3e9;
+  }
+  62.5% {
+    background-color: #f8bb00;
+  }
+  66.67% {
+    background-color: #4766b2;
+  }
+  70.83% {
+    background-color: #ed1e24;
+  }
+  75% {
+    background-color: #7d9fad;
+  }
+  79.17% {
+    background-color: #296eae;
+  }
+  83.33% {
+    background-color: #babcbe;
+  }
+  87.5% {
+    background-color: #ff6c2f;
+  }
+  91.67% {
+    background-color: #f9db16;
+  }
+  95.83% {
+    background-color: #e1e9ef;
+  }
+  100% {
+    background-color: #aacc12;
+  }
 }

@@ -49,12 +49,17 @@ export default function About(props) {
     // }, 1000);
 
     window.scrollTo(0, 0);
+    if (props.cursor && props.cursor.current) {
+      props.cursor.current.style.backgroundColor = "var(--yellow)";
+    }
+    document.body.style.cursor = "none";
     document.body.classList.add("about-page");
 
     return () => {
       document.body.classList.remove("about-page");
+      document.body.style.cursor = "default";
     };
-  }, []);
+  }, [props.cursor]);
 
   useEffect(() => {
     if (props.aboutInfo.length) {

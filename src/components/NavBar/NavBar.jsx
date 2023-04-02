@@ -60,9 +60,11 @@ const NavBar = ({ viewport, widthCutOff, scrollCutOff }) => {
       className="nav-bar"
     >
       <div className="nav-bar__items">
-        <TagLink tag={{ text: "MELT Studio", href: "/" }} nav />
+        <div className="nav-bar__item">
+          <TagLink tag={{ text: "MELT Studio", href: "/" }} nav />
+        </div>
 
-        <div className="nav-bar__logo">
+        <div className="nav-bar__logo nav-bar__item">
           <img
             onClick={() => {
               window.scrollTo({ top: 0, behavior: "smooth" });
@@ -74,7 +76,9 @@ const NavBar = ({ viewport, widthCutOff, scrollCutOff }) => {
           />
         </div>
 
-        <TagLink tag={{ text: "About Us", href: "/about" }} nav />
+        <div className="nav-bar__item">
+          <TagLink tag={{ text: "About Us", href: "/about" }} nav />
+        </div>
       </div>
     </FadeInOut>
   );

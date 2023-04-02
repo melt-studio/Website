@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import "./App.css";
 import MainContainer from "./containers/MainContainer";
 import Layout from "./layouts/MainLayout.jsx";
-import Background from "./Background";
+import Background from "./components/Background/Background";
 
 import { getAllProjects } from "./services/projects";
 import { getAllAboutInfo } from "./services/about";

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
 import { cursorEvents } from "../Cursor/Cursor.jsx";
 import "./NavMenu.css";
-import DrippyLogo from "../../assets/images/Logo/MELT_DRIPPY WHT.png";
+// import DrippyLogo from "../../assets/images/Logo/MELT_DRIPPY WHT.png";
 
 const keyframesContainer = {
   enter: { opacity: [0, 1, 1], y: 0 },
@@ -38,13 +38,14 @@ const links = [
   { text: "Follow", href: "https://www.instagram.com/melt.works/", nav: false },
 ];
 
-const NavMenuLogo = () => {
-  return (
-    <motion.div className="nav-menu__logo" variants={keyframesItem}>
-      <img src={DrippyLogo} />
-    </motion.div>
-  );
-};
+// const NavMenuLogo = () => {
+//   return (
+//     <motion.div className="nav-menu__logo" variants={keyframesItem}>
+//       <img src={DrippyLogo} />
+//     </motion.div>
+//   );
+// };
+
 const NavMenuClose = ({ closeNavMenu }) => {
   return (
     <motion.div className="nav-menu__close" variants={keyframesItem}>
@@ -91,7 +92,7 @@ const NavMenuLink = ({ link, closeNavMenu }) => {
 function NavMenuItems({ closeNavMenu }) {
   return (
     <motion.div className="nav-menu__items" variants={keyframesItems}>
-      <NavMenuLogo />
+      {/* <NavMenuLogo /> */}
       {links.map((link) => (
         <NavMenuLink key={link.href} link={link} closeNavMenu={closeNavMenu} />
       ))}
