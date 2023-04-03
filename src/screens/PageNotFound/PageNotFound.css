@@ -1,0 +1,39 @@
+.not-found-page {
+  flex-grow: 1;
+  display: flex;
+  color: #ffffff;
+  color: var(--yellow);
+}
+
+.not-found-page .page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* height: 100%; */
+  flex-grow: 1;
+  animation: fade404 1s ease-in-out 1 forwards;
+}
+
+@keyframes fade404 {
+  from {
+    opacity: 0;
+    transform: translate(0, 30px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+.not-found-page h1 {
+  font-size: 100px;
+  margin: 0;
+}
+
+.not-found-page img {
+  width: 90px;
+}
+
+.not-found-page p {
+  font-size: 20px;
+}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import TagLink from "../TagLink/TagLink";
@@ -24,20 +24,24 @@ const NavBar = ({ viewport, widthCutOff, scrollCutOff }) => {
   const location = useLocation();
   const { scrollY } = useScroll();
 
+  const exclude = useMemo(() => {
+    return ["/about", "/404"];
+  }, []);
+
   useEffect(() => {
     if (viewport.width < widthCutOff) {
       setIsVisible(false);
     } else {
-      if (location.pathname === "/about" || window.scrollY >= scrollCutOff) {
+      if (exclude.includes(location.pathname) || window.scrollY >= scrollCutOff) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
     }
-  }, [location, viewport, scrollCutOff, widthCutOff]);
+  }, [exclude, location, viewport, scrollCutOff, widthCutOff]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (viewport.width < widthCutOff || location.pathname === "/about") return;
+    if (viewport.width < widthCutOff || exclude.includes(location.pathname)) return;
 
     if (!isVisible && latest >= scrollCutOff) {
       setIsVisible(true);

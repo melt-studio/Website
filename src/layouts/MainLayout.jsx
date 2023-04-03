@@ -6,7 +6,7 @@ import "./MainLayout.css";
 
 export default function Layout({ navMenuOpen, setNavMenuOpen, viewport, widthCutOff, scrollCutOff, children }) {
   return (
-    <div style={{ height: "100%" }}>
+    <div id="layout">
       <nav>
         <NavBar viewport={viewport} widthCutOff={widthCutOff} scrollCutOff={scrollCutOff} />
 

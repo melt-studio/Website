@@ -9,6 +9,7 @@ const ProjectImage = ({ image, project, viewport }) => {
   // const [loading, setLoading] = useState(true)
 
   const img = useRef();
+  const imgHolder = useRef();
 
   const size = useMemo(() => {
     const size = {};
@@ -28,6 +29,9 @@ const ProjectImage = ({ image, project, viewport }) => {
     if (img && img.current) {
       img.current.style.height = "auto";
       img.current.style.background = "none";
+      img.current.classList.remove("loading");
+      // imgHolder.current.style.background = "transparent";
+      imgHolder.current.classList.remove("loading");
     }
   };
 
@@ -36,15 +40,17 @@ const ProjectImage = ({ image, project, viewport }) => {
       {image.type === "video/mp4" ? (
         <ReactPlayer className="project-images__image video" width="90vw" height="auto" url={image.url} controls />
       ) : (
-        <img
-          ref={img}
-          className="project-images__image"
-          alt={project.name}
-          src={image.url}
-          loading="lazy"
-          onLoad={handleLoad}
-          style={{ height: size.height ? size.height : "auto", background: `url(${Pattern})` }}
-        />
+        <div ref={imgHolder} className="project-images__image-holder loading" style={{ background: `url(${Pattern})` }}>
+          <img
+            ref={img}
+            className="project-images__image loading"
+            alt={project.name}
+            src={image.url}
+            loading="lazy"
+            onLoad={handleLoad}
+            style={{ height: size.height ? size.height : "auto" }}
+          />
+        </div>
       )}
     </FadeScroll>
   );

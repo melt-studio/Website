@@ -71,7 +71,7 @@ export default function Projects(props) {
 
   const handleClick = (project) => {
     console.log(project);
-    navigate(`/${project.projectUrl}`);
+    navigate(`/project/${project.projectUrl}`);
     cursorEvents.onMouseLeave(project.unofficials ? "unofficial" : "project");
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera

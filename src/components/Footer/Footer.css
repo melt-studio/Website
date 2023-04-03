@@ -1,12 +1,26 @@
 .footer {
+  /* margin-top: 50px; */
+}
+
+.footer.show {
+}
+
+.footer__tags {
   display: flex;
   padding: 50px 5% 30px;
   justify-content: space-between;
   color: #ffffff;
-  /* margin-top: 50px; */
+  opacity: 0;
+  transform: translate(0, -15px);
+  transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
 }
 
-.about-page .footer {
+.footer.show .footer__tags {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.about-page .footer__tags {
   color: #000000;
 }
 
@@ -15,7 +29,7 @@
 }
 
 @media (min-width: 800px) {
-  .footer {
+  .footer__tags {
     padding: 50px 2% 30px;
   }
 }

@@ -7,7 +7,7 @@ export default function ProjectNav({ prev, next }) {
     <FadeScroll viewport={{ amount: 0 }} className="project-nav">
       <div className="project-nav__links">
         <div className="project-nav__link prev">
-          {prev && <TagLink tag={{ text: "Prev", href: `/${prev.fields.projectUrl}` }} nav />}
+          {prev && <TagLink tag={{ text: "Prev", href: `/project/${prev.fields.projectUrl}` }} nav />}
         </div>
 
         <div className="project-nav__link close">
@@ -15,7 +15,7 @@ export default function ProjectNav({ prev, next }) {
         </div>
 
         <div className="project-nav__link next">
-          {next && <TagLink tag={{ text: "Next", href: `/${next.fields.projectUrl}` }} nav />}
+          {next && <TagLink tag={{ text: "Next", href: `/project/${next.fields.projectUrl}` }} nav />}
         </div>
       </div>
     </FadeScroll>

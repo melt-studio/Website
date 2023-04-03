@@ -59,7 +59,7 @@ const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
         setProject(null);
         setPrev(null);
         setNext(null);
-        return navigate("/");
+        return navigate("/404");
       }
 
       // if (overlay && overlay.current) {

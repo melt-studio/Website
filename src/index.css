@@ -3,6 +3,7 @@ html {
   /* transition: background-color 1s ease; */
 
   --yellow: #bcfc45;
+  --transition-fadescroll: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
 }
 
 body {
