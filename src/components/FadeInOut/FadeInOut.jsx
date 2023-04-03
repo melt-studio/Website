@@ -1,0 +1,29 @@
+import { motion, AnimatePresence } from "framer-motion";
+
+const FadeInOut = ({
+  isVisible,
+  transition = { duration: 1, delay: 0, ease: "easeInOut" },
+  keyframes = { enter: { opacity: 1 }, exit: { opacity: 0 } },
+  className,
+  children,
+}) => {
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          transition={transition}
+          key={className}
+          variants={keyframes}
+          initial="exit"
+          animate="enter"
+          exit="exit"
+          className={className}
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default FadeInOut;

@@ -1,0 +1,70 @@
+.cursor {
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  background-color: transparent;
+  opacity: 1;
+}
+
+.home-page .cursor,
+.project-page .cursor {
+  opacity: 1;
+  background-color: transparent;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.about-page .cursor {
+  opacity: 1;
+  background-color: var(--yellow);
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.cursor.project {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(2);
+}
+
+.cursor.link {
+  opacity: 1;
+  background-color: var(--yellow);
+  transform: translate(-50%, -50%) scale(0.4);
+}
+
+.cursor .cursor-unofficial-container {
+  overflow: hidden;
+  display: inline-block;
+  width: fit-content;
+  height: fit-content;
+  background-color: transparent;
+  transition: all 0.2s ease-in-out;
+  transform: translate(-50%, -25%);
+  padding: 25px;
+  border-radius: 50%;
+  letter-spacing: -0.1rem;
+  display: none;
+}
+
+.cursor .cursor-unofficial {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transform: translate(0, 100%);
+  transition: all 0.2s ease-in-out;
+  color: transparent;
+}
+
+.cursor.unofficial {
+  background-color: transparent;
+  transform: translate(-50%, -50%) scale(2);
+}
+
+.cursor.unofficial .cursor-unofficial {
+  transform: translate(0, 0);
+  color: #000;
+}

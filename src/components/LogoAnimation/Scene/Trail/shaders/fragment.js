@@ -1,4 +1,4 @@
-export default /* glsl */ `
+const fragment = /* glsl */ `
   uniform vec4 uInfo; // vec4(count, strokeweight, radius, decay)
 
   varying vec2 vUv;
@@ -40,4 +40,6 @@ export default /* glsl */ `
 
     gl_FragColor = color;
   }
-`
+`;
+
+export default fragment;

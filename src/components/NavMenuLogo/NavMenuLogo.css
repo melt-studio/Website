@@ -1,0 +1,43 @@
+.nav-menu-logo {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  z-index: 998;
+  /* offset with Fade translate so gradient apepars fixed to top of screen */
+  top: -20px;
+}
+
+.nav-menu-logo__gradient {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75) 5%, rgba(0, 0, 0, 0) 90%);
+  width: 100%;
+  padding: 2.5%;
+  /* account for top offset */
+  padding-top: calc(20px + 2.5%);
+}
+
+/* .about .nav-menu-logo__gradient {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 5%, rgba(0, 0, 0, 0) 100%);
+  opacity: 0.5;
+  transition: opacity 0.5s ease;
+}
+
+.about .nav-menu-logo__gradient:hover {
+  opacity: 0.75;
+} */
+
+.nav-menu-logo__fade {
+  width: 100%;
+  display: flex;
+  animation-fill-mode: both;
+}
+
+.nav-menu-logo__img {
+  width: 100%;
+  cursor: pointer;
+}
+
+@media (min-width: 800px) {
+  .nav-menu-logo {
+    display: none;
+  }
+}

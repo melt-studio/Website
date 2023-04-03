@@ -1,4 +1,4 @@
-export default /* glsl */ `
+const vertex = /* glsl */ `
   varying vec3 eyeVector;
   varying vec3 worldNormal;
   uniform vec4 uResolution;
@@ -13,4 +13,6 @@ export default /* glsl */ `
     
     gl_Position = pos;
   }
-`
+`;
+
+export default vertex;

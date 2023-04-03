@@ -1,0 +1,23 @@
+.project-cover-full__image {
+  opacity: 0;
+  transform: translateY(-50px);
+
+  width: auto;
+  height: auto;
+  max-width: 90%;
+  max-height: 100%;
+}
+
+.wide .project-cover-full__image {
+  max-width: 100%;
+}
+
+.project-cover-full .project-cover-full__image.loaded {
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+.project-cover-full.show .project-cover-full__image.loaded {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1.5s ease 0.5s, transform 1.5s ease 0.5s;
+}

@@ -1,14 +1,13 @@
-import React, {useState, useRef, useEffect} from 'react'
-import "./ProtectedPage.css"
-import WaterfallAnimation from "../../components/WaterfallAnimation/index.js"
-import LogoAnimation from "../../components/LogoAnimation/index.js"
+import React, { useState, useRef, useEffect } from "react";
+import "./ProtectedPage.css";
+import WaterfallAnimation from "../../components/WaterfallAnimation/index.js";
+import LogoAnimation from "../../components/LogoAnimation/index.js";
 import { Link } from "react-router-dom";
-import { Fade } from "react-awesome-reveal";
 
 export default function ProtectedPage(props) {
-  const [isAllowed, setIsAllowed] = useState(false)
+  const [isAllowed, setIsAllowed] = useState(false);
   const [password, confirmPassword] = useState("");
-  const [animationchoice, setAnimationChoice] = useState("waterfall")
+  const [animationchoice, setAnimationChoice] = useState("waterfall");
 
   const inputElement = useRef(null);
   useEffect(() => {
@@ -17,78 +16,65 @@ export default function ProtectedPage(props) {
         inputElement.current.focus();
       }
     }, 2000);
-    
   }, []);
 
   // console.log("password", props.miscPageInfo[0].fields.password)
-  
+
   const allowIn = (password) => {
     if (password === props.miscPageInfo[0].fields.password) {
-      
-      setIsAllowed(true)
+      setIsAllowed(true);
     } else {
-      alert("Password not correct!")
+      alert("Password not correct!");
     }
-  }
+  };
 
-   setTimeout(() => {
-    document.querySelector('.login-section').classList.add('show');
-   }, 1000);
-   setTimeout(() => {
-    document.querySelector('.password-input').classList.add('expand');
+  setTimeout(() => {
+    document.querySelector(".login-section").classList.add("show");
+  }, 1000);
+  setTimeout(() => {
+    document.querySelector(".password-input").classList.add("expand");
   }, 1200);
 
   return (
-    <div className='protected-page__container'>
-      <div className='melt-logo__protected'>
-      <Fade
-          direction="down"
-          delay={2000}
-      duration={1000}
-      triggerOnce={true}
-      fraction={.4}
-        >
-        <Link style={{color:'white'}} to="/">
-        <p>MELT</p>
+    <div className="protected-page__container">
+      <div className="melt-logo__protected">
+        <Link style={{ color: "white" }} to="/">
+          <p>MELT</p>
         </Link>
-        </Fade>
       </div>
-
 
       <br />
       {isAllowed === true ? (
-        <div className='allowed-section'>
-          <div className='wc-nav'>
-          <p onClick={()=> setAnimationChoice("logo-no")}>Logo</p>
-          <p onClick={()=> setAnimationChoice("logo")}>Logo With Controls</p>
-          <p onClick={()=> setAnimationChoice("waterfall-no")}>Waterfall</p>
+        <div className="allowed-section">
+          <div className="wc-nav">
+            <p onClick={() => setAnimationChoice("logo-no")}>Logo</p>
+            <p onClick={() => setAnimationChoice("logo")}>Logo With Controls</p>
+            <p onClick={() => setAnimationChoice("waterfall-no")}>Waterfall</p>
             <p onClick={() => setAnimationChoice("waterfall")}>Waterfall With Controls</p>
           </div>
           {animationchoice === "waterfall" && <WaterfallAnimation controls />}
           {animationchoice === "logo" && <LogoAnimation controls />}
           {animationchoice === "waterfall-no" && <WaterfallAnimation />}
           {animationchoice === "logo-no" && <LogoAnimation />}
-        
-        </div> 
+        </div>
       ) : (
-        
-        <form className='login-section'>
-            <input
+        <form className="login-section">
+          <input
             ref={inputElement}
-            
-              placeholder=''
+            placeholder=""
             type="text"
             onChange={(e) => {
               confirmPassword(e.target.value);
             }}
-            className='password-input' />
-            <br />
-            <br />
-        <button type="submit" className='login-button' onClick={() => allowIn(password)}>PLEASE LOGIN</button>
-            </form>
-      
+            className="password-input"
+          />
+          <br />
+          <br />
+          <button type="submit" className="login-button" onClick={() => allowIn(password)}>
+            PLEASE LOGIN
+          </button>
+        </form>
       )}
-      
     </div>
-  )
+  );
 }

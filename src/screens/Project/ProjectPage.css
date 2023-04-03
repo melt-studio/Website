@@ -1,0 +1,15 @@
+.project-page .page-container {
+  gap: 100px 0;
+  background-color: transparent;
+  transition: background-color 1s;
+}
+
+@media (min-width: 800px) {
+  .project-page .page-container {
+    gap: 150px 0;
+  }
+}
+
+.project-page .page {
+  position: relative;
+}
