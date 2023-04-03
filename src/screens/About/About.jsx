@@ -43,16 +43,13 @@ export default function About(props) {
   const [whatWeDontDoTags, setWhatWeDontDoTags] = useState([]);
 
   useEffect(() => {
-    // setTimeout(() => {
-    //   // This hides a black overlay on page load
-    //   document.querySelector(".transition-fade__about").classList.add("hide");
-    // }, 1000);
-
     window.scrollTo(0, 0);
+
     if (props.cursor && props.cursor.current) {
       props.cursor.current.style.backgroundColor = "var(--yellow)";
+      document.body.style.cursor = "none";
     }
-    document.body.style.cursor = "none";
+
     document.body.classList.add("about-page");
 
     return () => {

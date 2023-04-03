@@ -15,13 +15,8 @@ function App() {
   const [projects, setProjects] = useState([]);
   const [aboutInfo, setAboutInfo] = useState({});
   const [miscPageInfo, setMiscPageInfo] = useState([]);
-  const [navTextColor, setNavColor] = useState("white");
-  const [visible, setVisible] = useState(false);
-  const [hamburgerMenuIsVis, sethamburgerMenuIsVis] = useState("hamburger-menu-not-visible");
-  const [showHamburger, setShowHamburger] = useState("hamburger__holder hidden"); ///hidden
-  const [scroll, setScroll] = useState(false);
-  const [clicks, setClicks] = useState(0);
-  const [navColorTheme, setNavColorTheme] = useState("nav__with__footer__hover-effect");
+  // const [visible, setVisible] = useState(false);
+  // const [scroll, setScroll] = useState(false);
 
   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
   const [backgroundColor, setBackgroundColor] = useState("#000000");
@@ -53,10 +48,10 @@ function App() {
     };
   }, []);
 
-  const homeClick = () => {
-    window.location.reload();
-    window.scrollTo(0, 0);
-  };
+  // const homeClick = () => {
+  //   window.location.reload();
+  //   window.scrollTo(0, 0);
+  // };
 
   const cursor = useRef();
 
@@ -127,19 +122,6 @@ function App() {
         </>
       )}
       <Layout
-        // logoForNavHamburger={logoForNavHamburger}
-        hamburgerMenuIsVis={hamburgerMenuIsVis}
-        sethamburgerMenuIsVis={sethamburgerMenuIsVis}
-        setScroll={setScroll}
-        showHamburger={showHamburger}
-        setShowHamburger={setShowHamburger}
-        setVisible={setVisible}
-        visible={visible}
-        navTextColor={navTextColor}
-        setNavColor={setNavColor}
-        navColorTheme={navColorTheme}
-        setNavColorTheme={setNavColorTheme}
-        homeClick={homeClick}
         navMenuOpen={navMenuOpen}
         setNavMenuOpen={setNavMenuOpen}
         cursor={cursor}
@@ -151,16 +133,9 @@ function App() {
           backgroundColor={backgroundColor}
           setBackgroundColor={setBackgroundColor}
           scroll={scroll}
-          showHamburger={showHamburger}
-          setShowHamburger={setShowHamburger}
           aboutInfo={aboutInfo}
-          navTextColor={navTextColor}
-          setVisible={setVisible}
-          projects={projects}
-          setNavColor={setNavColor}
-          clicks={clicks}
-          setClicks={setClicks}
           miscPageInfo={miscPageInfo}
+          projects={projects}
           cursor={cursor}
           viewport={viewport}
           widthCutOff={widthCutOff}

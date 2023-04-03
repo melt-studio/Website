@@ -93,7 +93,7 @@ export const blur = (
     const imgData = r.domElement.toDataURL("image/png");
     const a = document.createElement("a");
     a.href = imgData;
-    const timestamp = new Date(Date.now()).toISOString();
+    // const timestamp = new Date(Date.now()).toISOString();
     a.setAttribute(
       "download"
       // `melt_${name}_blur_${timestamp}.png`

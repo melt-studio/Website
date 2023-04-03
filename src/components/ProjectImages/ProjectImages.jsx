@@ -3,7 +3,7 @@ import ReactPlayer from "react-player";
 import FadeScroll from "../FadeScroll/FadeScroll.jsx";
 import "./ProjectImages.css";
 
-import pattern from "../../assets/cursors/pattern.jpg";
+import Pattern from "../../assets/images/MELT__PATTERN.jpg";
 
 const ProjectImage = ({ image, project, viewport }) => {
   // const [loading, setLoading] = useState(true)
@@ -14,8 +14,11 @@ const ProjectImage = ({ image, project, viewport }) => {
     const size = {};
     if (image.type !== "video/mp4") {
       const { width, height } = image;
-      const aspect = height / width;
-      (size.width = viewport.width), (size.height = viewport.width * aspect);
+      if (width && height) {
+        const aspect = height / width;
+        size.width = viewport.width;
+        size.height = viewport.width * aspect;
+      }
     }
 
     return size;
@@ -40,7 +43,7 @@ const ProjectImage = ({ image, project, viewport }) => {
           src={image.url}
           loading="lazy"
           onLoad={handleLoad}
-          style={{ height: size.height, background: `url(${pattern})` }}
+          style={{ height: size.height ? size.height : "auto", background: `url(${Pattern})` }}
         />
       )}
     </FadeScroll>

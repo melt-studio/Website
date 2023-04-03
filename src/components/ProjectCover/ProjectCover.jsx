@@ -15,9 +15,9 @@ const ProjectCover = ({ project, overlay, viewport, widthCutOff }) => {
     setVidPlay(!vidPlay);
   };
 
-  useEffect(() => {
-    console.log("PROJECT COVER");
-  }, []);
+  // useEffect(() => {
+  //   console.log("PROJECT COVER");
+  // }, []);
 
   useEffect(() => {
     if (!loading) setVidCursor(vidPlay ? cursorPause : cursorPlay);

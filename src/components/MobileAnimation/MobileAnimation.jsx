@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import "./MobileAnimation.css";
-import DrippyLogo from "../../assets/images/Logo/MELT_DRIPPY.svg";
+import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
 
 const fadeInLogo = keyframes`
   from {

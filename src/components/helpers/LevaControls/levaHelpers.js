@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useState, useLayoutEffect } from "react";
 import { button, levaStore } from "leva";
 import { downloadConfig } from "../../helpers/LevaControls/downloadConfig";
-import configService from "../../../services/configService";
+import configService from "../../../services/config";
 
 // import { AuthContext } from '../../AdminPage/AuthContext'
 

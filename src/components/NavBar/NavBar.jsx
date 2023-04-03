@@ -5,7 +5,8 @@ import TagLink from "../TagLink/TagLink";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
 import { cursorEvents } from "../Cursor/Cursor";
 import "./NavBar.css";
-import DrippyLogo from "../../assets/images/Logo/MELT_DRIPPY WHT.png";
+// import DrippyLogo from "../../assets/images/Logo/MELT_DRIPPY WHT.png";
+import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
 
 const keyframes = {
   enter: {

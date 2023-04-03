@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import defaultConfig from "./config.json";
-import configService from "../../../services/configService";
+import configService from "../../../services/config.js";
 
 // const validateConfig = (config, defaultConfig) => {
 //   // Update default config with values of config

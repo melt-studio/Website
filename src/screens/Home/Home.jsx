@@ -8,7 +8,7 @@ import { useFadeEffect } from "../../components/helpers/fadeEffect.js";
 export default function Home(props) {
   const fadeInRef = useRef(null);
   const fadeInTriggerRef = useRef(null);
-  const [backgroundImage, setBackgroundImage] = useState("none");
+  // const [backgroundImage, setBackgroundImage] = useState("none");
   const [spacingOnReentry, setSpacingOnReentry] = useState("0px");
 
   useEffect(() => {
@@ -30,7 +30,9 @@ export default function Home(props) {
     if (window.innerWidth > 800) {
       // if(document.getElementById("fade-in-up-element-holder").classList.contains('.fade-in-up-element')){
       setTimeout(() => {
-        document.querySelector(".fade-in-up-element").classList.add("visible");
+        if (document.querySelector(".fade-in-up-element")) {
+          document.querySelector(".fade-in-up-element").classList.add("visible");
+        }
       }, 1000);
       // }
     }
@@ -68,18 +70,18 @@ export default function Home(props) {
     // return () => observer.unobserve(fadeInRef.current);
   }, [updateFadeEffect]);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        // document.querySelector('.fade-in-up-element').classList.remove('no-more');
-        // updateFadeEffect(0)
-      }
-    });
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver((entries) => {
+  //     if (entries[0].isIntersecting) {
+  //       // document.querySelector('.fade-in-up-element').classList.remove('no-more');
+  //       // updateFadeEffect(0)
+  //     }
+  //   });
 
-    observer.observe(fadeInTriggerRef.current);
+  //   observer.observe(fadeInTriggerRef.current);
 
-    // return () => observer.unobserve(fadeInTriggerRef.current);
-  }, [updateFadeEffect]);
+  //   // return () => observer.unobserve(fadeInTriggerRef.current);
+  // }, [updateFadeEffect]);
 
   const scrollRef = useRef();
   useEffect(() => {
@@ -94,47 +96,6 @@ export default function Home(props) {
       }
     }
   }, [props.scroll]);
-
-  useEffect(() => {
-    function handleScroll() {
-      if (window.scrollY >= window.innerHeight * 0.8) {
-        // console.log("100");
-        props.setShowHamburger("hamburger__holder");
-        // setMobileLogoVisibility("mobile-logo visible")
-      } else {
-        props.setShowHamburger("hamburger__holder hidden");
-        // setMobileLogoVisibility("mobile-logo")
-      }
-    }
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [props]);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (window.scrollY >= window.innerHeight) {
-  //       // console.log("100vh!");
-  //       props.setStickyIsVis("sticky-info");
-  //       props.setVisible(true);
-  //     } else {
-  //       props.setVisible(false);
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   // window.location.reload();
-  //   console.log("scrolling");
-  //   // window.scrollTo(0, 0);
-  // }, []);
 
   return (
     <div
@@ -163,12 +124,7 @@ export default function Home(props) {
       />
       <div id="fade-in-up-element-holder" className="logo_knockout__holder fade-in-up-element">
         <div className="shrinker">
-          <LogoAnimation
-            showHamburger={props.showHamburger}
-            setShowHamburger={props.setShowHamburger}
-            spacingOnReentry={spacingOnReentry}
-            effectRef={effectRef}
-          />
+          <LogoAnimation spacingOnReentry={spacingOnReentry} effectRef={effectRef} />
         </div>
       </div>
 
@@ -186,10 +142,8 @@ export default function Home(props) {
       <div className="project-anchor" />
 
       <Projects
-        showHamburger={props.showHamburger}
-        setShowHamburger={props.setShowHamburger}
         projects={props.projects}
-        setBackgroundImage={setBackgroundImage}
+        // setBackgroundImage={setBackgroundImage}
         setBackgroundColor={props.setBackgroundColor}
         cursor={props.cursor}
         viewport={props.viewport}

@@ -4,7 +4,7 @@ import { useScroll, useMotionValueEvent } from "framer-motion";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
 import { cursorEvents } from "../Cursor/Cursor.jsx";
 import "./NavMenuLogo.css";
-import MeltLogo from "../../assets/images/Logo/MELT_LOGO WHT_SM.png";
+import MeltLogo from "../../assets/images/MELT__LOGO.png";
 
 const keyframes = {
   enter: { opacity: 1, y: 0 },
