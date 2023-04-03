@@ -1,4 +1,4 @@
-export default /* glsl */ `
+const vertex = /* glsl */ `
   varying vec2 vUv;
   
   void main() {
@@ -10,4 +10,6 @@ export default /* glsl */ `
 
     vUv = uv;
   }
-`
+`;
+
+export default vertex;

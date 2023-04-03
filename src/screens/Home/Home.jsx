@@ -84,18 +84,18 @@ export default function Home(props) {
   // }, [updateFadeEffect]);
 
   const scrollRef = useRef();
-  useEffect(() => {
-    if (window.innerWidth > 800) {
-      if (props.scroll) {
-        if (scrollRef.current) {
-          window.scrollTo({
-            top: scrollRef.current.offsetTop + 0,
-            behavior: "smooth",
-          });
-        }
-      }
-    }
-  }, [props.scroll]);
+  // useEffect(() => {
+  //   if (window.innerWidth > 800) {
+  //     if (props.scroll) {
+  //       if (scrollRef.current) {
+  //         window.scrollTo({
+  //           top: scrollRef.current.offsetTop + 0,
+  //           behavior: "smooth",
+  //         });
+  //       }
+  //     }
+  //   }
+  // }, [props.scroll]);
 
   return (
     <div

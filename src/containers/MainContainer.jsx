@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import About from "../screens/About/About";
 import Home from "../screens/Home/Home";
@@ -15,7 +14,7 @@ export default function MainContainer({
   widthCutOff,
   backgroundColor,
   setBackgroundColor,
-  scroll,
+  // scroll,
 }) {
   return (
     <Routes>
@@ -32,7 +31,7 @@ export default function MainContainer({
           <Home
             backgroundColor={backgroundColor}
             setBackgroundColor={setBackgroundColor}
-            scroll={scroll}
+            // scroll={scroll}
             projects={projects}
             cursor={cursor}
             viewport={viewport}

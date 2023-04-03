@@ -3,7 +3,6 @@ import "./ProtectedPage.css";
 import WaterfallAnimation from "../../components/WaterfallAnimation/index.js";
 import LogoAnimation from "../../components/LogoAnimation/index.js";
 import { Link } from "react-router-dom";
-import { Fade } from "react-awesome-reveal";
 
 export default function ProtectedPage(props) {
   const [isAllowed, setIsAllowed] = useState(false);
@@ -39,11 +38,9 @@ export default function ProtectedPage(props) {
   return (
     <div className="protected-page__container">
       <div className="melt-logo__protected">
-        <Fade direction="down" delay={2000} duration={1000} triggerOnce={true} fraction={0.4}>
-          <Link style={{ color: "white" }} to="/">
-            <p>MELT</p>
-          </Link>
-        </Fade>
+        <Link style={{ color: "white" }} to="/">
+          <p>MELT</p>
+        </Link>
       </div>
 
       <br />

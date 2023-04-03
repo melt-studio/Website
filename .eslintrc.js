@@ -4,7 +4,13 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: ["eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended", "prettier"],
+  extends: [
+    "eslint:recommended",
+    "react-app",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier",
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -16,9 +22,10 @@ module.exports = {
   rules: {
     indent: ["error", 2, { SwitchCase: 1 }],
     "linebreak-style": ["error", "unix"],
-    // quotes: ['error', 'single'],
+    // quotes: ["error", "single"],
     quotes: ["error", "double"],
-    // semi: ['error', 'never'],
+    // semi: ["error", "never"],
+    semi: ["error", "always"],
     eqeqeq: "error",
     "no-trailing-spaces": "error",
     "object-curly-spacing": ["error", "always"],

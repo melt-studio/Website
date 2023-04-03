@@ -132,7 +132,7 @@ function App() {
         <MainContainer
           backgroundColor={backgroundColor}
           setBackgroundColor={setBackgroundColor}
-          scroll={scroll}
+          // scroll={scroll}
           aboutInfo={aboutInfo}
           miscPageInfo={miscPageInfo}
           projects={projects}

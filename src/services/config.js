@@ -31,4 +31,6 @@ const updateConfig = async (config, password) => {
   return response.data;
 };
 
-export default { getConfig, updateConfig };
+const configService = { getConfig, updateConfig };
+
+export default configService;

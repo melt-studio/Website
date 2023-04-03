@@ -1,4 +1,4 @@
-export default /* glsl */ `
+const fragment = /* glsl */ `
   uniform sampler2D uScene;
   uniform sampler2D uLogo;
   uniform sampler2D uLogoC;
@@ -216,4 +216,6 @@ export default /* glsl */ `
 
     gl_FragColor = color;
   }
-`
+`;
+
+export default fragment;

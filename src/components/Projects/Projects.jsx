@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-// import { Fade } from "react-awesome-reveal";
-// import { keyframes } from "@emotion/react";
 import { cursorEvents } from "../Cursor/Cursor";
 import "./Projects.css";
 

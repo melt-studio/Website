@@ -1,4 +1,3 @@
-import React from "react";
 // import LogoAnimation from '../../components/LogoAnimation'
 import WaterfallAnimation from "../../components/WaterfallAnimation";
 import "./TempLandingPage.css";

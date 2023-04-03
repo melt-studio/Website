@@ -1,4 +1,4 @@
-export default /* glsl */ `
+const vertex = /* glsl */ `
   uniform sampler2D positions;
   uniform float uTime;
   uniform float uSize;
@@ -88,4 +88,6 @@ export default /* glsl */ `
     vUv = uv;
     vDir = vec3(tangent, dist);
   }
-`
+`;
+
+export default vertex;
