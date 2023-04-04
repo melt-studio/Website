@@ -1,3 +1,9 @@
+.project-text {
+  display: flex;
+  flex-direction: column;
+  gap: 25px 0;
+}
+
 .project-text .row {
   opacity: 0;
   transform: translateY(50px);
@@ -8,4 +14,10 @@
   opacity: 1;
   transform: translateY(0);
   /* transition: opacity 1.5s ease 0.5s, transform 1.5s ease 0.5s; */
+}
+
+@media (min-width: 800px) {
+  .project-text {
+    gap: 40px 0;
+  }
 }

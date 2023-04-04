@@ -1,4 +1,7 @@
 import { useEffect, forwardRef } from "react";
+import CursorUnofficial from "./CusorUnofficial.jsx";
+import CursorPlay from "./CursorPlay.jsx";
+import CursorPause from "./CursorPause.jsx";
 import "./Cursor.css";
 
 export const cursorEvents = {
@@ -29,8 +32,6 @@ const Cursor = forwardRef((props, ref) => {
       }
     };
 
-    // console.log("CURSOR");
-
     document.addEventListener("mousemove", updateCursorPos);
 
     return () => {
@@ -40,9 +41,9 @@ const Cursor = forwardRef((props, ref) => {
 
   return (
     <span ref={ref} className="cursor" id="cursor">
-      <span className="cursor-unofficial-container">
-        <span className="cursor-unofficial">Unofficial</span>
-      </span>
+      <CursorUnofficial />
+      <CursorPlay />
+      <CursorPause />
     </span>
   );
 });

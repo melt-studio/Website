@@ -40,7 +40,7 @@ main {
 }
 
 .sticky {
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
 
 @media (min-width: 800px) {
@@ -52,6 +52,10 @@ main {
 
   .col {
     padding: 0 0 0 8%;
+  }
+
+  .col.full {
+    padding: 0;
   }
 
   .col.primary {

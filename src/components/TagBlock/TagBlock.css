@@ -18,6 +18,10 @@
   background-color: #000000;
 }
 
+.tag-block__title__underline {
+  height: 3px;
+}
+
 .tag-block__tags {
   display: flex;
   flex-direction: column;

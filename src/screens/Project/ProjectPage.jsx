@@ -33,6 +33,7 @@ const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
       // Update cursor color to current project color
       if (cursor && cursor.current) {
         cursor.current.style.backgroundColor = project.fields.cursorColor;
+        Array.from(cursor.current.children).forEach((c) => (c.style.fill = project.fields.cursorColor));
       }
 
       // Instead of using order field just take array from airtable (assuming always returns in row order, then can just rearrange in airtable)
@@ -91,7 +92,7 @@ const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
       //   }
       // }, 1000);
     }
-  }, [projects, cursor, id, navigate]);
+  }, [projects, cursor, id, navigate, viewport]);
 
   return (
     <div className="page" style={!loading && project ? { color: project.fields.colorText } : null}>
@@ -108,6 +109,7 @@ const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
               project={project}
               viewport={viewport}
               widthCutOff={widthCutOff}
+              cursor={cursor}
             />
             <ProjectText project={project} />
             <ProjectImages project={project} viewport={viewport} widthCutOff={widthCutOff} />

@@ -25,7 +25,7 @@
 .nav-bar__logo {
   /* width: auto; */
   flex-grow: 1;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .nav-bar__item:last-of-type {

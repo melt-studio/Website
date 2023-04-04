@@ -10,9 +10,13 @@ const ProjectText = ({ project }) => {
   return (
     <FadeScroll viewport={{ amount: 0.25 }} className="project-text">
       <div className="row">
-        <div className="col primary">
+        <div className="col full">
           {name && <h1 className="title-text">{name}</h1>}
           {description && <h3 className="subtitle-text">{description}</h3>}
+        </div>
+      </div>
+      <div className="row">
+        <div className="col primary">
           {projectCopy && (
             <div className="description-text jumbo-text">
               <p>{projectCopy}</p>

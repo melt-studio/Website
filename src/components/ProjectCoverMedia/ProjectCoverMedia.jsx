@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import ReactPlayer from "react-player";
+import { cursorEvents } from "../Cursor/Cursor";
 import "./ProjectCoverMedia.css";
 
 const ProjectCoverMedia = ({ project, setLoading, vidPlay }) => {
@@ -48,9 +49,16 @@ const ProjectCoverMedia = ({ project, setLoading, vidPlay }) => {
         width="100%"
         height="auto"
         className={`${className} video`}
+        onMouseEnter={() => cursorEvents.onMouseEnter("video")}
+        onMouseLeave={() => cursorEvents.onMouseLeave("video")}
         playing={vidPlay}
         onReady={handleLoad}
         ref={ref}
+        style={
+          {
+            // cursor: vidCursor ? `url(${vidCursor}) 40 40, auto` : "default",
+          }
+        }
       />
     );
   }

@@ -34,7 +34,7 @@ function App() {
 
   useEffect(() => {
     const handleResize = () => {
-      console.log("viewport");
+      // console.log("viewport");
       setViewport({
         width: window.innerWidth,
         height: window.innerHeight,

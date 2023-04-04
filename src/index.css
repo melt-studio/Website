@@ -25,7 +25,19 @@ body.about-page {
   background-color: #bcfc45;
   /* Run first animation once as has black fade in at start, then run secondary without black after infinitely (saves needing fade in element) */
   animation: color-transition 300s linear 1 forwards, color-transition-menu 300s linear 300s infinite forwards;
-  cursor: none;
+}
+body.home-page {
+  cursor: default;
+}
+
+@media (min-width: 800px) {
+  body.about-page {
+    cursor: none;
+  }
+
+  body.home-page .project img:hover {
+    cursor: none;
+  }
 }
 
 #background {

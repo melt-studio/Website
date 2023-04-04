@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import TagLink from "../TagLink/TagLink";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
@@ -24,6 +24,8 @@ const NavBar = ({ viewport, widthCutOff, scrollCutOff }) => {
   const location = useLocation();
   const { scrollY } = useScroll();
 
+  const navigate = useNavigate();
+
   const exclude = useMemo(() => {
     return ["/about", "/404"];
   }, []);
@@ -43,9 +45,13 @@ const NavBar = ({ viewport, widthCutOff, scrollCutOff }) => {
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (viewport.width < widthCutOff || exclude.includes(location.pathname)) return;
 
-    if (!isVisible && latest >= scrollCutOff) {
+    const sMax = document.body.offsetHeight - viewport.height;
+    const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
+    // console.log(latest, scrollCutOff, document.body.offsetHeight, sMax, s);
+
+    if (!isVisible && latest >= s) {
       setIsVisible(true);
-    } else if (isVisible && latest < scrollCutOff) {
+    } else if (isVisible && latest < s) {
       setIsVisible(false);
     }
   });
@@ -65,14 +71,15 @@ const NavBar = ({ viewport, widthCutOff, scrollCutOff }) => {
       className="nav-bar"
     >
       <div className="nav-bar__items">
-        <div className="nav-bar__item">
+        {/* <div className="nav-bar__item">
           <TagLink tag={{ text: "MELT Studio", href: "/" }} nav />
-        </div>
+        </div> */}
 
         <div className="nav-bar__logo nav-bar__item">
           <img
             onClick={() => {
-              window.scrollTo({ top: 0, behavior: "smooth" });
+              // window.scrollTo({ top: 0, behavior: "smooth" });
+              navigate("/");
             }}
             onMouseEnter={() => cursorEvents.onMouseEnter()}
             onMouseLeave={() => cursorEvents.onMouseLeave()}

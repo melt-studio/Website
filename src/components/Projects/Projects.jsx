@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cursorEvents } from "../Cursor/Cursor";
 import "./Projects.css";
+import FadeScroll from "../FadeScroll/FadeScroll";
 
 export default function Projects(props) {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function Projects(props) {
           cursorColor,
           colorText,
           colorTheme,
+          backgroundColor,
           name,
           projectUrl,
           order,
@@ -49,6 +51,7 @@ export default function Projects(props) {
           color: {
             cursor: cursorColor,
             text: colorText,
+            background: backgroundColor,
             theme: colorTheme,
           },
           name,
@@ -62,15 +65,15 @@ export default function Projects(props) {
         };
       });
 
-      console.log(props.projects);
-      console.log(projectsMapped);
+      // console.log(props.projects);
+      // console.log(projectsMapped);
 
       setProjects(projectsMapped);
     }
   }, [props.projects]);
 
   const handleClick = (project) => {
-    console.log(project);
+    // console.log(project);
     navigate(`/project/${project.projectUrl}`);
     cursorEvents.onMouseLeave(project.unofficials ? "unofficial" : "project");
     document.body.scrollTop = 0; // For Safari
@@ -80,12 +83,15 @@ export default function Projects(props) {
   // console.log("hello");
 
   const handleMouseEnter = (project) => {
+    // console.log(project);
     cursorEvents.onMouseEnter(project.unofficials ? "unofficial" : "project");
     if (props.cursor && props.cursor.current) {
       props.cursor.current.style.backgroundColor = project.color.cursor;
+      // props.cursor.current.firstElementChild.style.fill = project.color.cursor;
+      Array.from(props.cursor.current.children).forEach((c) => (c.style.fill = project.color.cursor));
     }
     // props.setBackgroundColor(`${project.color.cursor}, #0000ff`);
-    props.setBackgroundColor(project.color.cursor);
+    props.setBackgroundColor(project.color.background);
     // document.body.style.backgroundColor = project.color.cursor;
     // document.documentElement.style.setProperty("background-color", project.color.cursor);
   };
@@ -94,6 +100,8 @@ export default function Projects(props) {
     cursorEvents.onMouseLeave(project.unofficials ? "unofficial" : "project");
     if (props.cursor && props.cursor.current) {
       props.cursor.current.style.removeProperty("background-color");
+      // props.cursor.current.firstElementChild.style.fill = "transparent";
+      Array.from(props.cursor.current.children).forEach((c) => (c.style.fill = "transparent"));
     }
     props.setBackgroundColor("#000000");
     // props.setBackgroundColor("#000000");
@@ -142,16 +150,15 @@ export default function Projects(props) {
         // console.log(project.url);
 
         return (
-          <motion.div
-            key={project.id}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: [0, 0, 1, 1], scale: [0.9, 1, 1] }}
-            transition={{ times: [0, 0.1, 0.75, 1], duration: 2, ease: "easeInOut" }}
-            // transition={{ type: "spring", stiffness: 50 }}
-            // viewport={{ amount: 0.5 }}
-          >
-            {/* <div className="project" key={project.id}> */}
-            {/* <div className="project" style={style}> */}
+          // <motion.div
+          //   key={project.id}
+          //   initial={{ opacity: 0, scale: 0.9 }}
+          //   whileInView={{ opacity: [0, 1, 1, 1], scale: [0.9, 0.9, 1, 1] }}
+          //   transition={{ times: [0, 0.1, 0.75, 1], duration: 2, ease: "easeInOut" }}
+          //   // transition={{ type: "spring", stiffness: 50 }}
+          //   // viewport={{ amount: 0.5 }}
+          // >
+          <FadeScroll key={project.id} viewport={{ amount: 0.25 }}>
             <div className="project">
               <img
                 src={project.cover.url}
@@ -179,7 +186,7 @@ export default function Projects(props) {
                 // style={{ width: "100%", height: "auto" }}
               />
             </div>
-          </motion.div>
+          </FadeScroll>
         );
       })}
       {/* </Fade> */}

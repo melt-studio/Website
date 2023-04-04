@@ -6,13 +6,13 @@ import "./NavMenu.css";
 // import DrippyLogo from "../../assets/images/Logo/MELT_DRIPPY WHT.png";
 
 const keyframesContainer = {
-  enter: { opacity: [0, 1, 1], y: 0 },
+  enter: { opacity: [0, 1, 1], y: 0, transition: { duration: 1.5 } },
   exit: { opacity: [1, 1, 0], y: "-100%" },
 };
 
 const keyframesItems = {
   enter: {
-    transition: { staggerChildren: 0.1, delayChildren: 0.9 },
+    transition: { staggerChildren: 0.3, delayChildren: 1.8 },
   },
   exit: {
     transition: { staggerChildren: 0.05, staggerDirection: -1 },
@@ -23,7 +23,7 @@ const keyframesItem = {
   enter: {
     y: 0,
     opacity: 1,
-    transition: { duration: 0.5, ease: "easeInOut" },
+    transition: { duration: 2, ease: "easeInOut" },
   },
   exit: {
     y: 20,

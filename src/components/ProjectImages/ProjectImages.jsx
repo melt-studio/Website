@@ -3,7 +3,7 @@ import ReactPlayer from "react-player";
 import FadeScroll from "../FadeScroll/FadeScroll.jsx";
 import "./ProjectImages.css";
 
-import Pattern from "../../assets/images/MELT__PATTERN.jpg";
+import Pattern from "../../assets/images/MELT__PATTERN.png";
 
 const ProjectImage = ({ image, project, viewport }) => {
   // const [loading, setLoading] = useState(true)
@@ -40,7 +40,11 @@ const ProjectImage = ({ image, project, viewport }) => {
       {image.type === "video/mp4" ? (
         <ReactPlayer className="project-images__image video" width="90vw" height="auto" url={image.url} controls />
       ) : (
-        <div ref={imgHolder} className="project-images__image-holder loading" style={{ background: `url(${Pattern})` }}>
+        <div
+          ref={imgHolder}
+          className="project-images__image-holder loading"
+          style={{ background: `url(${Pattern}) no-repeat center` }}
+        >
           <img
             ref={img}
             className="project-images__image loading"

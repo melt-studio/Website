@@ -25,6 +25,7 @@ a {
 .page h1 {
   font-size: 1rem;
   font-weight: 600;
+  margin-top: 0;
 }
 .page h2 {
   font-size: 1.2rem;
@@ -38,7 +39,8 @@ a {
   /* line-height: 0.5; */
 
   /* font-size: 0.8rem; */
-  font-size: 0.7rem;
+  /* font-size: 0.7rem; */
+  font-size: 12px;
   letter-spacing: 0.025rem;
   line-height: 1;
   font-weight: 400;
@@ -67,12 +69,12 @@ a {
   /* letter-spacing: -0.06rem; */
   /* line-height: normal; */
   line-height: 1;
-  font-weight: 700;
+  /* font-weight: 700; */
   /* visibility: hidden; */
 }
 
 .page .jumbo-text p {
-  margin: 0.75em 0;
+  margin: 0 0 1.5em;
 }
 
 @media (min-width: 800px) {
@@ -82,7 +84,7 @@ a {
     font-size: min(max(2rem, 4vw), 54px);
 
     letter-spacing: -0.1rem;
-    line-height: 0.9;
+    line-height: 0.85;
     /* font-weight: 600; */
 
     /* letter-spacing: 0; */
@@ -90,13 +92,15 @@ a {
     /* line-height: normal; */
     /* line-height: 1; */
     /* font-weight: 600; */
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .page h3,
   .tag h3 {
     /* font-size: 0.9rem; */
-    font-size: 0.8rem;
+    /* font-size: 0.8rem;
+    font-size: 0.7rem; */
+    /* font-size: 0.7rem; */
   }
 }
 
@@ -167,4 +171,8 @@ a {
     /* font-size: 1.1rem;
     font-weight: 800; */
   }
+}
+
+.title-text {
+  margin-bottom: 7px;
 }

@@ -1,11 +1,10 @@
 .project-cover-full {
   width: 100%;
-  height: 100vh;
-  height: 100dvh;
   transition: height 1s;
 
   display: flex;
   justify-content: center;
+  padding-top: 10%;
 }
 
 .project-cover-full.wide {
@@ -51,4 +50,12 @@
   opacity: 1;
   /* display: block; */
   /* background-color: #000000; */
+}
+
+@media (min-width: 800px) {
+  .project-cover-full {
+    height: 100vh;
+    height: 100dvh;
+    padding-top: 0;
+  }
 }

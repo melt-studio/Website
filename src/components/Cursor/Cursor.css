@@ -1,8 +1,8 @@
 .cursor {
   transform: translate(-50%, -50%) scale(1);
   transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   position: fixed;
   z-index: 9999;
@@ -21,7 +21,7 @@
 .about-page .cursor {
   opacity: 1;
   background-color: var(--yellow);
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1.5);
 }
 
 .cursor.project {
@@ -30,41 +30,67 @@
 }
 
 .cursor.link {
-  opacity: 1;
-  background-color: var(--yellow);
-  transform: translate(-50%, -50%) scale(0.4);
-}
-
-.cursor .cursor-unofficial-container {
-  overflow: hidden;
-  display: inline-block;
-  width: fit-content;
-  height: fit-content;
+  opacity: 0;
+  /* background-color: var(--yellow); */
   background-color: transparent;
-  transition: all 0.2s ease-in-out;
-  transform: translate(-50%, -25%);
-  padding: 25px;
-  border-radius: 50%;
-  letter-spacing: -0.1rem;
-  display: none;
-}
-
-.cursor .cursor-unofficial {
-  display: inline-block;
-  font-size: 20px;
-  font-weight: bold;
-  text-transform: uppercase;
-  transform: translate(0, 100%);
-  transition: all 0.2s ease-in-out;
-  color: transparent;
+  transform: translate(-50%, -50%) scale(0);
 }
 
 .cursor.unofficial {
-  background-color: transparent;
-  transform: translate(-50%, -50%) scale(2);
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.5);
+  background-color: transparent !important;
 }
 
-.cursor.unofficial .cursor-unofficial {
-  transform: translate(0, 0);
-  color: #000;
+#cursor-unofficial {
+  width: 80px;
+  height: 80px;
+  pointer-events: none;
+  position: relative;
+  transition: opacity 0.2s ease-in-out, fill 0.2s ease-in-out;
+  animation: rotate 16s linear infinite forwards;
+  opacity: 0;
+}
+
+.cursor.unofficial #cursor-unofficial {
+  opacity: 1;
+}
+
+.project-page .cursor.video {
+  opacity: 1;
+  background-color: transparent !important;
+  transform: translate(-50%, -50%) scale(1);
+  transition: none;
+}
+
+#cursor-video-play,
+#cursor-video-pause {
+  width: 80px;
+  height: 80px;
+  pointer-events: none;
+  position: absolute;
+  transform: translate(-20px, -20px);
+  top: 0;
+  left: 0;
+  /* fill: transparent; */
+  display: none;
+}
+
+.project-page .cursor.video #cursor-video-play {
+  display: block;
+}
+.project-page .cursor.video.playing #cursor-video-play {
+  display: none;
+}
+.project-page .cursor.video.playing #cursor-video-pause {
+  display: block;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-20px, -20px) rotateZ(0);
+  }
+  100% {
+    transform: translate(-20px, -20px) rotateZ(360deg);
+  }
 }
