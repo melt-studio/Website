@@ -10,68 +10,55 @@
     "refractionRatio": 17,
     "mouseSpeed": 20,
     "mouseArea": 0.9,
-    "rotAngle": {
-      "x": 90,
-      "y": 50,
-      "z": 145
-    },
-    "rotSpeed": {
-      "x": -9,
-      "y": -3,
-      "z": 3
-    },
-    "imageScale": 1
+    "rotAngle": { "x": 90, "y": 50, "z": 145 },
+    "rotSpeed": { "x": -9, "y": -3, "z": 3 },
+    "imageScale": 1.2,
+    "lastUpdated": "2023-03-30T16:30:46.423Z"
+  },
+  "waterfall": {
+    "title": "animation_config_waterfall_mobile",
+    "lineCount": 50,
+    "lineSpeed": 0.19999999999999996,
+    "lineWidth": 0.53,
+    "lineDistortion": 0.6200000000000001,
+    "lineColor": "#f2f2f2",
+    "colorShift": 0.19999999999999996,
+    "imageStrength": 0.16,
+    "mouseEnabled": true,
+    "mouseStrength": 0.6900000000000001,
+    "id": "recDo4ymkcLDeO1bk",
+    "imageScale": 0.91
   },
   "logo-mobile": {
     "title": "animation_config_logo_mobile",
     "id": "recouUFsSjE2mi1zd",
-    "displacementStrength": 1,
+    "displacementStrength": 0.7,
     "displacementRadius": 1,
     "displacementDecay": 0.5,
     "colorNoise": 1,
     "colorShift": 1,
     "refractionRatio": 17,
     "mouseSpeed": 20,
-    "mouseArea": 0.9,
-    "rotAngle": {
-      "x": 90,
-      "y": 50,
-      "z": 145
-    },
-    "rotSpeed": {
-      "x": -9,
-      "y": -3,
-      "z": 3
-    },
-    "imageScale": 1
-  },
-  "waterfall": {
-    "title": "animation_config_waterfall",
-    "id": "recDo4ymkcLDeO1bk",
-    "lineCount": 20,
-    "lineSpeed": 1,
-    "lineWidth": 0.5,
-    "lineDistortion": 0.5,
-    "lineColor": "#ffffff",
-    "colorShift": 0.5,
-    "imageStrength": 0.5,
-    "mouseEnabled": true,
-    "mouseStrength": 1,
-    "imageScale": 1
+    "mouseArea": 1,
+    "rotAngle": { "x": 90, "y": 50, "z": 145 },
+    "rotSpeed": { "x": -9, "y": -3, "z": 3 },
+    "imageScale": 1.79,
+    "lastUpdated": "2023-04-04T15:41:48.394Z"
   },
   "waterfall-mobile": {
     "title": "animation_config_waterfall_mobile",
-    "id": "rectu3rbrpw4uKrvT",
-    "lineCount": 20,
-    "lineSpeed": 1,
-    "lineWidth": 0.5,
+    "lineCount": 50,
+    "lineSpeed": 0.19999999999999998,
+    "lineWidth": 0.45999999999999996,
     "lineDistortion": 0.5,
-    "lineColor": "#ffffff",
-    "colorShift": 0.5,
-    "imageStrength": 0.5,
+    "lineColor": "#f2f2f2",
+    "colorShift": 0.18999999999999995,
+    "imageStrength": 0.14999999999999997,
     "mouseEnabled": true,
-    "mouseStrength": 1,
-    "imageScale": 1
+    "mouseStrength": 0.99,
+    "id": "rectu3rbrpw4uKrvT",
+    "imageScale": 1.2,
+    "lastUpdated": "2023-03-31T19:20:58.614Z"
   },
   "devices": {
     "mobile": {

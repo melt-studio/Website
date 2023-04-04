@@ -1,24 +1,23 @@
-
 a {
   /* cursor: pointer; */
 }
 
-.drippy_nav{
+.drippy_nav {
   height: 25px;
+  display: none;
 }
-.melt_nav{
-  
+.melt_nav {
   color: white;
 }
-.drippy__nav{
+.drippy__nav {
   height: 25px;
-  transition: all .5s
+  transition: all 0.5s;
 }
-.drippy__nav:hover{
+.drippy__nav:hover {
   height: 30px;
-  transition: all .5s
+  transition: all 0.5s;
 }
-.nav-item__holder{
+.nav-item__holder {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -29,41 +28,41 @@ a {
   background-color: transparent;
   margin-top: 25px;
   font-weight: 300;
-  font-size: .8rem;
+  font-size: 0.8rem;
   width: 96%;
 }
-.nav_logo__holder{
+.nav_logo__holder {
   /* background-color: red; */
   float: left;
-  font-size: .8rem;
-  }
-.right-side__nav-with-footer{
+  font-size: 0.8rem;
+}
+.right-side__nav-with-footer {
   display: flex;
   /* width: 9%; */
   justify-content: space-between;
   align-items: center;
 }
-.nav-with-footer__Footer{
+.nav-with-footer__Footer {
   position: fixed;
   top: 117vh;
-  width:100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   /* cursor: pointer; */
 }
-.nav-with-footer__Footer-container{
+.nav-with-footer__Footer-container {
   display: flex;
   justify-content: space-between;
   width: 96%;
   font-weight: 400;
-  font-size: .5rem;
+  font-size: 0.5rem;
 }
 /* .nav__with__footer__hover-effect-black{
   font-weight: 400;
   font-size: .7rem;
   color: black;
 } */
-.melt-underline{
+.melt-underline {
   position: relative;
   top: -7px;
   width: 0%;
@@ -71,7 +70,7 @@ a {
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
-.melt-underline.hovered{
+.melt-underline.hovered {
   position: relative;
   top: -10px;
   width: 100%;
@@ -80,7 +79,7 @@ a {
   transform: scaleX(1);
   transition: transform 0.3s ease;
 }
-.melt-underline.hovered.mouse-leave{
+.melt-underline.hovered.mouse-leave {
   position: relative;
   top: -10px;
   width: 100%;
@@ -88,15 +87,14 @@ a {
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
-.follow-underline{
+.follow-underline {
   position: relative;
   width: 0%;
   size: 25px;
   transform: scaleX(0);
   transition: transform 0.3s ease;
-  
 }
-.follow-underline.hovered{
+.follow-underline.hovered {
   position: relative;
   top: -10px;
   width: 100%;
@@ -104,7 +102,7 @@ a {
   transform: scaleX(1);
   transition: transform 0.3s ease;
 }
-.follow-underline.hovered.mouse-leave{
+.follow-underline.hovered.mouse-leave {
   position: relative;
   top: -10px;
   width: 100%;
@@ -112,7 +110,7 @@ a {
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
-.about-underline{
+.about-underline {
   position: relative;
   top: -7px;
   width: 0%;
@@ -120,7 +118,7 @@ a {
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
-.about-underline.hovered{
+.about-underline.hovered {
   position: relative;
   top: -10px;
   width: 100%;
@@ -128,7 +126,7 @@ a {
   transform: scaleX(1);
   transition: transform 0.3s ease;
 }
-.about-underline.hovered.mouse-leave{
+.about-underline.hovered.mouse-leave {
   position: relative;
   top: -10px;
   width: 100%;
@@ -136,13 +134,13 @@ a {
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
-.contact-holder__clickable-nav{
+.contact-holder__clickable-nav {
   display: flex;
   flex-direction: column;
   position: relative;
   top: 4px;
 }
-.contact-underline{
+.contact-underline {
   position: relative;
   top: -7px;
   width: 0%;
@@ -150,7 +148,7 @@ a {
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
-.contact-underline.hovered{
+.contact-underline.hovered {
   position: relative;
   top: -17px;
   width: 100%;
@@ -158,7 +156,7 @@ a {
   transform: scaleX(1);
   transition: transform 0.3s ease;
 }
-.contact-underline.hovered.mouse-leave{
+.contact-underline.hovered.mouse-leave {
   position: relative;
   top: -17px;
   width: 100%;
@@ -166,26 +164,26 @@ a {
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
-.contact-dropdown{
+.contact-dropdown {
   display: none;
-    height: 0;
-    opacity: 0;
-    color: white;
-    position: absolute;
-    top: 30px;
+  height: 0;
+  opacity: 0;
+  color: white;
+  position: absolute;
+  top: 30px;
 }
-.contact-dropdown.visible{
+.contact-dropdown.visible {
   display: inline;
   height: 100%;
   min-height: 100px;
   opacity: 1;
-  transition: all .3s;
+  transition: all 0.3s;
   color: white;
   position: absolute;
   top: 30px;
   /* cursor: pointer; */
 }
-.email-underline{
+.email-underline {
   position: relative;
   top: -7px;
   width: 0%;
@@ -194,7 +192,7 @@ a {
   transition: transform 0.3s ease;
   margin-bottom: -10px;
 }
-.email-underline.hovered{
+.email-underline.hovered {
   position: relative;
   top: -10px;
   width: 80%;
@@ -203,7 +201,7 @@ a {
   transition: transform 0.3s ease;
   margin-bottom: -10px;
 }
-.email-underline.hovered.mouse-leave{
+.email-underline.hovered.mouse-leave {
   position: relative;
   top: -10px;
   width: 80%;
@@ -212,7 +210,7 @@ a {
   transition: transform 0.3s ease;
   margin-bottom: -10px;
 }
-.careers-underline{
+.careers-underline {
   position: relative;
   top: -7px;
   width: 0%;
@@ -221,7 +219,7 @@ a {
   transition: transform 0.3s ease;
   margin-bottom: -10px;
 }
-.careers-underline.hovered{
+.careers-underline.hovered {
   position: relative;
   top: -10px;
   width: 70%;
@@ -230,7 +228,7 @@ a {
   transition: transform 0.3s ease;
   margin-bottom: -10px;
 }
-.careers-underline.hovered.mouse-leave{
+.careers-underline.hovered.mouse-leave {
   position: relative;
   top: -10px;
   width: 70%;
@@ -239,7 +237,7 @@ a {
   transition: transform 0.3s ease;
   margin-bottom: -10px;
 }
-.phone-underline{
+.phone-underline {
   position: relative;
   top: -7px;
   width: 0%;
@@ -248,7 +246,7 @@ a {
   transition: transform 0.3s ease;
   /* margin-bottom: -10px; */
 }
-.phone-underline.hovered{
+.phone-underline.hovered {
   position: relative;
   top: -10px;
   width: 100%;
@@ -257,7 +255,7 @@ a {
   transition: transform 0.3s ease;
   /* margin-bottom: -10px; */
 }
-.phone-underline.hovered.mouse-leave{
+.phone-underline.hovered.mouse-leave {
   position: relative;
   top: -10px;
   width: 100%;
@@ -266,7 +264,7 @@ a {
   transition: transform 0.3s ease;
   /* margin-bottom: -10px; */
 }
-.always-underlined{
+.always-underlined {
   position: relative;
   top: -10px;
   width: 100%;
@@ -275,13 +273,11 @@ a {
   transition: transform 0.3s ease;
 }
 
-@media (max-height: 800px), screen and (max-width:800px){
-
+@media (max-height: 800px), screen and (max-width: 800px) {
   /* .nav-item__holder{
     margin-top: 20px;
     font-weight: 300;
     font-size: .6rem;
     background-color: transparent;
   } */
-  
 }

@@ -1,19 +1,19 @@
-import { useEffect, useRef, useMemo, useState } from 'react'
-import * as THREE from 'three'
-import { useFrame, useThree } from '@react-three/fiber'
-import { OrthographicCamera, useTexture } from '@react-three/drei'
-import { useLeva } from './controls'
-import defaultConfig from '../../helpers/LevaControls/config.json'
+import { useEffect, useRef, useMemo, useState } from "react";
+import * as THREE from "three";
+import { useFrame, useThree } from "@react-three/fiber";
+import { OrthographicCamera, useTexture } from "@react-three/drei";
+import { useLeva } from "./controls";
+import defaultConfig from "../../helpers/LevaControls/config.json";
 
-import vertexShader from './shaders/vertex'
-import fragmentShader from './shaders/fragment'
+import vertexShader from "./shaders/vertex";
+import fragmentShader from "./shaders/fragment";
 
-import meltLogo from '../assets/textures/melt_logo.png'
-import smiley from '../assets/textures/smiley.png'
-import noise from '../assets/textures/noise.png'
-import { blur } from '../../helpers/blurTexture'
+import meltLogo from "../assets/textures/melt_logo.png";
+import smiley from "../assets/textures/smiley.png";
+import noise from "../assets/textures/noise.png";
+import { blur } from "../../helpers/blurTexture";
 
-const DisableRender = () => useFrame(() => null, 1000)
+const DisableRender = () => useFrame(() => null, 1000);
 
 const Scene = ({
   name,
@@ -23,22 +23,23 @@ const Scene = ({
   localStorageConfig,
   containerRef,
   updateName,
+  cursor,
 }) => {
-  const mesh = useRef()
-  const [inView, setInView] = useState(true)
+  const mesh = useRef();
+  const [inView] = useState(true);
 
-  const [blurStrength, setBlurStrength] = useState(2)
-  const updateBlurStrength = (value) => setBlurStrength(value)
+  const [blurStrength, setBlurStrength] = useState(2);
+  const updateBlurStrength = (value) => setBlurStrength(value);
 
-  const imageOptions = { melt: meltLogo, smiley }
+  const imageOptions = { melt: meltLogo, smiley };
 
-  const { size, gl } = useThree()
+  const { size, gl } = useThree();
 
   const defaults = controls
     ? localStorageConfig
       ? localStorageConfig
       : config
-    : config
+    : config;
 
   // useEffect(() => {
   //   console.log('USEEFFECT RENDER WATERFALL')
@@ -51,25 +52,25 @@ const Scene = ({
     config,
     updateConfig,
     [mesh, imageOptions, updateBlurStrength]
-  )
+  );
 
   // Set texture source if upload/image undefined (if controls disabled)
   // TODO: add API get texture from server
   const textureSource = () => {
     if (upload !== undefined && upload !== null) {
-      return upload
+      return upload;
     }
 
     if (image !== undefined && image !== null) {
-      return image
+      return image;
     }
 
-    return meltLogo
-  }
+    return meltLogo;
+  };
 
-  const texture = useTexture(textureSource())
+  const texture = useTexture(textureSource());
   // NB: split noiseTexture else any textureSource change will reload noiseTexture (which will create new uniform)
-  const noiseTexture = useTexture(noise)
+  const noiseTexture = useTexture(noise);
 
   // // Get blurred image for color effect
   // // Only run on load or if new image uploaded (debug mode only)
@@ -85,7 +86,7 @@ const Scene = ({
   // }, [controls, texture, blurStrength])
 
   const [uniforms, mouse] = useMemo(() => {
-    const mouse = new THREE.Vector2()
+    const mouse = new THREE.Vector2();
 
     const uniforms = {
       uImage: { value: null },
@@ -105,10 +106,10 @@ const Scene = ({
       uNoise: { value: null },
       uTransition: { value: new THREE.Vector4(0, 0, 3, 7) },
       uImageScale: { value: 1 },
-    }
+    };
 
-    return [uniforms, mouse]
-  }, [])
+    return [uniforms, mouse];
+  }, []);
 
   useEffect(() => {
     const {
@@ -121,24 +122,24 @@ const Scene = ({
       mouseEnabled,
       mouseStrength,
       imageStrength,
-    } = defaults
+    } = defaults;
 
     if (mesh.current && mesh.current.material) {
-      mesh.current.material.uniforms.uLine.value.x = lineCount
-      mesh.current.material.uniforms.uLine.value.y = lineSpeed
-      mesh.current.material.uniforms.uLine.value.z = lineWidth
-      mesh.current.material.uniforms.uLine.value.w = colorShift
+      mesh.current.material.uniforms.uLine.value.x = lineCount;
+      mesh.current.material.uniforms.uLine.value.y = lineSpeed;
+      mesh.current.material.uniforms.uLine.value.z = lineWidth;
+      mesh.current.material.uniforms.uLine.value.w = colorShift;
 
-      mesh.current.material.uniforms.uDistortion.value.x = imageStrength
-      mesh.current.material.uniforms.uDistortion.value.y = lineDistortion
-      mesh.current.material.uniforms.uDistortion.value.z = mouseEnabled
-      mesh.current.material.uniforms.uDistortion.value.w = mouseStrength
+      mesh.current.material.uniforms.uDistortion.value.x = imageStrength;
+      mesh.current.material.uniforms.uDistortion.value.y = lineDistortion;
+      mesh.current.material.uniforms.uDistortion.value.z = mouseEnabled;
+      mesh.current.material.uniforms.uDistortion.value.w = mouseStrength;
 
-      mesh.current.material.uniforms.uColor.value = new THREE.Color(lineColor)
+      mesh.current.material.uniforms.uColor.value = new THREE.Color(lineColor);
 
-      mesh.current.material.needsUpdate = true
+      mesh.current.material.needsUpdate = true;
     }
-  }, [defaults])
+  }, [defaults]);
 
   // useEffect(() => {
   //   mesh.current.material.uniforms.uImage.value = blurTexture
@@ -147,10 +148,10 @@ const Scene = ({
 
   useEffect(() => {
     if (mesh.current && mesh.current.material) {
-      mesh.current.material.uniforms.uNoise.value = noiseTexture
-      mesh.current.material.needsUpdate = true
+      mesh.current.material.uniforms.uNoise.value = noiseTexture;
+      mesh.current.material.needsUpdate = true;
     }
-  }, [noiseTexture])
+  }, [noiseTexture]);
 
   // useEffect(() => {
   //   mesh.current.material.uniforms.uImage.value = texture
@@ -162,16 +163,16 @@ const Scene = ({
       // const downloadImage = document.getElementById('download-image')
 
       if (!controls || (controls && upload === null) || upload === undefined) {
-        mesh.current.material.uniforms.uImage.value = texture
+        mesh.current.material.uniforms.uImage.value = texture;
 
         // if (downloadImage) {
         //   downloadImage.remove()
         // }
       } else {
         // const { blurTexture, getBlurImage } = blur(
-        const { blurTexture } = blur(gl, 1024, blurStrength, texture)
+        const { blurTexture } = blur(gl, 1024, blurStrength, texture);
 
-        mesh.current.material.uniforms.uImage.value = blurTexture
+        mesh.current.material.uniforms.uImage.value = blurTexture;
 
         // if (downloadImage) {
         //   // Replace old button with new one (doing it this way so event listeners do not multiply)
@@ -183,63 +184,63 @@ const Scene = ({
         // }
       }
 
-      mesh.current.material.needsUpdate = true
+      mesh.current.material.needsUpdate = true;
 
       mesh.current.material.uniforms.uResolution.value.z =
-        texture.source.data.width
+        texture.source.data.width;
       mesh.current.material.uniforms.uResolution.value.w =
-        texture.source.data.height
-      mesh.current.material.needsUpdate = true
+        texture.source.data.height;
+      mesh.current.material.needsUpdate = true;
     }
-  }, [texture, controls, upload, gl, blurStrength])
+  }, [texture, controls, upload, gl, blurStrength]);
 
   // Update resolution uniform on viewport resize
   useEffect(() => {
     if (mesh.current && mesh.current.material) {
-      mesh.current.material.uniforms.uResolution.value.x = size.width
-      mesh.current.material.uniforms.uResolution.value.y = size.height
+      mesh.current.material.uniforms.uResolution.value.x = size.width;
+      mesh.current.material.uniforms.uResolution.value.y = size.height;
     }
-  }, [size])
+  }, [size]);
 
   useEffect(() => {
     if (!controls) {
-      const { metric, value } = defaultConfig.devices.mobile
-      if (size[metric] < value && name !== 'waterfall-mobile')
-        updateName('waterfall-mobile')
-      else if (size[metric] >= value && name !== 'waterfall')
-        updateName('waterfall')
+      const { metric, value } = defaultConfig.devices.mobile;
+      if (size[metric] < value && name !== "waterfall-mobile")
+        updateName("waterfall-mobile");
+      else if (size[metric] >= value && name !== "waterfall")
+        updateName("waterfall");
     }
-  }, [size, updateName, controls, name])
+  }, [size, updateName, controls, name]);
 
-  const handleFadeOut = () => {
-    const time = mesh.current.material.uniforms.uTime.value
-    const t = mesh.current.material.uniforms.uTransition.value.w
-    if (mesh.current.material.uniforms.uTransition.value.x === 0 && time > t) {
-      mesh.current.material.uniforms.uTransition.value.x = 1
-      mesh.current.material.uniforms.uTransition.value.y = time
-    }
+  // const handleFadeOut = () => {
+  //   const time = mesh.current.material.uniforms.uTime.value;
+  //   const t = mesh.current.material.uniforms.uTransition.value.w;
+  //   if (mesh.current.material.uniforms.uTransition.value.x === 0 && time > t) {
+  //     mesh.current.material.uniforms.uTransition.value.x = 1;
+  //     mesh.current.material.uniforms.uTransition.value.y = time;
+  //   }
 
-    if (containerRef.current) {
-      if (time > t + 3.5 && containerRef.current.style.display === 'block') {
-        containerRef.current.style.display = 'none'
-        setInView(false)
-      }
-    }
-  }
+  //   if (containerRef.current) {
+  //     if (time > t + 3.5 && containerRef.current.style.display === "block") {
+  //       containerRef.current.style.display = "none";
+  //       setInView(false);
+  //     }
+  //   }
+  // };
 
   useFrame((state, delta) => {
-    if (!inView) return
+    if (!inView) return;
 
-    mouse.x += (state.mouse.x - mouse.x) * delta * 5
-    mouse.y += (state.mouse.y - mouse.y) * delta * 5
+    mouse.x += (state.mouse.x - mouse.x) * delta * 5;
+    mouse.y += (state.mouse.y - mouse.y) * delta * 5;
 
     if (mesh.current && mesh.current.material) {
-      mesh.current.material.uniforms.uTime.value += delta
-      mesh.current.material.uniforms.uMouse.value.set(mouse.x, mouse.y)
+      mesh.current.material.uniforms.uTime.value += delta;
+      mesh.current.material.uniforms.uMouse.value.set(mouse.x, mouse.y);
     }
 
     // if (!controls) handleFadeOut()
-  })
+  });
 
   return (
     <>
@@ -259,13 +260,18 @@ const Scene = ({
           />
 
           <mesh
+            onPointerMove={(e) => {
+              if (cursor && cursor.current) {
+                cursor.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+              }
+            }}
             ref={mesh}
             onClick={() => {
-              const time = mesh.current.material.uniforms.uTime.value
-              const tmin = mesh.current.material.uniforms.uTransition.value.z
-              const tmax = mesh.current.material.uniforms.uTransition.value.w
+              const time = mesh.current.material.uniforms.uTime.value;
+              const tmin = mesh.current.material.uniforms.uTransition.value.z;
+              const tmax = mesh.current.material.uniforms.uTransition.value.w;
               if (time >= tmin && time < tmax) {
-                mesh.current.material.uniforms.uTransition.value.w = time
+                mesh.current.material.uniforms.uTransition.value.w = time;
               }
             }}
           >
@@ -280,7 +286,7 @@ const Scene = ({
         </>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Scene
+export default Scene;

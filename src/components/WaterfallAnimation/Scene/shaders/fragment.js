@@ -1,4 +1,4 @@
-export default /* glsl */ `
+const fragmentShader = /* glsl */ `
   varying vec2 vUv;
 
   uniform sampler2D uImage;
@@ -167,4 +167,6 @@ export default /* glsl */ `
 
     gl_FragColor = vec4(color, 1.-tfade);
   }
-`
+`;
+
+export default fragmentShader;

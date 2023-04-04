@@ -19,7 +19,7 @@ const created = ({ gl }) => {
   gl.setClearAlpha(0);
 };
 
-const WaterfallAnimation = ({ controls, mobile }) => {
+const WaterfallAnimation = ({ controls, mobile, cursor }) => {
   const { metric, value } = defaultConfig.devices.mobile;
   const [name, setName] = useState(
     (mobile && controls) ||
@@ -57,6 +57,7 @@ const WaterfallAnimation = ({ controls, mobile }) => {
           display: "block",
           position: "fixed",
           top: 0,
+          transition: "height 1s",
         }}
       >
         <Canvas dpr={[1, 2]} gl={glSettings} onCreated={created}>
@@ -69,6 +70,7 @@ const WaterfallAnimation = ({ controls, mobile }) => {
             localStorageConfig={localStorageConfig}
             containerRef={container}
             updateName={updateName}
+            cursor={cursor}
           />
         </Canvas>
       </div>
