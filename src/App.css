@@ -81,7 +81,8 @@ a {
   .page .jumbo-text {
     font-size: 2rem; /* fallback */
     /* font-size: min(max(2rem, 3vw), 2.5rem); */
-    font-size: min(max(2rem, 4vw), 54px);
+    /* font-size: min(max(2rem, 4vw), 54px); */
+    font-size: min(max(2rem, 3.5vw), 54px);
 
     letter-spacing: -0.1rem;
     line-height: 0.85;

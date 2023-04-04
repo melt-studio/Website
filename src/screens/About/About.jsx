@@ -34,7 +34,7 @@ const contactInfo = [
 
 const followInfo = [{ text: "Instagram", href: "https://www.instagram.com/melt.works/" }];
 
-export default function About(props) {
+export default function About({ aboutInfo, cursor }) {
   const [loading, setLoading] = useState(true);
   const [aboutTexts, setAboutTexts] = useState([]);
   const [contactTags, setContactTags] = useState([]);
@@ -45,8 +45,8 @@ export default function About(props) {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    if (props.cursor && props.cursor.current) {
-      props.cursor.current.style.backgroundColor = "var(--yellow)";
+    if (cursor && cursor.current) {
+      cursor.current.style.backgroundColor = "var(--yellow)";
       document.body.style.cursor = "none";
     }
 
@@ -56,12 +56,11 @@ export default function About(props) {
       document.body.classList.remove("about-page");
       document.body.style.cursor = "default";
     };
-  }, [props.cursor]);
+  }, [cursor]);
 
   useEffect(() => {
-    if (props.aboutInfo.length) {
-      const { aboutText, aboutTextTwo, aboutTextThree, aboutTextFour, whatWeDo, whatWeDontDo } =
-        props.aboutInfo[0].fields;
+    if (aboutInfo.length) {
+      const { aboutText, aboutTextTwo, aboutTextThree, aboutTextFour, whatWeDo, whatWeDontDo } = aboutInfo[0].fields;
 
       let aboutTexts = [];
       aboutTexts = [aboutText, aboutTextTwo, aboutTextThree, aboutTextFour];
@@ -82,7 +81,7 @@ export default function About(props) {
 
       setLoading(false);
     }
-  }, [props.aboutInfo]);
+  }, [aboutInfo]);
 
   return (
     <div className="page">
@@ -93,28 +92,30 @@ export default function About(props) {
         <title>MELLLLLLT - About</title>
       </Helmet>
 
-      <div className={`page-container${loading ? " loading" : ""}`}>
-        <div className="row">
-          <div className="col primary">
-            <div className="description-text jumbo-text">
-              <FadeIn {...fadeInText}>
-                {aboutTexts.map((text) => (
-                  <p key={text}>{text}</p>
-                ))}
-              </FadeIn>
+      {aboutInfo.length && (
+        <div className={`page-container${loading ? " loading" : ""}`}>
+          <div className="row">
+            <div className="col primary">
+              <div className="description-text jumbo-text">
+                <FadeIn {...fadeInText}>
+                  {aboutTexts.map((text) => (
+                    <p key={text}>{text}</p>
+                  ))}
+                </FadeIn>
+              </div>
             </div>
-          </div>
 
-          <div className="col">
-            <div className="sticky">
-              <TagBlock title="Contact" tags={contactTags} />
-              <TagBlock title="Follow" tags={followTags} />
-              <TagBlock title="What We Do" tags={whatWeDoTags} />
-              <TagBlock title="What We Don't Do" tags={whatWeDontDoTags} />
+            <div className="col">
+              <div className="sticky">
+                <TagBlock title="Contact" tags={contactTags} />
+                <TagBlock title="Follow" tags={followTags} />
+                <TagBlock title="What We Do" tags={whatWeDoTags} />
+                <TagBlock title="What We Don't Do" tags={whatWeDontDoTags} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

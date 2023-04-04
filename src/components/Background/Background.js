@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useEffect, useRef } from "react";
 import { Color } from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrthographicCamera } from "@react-three/drei";
@@ -29,7 +29,11 @@ const fragmentShader = /* glsl */ `
   }
 `;
 
-const Background = ({ background, background1, background2 }) => {
+const Background = ({ backgroundColor }) => {
+  const background = useRef();
+  const background1 = useRef();
+  const background2 = useRef();
+
   const uniforms = useMemo(() => {
     const uniforms = {
       uColor1: { value: new Color(0x000000) },
@@ -38,29 +42,58 @@ const Background = ({ background, background1, background2 }) => {
     return uniforms;
   }, []);
 
+  useEffect(() => {
+    const color = backgroundColor;
+    let c = [];
+    if (color && typeof color === "string" && color.length > 0) {
+      c = color.split(",").map((hex) => hex.trim());
+    }
+
+    if (background1 && background1.current) {
+      if (c[0]) {
+        background1.current.style.backgroundColor = c[0];
+      } else {
+        background1.current.style.backgroundColor = "#000000";
+      }
+    }
+
+    if (background2 && background2.current) {
+      if (c[1]) {
+        background2.current.style.backgroundColor = c[1];
+      } else {
+        background2.current.style.backgroundColor = background1.current.style.backgroundColor;
+      }
+    }
+  }, [backgroundColor]);
+
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100vh",
-        zIndex: -1,
-        pointerEvents: "none",
-        position: "fixed",
-        left: 0,
-        top: 0,
-      }}
-    >
-      <Canvas dpr={[1, 2]}>
-        <OrthographicCamera makeDefault manual left={-1} right={1} top={1} bottom={-1} near={-1} far={1} />
-        <Mesh background={background} background1={background1} background2={background2} uniforms={uniforms} />
-      </Canvas>
-    </div>
+    <>
+      <div id="background">
+        <div ref={background1}></div>
+        <div ref={background2}></div>
+      </div>
+      <div
+        style={{
+          width: "100%",
+          height: "100vh",
+          zIndex: -1,
+          pointerEvents: "none",
+          position: "fixed",
+          left: 0,
+          top: 0,
+        }}
+      >
+        <Canvas dpr={[1, 2]}>
+          <OrthographicCamera makeDefault manual left={-1} right={1} top={1} bottom={-1} near={-1} far={1} />
+          <Mesh background={background} background1={background1} background2={background2} uniforms={uniforms} />
+        </Canvas>
+      </div>
+    </>
   );
 };
 
 const Mesh = ({ background, background1, background2, uniforms }) => {
   const [styles1, styles2, color1, color2] = useMemo(() => {
-    // console.log(background1);
     const styles1 = background1 && background1.current ? window.getComputedStyle(background1.current) : null;
     const styles2 = background2 && background2.current ? window.getComputedStyle(background2.current) : null;
     const color1 = new Color();

@@ -1,21 +1,31 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useIsPresent } from "framer-motion";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
 import { cursorEvents } from "../Cursor/Cursor.jsx";
 import "./NavMenu.css";
 // import DrippyLogo from "../../assets/images/Logo/MELT_DRIPPY WHT.png";
 
 const keyframesContainer = {
-  enter: { opacity: [0, 1, 1], y: 0, transition: { duration: 1.5 } },
-  exit: { opacity: [1, 1, 0], y: "-100%" },
+  enter: { opacity: [0, 1, 1], y: 0, transition: { duration: 1.5, ease: "easeInOut", when: "beforeChildren" } },
+  exit: {
+    opacity: [1, 1, 0],
+    y: "-100%",
+    transition: {
+      duration: 1.5,
+      ease: "easeInOut",
+      // when: "afterChildren" ,
+      delay: 1,
+    },
+  },
 };
 
 const keyframesItems = {
   enter: {
-    transition: { staggerChildren: 0.3, delayChildren: 1.8 },
+    transition: { staggerChildren: 0.2, delayChildren: 0 },
   },
   exit: {
-    transition: { staggerChildren: 0.05, staggerDirection: -1 },
+    transition: { staggerChildren: 0.1, staggerDirection: 1 },
   },
 };
 
@@ -23,11 +33,25 @@ const keyframesItem = {
   enter: {
     y: 0,
     opacity: 1,
-    transition: { duration: 2, ease: "easeInOut" },
+    transition: { duration: 1, ease: "easeInOut" },
   },
   exit: {
     y: 20,
     opacity: 0,
+    transition: { duration: 0.5, ease: "easeInOut" },
+  },
+};
+
+const keyframesItemSelected = {
+  enter: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.75, delay: 0.5, ease: "easeInOut" },
+  },
+  exit: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.75, delay: 0.75, ease: "easeInOut" },
   },
 };
 
@@ -46,11 +70,11 @@ const links = [
 //   );
 // };
 
-const NavMenuClose = ({ closeNavMenu }) => {
+const NavMenuClose = ({ closeNavMenu, present }) => {
   return (
     <motion.div className="nav-menu__close" variants={keyframesItem}>
       <div
-        className="nav-menu__close-container"
+        className={`nav-menu__close-container${present ? "" : " closing"}`}
         onClick={closeNavMenu}
         onMouseEnter={() => cursorEvents.onMouseEnter()}
         onMouseLeave={() => cursorEvents.onMouseLeave()}
@@ -62,10 +86,10 @@ const NavMenuClose = ({ closeNavMenu }) => {
   );
 };
 
-const NavMenuLinkText = ({ text }) => (
+const NavMenuLinkText = ({ text, selected }) => (
   <motion.p
     className="nav-menu__link"
-    variants={keyframesItem}
+    variants={selected ? keyframesItemSelected : keyframesItem}
     onMouseEnter={() => cursorEvents.onMouseEnter()}
     onMouseLeave={() => cursorEvents.onMouseLeave()}
   >
@@ -74,10 +98,18 @@ const NavMenuLinkText = ({ text }) => (
 );
 
 const NavMenuLink = ({ link, closeNavMenu }) => {
+  const [selected, setSelected] = useState(false);
+
   if (link.nav) {
     return (
-      <Link to={link.href} onClick={closeNavMenu}>
-        <NavMenuLinkText text={link.text} />
+      <Link
+        to={link.href}
+        onClick={() => {
+          setSelected(true);
+          closeNavMenu();
+        }}
+      >
+        <NavMenuLinkText text={link.text} selected={selected} />
       </Link>
     );
   }
@@ -89,14 +121,16 @@ const NavMenuLink = ({ link, closeNavMenu }) => {
   );
 };
 
-function NavMenuItems({ closeNavMenu }) {
+function NavMenuItems({ closeNavMenu, closing }) {
+  const isPresent = useIsPresent();
+
   return (
     <motion.div className="nav-menu__items" variants={keyframesItems}>
       {/* <NavMenuLogo /> */}
       {links.map((link) => (
         <NavMenuLink key={link.href} link={link} closeNavMenu={closeNavMenu} />
       ))}
-      <NavMenuClose closeNavMenu={closeNavMenu} />
+      <NavMenuClose key={"close"} closeNavMenu={closeNavMenu} closing={closing} present={isPresent} />
     </motion.div>
   );
 }

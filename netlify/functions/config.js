@@ -34,7 +34,7 @@ exports.handler = (event, context, callback) => {
       const response = await axios.get(URL, { headers });
 
       if (!response.data || !response.data.records) {
-        return pass(404, { error: "no data/records found" });
+        return pass(404, { error: "No data/records found" });
       }
 
       const data = response.data.records.reduce((acc, record) => {
@@ -49,7 +49,7 @@ exports.handler = (event, context, callback) => {
 
       return pass(200, data);
     } catch (error) {
-      return pass(500, { error: "unable to fetch data" });
+      return pass(500, { error: "Unable to fetch data" });
     }
   };
 
@@ -62,14 +62,14 @@ exports.handler = (event, context, callback) => {
 
     // Check password
     if (!password || password === "" || password !== PASSWORD) {
-      return pass(401, { error: "wrong password" });
+      return pass(401, { error: "Wrong password" });
     }
 
     // Check for record on Airtable
     try {
       await axios.get(`${URL}/${config.id}`, { headers });
     } catch (error) {
-      return pass(404, { error: "airtable record not found" });
+      return pass(404, { error: "Airtable record not found" });
     }
 
     const updatedConfig = {
@@ -92,7 +92,7 @@ exports.handler = (event, context, callback) => {
       return pass(200, data);
     } catch (error) {
       // console.log(error)
-      return pass(500, { error: "something went wrong, saving failed" });
+      return pass(500, { error: "Something went wrong, saving failed" });
     }
   };
 

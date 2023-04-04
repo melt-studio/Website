@@ -4,6 +4,7 @@ import { PerformanceMonitor } from "@react-three/drei";
 import LevaControls from "../helpers/LevaControls";
 import PerfMonitor from "../helpers/PerfMonitor";
 import Scene from "./Scene";
+import "./LogoAnimation.css";
 
 import { useConfig } from "../helpers/LevaControls/setupConfig";
 import { useToggleControls } from "../helpers/toggleControls";
@@ -14,17 +15,23 @@ const glSettings = {
   antialias: false,
 };
 
-const created = ({ gl }) => {
-  gl.domElement.id = "logoAnimation";
-};
-
 const LogoAnimation = ({ controls, effectRef, mobile }) => {
   const { metric, value } = defaultConfig.devices.mobile;
   const [name, setName] = useState(
     (mobile && controls) || window[`inner${metric[0].toUpperCase() + metric.slice(1)}`] < value ? "logo-mobile" : "logo"
   );
+
   const updateName = (newName) => {
     setName(newName);
+  };
+
+  const container = useRef();
+
+  const created = ({ gl }) => {
+    gl.domElement.id = "logoAnimation";
+    if (container && container.current) {
+      container.current.classList.add("show");
+    }
   };
 
   useEffect(() => {
@@ -41,12 +48,11 @@ const LogoAnimation = ({ controls, effectRef, mobile }) => {
   const localStorageConfig = getLocalStorageConfig(name);
   useToggleControls(controls === undefined ? false : controls);
 
-  const container = useRef();
-
   return (
     <>
       <LevaControls controls={controls === undefined ? false : controls} />
       <div
+        className="animation-container"
         ref={container}
         style={{
           width: mobile && controls ? "390px" : "100%",

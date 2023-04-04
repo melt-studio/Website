@@ -1,28 +1,22 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
-import "./App.css";
-import MainContainer from "./containers/MainContainer";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Layout from "./layouts/MainLayout.jsx";
-import Background from "./components/Background/Background";
+import MainContainer from "./containers/MainContainer.jsx";
+import Cursor from "./components/Cursor/Cursor.jsx";
+import "./App.css";
 
-import { getAllProjects } from "./services/projects";
-import { getAllAboutInfo } from "./services/about";
-import { getAllMiscInfo } from "./services/miscPages";
-
-import Cursor from "./components/Cursor/Cursor";
-import { useLocation } from "react-router-dom";
+import projectService from "./services/projects";
+import aboutService from "./services/about";
+import miscService from "./services/misc";
 
 function App() {
+  const [initial, setInitial] = useState(true);
   const [projects, setProjects] = useState([]);
   const [aboutInfo, setAboutInfo] = useState({});
-  const [miscPageInfo, setMiscPageInfo] = useState([]);
-  // const [visible, setVisible] = useState(false);
-  // const [scroll, setScroll] = useState(false);
-
+  const [miscInfo, setMiscInfo] = useState([]);
   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
-  const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [navMenuOpen, setNavMenuOpen] = useState(false);
 
-  const location = useLocation();
+  const cursor = useRef();
 
   const widthCutOff = useMemo(() => {
     return 800;
@@ -34,12 +28,13 @@ function App() {
 
   useEffect(() => {
     const handleResize = () => {
-      // console.log("viewport");
       setViewport({
         width: window.innerWidth,
         height: window.innerHeight,
       });
     };
+
+    setInitial(false);
 
     window.addEventListener("resize", handleResize);
 
@@ -48,79 +43,41 @@ function App() {
     };
   }, []);
 
-  // const homeClick = () => {
-  //   window.location.reload();
-  //   window.scrollTo(0, 0);
-  // };
-
-  const cursor = useRef();
-
   useEffect(() => {
-    const fetchProjects = async () => {
-      const projArray = await getAllProjects();
-      setProjects(projArray);
+    const getProjects = async () => {
+      try {
+        const response = await projectService.getProjects();
+        setProjects(response);
+      } catch (error) {
+        console.log(error.response.data.error ? error.response.data.error : "Server error");
+      }
     };
 
-    const fetchAboutInfo = async () => {
-      const aboutInfo = await getAllAboutInfo();
-      setAboutInfo(aboutInfo);
+    const getAboutInfo = async () => {
+      try {
+        const response = await aboutService.getAbout();
+        setAboutInfo(response);
+      } catch (error) {
+        console.log(error.response.data.error ? error.response.data.error : "Server error");
+      }
     };
 
-    const fetchMiscPageInfo = async () => {
-      const miscInfo = await getAllMiscInfo();
-      setMiscPageInfo(miscInfo);
+    const getMiscInfo = async () => {
+      try {
+        const response = await miscService.getMisc();
+        setMiscInfo(response);
+      } catch (error) {
+        console.log(error.response.data.error ? error.response.data.error : "Server error");
+      }
     };
 
-    fetchProjects();
-    fetchAboutInfo();
-    fetchMiscPageInfo();
+    getProjects();
+    getAboutInfo();
+    getMiscInfo();
   }, []);
-
-  const background = useRef();
-  const background1 = useRef();
-  const background2 = useRef();
-  useEffect(() => {
-    const color = backgroundColor;
-    let c = [];
-    if (color && typeof color === "string" && color.length > 0) {
-      c = color.split(",").map((hex) => hex.trim());
-    }
-
-    if (background1 && background1.current) {
-      if (c[0]) {
-        background1.current.style.backgroundColor = c[0];
-      } else {
-        background1.current.style.backgroundColor = "#000000";
-      }
-    }
-
-    if (background2 && background2.current) {
-      if (c[1]) {
-        background2.current.style.backgroundColor = c[1];
-      } else {
-        background2.current.style.backgroundColor = background1.current.style.backgroundColor;
-      }
-    }
-
-    // if (background2.current) {
-    //   background2.current.style.backgroundColor = backgroundColor;
-    // }
-    // console.log(backgroundColor);
-    // document.body.style.backgroundColor = backgroundColor;
-    // setBackground(backgroundColor, background);
-  }, [backgroundColor]);
 
   return (
     <>
-      {location.pathname === "/" && (
-        <>
-          <div id="background">
-            <div ref={background1}></div>
-            <div ref={background2}></div>
-          </div>
-          <Background background={background} background1={background1} background2={background2} />
-        </>
-      )}
       <Layout
         navMenuOpen={navMenuOpen}
         setNavMenuOpen={setNavMenuOpen}
@@ -130,12 +87,10 @@ function App() {
         scrollCutOff={scrollCutOff}
       >
         <MainContainer
-          backgroundColor={backgroundColor}
-          setBackgroundColor={setBackgroundColor}
-          // scroll={scroll}
-          aboutInfo={aboutInfo}
-          miscPageInfo={miscPageInfo}
+          initial={initial}
           projects={projects}
+          aboutInfo={aboutInfo}
+          miscInfo={miscInfo}
           cursor={cursor}
           viewport={viewport}
           widthCutOff={widthCutOff}

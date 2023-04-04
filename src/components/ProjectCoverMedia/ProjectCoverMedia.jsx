@@ -1,10 +1,19 @@
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import ReactPlayer from "react-player";
 import { cursorEvents } from "../Cursor/Cursor";
 import "./ProjectCoverMedia.css";
 
-const ProjectCoverMedia = ({ project, setLoading, vidPlay }) => {
+const ProjectCoverMedia = ({ project, setLoading, cursor }) => {
+  const [vidPlay, setVidPlay] = useState(false);
+
   const ref = useRef();
+
+  const toggleVidPlay = () => {
+    setVidPlay(!vidPlay);
+    if (cursor && cursor.current) {
+      cursor.current.classList.toggle("playing");
+    }
+  };
 
   const { mainImage, mainVid } = project.fields;
 
@@ -43,23 +52,22 @@ const ProjectCoverMedia = ({ project, setLoading, vidPlay }) => {
 
   if (mainVid && mainVid[0] && mainVid[0].url) {
     return (
-      <ReactPlayer
-        url={project.fields.mainVid[0].url}
-        key={project.fields.mainVid[0].url}
-        width="100%"
-        height="auto"
-        className={`${className} video`}
+      <div
+        onClick={toggleVidPlay}
         onMouseEnter={() => cursorEvents.onMouseEnter("video")}
         onMouseLeave={() => cursorEvents.onMouseLeave("video")}
-        playing={vidPlay}
-        onReady={handleLoad}
-        ref={ref}
-        style={
-          {
-            // cursor: vidCursor ? `url(${vidCursor}) 40 40, auto` : "default",
-          }
-        }
-      />
+      >
+        <ReactPlayer
+          url={project.fields.mainVid[0].url}
+          key={project.fields.mainVid[0].url}
+          width="100%"
+          height="auto"
+          className={`${className} video`}
+          playing={vidPlay}
+          onReady={handleLoad}
+          ref={ref}
+        />
+      </div>
     );
   }
 

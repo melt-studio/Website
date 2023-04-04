@@ -92,6 +92,7 @@ const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
       //   }
       // }, 1000);
     }
+    // }, [projects, cursor, id, navigate]);
   }, [projects, cursor, id, navigate, viewport]);
 
   return (

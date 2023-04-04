@@ -17,7 +17,7 @@ const NavMenuLogo = ({ setNavMenuOpen, viewport, widthCutOff, scrollCutOff }) =>
   const { scrollY } = useScroll();
 
   const exclude = useMemo(() => {
-    return ["/about", "/404"];
+    return ["/about", "/404", "/"];
   }, []);
 
   useEffect(() => {

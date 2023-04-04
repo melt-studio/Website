@@ -27,7 +27,7 @@ const NavBar = ({ viewport, widthCutOff, scrollCutOff }) => {
   const navigate = useNavigate();
 
   const exclude = useMemo(() => {
-    return ["/about", "/404"];
+    return ["/about", "/404", "/"];
   }, []);
 
   useEffect(() => {

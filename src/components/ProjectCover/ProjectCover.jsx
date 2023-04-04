@@ -3,20 +3,8 @@ import ProjectCoverMedia from "../ProjectCoverMedia/ProjectCoverMedia.jsx";
 import FadeScroll from "../FadeScroll/FadeScroll.jsx";
 import "./ProjectCover.css";
 
-// import cursorPlay from "../../assets/cursors/MELT__PLAY.svg";
-// import cursorPause from "../../assets/cursors/MELT__PAUSE.svg";
-
 const ProjectCover = ({ project, overlay, viewport, widthCutOff, cursor }) => {
-  const [vidPlay, setVidPlay] = useState(false);
-  // const [vidCursor, setVidCursor] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const toggleVidPlay = () => {
-    setVidPlay(!vidPlay);
-    if (cursor && cursor.current) {
-      cursor.current.classList.toggle("playing");
-    }
-  };
 
   const { mainImage, mainVid } = project.fields;
 
@@ -38,17 +26,15 @@ const ProjectCover = ({ project, overlay, viewport, widthCutOff, cursor }) => {
   //   console.log("PROJECT COVER");
   // }, []);
 
-  // useEffect(() => {
-  //   if (!loading) setVidCursor(vidPlay ? cursorPause : cursorPlay);
-  // }, [loading, vidPlay]);
-
   if (!mainImage && !mainVid) return null;
 
   const background = project.fields.backgroundColor
     .split(",")
     .map((c) => c.trim())
     .slice(0, 2);
-  if (background.length === 1) background.push(background[0]);
+  if (background.length === 0)
+    background[0] = "#000000"; // fallback bacground if not set in airtable (validate data in services)
+  else if (background.length === 1) background.push(background[0]);
 
   const style = {
     background: viewport.width < widthCutOff ? "transparent" : `linear-gradient(to bottom, ${background.join(", ")}`,
@@ -62,20 +48,13 @@ const ProjectCover = ({ project, overlay, viewport, widthCutOff, cursor }) => {
 
   return (
     <>
-      <FadeScroll viewport={{ amount: 0.75 }} className={`project-cover-full${mainVid ? " wide" : ""}`} style={style}>
-        <div
-          className={`project-cover-full__background${loading ? " loading" : ""}`}
-          onClick={mainVid ? () => toggleVidPlay() : null}
+      <FadeScroll viewport={{ amount: 0.7 }} className={`project-cover-full${mainVid ? " wide" : ""}`} style={style}>
+        <FadeScroll
+          viewport={{ amount: 0.3 }}
+          className={`project-cover-full__background${loading ? " loading" : ""} show`}
         >
-          <ProjectCoverMedia
-            overlay={overlay}
-            project={project}
-            setLoading={setLoading}
-            vidPlay={vidPlay}
-            // vidCursor={vidCursor}
-            cursor={cursor}
-          />
-        </div>
+          <ProjectCoverMedia overlay={overlay} project={project} setLoading={setLoading} cursor={cursor} />
+        </FadeScroll>
       </FadeScroll>
     </>
   );

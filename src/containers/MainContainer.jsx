@@ -1,12 +1,13 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import About from "../screens/About/About";
 import Home from "../screens/Home/Home";
-import ProjectPage from "../screens/Project/ProjectPage.jsx";
+import ProjectPage from "../screens/ProjectPage/ProjectPage.jsx";
 import ProtectedPage from "../screens/ProtectedPage/ProtectedPage";
 import TempLandingPage from "../screens/TempLandingPage/TempLandingPage";
 import PageNotFound from "../screens/PageNotFound/PageNotFound";
 
 export default function MainContainer({
+  initial,
   projects,
   aboutInfo,
   miscPageInfo,
@@ -15,7 +16,6 @@ export default function MainContainer({
   widthCutOff,
   backgroundColor,
   setBackgroundColor,
-  // scroll,
 }) {
   return (
     <Routes>
@@ -30,9 +30,9 @@ export default function MainContainer({
         path="/"
         element={
           <Home
+            initial={initial}
             backgroundColor={backgroundColor}
             setBackgroundColor={setBackgroundColor}
-            // scroll={scroll}
             projects={projects}
             cursor={cursor}
             viewport={viewport}

@@ -4,6 +4,7 @@ html {
 
   --yellow: #bcfc45;
   --transition-fadescroll: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+  --screen: 800;
 }
 
 body {
