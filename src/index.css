@@ -21,3 +21,11 @@ code {
     /* height: 100vh; */
   }
 }
+
+body {
+  cursor: none;
+}
+
+a {
+  cursor: pointer;
+}

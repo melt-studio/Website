@@ -37,6 +37,7 @@ export default function TempLandingPage() {
           fontWeight: 600,
           zIndex: 2,
           fontSize: "18px",
+          cursor: "default",
         }}
       >
         <div className="mq">NEW WEBSITE DROPPING SOON</div>
@@ -65,7 +66,7 @@ export default function TempLandingPage() {
         </div>
       </Marquee>
       <div id="cursor" ref={cursor}>
-        <img alt="Cursor Arrow" src={Button} />
+        {/* <img alt="Cursor Arrow" src={Button} /> */}
       </div>
     </div>
   );
