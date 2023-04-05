@@ -1,9 +1,10 @@
 import React, { useRef } from "react";
 // import LogoAnimation from '../../components/LogoAnimation'
 import WaterfallAnimation from "../../components/WaterfallAnimation";
-import Marquee from "react-fast-marquee";
+// import Marquee from "react-fast-marquee";
 import "./TempLandingPage.css";
 // import Button from "../../assets/Cursors/MELT_Live.png";
+import Button from "../../assets/Cursors/MELT_Live2.svg";
 
 export default function TempLandingPage() {
   const cursor = useRef();
@@ -26,7 +27,7 @@ export default function TempLandingPage() {
   return (
     <div className="temp-page__container">
       <WaterfallAnimation cursor={cursor} />
-      <Marquee
+      {/* <Marquee
         gradient={false}
         speed={40}
         style={{
@@ -64,9 +65,9 @@ export default function TempLandingPage() {
             <u>HELLO@MELT.WORKS</u>
           </a>
         </div>
-      </Marquee>
+      </Marquee> */}
       <div id="cursor" ref={cursor}>
-        {/* <img alt="Cursor Arrow" src={Button} /> */}
+        <img alt="Cursor Arrow" src={Button} />
       </div>
     </div>
   );
