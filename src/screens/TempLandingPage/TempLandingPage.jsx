@@ -3,8 +3,8 @@ import React, { useRef } from "react";
 import WaterfallAnimation from "../../components/WaterfallAnimation";
 // import Marquee from "react-fast-marquee";
 import "./TempLandingPage.css";
-// import Button from "../../assets/Cursors/MELT_Live.png";
-import Button from "../../assets/Cursors/MELT_Live2.svg";
+import Button from "../../assets/Cursors/MELT_Live.png";
+// import Button from "../../assets/Cursors/MELT_Live2.svg";
 
 export default function TempLandingPage() {
   const cursor = useRef();
