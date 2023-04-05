@@ -1,4 +1,4 @@
-export default /* glsl */ `
+const positionsFragment = /* glsl */ `
   uniform sampler2D positions;
 
   varying vec2 vUv;
@@ -7,4 +7,6 @@ export default /* glsl */ `
     vec3 pos = texture2D(positions, vUv).rgb;
     gl_FragColor = vec4(pos, 1.0);
   }
-`
+`;
+
+export default positionsFragment;
