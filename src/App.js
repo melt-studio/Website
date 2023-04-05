@@ -7,14 +7,37 @@ import "./App.css";
 import projectService from "./services/projects";
 import aboutService from "./services/about";
 import miscService from "./services/misc";
+// import { useLocation } from "react-router-dom";
 
 function App() {
-  const [initial, setInitial] = useState(true);
   const [projects, setProjects] = useState([]);
   const [aboutInfo, setAboutInfo] = useState({});
   const [miscInfo, setMiscInfo] = useState([]);
   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
   const [navMenuOpen, setNavMenuOpen] = useState(false);
+  const [initial, setInitial] = useState(true);
+  const [scroll, setScroll] = useState(0);
+
+  // console.log(location);
+
+  // const overlay = useRef();
+
+  // useEffect(() => {
+  //   // eslint-disable-next-line no-restricted-globals
+  //   console.log(history);
+  //   console.log(location);
+  //   console.log(location.state);
+  // }, [location]);
+
+  // useEffect(() => {
+  //   console.log(scroll);
+  // }, [scroll]);
+
+  // useEffect(() => {
+  //   if (location.pathname === "/" && initial) {
+  //     setInitial(false);
+  //   }
+  // }, [location, initial]);
 
   const cursor = useRef();
 
@@ -33,8 +56,6 @@ function App() {
         height: window.innerHeight,
       });
     };
-
-    setInitial(false);
 
     window.addEventListener("resize", handleResize);
 
@@ -88,12 +109,15 @@ function App() {
       >
         <MainContainer
           initial={initial}
+          setInitial={setInitial}
           projects={projects}
           aboutInfo={aboutInfo}
           miscInfo={miscInfo}
           cursor={cursor}
           viewport={viewport}
           widthCutOff={widthCutOff}
+          scroll={scroll}
+          setScroll={setScroll}
         />
       </Layout>
       {viewport.width >= widthCutOff && <Cursor ref={cursor} />}

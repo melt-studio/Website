@@ -1,4 +1,4 @@
-import { useEffect, forwardRef } from "react";
+import { useEffect, useRef, forwardRef } from "react";
 import CursorUnofficial from "./CusorUnofficial.jsx";
 import CursorPlay from "./CursorPlay.jsx";
 import CursorPause from "./CursorPause.jsx";
@@ -24,11 +24,14 @@ export const cursorEvents = {
 };
 
 const Cursor = forwardRef((props, ref) => {
+  const container = useRef();
+
   useEffect(() => {
     const updateCursorPos = (e) => {
-      if (ref.current) {
-        ref.current.style.left = `${e.clientX}px`;
-        ref.current.style.top = `${e.clientY}px`;
+      if (container && container.current) {
+        // ref.current.style.left = `${e.clientX}px`;
+        // ref.current.style.top = `${e.clientY}px`;
+        container.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
       }
     };
 
@@ -40,11 +43,13 @@ const Cursor = forwardRef((props, ref) => {
   }, [ref]);
 
   return (
-    <span ref={ref} className="cursor" id="cursor">
-      <CursorUnofficial />
-      <CursorPlay />
-      <CursorPause />
-    </span>
+    <div ref={container} className="cursor-container">
+      <div ref={ref} className="cursor" id="cursor">
+        <CursorUnofficial />
+        <CursorPlay />
+        <CursorPause />
+      </div>
+    </div>
   );
 });
 Cursor.displayName = "Cursor";

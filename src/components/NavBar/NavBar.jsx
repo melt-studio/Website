@@ -27,7 +27,7 @@ const NavBar = ({ viewport, widthCutOff, scrollCutOff }) => {
   const navigate = useNavigate();
 
   const exclude = useMemo(() => {
-    return ["/about", "/404", "/"];
+    return ["/about", "/404"];
   }, []);
 
   useEffect(() => {
@@ -78,8 +78,11 @@ const NavBar = ({ viewport, widthCutOff, scrollCutOff }) => {
         <div className="nav-bar__logo nav-bar__item">
           <img
             onClick={() => {
-              // window.scrollTo({ top: 0, behavior: "smooth" });
-              navigate("/");
+              if (location.pathname === "/") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              } else {
+                navigate("/");
+              }
             }}
             onMouseEnter={() => cursorEvents.onMouseEnter()}
             onMouseLeave={() => cursorEvents.onMouseLeave()}

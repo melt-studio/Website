@@ -65,17 +65,25 @@ const ProjectImages = ({ project, viewport, widthCutOff }) => {
 
   if (!images && !mobileImages) return null;
 
-  const projectImages = viewport.width < widthCutOff ? mobileImages : images;
-
-  // Could add fallback to alternate set of images
-  if (!projectImages) return null;
+  let projectImages = null;
+  if (viewport.width < widthCutOff) {
+    if (mobileImages) projectImages = mobileImages;
+    else if (images) projectImages = images;
+  } else {
+    if (images) projectImages = images;
+    else if (mobileImages) projectImages = mobileImages;
+  }
 
   return (
-    <div className="project-images">
-      {projectImages.map((image) => (
-        <ProjectImage key={image.id} image={image} project={project} viewport={viewport} />
-      ))}
-    </div>
+    <>
+      {projectImages && (
+        <div className="project-images">
+          {projectImages.map((image) => (
+            <ProjectImage key={image.id} image={image} project={project} viewport={viewport} />
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 

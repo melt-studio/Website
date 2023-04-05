@@ -1,7 +1,8 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import styled, { keyframes, css } from "styled-components";
 import "./IntroAnimation.css";
 import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
+import { motion, AnimatePresence } from "framer-motion";
 
 const fadeInLogo = keyframes`
   from {
@@ -12,6 +13,19 @@ const fadeInLogo = keyframes`
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+
+  // 0% {
+  //   opacity: 0;
+  //   transform: translateY(30px) scale(1);
+  // }
+  // 50% {
+  //   opacity: 1;
+  //   transform: translateY(0) scale(1);
+  // }
+  // 100% {
+  //   opacity: 0;
+  //   transform: translateY(0) scale(0.85);
+  // }
 `;
 
 const fadeOutLogo = keyframes`
@@ -30,8 +44,12 @@ const FadeLogo = styled.img`
   transform: translateY(30px) scale(1);
   animation: ${({ mobile }) => {
     // if (mobile) {
+    // return css`
+    //   ${fadeInLogo} 2s ease 1s forwards, ${fadeOutLogo} 2s ease 3s forwards;
+    // `;
     return css`
-      ${fadeInLogo} 2s ease 0.8s forwards, ${fadeOutLogo} 2s ease 3s forwards;
+      // ${fadeInLogo} 2s ease 1s forwards;
+      ${fadeInLogo} 2s ease 1s forwards, ${fadeOutLogo} 2s ease 3s forwards;
     `;
     // }
 
@@ -39,6 +57,13 @@ const FadeLogo = styled.img`
     //   ${fadeInLogo} 2s ease 0.8s forwards
     // `;
   }};
+
+  // .hide & {
+  //   animation: ${({ mobile }) => css`
+    //     ${fadeOutLogo} 2s ease 0s forwards;
+    //
+  `};
+  // }
 `;
 
 const fadeInText = keyframes`
@@ -52,14 +77,25 @@ const fadeInText = keyframes`
   }
 `;
 
+// const fadeOutText = keyframes`
+//   from {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+//   to {
+//     opacity: 0;
+//     transform: translateY(-10px);
+//   }
+// `;
+
 const FadeText = styled.p`
   opacity: 0;
   transform: translateY(0);
   animation: ${fadeInText} 2s ease ${({ delay = 0 }) => 4 + delay}s 1 forwards;
 `;
 
-export default function MobileAnimation({ viewport, widthCutOff }) {
-  const [ended, setEnded] = useState(false);
+export default function IntroAnimation({ initial, setInitial, viewport, widthCutOff }) {
+  // const [ended, setEnded] = useState(false);
 
   const container = useRef();
   const copy = useRef();
@@ -81,42 +117,54 @@ export default function MobileAnimation({ viewport, widthCutOff }) {
     .map((s) => s.trim());
 
   return (
-    <div className={`intro${ended ? " ended" : ""}`} ref={container}>
-      <div className="intro__logo">
-        <FadeLogo
-          src={DrippyLogo}
-          alt="MELT Logo"
-          mobile={viewport.width < widthCutOff}
-          onAnimationEnd={() => {
-            if (viewport.width >= widthCutOff) {
-              if (container && container.current) {
-                container.current.classList.add("hide");
-              }
-            }
-          }}
-        />
-      </div>
-
-      {viewport.width < widthCutOff && (
-        <div className="intro__text" ref={copy}>
-          {lines.map((line, i) => (
-            <FadeText
-              key={line}
-              delay={i * 0.1}
-              onAnimationEnd={() => {
-                if (i === lines.length - 1) {
-                  setEnded(true);
-                  // if (container && container.current && copy && copy.current) {
-                  //   container.current.style.height = `${copy.current.offsetHeight}px`;
-                  // }
+    <AnimatePresence>
+      {initial && (
+        <motion.div
+          initial={false}
+          animate={{ opacity: [0, 1, 1] }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: viewport.width < widthCutOff ? 1 : 2, ease: "easeInOut", delay: 0.5 }}
+          className="intro"
+          ref={container}
+        >
+          <div className="intro__logo">
+            <FadeLogo
+              src={DrippyLogo}
+              alt="MELT Logo"
+              mobile={viewport.width < widthCutOff}
+              onAnimationEnd={(e) => {
+                if (viewport.width >= widthCutOff) {
+                  if (e.animationName === fadeInLogo.name) {
+                    if (container && container.current) {
+                      // setEnded(true);
+                      setInitial(false);
+                    }
+                  }
                 }
               }}
-            >
-              {line}
-            </FadeText>
-          ))}
-        </div>
+            />
+          </div>
+
+          {viewport.width < widthCutOff && (
+            <div className="intro__text" ref={copy}>
+              {lines.map((line, i) => (
+                <FadeText
+                  key={line}
+                  delay={i * 0.1}
+                  onAnimationEnd={() => {
+                    if (i === lines.length - 1) {
+                      // setEnded(true);
+                      setInitial(false);
+                    }
+                  }}
+                >
+                  {line}
+                </FadeText>
+              ))}
+            </div>
+          )}
+        </motion.div>
       )}
-    </div>
+    </AnimatePresence>
   );
 }

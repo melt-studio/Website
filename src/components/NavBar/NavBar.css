@@ -4,7 +4,7 @@
   top: 0;
   padding-top: 15px;
   width: 100%;
-  z-index: 999;
+  z-index: 98;
   /* transform: translate(0, -100%); */
   /* animation: navBarShow 1s ease-out 0.5s 1 forwards; */
 }

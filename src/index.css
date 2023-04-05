@@ -41,20 +41,6 @@ body.home-page {
   }
 }
 
-#background {
-  width: 0px;
-  height: 0px;
-  pointer-events: none;
-  position: fixed;
-  top: -1px;
-  left: -1px;
-  z-index: -9999;
-}
-#background div {
-  background-color: #000000;
-  transition: background-color 1s ease;
-}
-
 @keyframes color-transition {
   /* for background */
   0% {

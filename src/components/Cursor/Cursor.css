@@ -1,12 +1,17 @@
+.cursor-container {
+  position: fixed;
+  z-index: 998;
+  pointer-events: none;
+  left: 0;
+  top: 0;
+}
+
 .cursor {
   transform: translate(-50%, -50%) scale(1);
   transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  position: fixed;
-  z-index: 9999;
-  pointer-events: none;
   background-color: transparent;
   opacity: 1;
 }

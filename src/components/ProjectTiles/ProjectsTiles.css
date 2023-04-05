@@ -6,6 +6,10 @@
   -webkit-transform: translate3d(0, 0, 0);
 }
 
+.projects.loading {
+  min-height: 5000px;
+}
+
 .project {
   margin-bottom: 80px;
 }

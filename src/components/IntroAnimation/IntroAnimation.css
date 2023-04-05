@@ -9,13 +9,15 @@
   padding: 0;
   /* transition: height 2s ease-in-out, padding 2s ease-in-out; */
 
-  background-color: rgba(0, 0, 0, 1);
+  background-color: #000000;
+  opacity: 1;
   position: fixed;
-  z-index: 9999;
+  z-index: 999;
   top: 0;
   left: 0;
   /* display: none; */
-  transition: opacity 2s ease-in-out 2s;
+  transition: opacity 2s ease-in-out 0s;
+  pointer-events: none;
 }
 
 .intro.ended {
@@ -25,7 +27,8 @@
 }
 
 .intro.hide {
-  display: none;
+  /* display: none; */
+  opacity: 0;
 }
 
 .intro__logo {

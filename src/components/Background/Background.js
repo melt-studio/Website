@@ -2,6 +2,7 @@ import { useMemo, useEffect, useRef } from "react";
 import { Color } from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrthographicCamera } from "@react-three/drei";
+import "./Background.css";
 
 const vertexShader = /* glsl */ `
   varying vec2 vUv;

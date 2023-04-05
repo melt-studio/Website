@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import { cursorEvents } from "../Cursor/Cursor";
-import "./Projects.css";
 import FadeScroll from "../FadeScroll/FadeScroll";
+import "./ProjectsTiles.css";
 
-export default function Projects(props) {
+export default function ProjectTiles(props) {
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
-
-  // console.log("projects");
 
   useEffect(() => {
     if (props.projects.length) {
@@ -74,13 +71,12 @@ export default function Projects(props) {
 
   const handleClick = (project) => {
     // console.log(project);
+    props.setScroll(window.scrollY);
     navigate(`/project/${project.projectUrl}`);
     cursorEvents.onMouseLeave(project.unofficials ? "unofficial" : "project");
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };
-
-  // console.log("hello");
 
   const handleMouseEnter = (project) => {
     // console.log(project);
@@ -124,7 +120,7 @@ export default function Projects(props) {
   // `;
 
   return (
-    <div className="projects">
+    <div className="projects" id="projects">
       {/* <Fade
         keyframes={customAnimationProjectImg}
         duration={3000}
@@ -137,7 +133,7 @@ export default function Projects(props) {
           }
         }
       > */}
-      {projects.map((project) => {
+      {projects.map((project, i) => {
         const mobile = props.viewport.width < props.widthCutOff;
         const width = mobile ? 85 : project.width;
         const style = {
@@ -169,6 +165,9 @@ export default function Projects(props) {
                 alt={project.name}
                 style={style}
                 onClick={() => handleClick(project)}
+                onLoad={() => {
+                  if (i === 0) props.setLoaded(true);
+                }}
                 // onClick={() => {
                 // console.log(e.target.getBoundingClientRect());
                 // const rect = e.target.getBoundingClientRect();

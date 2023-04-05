@@ -17,7 +17,7 @@ import { blur } from "../../helpers/blurTexture";
 
 // https://eriksachse.medium.com/react-three-fiber-custom-postprocessing-render-target-solution-without-using-the-effectcomposer-d3a94e6ae3c3
 
-const Scene = forwardRef(({ fps, name, controls, config, updateConfig, localStorageConfig, updateName }, ref) => {
+const Scene = forwardRef(({ fps, name, controls, config, updateConfig, localStorageConfig, updateName, fade }, ref) => {
   const cam = useRef();
   const mesh = useRef();
   const trail = useRef();
@@ -181,6 +181,19 @@ const Scene = forwardRef(({ fps, name, controls, config, updateConfig, localStor
     }
   }, [size, updateName, controls, name]);
 
+  useEffect(() => {
+    if (mesh.current) {
+      const stage = fade ? 1 : 0;
+      if (mesh.current.material.uniforms.uTransition.value.x !== stage) {
+        const { uTransition, uTime, uFadeLast } = mesh.current.material.uniforms;
+        uFadeLast.value = uTransition.value.y;
+        uTransition.value.x = stage;
+        uTransition.value.w = uTransition.value.z;
+        uTransition.value.z = uTime.value;
+      }
+    }
+  }, [fade]);
+
   const updateMouseMovement = () => {
     let a = {
       x: 0.9 * mouse.prev.x + 0.1 * mouse.current.x,
@@ -293,30 +306,9 @@ const Scene = forwardRef(({ fps, name, controls, config, updateConfig, localStor
   };
 
   useFrame((state, delta) => {
-    updateMouse(state);
+    if (!fade) updateMouse(state);
     animate(delta);
     getFadeTime();
-
-    // console.log("tick");
-
-    // const el = document.querySelector('.project')
-    // if (el) {
-    //   const rect = el.getBoundingClientRect()
-    //   // console.log(rect.top < window.innerHeight / 2)
-
-    //   let stage = rect.top < window.innerHeight / 2 ? 1 : 0
-
-    //   if (mesh.current) {
-    //     if (mesh.current.material.uniforms.uTransition.value.x !== stage) {
-    //       const { uTransition, uTime, uFadeLast } =
-    //         mesh.current.material.uniforms
-    //       uFadeLast.value = uTransition.value.y
-    //       uTransition.value.x = stage
-    //       uTransition.value.w = uTransition.value.z
-    //       uTransition.value.z = uTime.value
-    //     }
-    //   }
-    // }
 
     state.gl.setRenderTarget(target);
     state.gl.clear();

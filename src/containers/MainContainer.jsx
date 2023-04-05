@@ -8,6 +8,7 @@ import PageNotFound from "../screens/PageNotFound/PageNotFound";
 
 export default function MainContainer({
   initial,
+  setInitial,
   projects,
   aboutInfo,
   miscPageInfo,
@@ -16,6 +17,8 @@ export default function MainContainer({
   widthCutOff,
   backgroundColor,
   setBackgroundColor,
+  scroll,
+  setScroll,
 }) {
   return (
     <Routes>
@@ -31,12 +34,15 @@ export default function MainContainer({
         element={
           <Home
             initial={initial}
+            setInitial={setInitial}
             backgroundColor={backgroundColor}
             setBackgroundColor={setBackgroundColor}
             projects={projects}
             cursor={cursor}
             viewport={viewport}
             widthCutOff={widthCutOff}
+            scroll={scroll}
+            setScroll={setScroll}
           />
         }
       />
