@@ -25,12 +25,12 @@
   }
 }
 
-.not-found-page h1 {
+.page.not-found-page h1 {
   font-size: 100px;
   margin: 0;
 }
 
-.not-found-page img {
+.page.not-found-page img {
   width: 90px;
 }
 

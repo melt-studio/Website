@@ -22,7 +22,7 @@ export default function MainContainer({
   setScroll,
 }) {
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
   let path = location.pathname;
   if (location.pathname.includes("/project/")) path = "/project";
 

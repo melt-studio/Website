@@ -48,14 +48,14 @@ export default function About({ aboutInfo, cursor }) {
 
     if (cursor && cursor.current) {
       cursor.current.style.backgroundColor = "var(--yellow)";
-      document.body.style.cursor = "none";
+      // document.body.style.cursor = "none";
     }
 
     document.body.classList.add("about-page");
 
     return () => {
       document.body.classList.remove("about-page");
-      document.body.style.cursor = "default";
+      // document.body.style.cursor = "default";
     };
   }, [cursor]);
 
