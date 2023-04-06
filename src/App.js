@@ -65,6 +65,10 @@ function App() {
   }, []);
 
   useEffect(() => {
+    setInitial(viewport.width < widthCutOff ? true : false);
+  }, [viewport.width, widthCutOff]);
+
+  useEffect(() => {
     const getProjects = async () => {
       try {
         const response = await projectService.getProjects();
@@ -106,6 +110,7 @@ function App() {
         viewport={viewport}
         widthCutOff={widthCutOff}
         scrollCutOff={scrollCutOff}
+        initial={initial}
       >
         <MainContainer
           initial={initial}

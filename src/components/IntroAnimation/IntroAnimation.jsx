@@ -1,8 +1,9 @@
 import { useRef } from "react";
 import styled, { keyframes, css } from "styled-components";
-import "./IntroAnimation.css";
 import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
-import { motion, AnimatePresence } from "framer-motion";
+// import { motion, AnimatePresence } from "framer-motion";
+import FadeInOut from "../FadeInOut/FadeInOut";
+import "./IntroAnimation.css";
 
 const fadeInLogo = keyframes`
   from {
@@ -77,21 +78,22 @@ const fadeInText = keyframes`
   }
 `;
 
-// const fadeOutText = keyframes`
-//   from {
-//     opacity: 1;
-//     transform: translateY(0);
-//   }
-//   to {
-//     opacity: 0;
-//     transform: translateY(-10px);
-//   }
-// `;
+const fadeOutText = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-50vh);
+  }
+`;
 
 const FadeText = styled.p`
   opacity: 0;
   transform: translateY(0);
-  animation: ${fadeInText} 2s ease ${({ delay = 0 }) => 4 + delay}s 1 forwards;
+  animation: ${fadeInText} 2s ease ${({ delay = 0 }) => 4 + delay}s 1 forwards,
+    ${fadeOutText} 2s ease-in-out ${({ delay = 0 }) => 4 + delay * 0.5 + 4}s 1 forwards;
 `;
 
 export default function IntroAnimation({ initial, setInitial, viewport, widthCutOff }) {
@@ -117,8 +119,15 @@ export default function IntroAnimation({ initial, setInitial, viewport, widthCut
     .map((s) => s.trim());
 
   return (
-    <AnimatePresence>
-      {initial && (
+    <FadeInOut
+      isVisible={initial}
+      transition={{ duration: viewport.width < widthCutOff ? 1 : 2, ease: "easeInOut", delay: 0.5 }}
+      initial="false"
+      className="intro"
+      containerRef={container}
+    >
+      {/* <AnimatePresence> */}
+      {/* {initial && (
         <motion.div
           initial={false}
           animate={{ opacity: [0, 1, 1] }}
@@ -126,45 +135,70 @@ export default function IntroAnimation({ initial, setInitial, viewport, widthCut
           transition={{ duration: viewport.width < widthCutOff ? 1 : 2, ease: "easeInOut", delay: 0.5 }}
           className="intro"
           ref={container}
-        >
-          <div className="intro__logo">
-            <FadeLogo
-              src={DrippyLogo}
-              alt="MELT Logo"
-              mobile={viewport.width < widthCutOff}
+        > */}
+      <div className="intro__logo">
+        <FadeLogo
+          src={DrippyLogo}
+          alt="MELT Logo"
+          mobile={viewport.width < widthCutOff}
+          onAnimationEnd={(e) => {
+            if (viewport.width >= widthCutOff) {
+              if (e.animationName === fadeInLogo.name) {
+                if (container && container.current) {
+                  // setEnded(true);
+                  setInitial(false);
+                }
+              }
+            }
+          }}
+        />
+      </div>
+
+      {viewport.width < widthCutOff && (
+        <div className="intro__text" ref={copy}>
+          {lines.map((line, i) => (
+            <FadeText
+              key={line}
+              delay={i * 0.1}
               onAnimationEnd={(e) => {
-                if (viewport.width >= widthCutOff) {
-                  if (e.animationName === fadeInLogo.name) {
-                    if (container && container.current) {
-                      // setEnded(true);
-                      setInitial(false);
+                if (i === lines.length - 1) {
+                  // setEnded(true);
+                  if (e.animationName === fadeInText.name) {
+                    if (container && container.current && copy && copy.current) {
+                      const h = copy.current.getBoundingClientRect().height;
+                      if (h > 0) {
+                        container.current.style.height = `${h}px`;
+                        container.current.style.height = 0;
+                        container.current.classList.add("hide");
+                      }
                     }
+                  }
+
+                  // if (e.animationName === fadeInLogo.name) {
+                  //   if (container && container.current) {
+                  //     // setEnded(true);
+                  //     setInitial(false);
+                  //   }
+                  // }
+
+                  // console.log(h);
+                }
+
+                if (i === 0) {
+                  if (e.animationName === fadeOutText.name) {
+                    setInitial(false);
                   }
                 }
               }}
-            />
-          </div>
-
-          {viewport.width < widthCutOff && (
-            <div className="intro__text" ref={copy}>
-              {lines.map((line, i) => (
-                <FadeText
-                  key={line}
-                  delay={i * 0.1}
-                  onAnimationEnd={() => {
-                    if (i === lines.length - 1) {
-                      // setEnded(true);
-                      setInitial(false);
-                    }
-                  }}
-                >
-                  {line}
-                </FadeText>
-              ))}
-            </div>
-          )}
-        </motion.div>
+            >
+              {line}
+            </FadeText>
+          ))}
+        </div>
       )}
-    </AnimatePresence>
+      {/* </motion.div>
+      )}
+    </AnimatePresence> */}
+    </FadeInOut>
   );
 }

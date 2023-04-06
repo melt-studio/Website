@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
+import { useScroll, useMotionValueEvent } from "framer-motion";
 import Background from "../../components/Background/Background";
 import IntroAnimation from "../../components/IntroAnimation/IntroAnimation.jsx";
 import ProjectTiles from "../../components/ProjectTiles/ProjectsTiles.jsx";
 import LogoAnimation from "../../components/LogoAnimation/index.js";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import Page from "../Page";
 import "./Home.css";
 
 export default function Home({ initial, setInitial, projects, cursor, viewport, widthCutOff, scroll, setScroll }) {
@@ -53,27 +54,23 @@ export default function Home({ initial, setInitial, projects, cursor, viewport, 
 
   return (
     <>
-      <IntroAnimation initial={initial} setInitial={setInitial} viewport={viewport} widthCutOff={widthCutOff} />
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 0, 1] }}
-        exit={{ opacity: [1, 1, 0] }}
-        transition={{ duration: 1.5, ease: "easeInOut", delay: 0.25 }}
+      {viewport.width < widthCutOff && (
+        <IntroAnimation initial={initial} setInitial={setInitial} viewport={viewport} widthCutOff={widthCutOff} />
+      )}
+
+      <Page
         onAnimationComplete={() => {
           if (cursor && cursor.current) {
             cursor.current.style.opacity = 1;
           }
         }}
-        className="page"
       >
         {projects.length && <Background backgroundColor={backgroundColor} />}
-
         {viewport.width >= widthCutOff && (
           <div className="logo-animation">
             <LogoAnimation fade={fadeAnimation} />
           </div>
         )}
-
         {projects.length && (
           <ProjectTiles
             setLoaded={setLoaded}
@@ -86,7 +83,7 @@ export default function Home({ initial, setInitial, projects, cursor, viewport, 
             setScroll={setScroll}
           />
         )}
-      </motion.div>
+      </Page>
     </>
   );
 }

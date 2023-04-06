@@ -278,6 +278,11 @@ const Scene = forwardRef(({ fps, name, controls, config, updateConfig, localStor
     mesh.current.material.uniforms.uTransition.value.y = ft;
   };
 
+  // // decelerating to zero velocity
+  // const easeOutCubic = function (t) {
+  //   return --t * t * t + 1;
+  // };
+
   const animate = (delta) => {
     // let length = trail.current.material.uniforms.uLength.value
     // length = THREE.MathUtils.clamp(length, 0, 2)
@@ -287,6 +292,17 @@ const Scene = forwardRef(({ fps, name, controls, config, updateConfig, localStor
     if (mesh.current && mesh.current.material) {
       mesh.current.material.uniforms.uTime.value += delta;
       totalDelta = mesh.current.material.uniforms.uTime.value * 60;
+
+      // if (mesh.current.material.uniforms.uTime.value < 8) {
+      //   const time = mesh.current.material.uniforms.uTime.value;
+      //   let t = THREE.MathUtils.mapLinear(time, 0, 8, 1, 0);
+      //   t = easeOutCubic(t);
+
+      //   mesh.current.material.uniforms.uRefractionRatio.value = 1 - refractionRatio * 0.01 * t;
+      // } else {
+      //   mesh.current.material.uniforms.uRefractionRatio.value = 1 - refractionRatio * mouse.smoothedVector * 0.01;
+      // }
+
       mesh.current.material.uniforms.uRefractionRatio.value = 1 - refractionRatio * mouse.smoothedVector * 0.01;
 
       mesh.current.rotation.x = 0.0003 * rotSpeed.x * totalDelta + 0.0175 * rotAngle.x;

@@ -49,9 +49,10 @@ const keyframesItemSelected = {
     transition: { duration: 0.75, delay: 0.5, ease: "easeInOut" },
   },
   exit: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 0.75, delay: 0.75, ease: "easeInOut" },
+    y: -20,
+    opacity: 0,
+    // transition: { duration: 0.75, delay: 0.75, ease: "easeInOut" },
+    transition: { duration: 0.75, delay: 0.5, ease: "easeInOut" },
   },
 };
 

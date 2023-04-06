@@ -5,6 +5,7 @@ import ProjectCover from "../../components/ProjectCover/ProjectCover.jsx";
 import ProjectText from "../../components/ProjectText/ProjectText.jsx";
 import ProjectImages from "../../components/ProjectImages/ProjectImages.jsx";
 import ProjectNav from "../../components/ProjectNav/ProjectNav.jsx";
+import Page from "../Page.jsx";
 import "./ProjectPage.css";
 
 const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
@@ -50,6 +51,7 @@ const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
       setLoading(false);
 
       // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      // setTimeout(() => window.scrollTo(0, 0), 1);
       window.scrollTo(0, 0);
     };
 
@@ -93,10 +95,10 @@ const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
       // }, 1000);
     }
     // }, [projects, cursor, id, navigate]);
-  }, [projects, cursor, id, navigate, viewport]);
+  }, [projects, cursor, id, navigate, viewport.width]);
 
   return (
-    <div className="page" style={!loading && project ? { color: project.fields.colorText } : null}>
+    <Page style={!loading && project ? { color: project.fields.colorText } : null}>
       <div className={`page-container${loading ? " loading" : ""}`}>
         {!loading && project && (
           <>
@@ -106,20 +108,24 @@ const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
 
             <ProjectCover
               overlay={overlay}
-              key={project.id}
+              key={`${project.id}_cover`}
               project={project}
               viewport={viewport}
               widthCutOff={widthCutOff}
               cursor={cursor}
             />
-            <ProjectText project={project} />
-            <ProjectImages project={project} viewport={viewport} widthCutOff={widthCutOff} />
+            <ProjectText key={`${project.id}_text`} project={project} />
+            <ProjectImages
+              key={`${project.id}_images`}
+              project={project}
+              viewport={viewport}
+              widthCutOff={widthCutOff}
+            />
             <ProjectNav prev={prev} next={next} />
           </>
         )}
       </div>
-      {/* <div id="overlay" ref={overlay}></div> */}
-    </div>
+    </Page>
   );
 };
 

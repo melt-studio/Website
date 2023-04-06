@@ -5,6 +5,7 @@ const FadeScroll = ({
   viewport = { amount: 0.5 },
   onEnter = () => null,
   onExit = () => null,
+  id,
   className,
   style,
   children,
@@ -29,7 +30,7 @@ const FadeScroll = ({
   };
 
   return (
-    <motion.div ref={ref} viewport={viewport} {...handleEntry} className={className} style={style}>
+    <motion.div ref={ref} viewport={viewport} {...handleEntry} id={id} className={className} style={style}>
       {children}
     </motion.div>
   );

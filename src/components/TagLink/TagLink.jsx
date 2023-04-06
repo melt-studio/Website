@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { cursorEvents } from "../Cursor/Cursor.jsx";
 import "./TagLink.css";
@@ -17,7 +17,10 @@ const TagLinkAnchor = ({ nav, tag, children }) => {
 
 const TagLink = ({ nav, tag, underline = true }) => {
   const underlineRef = useRef();
-  // const cursor = document.querySelector(".cursor");
+
+  useEffect(() => {
+    if (underlineRef && underlineRef.current) underlineRef.current.classList.remove("hover");
+  }, [tag]);
 
   const mouseEvents = {
     onMouseEnter: () => {

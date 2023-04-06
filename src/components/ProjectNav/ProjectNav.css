@@ -1,5 +1,5 @@
 .project-nav {
-  padding: 0 5% 80px;
+  padding: 0 5% 100px;
 }
 
 .project-nav__links {
@@ -18,13 +18,13 @@
   transform: translateY(0);
 }
 
-.project-nav__link.close {
-  /* order: 3; */
-}
+/* .project-nav__link.close {
+  order: 3;
+} */
 
 .project-nav__link .tag-link h3 {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 @media (min-width: 800px) {

@@ -1,7 +1,6 @@
 .intro {
   height: 100vh;
   height: 100dvh;
-  transition: height 1s, padding 1s;
   width: 100%;
   position: relative; /* for logo */
   display: flex;
@@ -9,14 +8,16 @@
   padding: 0;
   /* transition: height 2s ease-in-out, padding 2s ease-in-out; */
 
-  background-color: #000000;
+  /* background-color: #000000; */
   opacity: 1;
-  position: fixed;
+  /* position: fixed; */
   z-index: 999;
   top: 0;
   left: 0;
   /* display: none; */
-  transition: opacity 2s ease-in-out 0s;
+  /* transform: scaleY(1); */
+  /* transition: opacity 2s ease-in-out 0s; */
+  transition: height 3s ease-in-out 1.5s, padding 2s ease-in-out 1.5s, opacity 2s ease-in-out 1.5s;
   pointer-events: none;
 }
 
@@ -29,6 +30,7 @@
 .intro.hide {
   /* display: none; */
   opacity: 0;
+  background-color: transparent;
 }
 
 .intro__logo {
@@ -58,16 +60,18 @@
 }
 
 .intro__text p {
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   /* font-weight: 900;
   font-size: 3.5rem; */
-  font-weight: 700;
+  font-weight: 600;
   font-size: max(min(15vw, 5rem), 3.5rem);
   letter-spacing: -0.25rem;
+  letter-spacing: -0.15rem;
   word-spacing: 0.2rem;
   margin: 0;
   color: white;
   line-height: 0.8;
+  line-height: 0.9;
   /* transition: font-size 2s ease-in-out; */
 }
 

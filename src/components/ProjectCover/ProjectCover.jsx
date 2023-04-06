@@ -37,7 +37,10 @@ const ProjectCover = ({ project, overlay, viewport, widthCutOff, cursor }) => {
   else if (background.length === 1) background.push(background[0]);
 
   const style = {
-    background: viewport.width < widthCutOff ? "transparent" : `linear-gradient(to bottom, ${background.join(", ")}`,
+    background:
+      viewport.width < widthCutOff
+        ? "transparent"
+        : `linear-gradient(to bottom, ${background[0]} 35%, ${background[1]} 100%)`, // to match Background smoothstep
     // backgroundColor: project.fields.cursorColor,
     // backgroundColor: viewport.width < widthCutOff ? "transparent" : project.fields.cursorColor,
   };

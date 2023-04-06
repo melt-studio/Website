@@ -7,11 +7,12 @@ import "./NavMenuLogo.css";
 import MeltLogo from "../../assets/images/MELT__LOGO.png";
 
 const keyframes = {
+  // initial: { opacity: 1, y: -20 },
   enter: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 20 },
+  exit: { opacity: 0, y: -20 }, // y: 20
 };
 
-const NavMenuLogo = ({ setNavMenuOpen, viewport, widthCutOff, scrollCutOff }) => {
+const NavMenuLogo = ({ setNavMenuOpen, initial, viewport, widthCutOff, scrollCutOff }) => {
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
@@ -25,12 +26,13 @@ const NavMenuLogo = ({ setNavMenuOpen, viewport, widthCutOff, scrollCutOff }) =>
       setIsVisible(false);
     } else {
       if (exclude.includes(location.pathname) || window.scrollY >= scrollCutOff) {
-        setIsVisible(true);
+        if (location.pathname === "/") setIsVisible(true && !initial);
+        else setIsVisible(true);
       } else {
         setIsVisible(false);
       }
     }
-  }, [exclude, location, viewport, widthCutOff, scrollCutOff]);
+  }, [exclude, location, viewport, widthCutOff, scrollCutOff, initial]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (viewport.width >= widthCutOff || exclude.includes(location.pathname)) return;

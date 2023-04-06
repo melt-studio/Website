@@ -1,13 +1,13 @@
-.footer {
-  /* margin-top: 50px; */
-}
+/* .footer {
+  margin-top: 50px;
+} */
 
-.footer.show {
-}
+/* .footer.show {
+} */
 
 .footer__tags {
   display: flex;
-  padding: 50px 5% 30px;
+  padding: 30px 5% 30px;
   justify-content: space-between;
   color: #ffffff;
   opacity: 0;
@@ -25,11 +25,12 @@
 }
 
 .footer .tag h3 {
-  font-size: 0.7rem;
+  /* font-size: 0.7rem; */
+  font-size: 12px;
 }
 
 @media (min-width: 800px) {
   .footer__tags {
-    padding: 50px 2% 30px;
+    padding: 30px 2% 30px;
   }
 }

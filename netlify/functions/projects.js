@@ -7,7 +7,10 @@ exports.handler = (event, context, callback) => {
   // eslint-disable-next-line no-undef
   const KEY = process.env.REACT_APP_AIRTABLE_KEY;
   // eslint-disable-next-line no-undef
-  const URL = process.env.REACT_APP_AIRTABLE_ENDPOINT_URL_PROJECTS;
+  const APP = process.env.REACT_APP_AIRTABLE_APP;
+  // eslint-disable-next-line no-undef
+  const TABLE = process.env.REACT_APP_AIRTABLE_TABLE_PROJECTS;
+  const URL = `${APP}/${TABLE}`;
 
   const headers = {
     Authorization: `Bearer ${KEY}`,

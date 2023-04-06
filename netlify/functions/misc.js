@@ -7,7 +7,10 @@ exports.handler = (event, context, callback) => {
   // eslint-disable-next-line no-undef
   const KEY = process.env.REACT_APP_AIRTABLE_KEY;
   // eslint-disable-next-line no-undef
-  const URL = process.env.REACT_APP_AIRTABLE_ENDPOINT_URL_MISC;
+  const APP = process.env.REACT_APP_AIRTABLE_APP;
+  // eslint-disable-next-line no-undef
+  const TABLE = process.env.REACT_APP_AIRTABLE_TABLE_MISC;
+  const URL = `${APP}/${TABLE}`;
 
   const headers = {
     Authorization: `Bearer ${KEY}`,
@@ -30,6 +33,8 @@ exports.handler = (event, context, callback) => {
   const getMisc = async () => {
     try {
       const response = await axios.get(URL, { headers });
+
+      console.log(response);
 
       if (!response.data || !response.data.records) {
         return pass(404, { error: "No data/records found" });

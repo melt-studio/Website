@@ -65,10 +65,12 @@ a {
   /* word-spacing: 0.125rem; */
   /* line-height: 1.1; */
 
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   /* letter-spacing: -0.06rem; */
-  /* line-height: normal; */
+  line-height: normal;
   line-height: 1;
+  letter-spacing: -0.025rem;
+  letter-spacing: -0.015rem;
   /* font-weight: 700; */
   /* visibility: hidden; */
 }
@@ -82,10 +84,11 @@ a {
     font-size: 2rem; /* fallback */
     /* font-size: min(max(2rem, 3vw), 2.5rem); */
     /* font-size: min(max(2rem, 4vw), 54px); */
-    font-size: min(max(2rem, 3.5vw), 54px);
+    font-size: min(max(2rem, 3vw), 50px);
 
-    letter-spacing: -0.1rem;
-    line-height: 0.85;
+    letter-spacing: -0.04rem;
+    letter-spacing: -0.075rem;
+    line-height: 1;
     /* font-weight: 600; */
 
     /* letter-spacing: 0; */
@@ -95,82 +98,11 @@ a {
     /* font-weight: 600; */
     font-weight: 600;
   }
-
-  .page h3,
-  .tag h3 {
-    /* font-size: 0.9rem; */
-    /* font-size: 0.8rem;
-    font-size: 0.7rem; */
-    /* font-size: 0.7rem; */
-  }
 }
 
-/* HOME */
-
-/* About */
-
-/* Project */
-
-/* Menu */
-
-@media (min-width: 1250px) {
-  /* .page .jumbo-text {
-    font-size: 2.5rem;
-    letter-spacing: -2.7px;
-    word-spacing: 3px;
-    line-height: 35px;
-  } */
-}
-
-@media (max-width: 800px) {
-  /* .page .jumbo-text {
-    font-size: 2rem;
-    font-weight: 700;
-  } */
-}
-
-@media (max-height: 800px), screen and (max-width: 800px) {
-  /* .page .jumbo-text {
-    font-size: 2rem;
-  } */
-  .page h1 {
-    /* font-size: 1.2rem;
-    font-weight: 600; */
-  }
-  .page h2 {
-    /* font-size: 1rem; */
-  }
-  /* .page h3 {
-    font-size: 0.7rem;
-    font-weight: 300;
-  } */
-}
-
-@media (max-height: 750px), screen and (max-width: 800px) {
-  /* .page .jumbo-text {
-    font-size: 1.3rem;
-  } */
-  .page h1 {
-    /* font-size: 1rem;
-    font-weight: 500; */
-  }
-  .page h2 {
-    /* font-size: 1rem; */
-  }
-  /* .page h3 {
-    font-size: 0.6rem;
-    font-weight: 300;
-  } */
-}
-@media (max-width: 510px) {
-  /* .page .jumbo-text {
-    font-size: 1.25rem;
-    letter-spacing: -1px;
-    word-spacing: 2px;
-  } */
-  .page h1 {
-    /* font-size: 1.1rem;
-    font-weight: 800; */
+@media (min-width: 1200px) {
+  .page .jumbo-text {
+    letter-spacing: -0.085rem;
   }
 }
 

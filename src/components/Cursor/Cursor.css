@@ -9,8 +9,8 @@
 .cursor {
   transform: translate(-50%, -50%) scale(1);
   transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
-  width: 40px;
-  height: 40px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   background-color: transparent;
   opacity: 1;
@@ -26,12 +26,12 @@
 .about-page .cursor {
   opacity: 1;
   background-color: var(--yellow);
-  transform: translate(-50%, -50%) scale(2);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .cursor.project {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(2);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .cursor.link {
@@ -43,13 +43,13 @@
 
 .cursor.unofficial {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1.5);
+  transform: translate(-50%, -50%) scale(1);
   background-color: transparent !important;
 }
 
 #cursor-unofficial {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   pointer-events: none;
   position: relative;
   transition: opacity 0.2s ease-in-out, fill 0.2s ease-in-out;
@@ -93,9 +93,9 @@
 
 @keyframes rotate {
   0% {
-    transform: translate(-20px, -20px) rotateZ(0);
+    transform: rotateZ(0);
   }
   100% {
-    transform: translate(-20px, -20px) rotateZ(360deg);
+    transform: rotateZ(360deg);
   }
 }

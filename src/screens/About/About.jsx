@@ -4,6 +4,7 @@ import TagBlock from "../../components/TagBlock/TagBlock.jsx";
 import FadeIn from "../../components/FadeIn/FadeIn.jsx";
 import { keyframes } from "../../utils/keyframes.js";
 import "./About.css";
+import Page from "../Page.jsx";
 
 keyframes`
   @keyframes customAnimationText {
@@ -84,13 +85,16 @@ export default function About({ aboutInfo, cursor }) {
   }, [aboutInfo]);
 
   return (
-    <div className="page">
+    <Page>
+      {/* <div className="page"> */}
       {/* <div className="transition-fade__about" /> */}
 
       <Helmet>
         <meta charSet="utf-8" />
         <title>MELLLLLLT - About</title>
       </Helmet>
+
+      <div id="about-background"></div>
 
       {aboutInfo.length && (
         <div className={`page-container${loading ? " loading" : ""}`}>
@@ -116,6 +120,7 @@ export default function About({ aboutInfo, cursor }) {
           </div>
         </div>
       )}
-    </div>
+      {/* </div> */}
+    </Page>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { cursorEvents } from "../Cursor/Cursor";
 import FadeScroll from "../FadeScroll/FadeScroll";
@@ -71,11 +71,17 @@ export default function ProjectTiles(props) {
 
   const handleClick = (project) => {
     // console.log(project);
+    // const p = document.getElementById(`project_${project.id}`);
+    // if (p) {
+    //   console.log(p);
+    //   // p.style.opacity = 1;
+    //   // p.classList.add("show");
+    // }
     props.setScroll(window.scrollY);
     navigate(`/project/${project.projectUrl}`);
     cursorEvents.onMouseLeave(project.unofficials ? "unofficial" : "project");
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    // document.body.scrollTop = 0; // For Safari
+    // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };
 
   const handleMouseEnter = (project) => {
@@ -154,7 +160,11 @@ export default function ProjectTiles(props) {
           //   // transition={{ type: "spring", stiffness: 50 }}
           //   // viewport={{ amount: 0.5 }}
           // >
-          <FadeScroll key={project.id} viewport={{ amount: 0.25 }}>
+          <FadeScroll
+            id={`project_${project.id}`}
+            key={project.id}
+            viewport={{ amount: props.viewport.width < props.widthCutOff ? 0.15 : 0.25 }}
+          >
             <div className="project">
               <img
                 src={project.cover.url}

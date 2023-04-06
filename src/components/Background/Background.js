@@ -26,7 +26,10 @@ const fragmentShader = /* glsl */ `
 
   void main() {
     vec3 color = vec3(0.);
-    gl_FragColor = vec4(mix(uColor1, uColor2, 1.-vUv.y), 1.);
+    float f = 1. - vUv.y;
+    f = smoothstep(.35, 1., f);
+    // f = smoothstep(.5, 1., f);
+    gl_FragColor = vec4(mix(uColor1, uColor2, f), 1.);
   }
 `;
 

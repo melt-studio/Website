@@ -4,7 +4,10 @@ const FadeInOut = ({
   isVisible,
   transition = { duration: 1, delay: 0, ease: "easeInOut" },
   keyframes = { enter: { opacity: 1 }, exit: { opacity: 0 } },
+  initial = "exit",
   className,
+  style,
+  containerRef,
   children,
 }) => {
   return (
@@ -14,10 +17,12 @@ const FadeInOut = ({
           transition={transition}
           key={className}
           variants={keyframes}
-          initial="exit"
+          initial={initial}
           animate="enter"
           exit="exit"
           className={className}
+          style={style}
+          ref={containerRef}
         >
           {children}
         </motion.div>

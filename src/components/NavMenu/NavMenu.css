@@ -29,14 +29,14 @@
 .nav-menu__link {
   width: fit-content;
   color: white;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-weight: 600;
   font-size: 3.5rem;
   font-size: max(min(15vw, 5rem), 3.5rem);
-  letter-spacing: -0.25rem;
+  letter-spacing: -0.15rem;
   word-spacing: 0.2rem;
   margin: 0;
-  line-height: 0.95;
+  line-height: 1;
 }
 
 .nav-menu__logo {
@@ -89,7 +89,7 @@
   opacity: 1;
   height: 3px;
 
-  animation: nav-menu__close-bar-left-out 1.5s ease-in-out 0s 1 forwards;
+  animation: nav-menu__close-bar-left-out 0.9s ease-in-out 0s 1 forwards;
 }
 .nav-menu__close-container.closing .nav-menu__close-bar.right {
   transform: rotateZ(-43deg) scaleX(1) scaleY(1);
@@ -143,7 +143,7 @@
   }
   100% {
     transform: rotateZ(0) scaleX(0) scaleY(1);
-    opacity: 0;
+    opacity: 1;
     height: 0;
   }
 }
@@ -189,7 +189,7 @@
   }
   100% {
     transform: rotateZ(0) scaleX(0) scaleY(1);
-    opacity: 0;
+    opacity: 1;
     height: 0;
   }
 }
