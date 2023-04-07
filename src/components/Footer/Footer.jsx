@@ -6,7 +6,8 @@ import { useLocation } from "react-router-dom";
 export default function Footer() {
   const location = useLocation();
 
-  if (location.pathname.includes("/project/")) return null;
+  const excludes = ["/project/", "/other/"];
+  if (excludes.some((ex) => location.pathname.includes(ex))) return null;
 
   return (
     <FadeScroll viewport={{ amount: 0 }} className="footer">

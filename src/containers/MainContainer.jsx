@@ -1,10 +1,11 @@
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import About from "../screens/About/About";
 import Home from "../screens/Home/Home";
-import ProjectPage from "../screens/ProjectPage/ProjectPage.jsx";
-import ProtectedPage from "../screens/ProtectedPage/ProtectedPage";
-import TempLandingPage from "../screens/TempLandingPage/TempLandingPage";
-import PageNotFound from "../screens/PageNotFound/PageNotFound";
+import Project from "../screens/Project/Project.jsx";
+import Embed from "../screens/Embed/Embed";
+import ProtectedPage from "../screens/ProtectedPage/ProtectedPage.jsx";
+import TempLandingPage from "../screens/TempLandingPage/TempLandingPage.jsx";
+import NotFound from "../screens/NotFound/NotFound.jsx";
 import { AnimatePresence } from "framer-motion";
 
 export default function MainContainer({
@@ -12,7 +13,7 @@ export default function MainContainer({
   setInitial,
   projects,
   aboutInfo,
-  miscPageInfo,
+  embeds,
   config,
   cursor,
   mobile,
@@ -33,11 +34,15 @@ export default function MainContainer({
     <AnimatePresence mode="wait">
       <Routes location={location} key={path}>
         <Route path="/temporary-landing-page" element={<TempLandingPage config={config} />} />
-        <Route path="/admin" element={<ProtectedPage miscPageInfo={miscPageInfo} />} />
-        <Route path="/about" element={<About aboutInfo={aboutInfo} cursor={cursor} />} />
+        <Route path="/admin" element={<ProtectedPage />} />
+        <Route path="/about" element={<About aboutInfo={aboutInfo} embeds={embeds} cursor={cursor} />} />
         <Route
           path="/project/:id"
-          element={<ProjectPage projects={projects} cursor={cursor} mobile={mobile} viewport={viewport} />}
+          element={<Project projects={projects} cursor={cursor} mobile={mobile} viewport={viewport} />}
+        />
+        <Route
+          path="/other/:id"
+          element={<Embed embeds={embeds} cursor={cursor} mobile={mobile} viewport={viewport} />}
         />
         <Route
           path="/"
@@ -58,7 +63,7 @@ export default function MainContainer({
             />
           }
         />
-        <Route path="/404" element={<PageNotFound />} />
+        <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" />} />
       </Routes>
     </AnimatePresence>

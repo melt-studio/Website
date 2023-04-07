@@ -1,0 +1,21 @@
+.project {
+  margin-bottom: 80px;
+}
+
+.project__cover-img {
+  position: relative;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 1s ease-in-out, transform 1s ease;
+}
+
+.show .project__cover-img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (max-width: 800px) {
+  .project-cover-img {
+    width: 85vw;
+  }
+}

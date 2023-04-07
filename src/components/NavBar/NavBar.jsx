@@ -26,24 +26,25 @@ const NavBar = ({ mobile, viewport, scrollCutOff }) => {
 
   const navigate = useNavigate();
 
-  const exclude = useMemo(() => {
-    return ["/about", "/404"];
+  const excludes = useMemo(() => {
+    return ["/about", "/404", "/other"];
   }, []);
 
   useEffect(() => {
     if (mobile) {
       setIsVisible(false);
     } else {
-      if (exclude.includes(location.pathname) || window.scrollY >= scrollCutOff) {
+      // if (excludes.includes(location.pathname) || window.scrollY >= scrollCutOff) {
+      if (excludes.some((ex) => location.pathname.includes(ex)) || window.scrollY >= scrollCutOff) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
     }
-  }, [exclude, location, mobile, scrollCutOff]);
+  }, [excludes, location, mobile, scrollCutOff]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (mobile || exclude.includes(location.pathname)) return;
+    if (mobile || excludes.some((ex) => location.pathname.includes(ex))) return;
 
     const sMax = document.body.offsetHeight - viewport.height;
     const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;

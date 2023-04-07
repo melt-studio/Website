@@ -35,13 +35,14 @@ const contactInfo = [
 
 const followInfo = [{ text: "Instagram", href: "https://www.instagram.com/melt.works/" }];
 
-export default function About({ aboutInfo, cursor }) {
+export default function About({ aboutInfo, embeds, cursor }) {
   const [loading, setLoading] = useState(true);
   const [aboutTexts, setAboutTexts] = useState([]);
   const [contactTags, setContactTags] = useState([]);
   const [followTags, setFollowTags] = useState([]);
   const [whatWeDoTags, setWhatWeDoTags] = useState([]);
   const [whatWeDontDoTags, setWhatWeDontDoTags] = useState([]);
+  const [embedTags, setEmbedTags] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -84,6 +85,12 @@ export default function About({ aboutInfo, cursor }) {
     }
   }, [aboutInfo]);
 
+  useEffect(() => {
+    if (embeds && embeds.length) {
+      setEmbedTags(embeds.map((e) => ({ text: e.fields.title, href: `/other/${e.fields.pageUrl}`, nav: true })));
+    }
+  }, [embeds]);
+
   return (
     <Page>
       {/* <div className="page"> */}
@@ -111,6 +118,7 @@ export default function About({ aboutInfo, cursor }) {
 
             <div className="col">
               <div className="sticky">
+                <TagBlock title="Other" tags={embedTags} />
                 <TagBlock title="Contact" tags={contactTags} />
                 <TagBlock title="Follow" tags={followTags} />
                 <TagBlock title="What We Do" tags={whatWeDoTags} />

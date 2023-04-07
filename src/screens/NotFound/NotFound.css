@@ -28,6 +28,7 @@
 .page.not-found-page h1 {
   font-size: 100px;
   margin: 0;
+  display: flex;
 }
 
 .page.not-found-page img {

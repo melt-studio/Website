@@ -6,9 +6,9 @@ import ProjectText from "../../components/ProjectText/ProjectText.jsx";
 import ProjectImages from "../../components/ProjectImages/ProjectImages.jsx";
 import ProjectNav from "../../components/ProjectNav/ProjectNav.jsx";
 import Page from "../Page.jsx";
-import "./ProjectPage.css";
+import "./Project.css";
 
-const ProjectPage = ({ projects, cursor, mobile, viewport }) => {
+const Project = ({ projects, cursor, mobile, viewport }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -125,4 +125,4 @@ const ProjectPage = ({ projects, cursor, mobile, viewport }) => {
   );
 };
 
-export default ProjectPage;
+export default Project;

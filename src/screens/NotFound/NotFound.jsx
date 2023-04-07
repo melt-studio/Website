@@ -1,8 +1,8 @@
 import { Helmet } from "react-helmet";
-import "./PageNotFound.css";
+import "./NotFound.css";
 import Drippy from "../../assets/images/MELT__DRIPPY.svg";
 
-const PageNotFound = () => {
+const NotFound = () => {
   return (
     <div className="page not-found-page">
       <Helmet>
@@ -20,4 +20,4 @@ const PageNotFound = () => {
   );
 };
 
-export default PageNotFound;
+export default NotFound;

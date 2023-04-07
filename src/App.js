@@ -8,15 +8,15 @@ import "./App.css";
 import configService from "./services/config";
 import projectService from "./services/projects";
 import aboutService from "./services/about";
-import miscService from "./services/misc";
+import embedService from "./services/embeds";
 
 function App() {
   const widthCutOff = 800;
 
   const [config, setConfig] = useState([]);
   const [projects, setProjects] = useState([]);
-  const [aboutInfo, setAboutInfo] = useState({});
-  const [miscInfo, setMiscInfo] = useState([]);
+  const [aboutInfo, setAboutInfo] = useState([]);
+  const [embeds, setEmbeds] = useState([]);
   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
   const [mobile, setMobile] = useState(viewport.width < widthCutOff);
   const [navMenuOpen, setNavMenuOpen] = useState(false);
@@ -78,10 +78,10 @@ function App() {
       }
     };
 
-    const getMiscInfo = async () => {
+    const getEmbeds = async () => {
       try {
-        const response = await miscService.getMisc();
-        setMiscInfo(response);
+        const response = await embedService.getEmbeds();
+        setEmbeds(response);
       } catch (error) {
         console.log(error.response.data.error ? error.response.data.error : "Server error");
       }
@@ -90,7 +90,7 @@ function App() {
     const getConfig = async () => {
       try {
         const response = await configService.getConfig();
-        console.log(response);
+        // console.log(response);
         setConfig(response);
       } catch (error) {
         console.log(error.response.data.error ? error.response.data.error : "Server error");
@@ -99,7 +99,7 @@ function App() {
 
     getProjects();
     getAboutInfo();
-    getMiscInfo();
+    getEmbeds();
     getConfig();
   }, []);
 
@@ -119,7 +119,7 @@ function App() {
           setInitial={setInitial}
           projects={projects}
           aboutInfo={aboutInfo}
-          miscInfo={miscInfo}
+          embeds={embeds}
           config={config}
           cursor={cursor}
           mobile={mobile}
