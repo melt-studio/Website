@@ -17,7 +17,8 @@
 }
 
 .home-page .cursor,
-.project-page .cursor {
+.project-page .cursor,
+.embed-page .cursor {
   opacity: 1;
   background-color: transparent;
   transform: translate(-50%, -50%) scale(0);
