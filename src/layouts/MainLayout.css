@@ -53,6 +53,7 @@ main {
   .col {
     /* padding: 0 0 0 8%; */
     padding: 0 0 0 8%;
+    padding: 0 0 0 6%;
   }
 
   .col.full {
