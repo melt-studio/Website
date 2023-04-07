@@ -24,6 +24,7 @@ a {
 }
 .page h1 {
   font-size: 1rem;
+  font-size: 14px;
   font-weight: 600;
   margin-top: 0;
 }
@@ -42,6 +43,7 @@ a {
   /* font-size: 0.7rem; */
   font-size: 12px;
   font-size: 10px;
+  font-size: 9.5px;
   letter-spacing: 0.025rem;
   line-height: 1;
   font-weight: 400;
@@ -61,7 +63,7 @@ a {
 
 .page .jumbo-text {
   font-size: 1.25rem;
-  font-weight: 600;
+  /* font-weight: 600; */
   font-weight: 550;
   /* letter-spacing: -0.05rem; */
   /* word-spacing: 0.125rem; */
