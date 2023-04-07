@@ -18,6 +18,10 @@
   padding: 0 2%;
 }
 
+.nav-bar .tag-link h3 {
+  font-size: 11px;
+}
+
 .nav-bar__item {
   /* width: 25%; */
   display: flex;
