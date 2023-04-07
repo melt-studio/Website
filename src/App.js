@@ -23,6 +23,7 @@ function App() {
   const [initial, setInitial] = useState(true);
   const [history, setHistory] = useState([]);
   const [scroll, setScroll] = useState(0);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const location = useLocation();
 
@@ -120,6 +121,8 @@ function App() {
           projects={projects}
           aboutInfo={aboutInfo}
           embeds={embeds}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
           config={config}
           cursor={cursor}
           mobile={mobile}

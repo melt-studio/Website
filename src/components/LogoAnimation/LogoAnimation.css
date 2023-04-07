@@ -1,10 +1,10 @@
-.animation-container {
+.animation-container canvas {
   opacity: 0;
   transform: translate(0, 30px);
   transition: opacity 1.5s ease-in-out 1s, transform 1.5s ease-in-out 1s;
 }
 
-.animation-container.show {
+.animation-container.show canvas {
   opacity: 1;
   transform: translate(0);
 }

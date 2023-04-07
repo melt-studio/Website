@@ -27,11 +27,11 @@ const NavBar = ({ mobile, viewport, scrollCutOff }) => {
   const navigate = useNavigate();
 
   const excludes = useMemo(() => {
-    return ["/about", "/404", "/other"];
+    return ["/about", "/404", "/other", "/admin"];
   }, []);
 
   useEffect(() => {
-    if (mobile) {
+    if (mobile || location.pathname.match(/^\/admin\/[\w-]+$/)) {
       setIsVisible(false);
     } else {
       // if (excludes.includes(location.pathname) || window.scrollY >= scrollCutOff) {
@@ -92,9 +92,11 @@ const NavBar = ({ mobile, viewport, scrollCutOff }) => {
           />
         </div>
 
-        <div className="nav-bar__item">
+        {/* {!location.pathname.includes("/admin") && ( */}
+        <div className="nav-bar__item" style={location.pathname.includes("/admin") ? { visibility: "hidden" } : null}>
           <TagLink tag={{ text: "About Us", href: "/about" }} nav />
         </div>
+        {/* )} */}
       </div>
     </FadeInOut>
   );
