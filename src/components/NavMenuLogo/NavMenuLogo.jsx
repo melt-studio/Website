@@ -17,25 +17,25 @@ const NavMenuLogo = ({ setNavMenuOpen, initial, mobile, viewport, scrollCutOff }
   const location = useLocation();
   const { scrollY } = useScroll();
 
-  const exclude = useMemo(() => {
-    return ["/about", "/404", "/"];
+  const excludes = useMemo(() => {
+    return ["/about", "/404", "/other"];
   }, []);
 
   useEffect(() => {
     if (!mobile) {
       setIsVisible(false);
     } else {
-      if (exclude.includes(location.pathname) || window.scrollY >= scrollCutOff) {
+      if (excludes.some((ex) => location.pathname.includes(ex)) || window.scrollY >= scrollCutOff) {
         if (location.pathname === "/") setIsVisible(true && !initial);
         else setIsVisible(true);
       } else {
         setIsVisible(false);
       }
     }
-  }, [exclude, location, mobile, scrollCutOff, initial]);
+  }, [excludes, location, mobile, scrollCutOff, initial]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (!mobile || exclude.includes(location.pathname)) return;
+    if (!mobile || excludes.some((ex) => location.pathname.includes(ex))) return;
 
     const sMax = document.body.offsetHeight - viewport.height;
     const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;

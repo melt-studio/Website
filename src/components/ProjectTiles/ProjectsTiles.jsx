@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { cursorEvents } from "../Cursor/Cursor";
-import FadeScroll from "../FadeScroll/FadeScroll";
+import ProjectTile from "../ProjectTile/ProjectTile";
 import "./ProjectsTiles.css";
 
 export default function ProjectTiles({ projects, cursor, setScroll, setBackgroundColor, setLoaded, mobile, viewport }) {
@@ -111,89 +111,21 @@ export default function ProjectTiles({ projects, cursor, setScroll, setBackgroun
     // document.documentElement.style.setProperty("background-color", "#000000");
   };
 
-  // const customAnimationProjectImg = keyframes`
-  //   0% {
-  //     opacity: 0;
-  //     transform: translateY(0px) scale(0.8);
-  //   }
-  //   50% {
-  //     transform: translateY(0) scale(1);
-  //   }
-  //   100% {
-  //     opacity: 1;
-  //     transform: translateY(0) scale(1);
-  //   }
-  // `;
-
   return (
     <div className="projects" id="projects">
-      {/* <Fade
-        keyframes={customAnimationProjectImg}
-        duration={3000}
-        delay={0}
-        triggerOnce={false}
-        // fraction={0.5}
-        style={
-          {
-            // transformOrigin: "center center",
-          }
-        }
-      > */}
-      {projectData.map((project, i) => {
-        const width = mobile ? 85 : project.width;
-        const style = {
-          left: mobile ? 0 : `${project.yAxis}%`,
-          marginTop: mobile ? 0 : `${project.xAxis}px`,
-          width: `${width}vw`,
-          height: `${((viewport.width * width) / 100) * (1 / project.cover.aspect)}px`,
-        };
-
-        // console.log(project.url);
-
-        return (
-          // <motion.div
-          //   key={project.id}
-          //   initial={{ opacity: 0, scale: 0.9 }}
-          //   whileInView={{ opacity: [0, 1, 1, 1], scale: [0.9, 0.9, 1, 1] }}
-          //   transition={{ times: [0, 0.1, 0.75, 1], duration: 2, ease: "easeInOut" }}
-          //   // transition={{ type: "spring", stiffness: 50 }}
-          //   // viewport={{ amount: 0.5 }}
-          // >
-          <FadeScroll id={`project_${project.id}`} key={project.id} viewport={{ amount: mobile ? 0.15 : 0.25 }}>
-            <div className="project">
-              <img
-                src={project.cover.url}
-                onMouseEnter={() => handleMouseEnter(project)}
-                onMouseLeave={() => handleMouseLeave(project)}
-                className="project__cover-img"
-                loading="lazy"
-                alt={project.name}
-                style={style}
-                onClick={() => handleClick(project)}
-                onLoad={() => {
-                  if (i === 0) setLoaded(true);
-                }}
-                // onClick={() => {
-                // console.log(e.target.getBoundingClientRect());
-                // const rect = e.target.getBoundingClientRect();
-                // const { left, top } = rect;
-                // const w = rect.width;
-                // const h = rect.height;
-                // const x = -left + (viewport.width - w) / 2;
-                // const y = -top + (viewport.height - h) / 2;
-                // const s = h / viewport.height;
-                // console.log(s);
-                // // e.target.style.transform = `translate(${-project.yAxis + 50 - project.width / 2}vw, 0)`;
-                // e.target.style.transform = `translate(${x}px, ${y}px) scale(${1 + s})`;
-                // e.target.style.transition = "transform 1s ease-in-out";
-                // }}
-                // style={{ width: "100%", height: "auto" }}
-              />
-            </div>
-          </FadeScroll>
-        );
-      })}
-      {/* </Fade> */}
+      {projectData.map((project, i) => (
+        <ProjectTile
+          key={project.id}
+          i={i}
+          project={project}
+          mobile={mobile}
+          viewport={viewport}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
+          handleClick={handleClick}
+          setLoaded={setLoaded}
+        />
+      ))}
     </div>
   );
 }

@@ -9,7 +9,7 @@ exports.handler = (event, context, callback) => {
   // eslint-disable-next-line no-undef
   const APP = process.env.REACT_APP_AIRTABLE_APP;
   // eslint-disable-next-line no-undef
-  const TABLE = process.env.REACT_APP_AIRTABLE_TABLE_MISC;
+  const TABLE = process.env.REACT_APP_AIRTABLE_TABLE_EMBEDS;
   const URL = `${APP}/${TABLE}`;
 
   const headers = {
@@ -30,7 +30,7 @@ exports.handler = (event, context, callback) => {
     });
   };
 
-  const getMisc = async () => {
+  const getEmbeds = async () => {
     try {
       const response = await axios.get(URL, { headers });
 
@@ -45,7 +45,7 @@ exports.handler = (event, context, callback) => {
   };
 
   if (event.httpMethod === "GET") {
-    getMisc();
+    getEmbeds();
   } else {
     return pass(500, { error: "Invalid request" });
   }
