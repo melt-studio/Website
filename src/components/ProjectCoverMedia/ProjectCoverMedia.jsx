@@ -92,7 +92,13 @@ const ProjectCoverMedia = ({ project, setLoading, cursor, viewport }) => {
         onClick={toggleVidPlay}
         onMouseEnter={() => cursorEvents.onMouseEnter("video")}
         onMouseLeave={() => cursorEvents.onMouseLeave("video")}
-        style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}
+        style={{
+          width: "100%",
+          height: "fit-content",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
         <ReactPlayer
           url={project.fields.mainVid[0].url}

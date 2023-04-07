@@ -11,7 +11,7 @@
   margin: 1rem 0 0.3rem;
 }
 
-.page .tag-link-nav {
+.tag-block .tag-link-nav {
   margin: 0 0 0.35rem;
 }
 
@@ -21,7 +21,7 @@
   transition: font-variation-settings 0.3s ease;
 }
 
-.page .tag-link-nav h3 {
+.about-page .page .tag-link-nav h3 {
   color: #000000;
 }
 
@@ -41,12 +41,12 @@
   transform: scaleX(0);
 }
 
-.page .tag-link-nav .tag-link-underline {
+.tag-block .tag-link-nav .tag-link-underline {
   transform: scaleX(1);
 }
 
 .tag-link-underline.hover,
-.page .tag-link-nav .tag-link-underline.hover {
+.tag-block .tag-link-nav .tag-link-underline.hover {
   transform: scaleX(0);
 }
 .tag-link-nav .tag-link-underline.hover {
@@ -57,6 +57,6 @@
   background: #ffffff;
 }
 
-.page .tag-link-nav .tag-link-underline hr {
+.about-page .page .tag-link-nav .tag-link-underline hr {
   background: #000000;
 }

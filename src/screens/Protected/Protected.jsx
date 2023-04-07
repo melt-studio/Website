@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import WaterfallAnimation from "../../components/WaterfallAnimation/index.js";
 import LogoAnimation from "../../components/LogoAnimation/index.js";
-import "./ProtectedPage.css";
+import "./Protected.css";
 
 export default function ProtectedPage(props) {
   const [isAllowed, setIsAllowed] = useState(false);
@@ -37,14 +37,24 @@ export default function ProtectedPage(props) {
 
   return (
     <div className="protected-page__container">
-      <div className="melt-logo__protected">
-        <Link style={{ color: "white" }} to="/">
-          <p>MELT</p>
-        </Link>
-      </div>
+      <form className="login-section">
+        <input
+          ref={inputElement}
+          placeholder=""
+          type="text"
+          onChange={(e) => {
+            confirmPassword(e.target.value);
+          }}
+          className="password-input"
+        />
+        <br />
+        <br />
+        <button type="submit" className="login-button" onClick={() => allowIn(password)}>
+          PLEASE LOGIN
+        </button>
+      </form>
 
-      <br />
-      {isAllowed === true ? (
+      {/* {isAllowed === true ? (
         <div className="allowed-section">
           <div className="wc-nav">
             <p onClick={() => setAnimationChoice("logo-no")}>Logo</p>
@@ -74,7 +84,7 @@ export default function ProtectedPage(props) {
             PLEASE LOGIN
           </button>
         </form>
-      )}
+      )} */}
     </div>
   );
 }

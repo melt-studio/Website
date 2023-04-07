@@ -3,7 +3,7 @@ import About from "../screens/About/About";
 import Home from "../screens/Home/Home";
 import Project from "../screens/Project/Project.jsx";
 import Embed from "../screens/Embed/Embed";
-import ProtectedPage from "../screens/ProtectedPage/ProtectedPage.jsx";
+import Protected from "../screens/Protected/Protected.jsx";
 import TempLandingPage from "../screens/TempLandingPage/TempLandingPage.jsx";
 import NotFound from "../screens/NotFound/NotFound.jsx";
 import { AnimatePresence } from "framer-motion";
@@ -34,7 +34,7 @@ export default function MainContainer({
     <AnimatePresence mode="wait">
       <Routes location={location} key={path}>
         <Route path="/temporary-landing-page" element={<TempLandingPage config={config} />} />
-        <Route path="/admin" element={<ProtectedPage />} />
+        <Route path="/admin" element={<Protected />} />
         <Route path="/about" element={<About aboutInfo={aboutInfo} embeds={embeds} cursor={cursor} />} />
         <Route
           path="/project/:id"

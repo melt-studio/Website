@@ -16,6 +16,7 @@ body {
   /* background-color: black; */
   background: transparent;
   transition: background-color 1s ease;
+  color: #ffffff;
 }
 
 code {
