@@ -72,7 +72,7 @@ const LogoAnimation = ({ serverConfig, controls, effectRef, mobile, fade = false
           // width: mobile && controls ? "390px" : "100%",
           // height: mobile && controls ? "844px" : "100%",
           width: "100%",
-          height: "100%",
+          height: "100vh",
           maxHeight: controls ? "none" : "1000px",
           // maxHeight: "1000px",
           display: "flex",

@@ -16,7 +16,7 @@ main {
 .description-text {
   display: flex;
   flex-direction: column;
-  max-width: 1400px;
+  max-width: 1050px;
 }
 
 .page-container {
@@ -52,7 +52,7 @@ main {
 
   .col {
     /* padding: 0 0 0 8%; */
-    padding: 0 0 0 5%;
+    padding: 0 0 0 8%;
   }
 
   .col.full {
@@ -63,7 +63,7 @@ main {
     /* width: 50%; */
     width: 70%;
     padding: 0;
-    max-width: 1400px;
+    max-width: 1050px;
   }
 
   .sticky {
