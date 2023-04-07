@@ -39,9 +39,9 @@ main {
   padding: 0 5%;
 }
 
-.sticky {
-  /* margin-top: 30px; */
-}
+/* .sticky {
+  margin-top: 30px;
+} */
 
 @media (min-width: 800px) {
   .row {
@@ -63,6 +63,7 @@ main {
     /* width: 50%; */
     width: 70%;
     padding: 0;
+    max-width: 1400px;
   }
 
   .sticky {

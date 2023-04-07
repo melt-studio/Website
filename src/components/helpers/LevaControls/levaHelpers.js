@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useState, useLayoutEffect } from "react";
 import { button, levaStore } from "leva";
-import { downloadConfig } from "../../helpers/LevaControls/downloadConfig";
-import configService from "../../../services/config";
+import { downloadConfig } from "./downloadConfig.js";
+import configService from "../../../services/config.js";
 
 // import { AuthContext } from '../../AdminPage/AuthContext'
 
@@ -84,7 +84,7 @@ export const useLevaHelpers = (name, defaults, config, updateConfig) => {
   const checkChanges = useCallback(() => {
     // console.log('UPDATECHANGES')
     const values = getStore();
-    const paths = Object.keys(values);
+    const paths = Object.keys(values).filter((k) => k !== "lastUpdated"); // Ignore lastUpdated field
 
     let hasChanged = false;
     paths.forEach((p) => {
@@ -92,10 +92,14 @@ export const useLevaHelpers = (name, defaults, config, updateConfig) => {
         //  Check object values (NB: this only caters for 1 level deep)
         const nestedKeys = Object.keys(values[p]);
         nestedKeys.forEach((key) => {
-          if (values[p][key] !== config[p][key]) hasChanged = true;
+          if (values[p][key] !== config[p][key]) {
+            hasChanged = true;
+          }
         });
       } else {
-        if (config[p] !== values[p]) hasChanged = true;
+        if (config[p] !== values[p]) {
+          hasChanged = true;
+        }
       }
     });
 

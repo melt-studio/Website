@@ -6,16 +6,15 @@ import PerfMonitor from "../helpers/PerfMonitor";
 import Scene from "./Scene";
 import "./LogoAnimation.css";
 
-import { useConfig } from "../helpers/LevaControls/setupConfig";
 import { useToggleControls } from "../helpers/toggleControls";
-import { getLocalStorageConfig } from "../helpers/LevaControls/setupConfig";
+import { getLocalStorageConfig } from "../helpers/LevaControls/localStorageConfig";
 import defaultConfig from "../helpers/LevaControls/config.json";
 
 const glSettings = {
   antialias: false,
 };
 
-const LogoAnimation = ({ controls, effectRef, mobile, fade = false }) => {
+const LogoAnimation = ({ serverConfig, controls, effectRef, mobile, fade = false }) => {
   const { metric, value } = defaultConfig.devices.mobile;
   const [name, setName] = useState(
     (mobile && controls) || window[`inner${metric[0].toUpperCase() + metric.slice(1)}`] < value ? "logo-mobile" : "logo"
@@ -44,8 +43,23 @@ const LogoAnimation = ({ controls, effectRef, mobile, fade = false }) => {
 
   const [sceneFps, setSceneFps] = useState(60);
 
-  const [config, updateConfig] = useConfig(name);
-  const localStorageConfig = getLocalStorageConfig(name);
+  // const [config, updateConfig] = useConfig(name, serverConfig);
+  const [config, setConfig] = useState(defaultConfig[name]);
+
+  useEffect(() => {
+    if (serverConfig !== null && serverConfig[name] !== undefined) {
+      if (serverConfig[name].id !== defaultConfig[name].id) {
+        console.log(`Mismatching record ids: ${serverConfig[name].id}, ${defaultConfig[name].id}`);
+      }
+      setConfig(serverConfig[name]);
+    }
+
+    // else {
+    //   console.log(`Config ${name} not found on server`);
+    // }
+  }, [name, serverConfig]);
+
+  const localStorageConfig = getLocalStorageConfig(name, defaultConfig);
   useToggleControls(controls === undefined ? false : controls);
 
   return (
@@ -64,7 +78,12 @@ const LogoAnimation = ({ controls, effectRef, mobile, fade = false }) => {
           zIndex: 1,
         }}
       >
-        <Canvas dpr={[1, 2]} gl={glSettings} onCreated={created}>
+        <Canvas
+          dpr={[1, 2]}
+          gl={glSettings}
+          onCreated={created}
+          camera={{ fov: 20, near: 50, far: 200, position: [0, 0, 90] }}
+        >
           {controls ? <PerfMonitor /> : null}
 
           <PerformanceMonitor
@@ -86,7 +105,7 @@ const LogoAnimation = ({ controls, effectRef, mobile, fade = false }) => {
               name={name}
               controls={controls === undefined ? false : controls}
               config={config}
-              updateConfig={updateConfig}
+              updateConfig={setConfig}
               localStorageConfig={localStorageConfig}
               ref={effectRef}
               containerRef={container}

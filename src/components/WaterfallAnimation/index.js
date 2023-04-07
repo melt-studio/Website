@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import LevaControls from "../helpers/LevaControls";
 import PerfMonitor from "../helpers/PerfMonitor";
 import Scene from "./Scene";
 
-import { useConfig } from "../helpers/LevaControls/setupConfig";
 import { useToggleControls } from "../helpers/toggleControls";
-import { getLocalStorageConfig } from "../helpers/LevaControls/setupConfig";
+import { getLocalStorageConfig } from "../helpers/LevaControls/localStorageConfig";
 import defaultConfig from "../helpers/LevaControls/config.json";
-import { useRef } from "react";
 
 const glSettings = {
   antialias: false,
@@ -19,7 +17,7 @@ const created = ({ gl }) => {
   gl.setClearAlpha(0);
 };
 
-const WaterfallAnimation = ({ controls, mobile }) => {
+const WaterfallAnimation = ({ serverConfig, controls, mobile }) => {
   const { metric, value } = defaultConfig.devices.mobile;
   const [name, setName] = useState(
     (mobile && controls) || window[`inner${metric[0].toUpperCase() + metric.slice(1)}`] < value
@@ -38,8 +36,24 @@ const WaterfallAnimation = ({ controls, mobile }) => {
     }
   }, [controls]);
 
-  const [config, updateConfig] = useConfig(name);
-  const localStorageConfig = getLocalStorageConfig(name);
+  // const [config, updateConfig] = useConfig(name, serverConfig);
+  const [config, setConfig] = useState(defaultConfig[name]);
+
+  useEffect(() => {
+    if (serverConfig !== null && serverConfig[name] !== undefined) {
+      if (serverConfig[name].id !== defaultConfig[name].id) {
+        console.log(`Mismatching record ids: ${serverConfig[name].id}, ${defaultConfig[name].id}`);
+      }
+      setConfig(serverConfig[name]);
+    }
+
+    // else {
+    //   console.log(`Config ${name} not found on server`);
+    // }
+  }, [name, serverConfig]);
+
+  const localStorageConfig = getLocalStorageConfig(name, defaultConfig);
+
   useToggleControls(controls === undefined ? false : controls);
 
   const container = useRef();
@@ -63,7 +77,7 @@ const WaterfallAnimation = ({ controls, mobile }) => {
             name={name}
             controls={controls === undefined ? false : controls}
             config={config}
-            updateConfig={updateConfig}
+            updateConfig={setConfig}
             localStorageConfig={localStorageConfig}
             containerRef={container}
             updateName={updateName}

@@ -23,7 +23,7 @@ const ProjectImage = ({ image, project, viewport }) => {
     }
 
     return size;
-  }, [image, viewport]);
+  }, [image, viewport.width]);
 
   const handleLoad = () => {
     if (img && img.current) {
@@ -60,13 +60,13 @@ const ProjectImage = ({ image, project, viewport }) => {
   );
 };
 
-const ProjectImages = ({ project, viewport, widthCutOff }) => {
+const ProjectImages = ({ project, mobile, viewport }) => {
   const { images, mobileImages } = project.fields;
 
   if (!images && !mobileImages) return null;
 
   let projectImages = null;
-  if (viewport.width < widthCutOff) {
+  if (mobile) {
     if (mobileImages) projectImages = mobileImages;
     else if (images) projectImages = images;
   } else {

@@ -34,8 +34,6 @@ exports.handler = (event, context, callback) => {
     try {
       const response = await axios.get(URL, { headers });
 
-      console.log(response);
-
       if (!response.data || !response.data.records) {
         return pass(404, { error: "No data/records found" });
       }

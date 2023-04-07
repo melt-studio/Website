@@ -3,7 +3,7 @@ import ProjectCoverMedia from "../ProjectCoverMedia/ProjectCoverMedia.jsx";
 import FadeScroll from "../FadeScroll/FadeScroll.jsx";
 import "./ProjectCover.css";
 
-const ProjectCover = ({ project, overlay, viewport, widthCutOff, cursor }) => {
+const ProjectCover = ({ project, overlay, mobile, viewport, cursor }) => {
   const [loading, setLoading] = useState(true);
 
   const { mainImage, mainVid } = project.fields;
@@ -14,13 +14,15 @@ const ProjectCover = ({ project, overlay, viewport, widthCutOff, cursor }) => {
       const { width, height } = mainImage[0];
       if (width && height) {
         const aspect = height / width;
-        size.width = viewport.width * 0.9;
-        size.height = viewport.width * aspect * 0.9;
+        // console.log(aspect);
+        const scl = 1;
+        size.width = viewport.width * scl;
+        size.height = viewport.width * aspect * scl;
       }
     }
 
     return size;
-  }, [mainImage, viewport]);
+  }, [mainImage, viewport.width]);
 
   // useEffect(() => {
   //   console.log("PROJECT COVER");
@@ -37,15 +39,12 @@ const ProjectCover = ({ project, overlay, viewport, widthCutOff, cursor }) => {
   else if (background.length === 1) background.push(background[0]);
 
   const style = {
-    background:
-      viewport.width < widthCutOff
-        ? "transparent"
-        : `linear-gradient(to bottom, ${background[0]} 35%, ${background[1]} 100%)`, // to match Background smoothstep
+    background: mobile ? "transparent" : `linear-gradient(to bottom, ${background[0]} 35%, ${background[1]} 100%)`, // to match Background smoothstep
     // backgroundColor: project.fields.cursorColor,
-    // backgroundColor: viewport.width < widthCutOff ? "transparent" : project.fields.cursorColor,
+    // backgroundColor: mobile ? "transparent" : project.fields.cursorColor,
   };
 
-  if (viewport.width < widthCutOff && size.height) {
+  if (mobile && size.height) {
     style.height = size.height;
   }
 
@@ -56,7 +55,13 @@ const ProjectCover = ({ project, overlay, viewport, widthCutOff, cursor }) => {
           viewport={{ amount: 0.3 }}
           className={`project-cover-full__background${loading ? " loading" : ""} show`}
         >
-          <ProjectCoverMedia overlay={overlay} project={project} setLoading={setLoading} cursor={cursor} />
+          <ProjectCoverMedia
+            overlay={overlay}
+            project={project}
+            setLoading={setLoading}
+            cursor={cursor}
+            viewport={viewport}
+          />
         </FadeScroll>
       </FadeScroll>
     </>

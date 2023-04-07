@@ -4,24 +4,16 @@ import NavBar from "../components/NavBar/NavBar.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import "./MainLayout.css";
 
-export default function Layout({
-  navMenuOpen,
-  setNavMenuOpen,
-  initial,
-  viewport,
-  widthCutOff,
-  scrollCutOff,
-  children,
-}) {
+export default function Layout({ navMenuOpen, setNavMenuOpen, initial, mobile, viewport, scrollCutOff, children }) {
   return (
     <div id="layout">
       <nav>
-        <NavBar viewport={viewport} widthCutOff={widthCutOff} scrollCutOff={scrollCutOff} />
+        <NavBar viewport={viewport} scrollCutOff={scrollCutOff} />
 
         <NavMenuLogo
           setNavMenuOpen={setNavMenuOpen}
+          mobile={mobile}
           viewport={viewport}
-          widthCutOff={widthCutOff}
           scrollCutOff={scrollCutOff}
           initial={initial}
         />

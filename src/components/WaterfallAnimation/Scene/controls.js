@@ -1,5 +1,5 @@
 // import { useEffect } from 'react'
-import * as THREE from "three";
+import { Color } from "three";
 import { useControls, folder } from "leva";
 import { useLevaHelpers } from "../../helpers/LevaControls/levaHelpers";
 
@@ -115,7 +115,7 @@ export const useLeva = (name, controls, defaults, config, updateConfig, dependen
           value: defaults.lineColor,
           onChange: (v) => {
             if (mesh.current && mesh.current.material) {
-              mesh.current.material.uniforms.uColor.value = new THREE.Color(v);
+              mesh.current.material.uniforms.uColor.value = new Color(v);
             }
           },
         },

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate, useParams } from "react-router-dom";
 import ProjectCover from "../../components/ProjectCover/ProjectCover.jsx";
@@ -8,7 +8,7 @@ import ProjectNav from "../../components/ProjectNav/ProjectNav.jsx";
 import Page from "../Page.jsx";
 import "./ProjectPage.css";
 
-const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
+const ProjectPage = ({ projects, cursor, mobile, viewport }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -95,7 +95,8 @@ const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
       // }, 1000);
     }
     // }, [projects, cursor, id, navigate]);
-  }, [projects, cursor, id, navigate, viewport.width]);
+    // }, [projects, cursor, id, navigate, viewport.width]);
+  }, [projects, cursor, id, navigate, mobile]);
 
   return (
     <Page style={!loading && project ? { color: project.fields.colorText } : null}>
@@ -110,17 +111,12 @@ const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
               overlay={overlay}
               key={`${project.id}_cover`}
               project={project}
+              mobile={mobile}
               viewport={viewport}
-              widthCutOff={widthCutOff}
               cursor={cursor}
             />
             <ProjectText key={`${project.id}_text`} project={project} />
-            <ProjectImages
-              key={`${project.id}_images`}
-              project={project}
-              viewport={viewport}
-              widthCutOff={widthCutOff}
-            />
+            <ProjectImages key={`${project.id}_images`} project={project} mobile={mobile} viewport={viewport} />
             <ProjectNav prev={prev} next={next} />
           </>
         )}
@@ -129,4 +125,4 @@ const ProjectFullPage = ({ projects, cursor, viewport, widthCutOff }) => {
   );
 };
 
-export default ProjectFullPage;
+export default ProjectPage;

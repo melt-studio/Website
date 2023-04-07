@@ -1,5 +1,5 @@
 import { useEffect, useRef, useMemo, useState } from "react";
-import * as THREE from "three";
+import { Color, Vector2, Vector4 } from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { OrthographicCamera, useTexture } from "@react-three/drei";
 import { useLeva } from "./controls";
@@ -70,25 +70,25 @@ const Scene = ({ name, controls, config, updateConfig, localStorageConfig, conta
   // }, [controls, texture, blurStrength])
 
   const [uniforms, mouse] = useMemo(() => {
-    const mouse = new THREE.Vector2();
+    const mouse = new Vector2();
 
     const uniforms = {
       uImage: { value: null },
-      uColor: { value: new THREE.Color(0xffffff) },
+      uColor: { value: new Color(0xffffff) },
       uTime: { value: 0 },
       uResolution: {
-        value: new THREE.Vector4(0, 0, 1024, 1024),
+        value: new Vector4(0, 0, 1024, 1024),
       },
       PI: { value: Math.PI },
       uLine: {
-        value: new THREE.Vector4(20, 1, 0.5, 0.5),
+        value: new Vector4(20, 1, 0.5, 0.5),
       },
       uDistortion: {
-        value: new THREE.Vector4(0.5, 0.5, true, 1),
+        value: new Vector4(0.5, 0.5, true, 1),
       },
       uMouse: { value: mouse },
       uNoise: { value: null },
-      uTransition: { value: new THREE.Vector4(0, 0, 3, 7) },
+      uTransition: { value: new Vector4(0, 0, 3, 7) },
       uImageScale: { value: 1 },
     };
 
@@ -119,7 +119,7 @@ const Scene = ({ name, controls, config, updateConfig, localStorageConfig, conta
       mesh.current.material.uniforms.uDistortion.value.z = mouseEnabled;
       mesh.current.material.uniforms.uDistortion.value.w = mouseStrength;
 
-      mesh.current.material.uniforms.uColor.value = new THREE.Color(lineColor);
+      mesh.current.material.uniforms.uColor.value = new Color(lineColor);
 
       mesh.current.material.needsUpdate = true;
     }

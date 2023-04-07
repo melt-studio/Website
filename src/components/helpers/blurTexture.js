@@ -1,4 +1,15 @@
-import * as THREE from "three";
+import {
+  MathUtils,
+  LinearFilter,
+  Scene,
+  OrthographicCamera,
+  WebGLRenderer,
+  WebGLRenderTarget,
+  Mesh,
+  PlaneGeometry,
+  ShaderMaterial,
+  DataTexture,
+} from "three";
 import { HorizontalBlurShader } from "three/examples/jsm/shaders/HorizontalBlurShader";
 import { VerticalBlurShader } from "three/examples/jsm/shaders/VerticalBlurShader";
 
@@ -16,25 +27,25 @@ export const blur = (
 
   // TO DO: set to nearest POT value below screen size
   const size = Math.min(blurTextureSize, 1024);
-  const strength = THREE.MathUtils.clamp(blurStrength, 0, 20);
+  const strength = MathUtils.clamp(blurStrength, 0, 20);
 
-  let renderTargetA = new THREE.WebGLRenderTarget(size, size, {
-    minFilter: THREE.LinearFilter,
-    magFilter: THREE.LinearFilter,
-    // format: THREE.RGBAFormat,
-    // encoding: THREE.sRGBEncoding,
+  let renderTargetA = new WebGLRenderTarget(size, size, {
+    minFilter: LinearFilter,
+    magFilter: LinearFilter,
+    // format: RGBAFormat,
+    // encoding: sRGBEncoding,
   });
-  let renderTargetB = new THREE.WebGLRenderTarget(size, size, {
-    minFilter: THREE.LinearFilter,
-    magFilter: THREE.LinearFilter,
-    // format: THREE.RGBAFormat,
-    // encoding: THREE.sRGBEncoding,
+  let renderTargetB = new WebGLRenderTarget(size, size, {
+    minFilter: LinearFilter,
+    magFilter: LinearFilter,
+    // format: RGBAFormat,
+    // encoding: sRGBEncoding,
   });
-  const cameraBlur = new THREE.OrthographicCamera(-1, 1, 1, -1, -1, 1);
-  const sceneBlurA = new THREE.Scene();
-  const sceneBlurB = new THREE.Scene();
-  const planeA = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial(HorizontalBlurShader));
-  const planeB = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial(VerticalBlurShader));
+  const cameraBlur = new OrthographicCamera(-1, 1, 1, -1, -1, 1);
+  const sceneBlurA = new Scene();
+  const sceneBlurB = new Scene();
+  const planeA = new Mesh(new PlaneGeometry(2, 2), new ShaderMaterial(HorizontalBlurShader));
+  const planeB = new Mesh(new PlaneGeometry(2, 2), new ShaderMaterial(VerticalBlurShader));
 
   planeA.material.uniforms.h.value = 1 / size;
   planeB.material.uniforms.v.value = 1 / size;
@@ -80,14 +91,14 @@ export const blur = (
     const buffer = new Uint8Array(size * size * 4);
     renderer.readRenderTargetPixels(renderTargetB, 0, 0, size, size, buffer);
 
-    const dataTexture = new THREE.DataTexture(buffer, size, size);
+    const dataTexture = new DataTexture(buffer, size, size);
     dataTexture.needsUpdate = true;
 
-    const r = new THREE.WebGLRenderer();
+    const r = new WebGLRenderer();
     r.setSize(size, size);
     r.setClearColor(0x000000);
 
-    const scene = new THREE.Scene();
+    const scene = new Scene();
     scene.background = dataTexture;
     r.render(scene, cameraBlur);
     const imgData = r.domElement.toDataURL("image/png");

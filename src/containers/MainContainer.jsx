@@ -13,28 +13,31 @@ export default function MainContainer({
   projects,
   aboutInfo,
   miscPageInfo,
+  config,
   cursor,
+  mobile,
   viewport,
-  widthCutOff,
   backgroundColor,
   setBackgroundColor,
   scroll,
   setScroll,
+  history,
 }) {
   const location = useLocation();
-  // console.log(location);
+
   let path = location.pathname;
+  // Make /project URIs the same for key - this stops AnimatePresence entry/exit on project -> project navigation
   if (location.pathname.includes("/project/")) path = "/project";
 
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={path}>
-        <Route path="/temporary-landing-page" element={<TempLandingPage />} />
-        <Route path="/working-components" element={<ProtectedPage miscPageInfo={miscPageInfo} />} />
+        <Route path="/temporary-landing-page" element={<TempLandingPage config={config} />} />
+        <Route path="/admin" element={<ProtectedPage miscPageInfo={miscPageInfo} />} />
         <Route path="/about" element={<About aboutInfo={aboutInfo} cursor={cursor} />} />
         <Route
           path="/project/:id"
-          element={<ProjectPage projects={projects} cursor={cursor} viewport={viewport} widthCutOff={widthCutOff} />}
+          element={<ProjectPage projects={projects} cursor={cursor} mobile={mobile} viewport={viewport} />}
         />
         <Route
           path="/"
@@ -45,11 +48,13 @@ export default function MainContainer({
               backgroundColor={backgroundColor}
               setBackgroundColor={setBackgroundColor}
               projects={projects}
+              config={config}
               cursor={cursor}
+              mobile={mobile}
               viewport={viewport}
-              widthCutOff={widthCutOff}
               scroll={scroll}
               setScroll={setScroll}
+              history={history}
             />
           }
         />

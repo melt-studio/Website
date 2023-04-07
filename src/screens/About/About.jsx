@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import TagBlock from "../../components/TagBlock/TagBlock.jsx";
 import FadeIn from "../../components/FadeIn/FadeIn.jsx";

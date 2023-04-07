@@ -1,4 +1,15 @@
-import * as THREE from "three";
+import {
+  MathUtils,
+  NearestFilter,
+  RGBAFormat,
+  FloatType,
+  sRGBEncoding,
+  DataTexture,
+  Scene,
+  OrthographicCamera,
+  Vector2,
+  Vector4,
+} from "three";
 import { useMemo, useState, forwardRef, useEffect } from "react";
 import { createPortal, useFrame } from "@react-three/fiber";
 import { useFBO } from "@react-three/drei";
@@ -13,7 +24,7 @@ const easeInOutCubic = (t) => {
 };
 
 const Trail = forwardRef(({ fps }, ref) => {
-  const tmp = new THREE.Vector2();
+  const tmp = new Vector2();
 
   // const { size } = useThree()
 
@@ -22,14 +33,14 @@ const Trail = forwardRef(({ fps }, ref) => {
 
   const pointCount = 1000;
   const limit = 512;
-  const targetSize = Math.min(limit, THREE.MathUtils.ceilPowerOfTwo(Math.sqrt(pointCount)));
+  const targetSize = Math.min(limit, MathUtils.ceilPowerOfTwo(Math.sqrt(pointCount)));
 
   const target = useFBO(targetSize, targetSize, {
-    minFilter: THREE.NearestFilter,
-    magFilter: THREE.NearestFilter,
-    format: THREE.RGBAFormat,
-    type: THREE.FloatType,
-    encoding: THREE.sRGBEncoding,
+    minFilter: NearestFilter,
+    magFilter: NearestFilter,
+    format: RGBAFormat,
+    type: FloatType,
+    encoding: sRGBEncoding,
     // multisample: false,
     // stencilBuffer: false,
     // depthBuffer: false,
@@ -40,7 +51,7 @@ const Trail = forwardRef(({ fps }, ref) => {
     useMemo(() => {
       const points = [];
       for (let i = 0; i < pointCount; i++) {
-        points.push(new THREE.Vector2(0, 0));
+        points.push(new Vector2(0, 0));
       }
 
       const data = new Float32Array(targetSize * targetSize * 4);
@@ -67,7 +78,7 @@ const Trail = forwardRef(({ fps }, ref) => {
         index.set([ind + 2, ind + 1, ind + 3], (ind + 1) * 3);
       }
 
-      const positionsTexture = new THREE.DataTexture(data, targetSize, targetSize, THREE.RGBAFormat, THREE.FloatType);
+      const positionsTexture = new DataTexture(data, targetSize, targetSize, RGBAFormat, FloatType);
       positionsTexture.needsUpdate = true;
 
       const positionsUniforms = {
@@ -80,23 +91,23 @@ const Trail = forwardRef(({ fps }, ref) => {
         positions: { value: null },
         uTime: { value: 0 },
         uSize: { value: targetSize },
-        uInfo: { value: new THREE.Vector4(pointCount, 200, 1, 0.5) },
+        uInfo: { value: new Vector4(pointCount, 200, 1, 0.5) },
         uDisplay: { value: 0 },
         uResolution: {
-          // value: new THREE.Vector2(width, height),
-          value: new THREE.Vector2(),
+          // value: new Vector2(width, height),
+          value: new Vector2(),
         },
         uLength: { value: 0 },
       };
 
-      const scene = new THREE.Scene();
-      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -1, 1);
+      const scene = new Scene();
+      const camera = new OrthographicCamera(-1, 1, 1, -1, -1, 1);
 
       return [points, position, positionsTexture, data, index, positionsUniforms, trailUniforms, scene, camera];
     }, [targetSize]);
 
   const [fpsFactor] = useMemo(() => {
-    const fpsFactor = Math.floor((THREE.MathUtils.clamp(fps, 30, 120) / 60) * 100);
+    const fpsFactor = Math.floor((MathUtils.clamp(fps, 30, 120) / 60) * 100);
     // console.log('fpsFactor', fpsFactor)
     return [fpsFactor];
   }, [fps]);
@@ -123,7 +134,7 @@ const Trail = forwardRef(({ fps }, ref) => {
         } else {
           let t = i / points.length;
           t = easeInOutCubic(t);
-          t = THREE.MathUtils.mapLinear(t, 0, 1, 0.5, 0.75);
+          t = MathUtils.mapLinear(t, 0, 1, 0.5, 0.75);
           // t = 1
           points[i].lerp(points[i - 1], t);
         }
@@ -146,8 +157,8 @@ const Trail = forwardRef(({ fps }, ref) => {
     setLoaded(true);
   }, []);
 
-  const mouse = new THREE.Vector2();
-  const mouseLast = new THREE.Vector2();
+  const mouse = new Vector2();
+  const mouseLast = new Vector2();
 
   useFrame((state, delta) => {
     // https://github.com/pmndrs/react-three-fiber/discussions/941

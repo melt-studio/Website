@@ -4,13 +4,13 @@ import { cursorEvents } from "../Cursor/Cursor";
 import FadeScroll from "../FadeScroll/FadeScroll";
 import "./ProjectsTiles.css";
 
-export default function ProjectTiles(props) {
+export default function ProjectTiles({ projects, cursor, setScroll, setBackgroundColor, setLoaded, mobile, viewport }) {
   const navigate = useNavigate();
-  const [projects, setProjects] = useState([]);
+  const [projectData, setProjectData] = useState([]);
 
   useEffect(() => {
-    if (props.projects.length) {
-      const projectsMapped = props.projects.map((project) => {
+    if (projects.length) {
+      const projectsMapped = projects.map((project) => {
         const { id } = project;
         const {
           cursorColor,
@@ -62,12 +62,12 @@ export default function ProjectTiles(props) {
         };
       });
 
-      // console.log(props.projects);
+      // console.log(projects);
       // console.log(projectsMapped);
 
-      setProjects(projectsMapped);
+      setProjectData(projectsMapped);
     }
-  }, [props.projects]);
+  }, [projects]);
 
   const handleClick = (project) => {
     // console.log(project);
@@ -77,7 +77,7 @@ export default function ProjectTiles(props) {
     //   // p.style.opacity = 1;
     //   // p.classList.add("show");
     // }
-    props.setScroll(window.scrollY);
+    setScroll(window.scrollY);
     navigate(`/project/${project.projectUrl}`);
     cursorEvents.onMouseLeave(project.unofficials ? "unofficial" : "project");
     // document.body.scrollTop = 0; // For Safari
@@ -87,26 +87,26 @@ export default function ProjectTiles(props) {
   const handleMouseEnter = (project) => {
     // console.log(project);
     cursorEvents.onMouseEnter(project.unofficials ? "unofficial" : "project");
-    if (props.cursor && props.cursor.current) {
-      props.cursor.current.style.backgroundColor = project.color.cursor;
-      // props.cursor.current.firstElementChild.style.fill = project.color.cursor;
-      Array.from(props.cursor.current.children).forEach((c) => (c.style.fill = project.color.cursor));
+    if (cursor && cursor.current) {
+      cursor.current.style.backgroundColor = project.color.cursor;
+      // cursor.current.firstElementChild.style.fill = project.color.cursor;
+      Array.from(cursor.current.children).forEach((c) => (c.style.fill = project.color.cursor));
     }
-    // props.setBackgroundColor(`${project.color.cursor}, #0000ff`);
-    props.setBackgroundColor(project.color.background);
+    // setBackgroundColor(`${project.color.cursor}, #0000ff`);
+    setBackgroundColor(project.color.background);
     // document.body.style.backgroundColor = project.color.cursor;
     // document.documentElement.style.setProperty("background-color", project.color.cursor);
   };
 
   const handleMouseLeave = (project) => {
     cursorEvents.onMouseLeave(project.unofficials ? "unofficial" : "project");
-    if (props.cursor && props.cursor.current) {
-      props.cursor.current.style.removeProperty("background-color");
-      // props.cursor.current.firstElementChild.style.fill = "transparent";
-      Array.from(props.cursor.current.children).forEach((c) => (c.style.fill = "transparent"));
+    if (cursor && cursor.current) {
+      cursor.current.style.removeProperty("background-color");
+      // cursor.current.firstElementChild.style.fill = "transparent";
+      Array.from(cursor.current.children).forEach((c) => (c.style.fill = "transparent"));
     }
-    props.setBackgroundColor("#000000");
-    // props.setBackgroundColor("#000000");
+    setBackgroundColor("#000000");
+    // setBackgroundColor("#000000");
     // document.body.style.backgroundColor = "#000000";
     // document.documentElement.style.setProperty("background-color", "#000000");
   };
@@ -139,14 +139,13 @@ export default function ProjectTiles(props) {
           }
         }
       > */}
-      {projects.map((project, i) => {
-        const mobile = props.viewport.width < props.widthCutOff;
+      {projectData.map((project, i) => {
         const width = mobile ? 85 : project.width;
         const style = {
           left: mobile ? 0 : `${project.yAxis}%`,
           marginTop: mobile ? 0 : `${project.xAxis}px`,
           width: `${width}vw`,
-          height: `${((props.viewport.width * width) / 100) * (1 / project.cover.aspect)}px`,
+          height: `${((viewport.width * width) / 100) * (1 / project.cover.aspect)}px`,
         };
 
         // console.log(project.url);
@@ -160,11 +159,7 @@ export default function ProjectTiles(props) {
           //   // transition={{ type: "spring", stiffness: 50 }}
           //   // viewport={{ amount: 0.5 }}
           // >
-          <FadeScroll
-            id={`project_${project.id}`}
-            key={project.id}
-            viewport={{ amount: props.viewport.width < props.widthCutOff ? 0.15 : 0.25 }}
-          >
+          <FadeScroll id={`project_${project.id}`} key={project.id} viewport={{ amount: mobile ? 0.15 : 0.25 }}>
             <div className="project">
               <img
                 src={project.cover.url}
@@ -176,7 +171,7 @@ export default function ProjectTiles(props) {
                 style={style}
                 onClick={() => handleClick(project)}
                 onLoad={() => {
-                  if (i === 0) props.setLoaded(true);
+                  if (i === 0) setLoaded(true);
                 }}
                 // onClick={() => {
                 // console.log(e.target.getBoundingClientRect());
@@ -184,9 +179,9 @@ export default function ProjectTiles(props) {
                 // const { left, top } = rect;
                 // const w = rect.width;
                 // const h = rect.height;
-                // const x = -left + (props.viewport.width - w) / 2;
-                // const y = -top + (props.viewport.height - h) / 2;
-                // const s = h / props.viewport.height;
+                // const x = -left + (viewport.width - w) / 2;
+                // const y = -top + (viewport.height - h) / 2;
+                // const s = h / viewport.height;
                 // console.log(s);
                 // // e.target.style.transform = `translate(${-project.yAxis + 50 - project.width / 2}vw, 0)`;
                 // e.target.style.transform = `translate(${x}px, ${y}px) scale(${1 + s})`;

@@ -19,7 +19,7 @@ const keyframes = {
   },
 };
 
-const NavBar = ({ viewport, widthCutOff, scrollCutOff }) => {
+const NavBar = ({ mobile, viewport, scrollCutOff }) => {
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
@@ -31,7 +31,7 @@ const NavBar = ({ viewport, widthCutOff, scrollCutOff }) => {
   }, []);
 
   useEffect(() => {
-    if (viewport.width < widthCutOff) {
+    if (mobile) {
       setIsVisible(false);
     } else {
       if (exclude.includes(location.pathname) || window.scrollY >= scrollCutOff) {
@@ -40,10 +40,10 @@ const NavBar = ({ viewport, widthCutOff, scrollCutOff }) => {
         setIsVisible(false);
       }
     }
-  }, [exclude, location, viewport, scrollCutOff, widthCutOff]);
+  }, [exclude, location, mobile, scrollCutOff]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (viewport.width < widthCutOff || exclude.includes(location.pathname)) return;
+    if (mobile || exclude.includes(location.pathname)) return;
 
     const sMax = document.body.offsetHeight - viewport.height;
     const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;

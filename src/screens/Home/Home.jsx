@@ -7,7 +7,18 @@ import LogoAnimation from "../../components/LogoAnimation/index.js";
 import Page from "../Page";
 import "./Home.css";
 
-export default function Home({ initial, setInitial, projects, cursor, viewport, widthCutOff, scroll, setScroll }) {
+export default function Home({
+  initial,
+  setInitial,
+  projects,
+  config,
+  cursor,
+  mobile,
+  viewport,
+  scroll,
+  setScroll,
+  history,
+}) {
   const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [fadeAnimation, setFadeAnimation] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -35,13 +46,16 @@ export default function Home({ initial, setInitial, projects, cursor, viewport, 
       window.scrollTo(0, 0);
     } else {
       if (loaded && scroll > 0) {
-        window.scrollTo(0, scroll);
+        // Only scroll to project if coming from project page
+        if (history && history.length > 1 && history[1].includes("/project/")) {
+          window.scrollTo(0, scroll);
+        }
       }
     }
-  }, [initial, loaded, scroll]);
+  }, [initial, loaded, scroll, history]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (viewport.width < widthCutOff) return;
+    if (mobile) return;
 
     const s = viewport.height / 2.5;
 
@@ -54,9 +68,7 @@ export default function Home({ initial, setInitial, projects, cursor, viewport, 
 
   return (
     <>
-      {viewport.width < widthCutOff && (
-        <IntroAnimation initial={initial} setInitial={setInitial} viewport={viewport} widthCutOff={widthCutOff} />
-      )}
+      {mobile && <IntroAnimation initial={initial} setInitial={setInitial} mobile={mobile} viewport={viewport} />}
 
       <Page
         onAnimationComplete={() => {
@@ -66,9 +78,9 @@ export default function Home({ initial, setInitial, projects, cursor, viewport, 
         }}
       >
         {projects.length && <Background backgroundColor={backgroundColor} />}
-        {viewport.width >= widthCutOff && (
+        {!mobile && (
           <div className="logo-animation">
-            <LogoAnimation fade={fadeAnimation} />
+            <LogoAnimation serverConfig={config} fade={fadeAnimation} />
           </div>
         )}
         {projects.length && (
@@ -78,8 +90,8 @@ export default function Home({ initial, setInitial, projects, cursor, viewport, 
             // setBackgroundImage={setBackgroundImage}
             setBackgroundColor={setBackgroundColor}
             cursor={cursor}
+            mobile={mobile}
             viewport={viewport}
-            widthCutOff={widthCutOff}
             setScroll={setScroll}
           />
         )}

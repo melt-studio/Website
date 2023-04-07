@@ -79,6 +79,10 @@ a {
   margin: 0 0 1.5em;
 }
 
+.title-text {
+  margin-bottom: 5px;
+}
+
 @media (min-width: 800px) {
   .page .jumbo-text {
     font-size: 2rem; /* fallback */
@@ -99,13 +103,9 @@ a {
     font-weight: 600;
   }
 }
-
+/* 
 @media (min-width: 1200px) {
   .page .jumbo-text {
     letter-spacing: -0.085rem;
   }
-}
-
-.title-text {
-  margin-bottom: 7px;
-}
+} */

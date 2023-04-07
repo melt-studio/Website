@@ -12,7 +12,7 @@ const keyframes = {
   exit: { opacity: 0, y: -20 }, // y: 20
 };
 
-const NavMenuLogo = ({ setNavMenuOpen, initial, viewport, widthCutOff, scrollCutOff }) => {
+const NavMenuLogo = ({ setNavMenuOpen, initial, mobile, viewport, scrollCutOff }) => {
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
@@ -22,7 +22,7 @@ const NavMenuLogo = ({ setNavMenuOpen, initial, viewport, widthCutOff, scrollCut
   }, []);
 
   useEffect(() => {
-    if (viewport.width >= widthCutOff) {
+    if (!mobile) {
       setIsVisible(false);
     } else {
       if (exclude.includes(location.pathname) || window.scrollY >= scrollCutOff) {
@@ -32,10 +32,10 @@ const NavMenuLogo = ({ setNavMenuOpen, initial, viewport, widthCutOff, scrollCut
         setIsVisible(false);
       }
     }
-  }, [exclude, location, viewport, widthCutOff, scrollCutOff, initial]);
+  }, [exclude, location, mobile, scrollCutOff, initial]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (viewport.width >= widthCutOff || exclude.includes(location.pathname)) return;
+    if (!mobile || exclude.includes(location.pathname)) return;
 
     const sMax = document.body.offsetHeight - viewport.height;
     const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;

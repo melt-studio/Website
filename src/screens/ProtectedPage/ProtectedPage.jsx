@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
-import "./ProtectedPage.css";
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import WaterfallAnimation from "../../components/WaterfallAnimation/index.js";
 import LogoAnimation from "../../components/LogoAnimation/index.js";
-import { Link } from "react-router-dom";
+import "./ProtectedPage.css";
 
 export default function ProtectedPage(props) {
   const [isAllowed, setIsAllowed] = useState(false);

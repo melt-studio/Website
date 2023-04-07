@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import styled, { keyframes, css } from "styled-components";
-import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
-// import { motion, AnimatePresence } from "framer-motion";
+// import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
+import DrippyLogo from "../../assets/images/MELT__DRIPPY__ANIMATED.gif";
 import FadeInOut from "../FadeInOut/FadeInOut";
 import "./IntroAnimation.css";
 
@@ -96,7 +96,7 @@ const FadeText = styled.p`
     ${fadeOutText} 2s ease-in-out ${({ delay = 0 }) => 4 + delay * 0.5 + 4}s 1 forwards;
 `;
 
-export default function IntroAnimation({ initial, setInitial, viewport, widthCutOff }) {
+export default function IntroAnimation({ initial, setInitial, mobile }) {
   // const [ended, setEnded] = useState(false);
 
   const container = useRef();
@@ -121,7 +121,7 @@ export default function IntroAnimation({ initial, setInitial, viewport, widthCut
   return (
     <FadeInOut
       isVisible={initial}
-      transition={{ duration: viewport.width < widthCutOff ? 1 : 2, ease: "easeInOut", delay: 0.5 }}
+      transition={{ duration: mobile ? 1 : 2, ease: "easeInOut", delay: 0.5 }}
       initial="false"
       className="intro"
       containerRef={container}
@@ -132,7 +132,7 @@ export default function IntroAnimation({ initial, setInitial, viewport, widthCut
           initial={false}
           animate={{ opacity: [0, 1, 1] }}
           exit={{ opacity: 0 }}
-          transition={{ duration: viewport.width < widthCutOff ? 1 : 2, ease: "easeInOut", delay: 0.5 }}
+          transition={{ duration: mobile ? 1 : 2, ease: "easeInOut", delay: 0.5 }}
           className="intro"
           ref={container}
         > */}
@@ -140,9 +140,9 @@ export default function IntroAnimation({ initial, setInitial, viewport, widthCut
         <FadeLogo
           src={DrippyLogo}
           alt="MELT Logo"
-          mobile={viewport.width < widthCutOff}
+          mobile={mobile}
           onAnimationEnd={(e) => {
-            if (viewport.width >= widthCutOff) {
+            if (!mobile) {
               if (e.animationName === fadeInLogo.name) {
                 if (container && container.current) {
                   // setEnded(true);
@@ -154,7 +154,7 @@ export default function IntroAnimation({ initial, setInitial, viewport, widthCut
         />
       </div>
 
-      {viewport.width < widthCutOff && (
+      {mobile && (
         <div className="intro__text" ref={copy}>
           {lines.map((line, i) => (
             <FadeText
