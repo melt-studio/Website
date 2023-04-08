@@ -1,31 +1,15 @@
-import { Routes, Route, Navigate, useLocation, useParams, useNavigate, Outlet } from "react-router-dom";
+import { useState } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import About from "../screens/About/About.jsx";
 import Home from "../screens/Home/Home.jsx";
 import Project from "../screens/Project/Project.jsx";
 import Embed from "../screens/Embed/Embed.jsx";
-import Protected from "../screens/Protected/Protected.jsx";
+import Login from "../screens/Login/Login.jsx";
 import Admin from "../screens/Admin/Admin.jsx";
-import LogoAnimation from "../components/LogoAnimation";
-import WaterfallAnimation from "../components/WaterfallAnimation/index.js";
+import AdminConfig from "../screens/Admin/AdminConfig.jsx";
 import TempLandingPage from "../screens/TempLandingPage/TempLandingPage.jsx";
 import NotFound from "../screens/NotFound/NotFound.jsx";
 import { AnimatePresence } from "framer-motion";
-
-// const Test = ({ loggedIn, config }) => {
-//   const { id } = useParams();
-//   const navigate = useNavigate();
-//   console.log("loggedIn", loggedIn);
-
-//   if (loggedIn) {
-//     if (id === "logo") {
-//       return <LogoAnimation serverConfig={config} effectRef={null} controls={true} />;
-//     } else if (id === "waterfall") {
-//       return <WaterfallAnimation serverConfig={config} controls={true} />;
-//     }
-//   }
-
-//   return <Navigate to="/admin" replace />;
-// };
 
 export default function MainContainer({
   initial,
@@ -45,51 +29,56 @@ export default function MainContainer({
   setScroll,
   history,
 }) {
+  const [adminMessage, setAdminMessage] = useState(null);
+
   const location = useLocation();
 
   let path = location.pathname;
   // Make /project URIs the same for key - this stops AnimatePresence entry/exit on project -> project navigation
   if (location.pathname.includes("/project/")) path = "/project";
+  else if (location.pathname.includes("/admin/")) path = "/admin";
 
-  const ProtectedRoute = ({ loggedIn, redirectPath = "/about", children }) => {
-    if (!loggedIn) {
-      return <Navigate to={redirectPath} replace />;
-    }
-
-    return children ? children : <Outlet />;
-  };
+  console.log(loggedIn);
 
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={path}>
         <Route path="/temporary-landing-page" element={<TempLandingPage config={config} />} />
-        {/* <Route element={<ProtectedRoute loggedIn={loggedIn} />}>
-          <Route path="/admin" element={<Admin />} />
-        </Route> */}
+
         <Route
           path="/admin"
-          element={<Protected loggedIn={loggedIn} setLoggedIn={setLoggedIn} config={config} mobile={mobile} />}
+          element={loggedIn ? <Admin adminMessage={adminMessage} /> : <Navigate to="/login" replace />}
         />
-        {/* <Route
-          path="/admin/:id"
+        <Route
+          path="/admin/:mode"
           element={
             loggedIn ? (
-              <LogoAnimation serverConfig={config} effectRef={null} controls={true} />
+              <AdminConfig config={config} setAdminMessage={setAdminMessage} mobile={mobile} />
             ) : (
-              <Navigate to="/admin" replace />
+              <Navigate to="/login" replace />
             )
           }
-        /> */}
-        <Route path="/admin/*" element={<Navigate to="/admin" replace />} />
+        />
+
         <Route path="/about" element={<About aboutInfo={aboutInfo} embeds={embeds} cursor={cursor} />} />
+
         <Route
           path="/project/:id"
           element={<Project projects={projects} cursor={cursor} mobile={mobile} viewport={viewport} />}
         />
+
         <Route
-          path="/other/:id"
+          path="/:type/:id"
           element={<Embed embeds={embeds} cursor={cursor} mobile={mobile} viewport={viewport} />}
         />
+
+        <Route
+          path="/login"
+          element={
+            loggedIn ? <Navigate to="/admin" replace /> : <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+          }
+        />
+
         <Route
           path="/"
           element={

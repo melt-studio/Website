@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import styled, { keyframes, css } from "styled-components";
-// import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
-import DrippyLogo from "../../assets/images/MELT__DRIPPY__ANIMATED.gif";
+import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
+// import DrippyLogo from "../../assets/images/MELT__DRIPPY__ANIMATED.gif";
 import FadeInOut from "../FadeInOut/FadeInOut";
 import "./IntroAnimation.css";
 

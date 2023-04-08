@@ -19,7 +19,7 @@ const keyframes = {
   },
 };
 
-const NavBar = ({ mobile, viewport, scrollCutOff }) => {
+const NavBar = ({ mobile, viewport, scrollCutOff, setLoggedIn }) => {
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
@@ -27,7 +27,7 @@ const NavBar = ({ mobile, viewport, scrollCutOff }) => {
   const navigate = useNavigate();
 
   const excludes = useMemo(() => {
-    return ["/about", "/404", "/other", "/admin"];
+    return ["/about", "/404", "/other", "/admin", "/login"];
   }, []);
 
   useEffect(() => {
@@ -92,11 +92,38 @@ const NavBar = ({ mobile, viewport, scrollCutOff }) => {
           />
         </div>
 
+        {/* <select
+        // value={this.state.selectValue}
+        // onChange={this.handleChange}
+        >
+          <option value="Logo">Logo</option>
+          <option value="Waterfall">Waterfall</option>
+        </select> */}
+
         {/* {!location.pathname.includes("/admin") && ( */}
-        <div className="nav-bar__item" style={location.pathname.includes("/admin") ? { visibility: "hidden" } : null}>
-          <TagLink tag={{ text: "About Us", href: "/about" }} nav />
-        </div>
-        {/* )} */}
+        {!location.pathname.includes("/admin") && (
+          <div className="nav-bar__item" style={location.pathname.includes("/login") ? { visibility: "hidden" } : null}>
+            <TagLink tag={{ text: "About Us", href: "/about" }} nav />
+          </div>
+        )}
+
+        {location.pathname.includes("/admin") && (
+          <div className="nav-bar__item">
+            <TagLink
+              tag={{
+                text: "Logout",
+                onClick: () => {
+                  console.log("ok");
+                  setLoggedIn(false);
+                  if (window.localStorage.getItem("admin-password")) {
+                    window.localStorage.removeItem("admin-password");
+                  }
+                },
+              }}
+              nav
+            />
+          </div>
+        )}
       </div>
     </FadeInOut>
   );

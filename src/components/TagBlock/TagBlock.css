@@ -25,7 +25,8 @@
 .tag-block__tags {
   display: flex;
   flex-direction: column;
-  gap: 5px 0;
+  /* gap: 5px 0; */
+  gap: 3px 0;
 }
 
 .tag-block__tags h3 {

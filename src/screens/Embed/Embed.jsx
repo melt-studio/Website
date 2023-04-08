@@ -6,7 +6,7 @@ import "./Embed.css";
 
 const Embed = ({ embeds }) => {
   const [embed, setEmbed] = useState(null);
-  const { id } = useParams();
+  const { type, id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const Embed = ({ embeds }) => {
   useEffect(() => {
     if (embeds && embeds.length) {
       const embed = embeds.find((e) => {
-        return e.fields.pageUrl === id;
+        return e.fields.pageType === type && e.fields.pageUrl === id;
       });
 
       if (!embed) {
@@ -30,7 +30,7 @@ const Embed = ({ embeds }) => {
 
       setEmbed(embed);
     }
-  }, [embeds, id, navigate]);
+  }, [embeds, type, id, navigate]);
 
   return (
     <Page>
@@ -46,18 +46,26 @@ const Embed = ({ embeds }) => {
           justifyContent: "center",
         }}
       >
-        {embed && (
-          <iframe
-            key={embed.id}
-            className="embed"
-            title={embed.fields.title}
-            src={embed.fields.embedUrl}
-            allowFullScreen
-          ></iframe>
-        )}
+        {embed && <EmbedContent embed={embed} />}
       </div>
     </Page>
   );
+};
+
+const EmbedContent = ({ embed }) => {
+  if (embed.fields.pageType === "other") {
+    return (
+      <iframe
+        key={embed.id}
+        className="embed"
+        title={embed.fields.title}
+        src={embed.fields.embedUrl}
+        allowFullScreen
+      ></iframe>
+    );
+  } else if (embed.fields.pageType === "animations") {
+    return <h1>ANIMATION HERE</h1>;
+  } else return null;
 };
 
 export default Embed;

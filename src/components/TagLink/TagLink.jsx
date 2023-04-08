@@ -4,6 +4,14 @@ import { cursorEvents } from "../Cursor/Cursor.jsx";
 import "./TagLink.css";
 
 const TagLinkAnchor = ({ nav, tag, children }) => {
+  if (tag.onClick) {
+    return (
+      <div style={{ cursor: "pointer" }} onClick={tag.onClick}>
+        {children}
+      </div>
+    );
+  }
+
   if (nav) {
     return <Link to={tag.href}>{children}</Link>;
   }

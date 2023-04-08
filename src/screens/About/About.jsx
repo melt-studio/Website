@@ -87,7 +87,9 @@ export default function About({ aboutInfo, embeds, cursor }) {
 
   useEffect(() => {
     if (embeds && embeds.length) {
-      setEmbedTags(embeds.map((e) => ({ text: e.fields.title, href: `/other/${e.fields.pageUrl}`, nav: true })));
+      setEmbedTags(
+        embeds.map((e) => ({ text: e.fields.title, href: `/${e.fields.pageType}/${e.fields.pageUrl}`, nav: true }))
+      );
     }
   }, [embeds]);
 

@@ -103,5 +103,7 @@ exports.handler = (event, context, callback) => {
     getConfig();
   } else if (event.httpMethod === "PUT") {
     updateConfig();
+  } else {
+    return pass(500, { error: "Invalid request" });
   }
 };

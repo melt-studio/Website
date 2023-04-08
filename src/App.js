@@ -9,6 +9,7 @@ import configService from "./services/config";
 import projectService from "./services/projects";
 import aboutService from "./services/about";
 import embedService from "./services/embeds";
+import loginService from "./services/login.js";
 
 function App() {
   const widthCutOff = 800;
@@ -50,6 +51,22 @@ function App() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  useEffect(() => {
+    const password = window.localStorage.getItem("admin-password");
+
+    const login = async (password) => {
+      try {
+        await loginService.login(password);
+        setLoggedIn(true);
+      } catch (error) {
+        setLoggedIn(false);
+        window.localStorage.removeItem("admin-password");
+      }
+    };
+
+    if (password) login(password);
   }, []);
 
   useEffect(() => {
@@ -114,6 +131,7 @@ function App() {
         viewport={viewport}
         scrollCutOff={scrollCutOff}
         initial={initial}
+        setLoggedIn={setLoggedIn}
       >
         <MainContainer
           initial={initial}

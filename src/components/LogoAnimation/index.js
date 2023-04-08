@@ -4,7 +4,7 @@ import { PerformanceMonitor } from "@react-three/drei";
 import LevaControls from "../helpers/LevaControls";
 import PerfMonitor from "../helpers/PerfMonitor";
 import Scene from "./Scene";
-import "./LogoAnimation.css";
+import "../helpers/animation.css";
 
 import { useToggleControls } from "../helpers/toggleControls";
 import { getLocalStorageConfig } from "../helpers/LevaControls/localStorageConfig";
@@ -72,7 +72,7 @@ const LogoAnimation = ({ serverConfig, controls, effectRef, mobile, fade = false
           // width: mobile && controls ? "390px" : "100%",
           // height: mobile && controls ? "844px" : "100%",
           width: "100%",
-          height: "100vh",
+          height: controls ? "100%" : "100vh",
           maxHeight: controls ? "none" : "1000px",
           // maxHeight: "1000px",
           display: "flex",

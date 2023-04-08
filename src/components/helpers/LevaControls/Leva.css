@@ -1,9 +1,3 @@
-body.controls {
-  width: 100%;
-  height: 100vh;
-  background: #1b1b1d;
-}
-
 #passwordMessage {
   color: orangered;
   margin: 10px 0 5px;
