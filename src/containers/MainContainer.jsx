@@ -3,8 +3,8 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import About from "../screens/About/About.jsx";
 import Home from "../screens/Home/Home.jsx";
 import Project from "../screens/Project/Project.jsx";
-import Embed from "../screens/Embed/Embed.jsx";
-import Login from "../screens/Login/Login.jsx";
+import Other from "../screens/Other/Other.jsx";
+// import Login from "../screens/Login/Login.jsx";
 import Admin from "../screens/Admin/Admin.jsx";
 import AdminConfig from "../screens/Admin/AdminConfig.jsx";
 import TempLandingPage from "../screens/TempLandingPage/TempLandingPage.jsx";
@@ -38,8 +38,6 @@ export default function MainContainer({
   if (location.pathname.includes("/project/")) path = "/project";
   else if (location.pathname.includes("/admin/")) path = "/admin";
 
-  console.log(loggedIn);
-
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={path}>
@@ -47,7 +45,8 @@ export default function MainContainer({
 
         <Route
           path="/admin"
-          element={loggedIn ? <Admin adminMessage={adminMessage} /> : <Navigate to="/login" replace />}
+          // element={loggedIn ? <Admin adminMessage={adminMessage} /> : <Navigate to="/login" replace />}
+          element={<Admin loggedIn={loggedIn} setLoggedIn={setLoggedIn} adminMessage={adminMessage} />}
         />
         <Route
           path="/admin/:mode"
@@ -55,7 +54,7 @@ export default function MainContainer({
             loggedIn ? (
               <AdminConfig config={config} setAdminMessage={setAdminMessage} mobile={mobile} />
             ) : (
-              <Navigate to="/login" replace />
+              <Navigate to="/admin" replace />
             )
           }
         />
@@ -69,15 +68,15 @@ export default function MainContainer({
 
         <Route
           path="/:type/:id"
-          element={<Embed embeds={embeds} cursor={cursor} mobile={mobile} viewport={viewport} />}
+          element={<Other embeds={embeds} cursor={cursor} mobile={mobile} viewport={viewport} />}
         />
 
-        <Route
+        {/* <Route
           path="/login"
           element={
             loggedIn ? <Navigate to="/admin" replace /> : <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
           }
-        />
+        /> */}
 
         <Route
           path="/"

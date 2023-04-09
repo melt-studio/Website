@@ -37,6 +37,9 @@ const Project = ({ projects, cursor, mobile, viewport }) => {
         Array.from(cursor.current.children).forEach((c) => (c.style.fill = project.fields.cursorColor));
       }
 
+      // Update root project-color CSS variable
+      document.documentElement.style.setProperty("--text-color", project.fields.colorText);
+
       // Instead of using order field just take array from airtable (assuming always returns in row order, then can just rearrange in airtable)
       const order = projects.indexOf(project);
 
@@ -99,7 +102,8 @@ const Project = ({ projects, cursor, mobile, viewport }) => {
   }, [projects, cursor, id, navigate, mobile]);
 
   return (
-    <Page style={!loading && project ? { color: project.fields.colorText } : null}>
+    // <Page style={!loading && project ? { color: project.fields.colorText } : null}>
+    <Page>
       <div className={`page-container${loading ? " loading" : ""}`}>
         {!loading && project && (
           <>

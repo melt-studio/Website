@@ -1,15 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import Page from "../Page";
+// import { useNavigate } from "react-router-dom";
+// import Page from "../Page";
 import loginService from "../../services/login";
 import "./Login.css";
 
-const Login = ({ setLoggedIn }) => {
+const Login = ({ loggedIn, setLoggedIn }) => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState(null);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const form = useRef();
 
@@ -21,46 +21,42 @@ const Login = ({ setLoggedIn }) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const password = window.localStorage.getItem("admin-password");
-
-  //   const login = async (password) => {
-  //     try {
-  //       await loginService.login(password);
-  //       setLoggedIn(true);
-  //       return navigate("/admin");
-  //     } catch (error) {
-  //       setLoggedIn(false);
-  //       window.localStorage.removeItem("admin-password");
-  //     }
-  //   };
-
-  //   if (password) login(password);
-  // }, [setLoggedIn, navigate]);
-
-  const login = async (event, password) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
+
+    if (password === "") {
+      setLoggedIn(false);
+      if (form && form.current) {
+        form.current.classList.add("error");
+      }
+      return setMessage("Please enter password");
+    }
 
     try {
       await loginService.login(password);
       setLoggedIn(true);
-      window.localStorage.setItem("admin-password", password);
-      return navigate("/admin");
+      window.localStorage.setItem("melt_admin_password", password);
+      document.body.classList.add("logged-in");
+      // return navigate("/admin");
     } catch (error) {
       setLoggedIn(false);
-      setMessage("Wrong password");
+      document.body.classList.remove("logged-in");
       if (form && form.current) {
         form.current.classList.add("error");
       }
-      if (timeoutId) setTimeoutId(null);
-      setTimeoutId(
-        setTimeout(() => {
-          setMessage(null);
-          if (form && form.current) {
-            form.current.classList.remove("error");
-          }
-        }, 5000)
-      );
+      setMessage("Wrong password");
+      // if (timeoutId !== null) {
+      //   clearTimeout(timeoutId);
+      //   setTimeoutId(null);
+      // }
+      // setTimeoutId(
+      //   setTimeout(() => {
+      //     setMessage(null);
+      //     if (form && form.current) {
+      //       form.current.classList.remove("error");
+      //     }
+      //   }, 5000)
+      // );
     }
   };
 
@@ -69,24 +65,42 @@ const Login = ({ setLoggedIn }) => {
       form.current.classList.remove("error");
     }
     if (message) setMessage(null);
-    if (timeoutId) setTimeoutId(null);
+    if (timeoutId !== null) {
+      clearTimeout(timeoutId);
+      setTimeoutId(null);
+    }
     setPassword(e.target.value);
   };
 
   return (
-    <Page>
-      <div className="page-container">
-        <div className="login-form" ref={form}>
-          <h1>Login to Admin Panel</h1>
-          <form onSubmit={(e) => login(e, password)}>
-            <input placeholder="Password" type="password" onChange={handleChange} />
-            <button type="submit">Login</button>
-            {message && <div className="form__message">{message}</div>}
-          </form>
-        </div>
-      </div>
-    </Page>
+    <div className="form login-form" ref={form}>
+      <h1>Login to Admin Panel</h1>
+      <form onSubmit={handleLogin}>
+        <input placeholder="Password" type="password" onChange={handleChange} />
+        <button type="submit">Login</button>
+        {message && <div className="form__message">{message}</div>}
+      </form>
+    </div>
   );
 };
 
 export default Login;
+
+// const PasswordForm = () => {
+//   const [password, setPassword] = useState("");
+//   const [message, setMessage] = useState(null);
+//   const [timeoutId, setTimeoutId] = useState(null);
+
+//   const form = useRef()
+
+//   return (
+//     <div className="login-form" ref={form}>
+//     <h1>Login to Admin Panel</h1>
+//     <form onSubmit={handleLogin}>
+//       <input placeholder="Password" type="password" onChange={handleChange} />
+//       <button type="submit">Login</button>
+//       {message && <div className="form__message">{message}</div>}
+//     </form>
+//   </div>
+//   )
+// }

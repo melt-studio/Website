@@ -7,6 +7,11 @@ const getEmbeds = async () => {
   return response.data;
 };
 
-const embedService = { getEmbeds };
+const openEmbed = async (id, password) => {
+  const response = await axios.put(baseUrl, { id, password });
+  return response.data;
+};
+
+const embedService = { getEmbeds, openEmbed };
 
 export default embedService;

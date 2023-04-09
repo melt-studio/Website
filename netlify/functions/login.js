@@ -37,7 +37,6 @@ exports.handler = (event, context, callback) => {
 
     const { password } = JSON.parse(body);
 
-    // Check password
     if (!password || password === "") {
       return pass(401, { error: "Wrong password" });
     }
@@ -59,6 +58,15 @@ exports.handler = (event, context, callback) => {
     } catch (error) {
       return pass(404, { error: "Airtable record not found" });
     }
+
+    // console.log(password, PASSWORD);
+
+    // // Check password
+    // if (!password || password === "" || password !== PASSWORD) {
+    //   return pass(401, { error: "Wrong password" });
+    // }
+
+    // return pass(200, {});
   };
 
   if (event.httpMethod === "PUT") {

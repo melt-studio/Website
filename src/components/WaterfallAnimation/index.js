@@ -8,6 +8,7 @@ import "../helpers/animation.css";
 import { useToggleControls } from "../helpers/toggleControls";
 import { getLocalStorageConfig } from "../helpers/LevaControls/localStorageConfig";
 import defaultConfig from "../helpers/LevaControls/config.json";
+import ToggleControls from "../helpers/ToggleControls_";
 
 const glSettings = {
   antialias: false,
@@ -64,6 +65,7 @@ const WaterfallAnimation = ({ serverConfig, controls, mobile }) => {
 
   return (
     <>
+      {controls && <ToggleControls />}
       <LevaControls controls={controls === undefined ? false : controls} />
       <div
         className="animation-container"

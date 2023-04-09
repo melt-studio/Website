@@ -1,6 +1,11 @@
 .admin-page .page {
   height: 100vh;
   display: flex;
+  background: #000000;
+  transition: background-color 1s;
+}
+
+.admin-page.logged-in .page {
   background: #1b1b1d;
 }
 

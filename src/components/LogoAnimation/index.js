@@ -3,6 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { PerformanceMonitor } from "@react-three/drei";
 import LevaControls from "../helpers/LevaControls";
 import PerfMonitor from "../helpers/PerfMonitor";
+import ToggleControls from "../helpers/ToggleControls_";
 import Scene from "./Scene";
 import "../helpers/animation.css";
 
@@ -64,6 +65,7 @@ const LogoAnimation = ({ serverConfig, controls, effectRef, mobile, fade = false
 
   return (
     <>
+      {controls && <ToggleControls />}
       <LevaControls controls={controls === undefined ? false : controls} />
       <div
         className="animation-container"

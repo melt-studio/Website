@@ -19,31 +19,31 @@
   justify-content: center;
 }
 
-.login-form .form__message {
+.form .form__message {
   color: orangered;
   margin: 20px 0 0;
 }
 
-.login-form {
+.form {
   padding: 30px;
   background: #000;
   background: #1b1b1d;
   border-radius: 4px;
 }
 
-.page .login-form h1 {
+.page .form h1 {
   font-size: 18px;
   margin-bottom: 30px;
 }
 
-.login-form form {
+.form form {
   display: flex;
   flex-direction: column;
   gap: 0;
   min-width: 400px;
 }
 
-.login-form input {
+.form input {
   padding: 15px;
   font-size: 20px;
   /* border: 1px solid transparent; */
@@ -54,11 +54,11 @@
   font-family: var(--font-family);
 }
 
-.login-form.error input {
+.form.error input {
   color: orangered;
 }
 
-.login-form button {
+.form button {
   padding: 15px;
   font-size: 20px;
   font-family: var(--font-family);

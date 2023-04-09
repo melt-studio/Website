@@ -11,13 +11,14 @@ export default function Layout({
   mobile,
   viewport,
   scrollCutOff,
+  loggedIn,
   setLoggedIn,
   children,
 }) {
   return (
     <div id="layout">
       <nav>
-        <NavBar viewport={viewport} scrollCutOff={scrollCutOff} setLoggedIn={setLoggedIn} />
+        <NavBar viewport={viewport} scrollCutOff={scrollCutOff} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 
         <NavMenuLogo
           setNavMenuOpen={setNavMenuOpen}

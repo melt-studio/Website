@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Layout from "./layouts/MainLayout.jsx";
 import MainContainer from "./containers/MainContainer.jsx";
 import Cursor from "./components/Cursor/Cursor.jsx";
@@ -54,17 +54,30 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const password = window.localStorage.getItem("admin-password");
+    const password = window.localStorage.getItem("melt_admin_password");
 
     const login = async (password) => {
       try {
         await loginService.login(password);
         setLoggedIn(true);
+        document.body.classList.add("logged-in");
       } catch (error) {
         setLoggedIn(false);
-        window.localStorage.removeItem("admin-password");
+        window.localStorage.removeItem("melt_admin_password");
+        document.body.classList.remove("logged-in");
       }
     };
+
+    // const login = (password) => {
+    //   if (password === process.env.REACT_APP_MELT_PASSWORD) {
+    //     setLoggedIn(true);
+    //     document.body.classList.add("logged-in");
+    //   } else {
+    //     setLoggedIn(false);
+    //     window.localStorage.removeItem("melt_admin_password");
+    //     document.body.classList.remove("logged-in");
+    //   }
+    // };
 
     if (password) login(password);
   }, []);
@@ -131,6 +144,7 @@ function App() {
         viewport={viewport}
         scrollCutOff={scrollCutOff}
         initial={initial}
+        loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
       >
         <MainContainer
@@ -151,8 +165,19 @@ function App() {
         />
       </Layout>
       {!mobile && <Cursor ref={cursor} />}
+      {loggedIn && <AdminNav />}
     </>
   );
 }
+
+const AdminNav = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const excludes = ["/admin"];
+  if (excludes.some((ex) => location.pathname.includes(ex))) return null;
+
+  return <div onClick={() => navigate("/admin")} id="admin-nav"></div>;
+};
 
 export default App;

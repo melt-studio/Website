@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import WaterfallAnimation from "../../components/WaterfallAnimation/index.js";
 import LogoAnimation from "../../components/LogoAnimation/index.js";
@@ -6,6 +6,7 @@ import Page from "../Page.jsx";
 import "./Admin.css";
 
 const AdminConfig = ({ mobile, config, setAdminMessage }) => {
+  const [timeoutId, setTimeoutId] = useState(null);
   const navigate = useNavigate();
   const { mode } = useParams();
 
@@ -18,15 +19,29 @@ const AdminConfig = ({ mobile, config, setAdminMessage }) => {
   }, []);
 
   useEffect(() => {
+    const updateMessage = (text) => {
+      setAdminMessage(text);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      setTimeoutId(
+        setTimeout(() => {
+          setAdminMessage(null);
+        }, 5000)
+      );
+    };
+
+    // if (!loggedIn) {
+    //   console.log("navigating to admin - login");
+    //   return navigate("/admin");
+    // }
+
     if (!config || !config[mode]) {
       console.log("navigating to admin - config");
-      setAdminMessage("Animation config not found on Airtable");
-      setTimeout(() => {
-        setAdminMessage(null);
-      }, 5000);
+      updateMessage("Animation config not found on Airtable");
       return navigate("/admin");
     }
-  }, [config, mode, navigate, setAdminMessage]);
+  }, [config, mode, navigate, setAdminMessage, timeoutId]);
 
   if (mobile) {
     return <div>Please view on desktop</div>;

@@ -151,18 +151,20 @@ export const useLeva = (name, controls, defaults, config, updateConfig, dependen
       },
       { order: -2 }
     ),
-    debug: folder(
-      {
-        showCursor: {
-          label: "cursor",
-          value: true,
-          onChange: (v) => {
-            document.body.style.cursor = v ? "default" : "none";
-          },
-        },
-      },
-      { order: -1 }
-    ),
+    // debug: folder(
+    //   {
+    //     showCursor: {
+    //       label: "cursor",
+    //       value: true,
+    //       onChange: (v) => {
+    //         if (controls) {
+    //           document.body.style.cursor = v ? "default" : "none";
+    //         }
+    //       },
+    //     },
+    //   },
+    //   { order: -1 }
+    // ),
   };
 
   // Could limit levaControls to empty object if !controls

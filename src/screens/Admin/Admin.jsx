@@ -2,12 +2,13 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // import AdminForm from "./AdminForm.jsx";
 import Page from "../Page.jsx";
+import Login from "../Login/Login.jsx";
 import "./Admin.css";
 
 import ThumbnailLogo from "../../assets/images/ANIMATION_LOGO.jpg";
 import ThumbnailWaterfall from "../../assets/images/ANIMATION_WATERFALL.jpg";
 
-const Admin = ({ adminMessage }) => {
+const Admin = ({ loggedIn, setLoggedIn, adminMessage }) => {
   // const [animationchoice, setAnimationChoice] = useState("waterfall");
 
   useEffect(() => {
@@ -18,33 +19,43 @@ const Admin = ({ adminMessage }) => {
     };
   }, []);
 
+  if (!loggedIn) return <AdminLogin setLoggedIn={setLoggedIn} />;
+
+  return <AdminDashboard adminMessage={adminMessage} />;
+};
+
+const AdminLogin = ({ setLoggedIn }) => {
   return (
-    <Page transition={{ duration: 0.5, ease: "easeInOut" }}>
+    <Page>
       <div className="page-container">
-        {adminMessage && <div className="message">{adminMessage}</div>}
-        <AdminDashboard />
+        <Login setLoggedIn={setLoggedIn} />
       </div>
     </Page>
   );
 };
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ adminMessage }) => {
   const links = [
     { text: "Logo", href: "/admin/logo", thumb: ThumbnailLogo },
     { text: "Waterfall", href: "/admin/waterfall", thumb: ThumbnailWaterfall },
   ];
 
   return (
-    <div>
-      <div className="block">
-        <h2>Animation Settings</h2>
-        <ul>
-          {links.map((link) => (
-            <AnimationLink key={link.href} link={link} />
-          ))}
-        </ul>
+    <Page transition={{ duration: 0.5, ease: "easeInOut" }}>
+      <div className="page-container">
+        {adminMessage && <div className="message">{adminMessage}</div>}
+        <div>
+          <div className="block">
+            <h2>Animation Settings</h2>
+            <ul>
+              {links.map((link) => (
+                <AnimationLink key={link.href} link={link} />
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
+    </Page>
   );
 };
 

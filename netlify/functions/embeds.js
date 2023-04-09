@@ -38,14 +38,54 @@ exports.handler = (event, context, callback) => {
         return pass(404, { error: "No data/records found" });
       }
 
-      return pass(200, response.data.records);
+      const records = response.data.records.map(({ id, createdTime, fields }) => {
+        const { password, ...fieldsRest } = fields;
+        return {
+          id,
+          createdTime,
+          fields: { ...fieldsRest },
+        };
+      });
+
+      // return pass(200, response.data.records);
+      return pass(200, records);
     } catch (error) {
       return pass(500, { error: "Unable to fetch data" });
     }
   };
 
+  const openEmbed = async () => {
+    const { body } = event;
+
+    const { id, password } = JSON.parse(body);
+
+    // Check password
+    if (!password || password === "") {
+      return pass(401, { error: "Wrong password" });
+    }
+
+    // Get password from Airtable
+    try {
+      const response = await axios.get(`${URL}/${id}`, { headers });
+
+      if (!response || !response.data || !response.data.fields || !response.data.fields.password) {
+        return pass(404, { error: "Airtable record not found" });
+      }
+
+      if (response.data.fields.password !== password) {
+        return pass(401, { error: "Wrong password" });
+      }
+
+      return pass(200, {});
+    } catch (error) {
+      return pass(404, { error: "Airtable record not found" });
+    }
+  };
+
   if (event.httpMethod === "GET") {
     getEmbeds();
+  } else if (event.httpMethod === "PUT") {
+    openEmbed();
   } else {
     return pass(500, { error: "Invalid request" });
   }

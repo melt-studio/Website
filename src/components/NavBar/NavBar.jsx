@@ -19,7 +19,7 @@ const keyframes = {
   },
 };
 
-const NavBar = ({ mobile, viewport, scrollCutOff, setLoggedIn }) => {
+const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn }) => {
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
@@ -56,6 +56,15 @@ const NavBar = ({ mobile, viewport, scrollCutOff, setLoggedIn }) => {
       setIsVisible(false);
     }
   });
+
+  const handleLogout = () => {
+    setLoggedIn(false);
+    if (window.localStorage.getItem("admin-password")) {
+      window.localStorage.removeItem("admin-password");
+    }
+
+    document.body.classList.remove("logged-in");
+  };
 
   return (
     // <motion.div
@@ -102,23 +111,23 @@ const NavBar = ({ mobile, viewport, scrollCutOff, setLoggedIn }) => {
 
         {/* {!location.pathname.includes("/admin") && ( */}
         {!location.pathname.includes("/admin") && (
-          <div className="nav-bar__item" style={location.pathname.includes("/login") ? { visibility: "hidden" } : null}>
-            <TagLink tag={{ text: "About Us", href: "/about" }} nav />
+          <div className="nav-bar__item-holder">
+            <div className="nav-bar__item">
+              <TagLink tag={{ text: "About Us", href: "/about" }} nav />
+            </div>
+
+            <div className="nav-bar__item">
+              <TagLink tag={{ text: "Say Hello", href: "mailto:hello@melt.work" }} />
+            </div>
           </div>
         )}
 
-        {location.pathname.includes("/admin") && (
+        {location.pathname.includes("/admin") && loggedIn && (
           <div className="nav-bar__item">
             <TagLink
               tag={{
                 text: "Logout",
-                onClick: () => {
-                  console.log("ok");
-                  setLoggedIn(false);
-                  if (window.localStorage.getItem("admin-password")) {
-                    window.localStorage.removeItem("admin-password");
-                  }
-                },
+                onClick: handleLogout,
               }}
               nav
             />

@@ -7,7 +7,7 @@
 }
 
 .cursor {
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(0.5);
   transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
   width: 70px;
   height: 70px;
@@ -18,7 +18,8 @@
 
 .home-page .cursor,
 .project-page .cursor,
-.embed-page .cursor {
+.embed-page .cursor,
+.admin-page .cursor {
   opacity: 1;
   background-color: transparent;
   transform: translate(-50%, -50%) scale(0);
@@ -27,12 +28,12 @@
 .about-page .cursor {
   opacity: 1;
   background-color: var(--yellow);
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(0.5);
 }
 
 .cursor.project {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(0.5);
 }
 
 .cursor.link {
@@ -44,7 +45,7 @@
 
 .cursor.unofficial {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(0.5);
   background-color: transparent !important;
 }
 
@@ -65,7 +66,7 @@
 .project-page .cursor.video {
   opacity: 1;
   background-color: transparent !important;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(0.5);
   transition: none;
 }
 

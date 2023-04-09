@@ -16,6 +16,14 @@
   justify-content: space-between;
   position: relative;
   padding: 0 2%;
+  height: 45px;
+}
+
+.nav-bar__item-holder {
+  display: flex;
+  flex-direction: row;
+  gap: 0 40px;
+  align-items: center;
 }
 
 .nav-bar .tag-link h3 {
