@@ -163,14 +163,16 @@ export const useLeva = (name, controls, defaults, config, updateConfig, dependen
           },
           order: -2,
         },
-        showCursor: {
-          label: "cursor",
-          value: true,
-          onChange: (v) => {
-            document.body.style.cursor = v ? "default" : "none";
-          },
-          order: -1,
-        },
+        // showCursor: {
+        //   label: "cursor",
+        //   value: true,
+        //   onChange: (v) => {
+        //     if (controls) {
+        //       document.body.style.cursor = v ? "default" : "none";
+        //     }
+        //   },
+        //   order: -1,
+        // },
       },
       { order: -1 }
     ),

@@ -4,6 +4,7 @@ const Tag = ({ tag }) => {
   if (tag.href) {
     return <TagLink tag={tag} nav={tag.nav} />;
   }
+
   return (
     <div className="tag">
       <h3>{tag.text}</h3>

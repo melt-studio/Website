@@ -1,0 +1,32 @@
+.animation-container canvas {
+  opacity: 0;
+  transform: translate(0, 30px);
+  transition: opacity 1.5s ease-in-out 1s, transform 1.5s ease-in-out 1s;
+}
+
+.animation-container.show canvas {
+  opacity: 1;
+  transform: translate(0);
+}
+
+.controls-toggle {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: var(--yellow);
+  color: #000000;
+  padding: 10px;
+  z-index: 99999;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  font-family: var(--font-family);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.controls-toggle:hover,
+.controls-toggle.show {
+  opacity: 1;
+}

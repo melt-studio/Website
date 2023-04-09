@@ -1,5 +1,6 @@
 .project-nav {
   padding: 0 5% 100px;
+  padding: 0 5% 30px;
 }
 
 .project-nav__links {
@@ -11,6 +12,10 @@
   opacity: 0;
   transform: translateY(15px);
   transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+}
+
+.project-nav__links .tag-link h3 {
+  font-size: 11px;
 }
 
 .project-nav.show .project-nav__links {

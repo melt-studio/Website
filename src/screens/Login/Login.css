@@ -1,0 +1,70 @@
+.login-page .page {
+  height: 100vh;
+  display: flex;
+  background: #000;
+  transition: background-color 1s;
+}
+
+.login-page .page.logged-in {
+  background: #1b1b1d;
+}
+
+.login-page .page-container {
+  width: 100%;
+  /* height: 100vh; */
+  margin: 75px 0;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form .form__message {
+  color: orangered;
+  margin: 20px 0 0;
+}
+
+.form {
+  padding: 30px;
+  background: #000;
+  background: #1b1b1d;
+  border-radius: 4px;
+}
+
+.page .form h1 {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.form form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 400px;
+}
+
+.form input {
+  padding: 15px;
+  font-size: 20px;
+  /* border: 1px solid transparent; */
+  border: none;
+  background: #fff;
+  color: #000000;
+  border-radius: 2px 2px 0 0;
+  font-family: var(--font-family);
+}
+
+.form.error input {
+  color: orangered;
+}
+
+.form button {
+  padding: 15px;
+  font-size: 20px;
+  font-family: var(--font-family);
+  font-weight: 600;
+  background: var(--yellow);
+  border: none;
+  border-radius: 0 0 2px 2px;
+  cursor: pointer;
+}

@@ -11,8 +11,13 @@ exports.handler = (event, context, callback) => {
   // eslint-disable-next-line no-undef
   const TABLE = process.env.REACT_APP_AIRTABLE_TABLE_CONFIG;
   const URL = `${APP}/${TABLE}`;
+
   // eslint-disable-next-line no-undef
-  const PASSWORD = process.env.REACT_APP_MELT_PASSWORD;
+  const TABLE_PASSWORD = process.env.REACT_APP_AIRTABLE_TABLE_PASSWORDS;
+  const URL_PASSWORD = `${APP}/${TABLE_PASSWORD}`;
+
+  // eslint-disable-next-line no-undef
+  // const PASSWORD = process.env.REACT_APP_MELT_PASSWORD;
 
   const headers = {
     Authorization: `Bearer ${KEY}`,
@@ -63,16 +68,34 @@ exports.handler = (event, context, callback) => {
     // todo: validate/sanitize input
     // console.log(config, password)
 
+    // console.log(config, password);
+
     // Check password
-    if (!password || password === "" || password !== PASSWORD) {
+    if (!password || password === "") {
       return pass(401, { error: "Wrong password" });
     }
 
-    // Check for record on Airtable
+    // Get password from Airtable
+    try {
+      const response = await axios.get(URL_PASSWORD, { headers });
+      const data = response.data.records.map((r) => r.fields).find((f) => f.page === "Save Settings");
+
+      if (!data || !data.password) {
+        return pass(404, { error: "Airtable password record not found" });
+      }
+
+      if (data.password !== password) {
+        return pass(401, { error: "Wrong password" });
+      }
+    } catch (error) {
+      return pass(404, { error: "Airtable password record not found" });
+    }
+
+    // Check for config record on Airtable
     try {
       await axios.get(`${URL}/${config.id}`, { headers });
     } catch (error) {
-      return pass(404, { error: "Airtable record not found" });
+      return pass(404, { error: "Airtable config record not found" });
     }
 
     const updatedConfig = {
@@ -103,5 +126,7 @@ exports.handler = (event, context, callback) => {
     getConfig();
   } else if (event.httpMethod === "PUT") {
     updateConfig();
+  } else {
+    return pass(500, { error: "Invalid request" });
   }
 };

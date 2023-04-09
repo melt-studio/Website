@@ -28,6 +28,9 @@ export default function Home({
   useEffect(() => {
     document.body.classList.add("home-page");
 
+    // Update root project-color CSS variable
+    document.documentElement.style.setProperty("--text-color", "#ffffff");
+
     if (cursor && cursor.current) {
       if (cursor && cursor.current) {
         cursor.current.style.opacity = 0;

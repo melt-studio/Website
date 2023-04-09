@@ -3,18 +3,15 @@ import { Canvas } from "@react-three/fiber";
 import LevaControls from "../helpers/LevaControls";
 import PerfMonitor from "../helpers/PerfMonitor";
 import Scene from "./Scene";
+import "../helpers/animation.css";
 
 import { useToggleControls } from "../helpers/toggleControls";
 import { getLocalStorageConfig } from "../helpers/LevaControls/localStorageConfig";
 import defaultConfig from "../helpers/LevaControls/config.json";
+import ToggleControls from "../helpers/ToggleControls_";
 
 const glSettings = {
   antialias: false,
-};
-
-const created = ({ gl }) => {
-  gl.domElement.id = "waterfallAnimation";
-  gl.setClearAlpha(0);
 };
 
 const WaterfallAnimation = ({ serverConfig, controls, mobile }) => {
@@ -58,16 +55,32 @@ const WaterfallAnimation = ({ serverConfig, controls, mobile }) => {
 
   const container = useRef();
 
+  const created = ({ gl }) => {
+    gl.domElement.id = "waterfallAnimation";
+    gl.setClearAlpha(0);
+    if (container && container.current) {
+      container.current.classList.add("show");
+    }
+  };
+
   return (
     <>
+      {controls && <ToggleControls />}
       <LevaControls controls={controls === undefined ? false : controls} />
       <div
+        className="animation-container"
         ref={container}
         style={{
-          width: mobile && controls ? "390px" : "100%",
-          height: mobile && controls ? "844px" : "100vh",
-          display: "block",
-          position: "fixed",
+          // width: mobile && controls ? "390px" : "100%",
+          // height: mobile && controls ? "844px" : "100vh",
+          width: "100%",
+          height: controls ? "100%" : "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 1,
+
+          position: controls ? "relative" : "fixed",
           top: 0,
         }}
       >

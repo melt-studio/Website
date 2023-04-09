@@ -3,8 +3,9 @@ import { Helmet } from "react-helmet";
 import TagBlock from "../../components/TagBlock/TagBlock.jsx";
 import FadeIn from "../../components/FadeIn/FadeIn.jsx";
 import { keyframes } from "../../utils/keyframes.js";
-import "./About.css";
+import ReactMarkdown from "react-markdown";
 import Page from "../Page.jsx";
+import "./About.css";
 
 keyframes`
   @keyframes customAnimationText {
@@ -23,7 +24,7 @@ const fadeInText = {
   name: "customAnimationText",
   duration: 2,
   delay: 0.5,
-  stagger: true,
+  // stagger: true,
   damping: 0.25,
 };
 
@@ -37,7 +38,7 @@ const followInfo = [{ text: "Instagram", href: "https://www.instagram.com/melt.w
 
 export default function About({ aboutInfo, embeds, cursor }) {
   const [loading, setLoading] = useState(true);
-  const [aboutTexts, setAboutTexts] = useState([]);
+  const [aboutText, setAboutText] = useState(null);
   const [contactTags, setContactTags] = useState([]);
   const [followTags, setFollowTags] = useState([]);
   const [whatWeDoTags, setWhatWeDoTags] = useState([]);
@@ -52,6 +53,9 @@ export default function About({ aboutInfo, embeds, cursor }) {
       // document.body.style.cursor = "none";
     }
 
+    // Update root project-color CSS variable
+    document.documentElement.style.setProperty("--text-color", "#000000");
+
     document.body.classList.add("about-page");
 
     return () => {
@@ -62,12 +66,9 @@ export default function About({ aboutInfo, embeds, cursor }) {
 
   useEffect(() => {
     if (aboutInfo.length) {
-      const { aboutText, aboutTextTwo, aboutTextThree, aboutTextFour, whatWeDo, whatWeDontDo } = aboutInfo[0].fields;
+      const { aboutText, whatWeDo, whatWeDontDo } = aboutInfo[0].fields;
 
-      let aboutTexts = [];
-      aboutTexts = [aboutText, aboutTextTwo, aboutTextThree, aboutTextFour];
-      aboutTexts = aboutTexts.filter((text) => text !== undefined);
-      setAboutTexts(aboutTexts);
+      setAboutText(aboutText);
 
       if (whatWeDo) {
         setWhatWeDoTags(whatWeDo.map((tag) => ({ text: tag })));
@@ -87,7 +88,9 @@ export default function About({ aboutInfo, embeds, cursor }) {
 
   useEffect(() => {
     if (embeds && embeds.length) {
-      setEmbedTags(embeds.map((e) => ({ text: e.fields.title, href: `/other/${e.fields.pageUrl}`, nav: true })));
+      setEmbedTags(
+        embeds.map((e) => ({ text: e.fields.title, href: `/${e.fields.pageType}/${e.fields.pageUrl}`, nav: true }))
+      );
     }
   }, [embeds]);
 
@@ -108,19 +111,35 @@ export default function About({ aboutInfo, embeds, cursor }) {
           <div className="row">
             <div className="col primary">
               <div className="description-text jumbo-text">
-                <FadeIn {...fadeInText}>
-                  {aboutTexts.map((text) => (
-                    <p key={text}>{text}</p>
-                  ))}
-                </FadeIn>
+                {aboutText && (
+                  <ReactMarkdown
+                    key={aboutText}
+                    includeElementIndex={true}
+                    components={{
+                      p: ({ node, index, siblingCount, ...props }) => {
+                        return (
+                          <FadeIn {...fadeInText} delay={fadeInText.delay + fadeInText.damping * index}>
+                            <p {...props} />
+                          </FadeIn>
+                        );
+                      },
+                      // a: ({ node, index, siblingCount, ...props }) => {
+                      //   console.log(props);
+                      //   return <TagLink tag={{ text: props.children, href: props.href }} />;
+                      // },
+                    }}
+                  >
+                    {aboutText}
+                  </ReactMarkdown>
+                )}
               </div>
             </div>
 
             <div className="col">
               <div className="sticky">
-                <TagBlock title="Other" tags={embedTags} />
                 <TagBlock title="Contact" tags={contactTags} />
                 <TagBlock title="Follow" tags={followTags} />
+                <TagBlock title="Other" tags={embedTags} />
                 <TagBlock title="What We Do" tags={whatWeDoTags} />
                 <TagBlock title="What We Don't Do" tags={whatWeDontDoTags} />
               </div>

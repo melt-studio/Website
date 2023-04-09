@@ -24,6 +24,7 @@ a {
 }
 .page h1 {
   font-size: 1rem;
+  font-size: 14px;
   font-weight: 600;
   margin-top: 0;
 }
@@ -41,8 +42,10 @@ a {
   /* font-size: 0.8rem; */
   /* font-size: 0.7rem; */
   font-size: 12px;
+  font-size: 10px;
+  font-size: 9.5px;
   letter-spacing: 0.025rem;
-  line-height: 1;
+  line-height: 1.1;
   font-weight: 400;
   margin: 0;
 }
@@ -60,7 +63,8 @@ a {
 
 .page .jumbo-text {
   font-size: 1.25rem;
-  font-weight: 600;
+  /* font-weight: 600; */
+  font-weight: 550;
   /* letter-spacing: -0.05rem; */
   /* word-spacing: 0.125rem; */
   /* line-height: 1.1; */
@@ -79,8 +83,44 @@ a {
   margin: 0 0 1.5em;
 }
 
+.page .jumbo-text a {
+  position: relative;
+}
+
+.page .jumbo-text a:after {
+  content: "";
+  width: 100%;
+  height: 4px;
+  position: absolute;
+  bottom: 3px;
+  background: var(--text-color);
+  left: 0;
+  transform: scaleX(1);
+  transition: transform 0.3s ease;
+}
+
+.page .jumbo-text a:hover:after {
+  transform: scaleX(0);
+}
+
 .title-text {
   margin-bottom: 5px;
+}
+
+#admin-nav {
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 99;
+  background: url("./assets/images/MELT__ADMIN.png") no-repeat center / 30px 30px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+#admin-nav:hover {
+  opacity: 1;
 }
 
 @media (min-width: 800px) {
@@ -92,6 +132,7 @@ a {
 
     letter-spacing: -0.04rem;
     letter-spacing: -0.075rem;
+    letter-spacing: -0.09rem;
     line-height: 1;
     /* font-weight: 600; */
 
@@ -100,7 +141,7 @@ a {
     /* line-height: normal; */
     /* line-height: 1; */
     /* font-weight: 600; */
-    font-weight: 600;
+    /* font-weight: 600; */
   }
 }
 /* 

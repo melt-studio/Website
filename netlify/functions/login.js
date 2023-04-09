@@ -9,8 +9,10 @@ exports.handler = (event, context, callback) => {
   // eslint-disable-next-line no-undef
   const APP = process.env.REACT_APP_AIRTABLE_APP;
   // eslint-disable-next-line no-undef
-  const TABLE = process.env.REACT_APP_AIRTABLE_TABLE_EMBEDS;
+  const TABLE = process.env.REACT_APP_AIRTABLE_TABLE_PASSWORDS;
   const URL = `${APP}/${TABLE}`;
+  // eslint-disable-next-line no-undef
+  // const PASSWORD = process.env.REACT_APP_MELT_PASSWORD;
 
   const headers = {
     Authorization: `Bearer ${KEY}`,
@@ -30,49 +32,25 @@ exports.handler = (event, context, callback) => {
     });
   };
 
-  const getEmbeds = async () => {
-    try {
-      const response = await axios.get(URL, { headers });
-
-      if (!response.data || !response.data.records) {
-        return pass(404, { error: "No data/records found" });
-      }
-
-      const records = response.data.records.map(({ id, createdTime, fields }) => {
-        const { password, ...fieldsRest } = fields;
-        return {
-          id,
-          createdTime,
-          fields: { ...fieldsRest },
-        };
-      });
-
-      // return pass(200, response.data.records);
-      return pass(200, records);
-    } catch (error) {
-      return pass(500, { error: "Unable to fetch data" });
-    }
-  };
-
-  const openEmbed = async () => {
+  const login = async () => {
     const { body } = event;
 
-    const { id, password } = JSON.parse(body);
+    const { password } = JSON.parse(body);
 
-    // Check password
     if (!password || password === "") {
       return pass(401, { error: "Wrong password" });
     }
 
     // Get password from Airtable
     try {
-      const response = await axios.get(`${URL}/${id}`, { headers });
+      const response = await axios.get(URL, { headers });
+      const data = response.data.records.map((r) => r.fields).find((f) => f.page === "Admin");
 
-      if (!response || !response.data || !response.data.fields || !response.data.fields.password) {
+      if (!data || !data.password) {
         return pass(404, { error: "Airtable record not found" });
       }
 
-      if (response.data.fields.password !== password) {
+      if (data.password !== password) {
         return pass(401, { error: "Wrong password" });
       }
 
@@ -80,12 +58,19 @@ exports.handler = (event, context, callback) => {
     } catch (error) {
       return pass(404, { error: "Airtable record not found" });
     }
+
+    // console.log(password, PASSWORD);
+
+    // // Check password
+    // if (!password || password === "" || password !== PASSWORD) {
+    //   return pass(401, { error: "Wrong password" });
+    // }
+
+    // return pass(200, {});
   };
 
-  if (event.httpMethod === "GET") {
-    getEmbeds();
-  } else if (event.httpMethod === "PUT") {
-    openEmbed();
+  if (event.httpMethod === "PUT") {
+    login();
   } else {
     return pass(500, { error: "Invalid request" });
   }

@@ -19,7 +19,7 @@ const keyframes = {
   },
 };
 
-const NavBar = ({ mobile, viewport, scrollCutOff }) => {
+const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn }) => {
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
@@ -27,11 +27,11 @@ const NavBar = ({ mobile, viewport, scrollCutOff }) => {
   const navigate = useNavigate();
 
   const excludes = useMemo(() => {
-    return ["/about", "/404", "/other"];
+    return ["/about", "/404", "/other", "/admin", "/login"];
   }, []);
 
   useEffect(() => {
-    if (mobile) {
+    if (mobile || location.pathname.match(/^\/admin\/[\w-]+$/)) {
       setIsVisible(false);
     } else {
       // if (excludes.includes(location.pathname) || window.scrollY >= scrollCutOff) {
@@ -56,6 +56,15 @@ const NavBar = ({ mobile, viewport, scrollCutOff }) => {
       setIsVisible(false);
     }
   });
+
+  const handleLogout = () => {
+    setLoggedIn(false);
+    if (window.localStorage.getItem("admin-password")) {
+      window.localStorage.removeItem("admin-password");
+    }
+
+    document.body.classList.remove("logged-in");
+  };
 
   return (
     // <motion.div
@@ -92,9 +101,38 @@ const NavBar = ({ mobile, viewport, scrollCutOff }) => {
           />
         </div>
 
-        <div className="nav-bar__item">
-          <TagLink tag={{ text: "About Us", href: "/about" }} nav />
-        </div>
+        {/* <select
+        // value={this.state.selectValue}
+        // onChange={this.handleChange}
+        >
+          <option value="Logo">Logo</option>
+          <option value="Waterfall">Waterfall</option>
+        </select> */}
+
+        {/* {!location.pathname.includes("/admin") && ( */}
+        {!location.pathname.includes("/admin") && (
+          <div className="nav-bar__item-holder">
+            <div className="nav-bar__item">
+              <TagLink tag={{ text: "About Us", href: "/about" }} nav />
+            </div>
+
+            <div className="nav-bar__item">
+              <TagLink tag={{ text: "Say Hello", href: "mailto:hello@melt.work" }} />
+            </div>
+          </div>
+        )}
+
+        {location.pathname.includes("/admin") && loggedIn && (
+          <div className="nav-bar__item">
+            <TagLink
+              tag={{
+                text: "Logout",
+                onClick: handleLogout,
+              }}
+              nav
+            />
+          </div>
+        )}
       </div>
     </FadeInOut>
   );

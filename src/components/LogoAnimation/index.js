@@ -3,8 +3,9 @@ import { Canvas } from "@react-three/fiber";
 import { PerformanceMonitor } from "@react-three/drei";
 import LevaControls from "../helpers/LevaControls";
 import PerfMonitor from "../helpers/PerfMonitor";
+import ToggleControls from "../helpers/ToggleControls_";
 import Scene from "./Scene";
-import "./LogoAnimation.css";
+import "../helpers/animation.css";
 
 import { useToggleControls } from "../helpers/toggleControls";
 import { getLocalStorageConfig } from "../helpers/LevaControls/localStorageConfig";
@@ -64,14 +65,18 @@ const LogoAnimation = ({ serverConfig, controls, effectRef, mobile, fade = false
 
   return (
     <>
+      {controls && <ToggleControls />}
       <LevaControls controls={controls === undefined ? false : controls} />
       <div
         className="animation-container"
         ref={container}
         style={{
-          width: mobile && controls ? "390px" : "100%",
-          height: mobile && controls ? "844px" : "100vh",
-          maxHeight: controls ? "100vh" : "1000px",
+          // width: mobile && controls ? "390px" : "100%",
+          // height: mobile && controls ? "844px" : "100%",
+          width: "100%",
+          height: controls ? "100%" : "100vh",
+          maxHeight: controls ? "none" : "1000px",
+          // maxHeight: "1000px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

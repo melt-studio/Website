@@ -5,12 +5,17 @@
   min-height: 100vh;
 }
 
+.project-page .page {
+  position: relative;
+  color: var(--text-color);
+}
+
+.project-page .page a {
+  color: inherit;
+}
+
 @media (min-width: 800px) {
   .project-page .page-container {
     gap: 150px 0;
   }
-}
-
-.project-page .page {
-  position: relative;
 }
