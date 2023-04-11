@@ -22,10 +22,14 @@ const Project = ({ projects, cursor, mobile, viewport }) => {
   useEffect(() => {
     document.body.classList.add("project-page");
 
+    if (cursor && cursor.current) {
+      cursor.current.className = "cursor";
+    }
+
     return () => {
       document.body.classList.remove("project-page");
     };
-  }, []);
+  }, [cursor]);
 
   useEffect(() => {
     const updateProject = (project) => {

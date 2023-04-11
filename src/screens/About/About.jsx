@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import Markdown from "../../components/Markdown/Markdown.jsx";
 import TagBlock from "../../components/TagBlock/TagBlock.jsx";
 import FadeIn from "../../components/FadeIn/FadeIn.jsx";
 import { keyframes } from "../../utils/keyframes.js";
-import ReactMarkdown from "react-markdown";
 import Page from "../Page.jsx";
 import "./About.css";
 
@@ -51,6 +51,7 @@ export default function About({ aboutInfo, embeds, cursor }) {
     if (cursor && cursor.current) {
       cursor.current.style.backgroundColor = "var(--yellow)";
       // document.body.style.cursor = "none";
+      cursor.current.className = "cursor";
     }
 
     // Update root project-color CSS variable
@@ -69,7 +70,7 @@ export default function About({ aboutInfo, embeds, cursor }) {
       const { aboutText, whatWeDo, whatWeDontDo } = aboutInfo[0].fields;
 
       // setAboutText(aboutText);
-      // ReactMarkdown causes unwanted re-renders when using components prop (and in this case wrapping each p element with the FadeIn component), so instead pre-splitting the text into paragraphs then wrapping each paragraph with FadeIn and ReactMarkdown
+      // ReactMarkdown causes unwanted re-renders when using components prop (and in this case wrapping each p element with the FadeIn component, causing repeated fade ins on viewport change, incl. scrolling on mobile as browser height changes), so instead pre-splitting the text into paragraphs then wrapping each paragraph with FadeIn and ReactMarkdown
       // Only needed if doing staggered fadeIn
       setAboutText(aboutText.split("\n").filter((t) => t.length > 0));
 
@@ -117,9 +118,7 @@ export default function About({ aboutInfo, embeds, cursor }) {
                 {aboutText &&
                   aboutText.map((text, i) => (
                     <FadeIn key={text} {...fadeInText} delay={fadeInText.delay + fadeInText.damping * i}>
-                      <ReactMarkdown key={aboutText} includeElementIndex={true}>
-                        {text}
-                      </ReactMarkdown>
+                      <Markdown>{text}</Markdown>
                     </FadeIn>
                   ))}
               </div>

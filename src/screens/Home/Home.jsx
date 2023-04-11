@@ -35,8 +35,9 @@ export default function Home({
       if (cursor && cursor.current) {
         cursor.current.style.opacity = 0;
       }
-      cursor.current.classList.remove("link");
-      cursor.current.classList.remove("video");
+      // cursor.current.classList.remove("link");
+      // cursor.current.classList.remove("video");
+      cursor.current.className = "cursor";
     }
 
     return () => {

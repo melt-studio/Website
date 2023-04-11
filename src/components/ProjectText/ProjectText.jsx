@@ -1,6 +1,6 @@
 import TagBlock from "../TagBlock/TagBlock";
 import FadeScroll from "../FadeScroll/FadeScroll";
-import ReactMarkdown from "react-markdown";
+import Markdown from "../Markdown/Markdown";
 import "./ProjectText.css";
 
 const ProjectText = ({ project }) => {
@@ -21,7 +21,7 @@ const ProjectText = ({ project }) => {
           {projectCopy && (
             <div className="description-text jumbo-text">
               {/* <p>{projectCopy}</p> */}
-              <ReactMarkdown>{projectCopy}</ReactMarkdown>
+              <Markdown>{projectCopy}</Markdown>
             </div>
           )}
         </div>

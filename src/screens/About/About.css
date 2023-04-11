@@ -101,6 +101,6 @@
     background-color: #e1e9ef;
   }
   100% {
-    background-color: #aacc12;
+    background-color: var(--yellow);
   }
 }
