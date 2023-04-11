@@ -7,10 +7,10 @@
 }
 
 .cursor {
-  transform: translate(-50%, -50%) scale(0.5);
+  transform: translate(-50%, -50%) scale(var(--cursor-scale));
   transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background-color: transparent;
   opacity: 1;
@@ -18,22 +18,28 @@
 
 .home-page .cursor,
 .project-page .cursor,
-.embed-page .cursor,
+.other-page .cursor,
 .admin-page .cursor {
   opacity: 1;
   background-color: transparent;
   transform: translate(-50%, -50%) scale(0);
 }
 
-.about-page .cursor {
+.other-page .cursor.animation {
   opacity: 1;
   background-color: var(--yellow);
   transform: translate(-50%, -50%) scale(0.5);
 }
 
+.about-page .cursor {
+  opacity: 1;
+  background-color: var(--yellow);
+  transform: translate(-50%, -50%) scale(var(--cursor-scale));
+}
+
 .cursor.project {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(0.5);
+  transform: translate(-50%, -50%) scale(var(--cursor-scale));
 }
 
 .cursor.link {
@@ -43,15 +49,15 @@
   transform: translate(-50%, -50%) scale(0);
 }
 
-.cursor.unofficial {
+/* .cursor.unofficial {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(0.5);
+  transform: translate(-50%, -50%) scale(0.75);
   background-color: transparent !important;
-}
+} */
 
 #cursor-unofficial {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   pointer-events: none;
   position: relative;
   transition: opacity 0.2s ease-in-out, fill 0.2s ease-in-out;
@@ -59,14 +65,14 @@
   opacity: 0;
 }
 
-.cursor.unofficial #cursor-unofficial {
+/* .cursor.unofficial #cursor-unofficial {
   opacity: 1;
-}
+} */
 
 .project-page .cursor.video {
   opacity: 1;
   background-color: transparent !important;
-  transform: translate(-50%, -50%) scale(0.5);
+  transform: translate(-50%, -50%) scale(var(--cursor-scale));
   transition: none;
 }
 
@@ -77,8 +83,8 @@
   pointer-events: none;
   position: absolute;
   /* transform: translate(-20px, -20px); */
-  top: -5px;
-  left: -5px;
+  top: 0;
+  left: 0;
   /* fill: transparent; */
   display: none;
 }
@@ -93,11 +99,11 @@
   display: block;
 }
 
-@keyframes rotate {
+/* @keyframes rotate {
   0% {
     transform: rotateZ(0);
   }
   100% {
     transform: rotateZ(360deg);
   }
-}
+} */

@@ -4,6 +4,7 @@ import LevaControls from "../helpers/LevaControls";
 import PerfMonitor from "../helpers/PerfMonitor";
 import Scene from "./Scene";
 import "../helpers/animation.css";
+import { cursorEvents } from "../Cursor/Cursor";
 
 import { useToggleControls } from "../helpers/toggleControls";
 import { getLocalStorageConfig } from "../helpers/LevaControls/localStorageConfig";
@@ -69,6 +70,8 @@ const WaterfallAnimation = ({ serverConfig, controls, mobile }) => {
       <LevaControls controls={controls === undefined ? false : controls} />
       <div
         className="animation-container"
+        onMouseEnter={() => cursorEvents.onMouseEnter(["animation"])}
+        onMouseLeave={() => cursorEvents.onMouseLeave(["animation"])}
         ref={container}
         style={{
           // width: mobile && controls ? "390px" : "100%",

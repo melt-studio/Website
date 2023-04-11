@@ -29,6 +29,10 @@
   font-size: 100px;
   margin: 0;
   display: flex;
+  gap: 0 4px;
+  -webkit-text-stroke: 1px var(--yellow);
+  text-stroke: 1px var(--yellow);
+  color: transparent;
 }
 
 .page.not-found-page img {

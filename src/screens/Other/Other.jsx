@@ -3,10 +3,12 @@ import { Helmet } from "react-helmet";
 import { useNavigate, useParams } from "react-router-dom";
 import embedService from "../../services/embeds";
 import Page from "../Page";
+import WaterfallAnimation from "../../components/WaterfallAnimation";
 import "./Other.css";
 
-const Other = ({ embeds }) => {
+const Other = ({ embeds, config }) => {
   const [embed, setEmbed] = useState(null);
+  const [embedUrl, setEmbedUrl] = useState(null);
   const [locked, setLocked] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
@@ -14,10 +16,10 @@ const Other = ({ embeds }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.body.classList.add("embed-page");
+    document.body.classList.add("other-page");
 
     return () => {
-      document.body.classList.remove("embed-page");
+      document.body.classList.remove("other-page");
     };
   }, []);
 
@@ -33,6 +35,9 @@ const Other = ({ embeds }) => {
       }
 
       setEmbed(embed);
+      if (embed.fields.embedUrl) {
+        setEmbedUrl(embed.fields.embedUrl);
+      }
     }
   }, [embeds, type, id, navigate]);
 
@@ -51,14 +56,23 @@ const Other = ({ embeds }) => {
         }}
       >
         {embed && (
-          <EmbedContent embed={embed} locked={locked} setLocked={setLocked} loaded={loaded} setLoaded={setLoaded} />
+          <EmbedContent
+            embed={embed}
+            locked={locked}
+            setLocked={setLocked}
+            loaded={loaded}
+            setLoaded={setLoaded}
+            config={config}
+            setEmbedUrl={setEmbedUrl}
+            embedUrl={embedUrl}
+          />
         )}
       </div>
     </Page>
   );
 };
 
-const EmbedContent = ({ embed, locked, setLocked, loaded, setLoaded }) => {
+const EmbedContent = ({ embed, embedUrl, locked, setLocked, loaded, setLoaded, config, setEmbedUrl }) => {
   useEffect(() => {
     if (embed.fields.protected) {
       setLocked(true);
@@ -71,23 +85,21 @@ const EmbedContent = ({ embed, locked, setLocked, loaded, setLoaded }) => {
   }
 
   if (loaded && locked) {
-    return <PasswordForm embed={embed} setLocked={setLocked} />;
+    return <PasswordForm embed={embed} setLocked={setLocked} setEmbedUrl={setEmbedUrl} />;
   }
 
   if (loaded && embed.fields.pageType === "other") {
-    return (
-      <iframe
-        key={embed.id}
-        className="embed"
-        title={embed.fields.title}
-        src={embed.fields.embedUrl}
-        allowFullScreen
-      ></iframe>
-    );
+    if (embedUrl) {
+      return (
+        <iframe key={embed.id} className="embed" title={embed.fields.title} src={embedUrl} allowFullScreen></iframe>
+      );
+    } else {
+      return null;
+    }
   }
 
   if (loaded && embed.fields.pageType === "animations") {
-    return <h1>ANIMATION HERE</h1>;
+    return <WaterfallAnimation controls={false} serverConfig={config} />;
   }
 
   return null;
@@ -95,7 +107,7 @@ const EmbedContent = ({ embed, locked, setLocked, loaded, setLoaded }) => {
 
 export default Other;
 
-const PasswordForm = ({ embed, setLocked }) => {
+const PasswordForm = ({ embed, setLocked, setEmbedUrl }) => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState(null);
@@ -125,8 +137,12 @@ const PasswordForm = ({ embed, setLocked }) => {
     }
 
     try {
-      await embedService.openEmbed(embed.id, password);
+      const unlockedEmbed = await embedService.openEmbed(embed.id, password);
       setLocked(false);
+      if (unlockedEmbed.fields.embedUrl) {
+        setEmbedUrl(unlockedEmbed.fields.embedUrl);
+      }
+      setPassword("");
     } catch (error) {
       setLocked(true);
       if (form && form.current) {
@@ -138,10 +154,10 @@ const PasswordForm = ({ embed, setLocked }) => {
 
   return (
     <div className="form password-form" ref={form}>
-      <h1>Enter password to view page</h1>
+      {/* <h1>Enter password to view page</h1> */}
       <form onSubmit={handleSubmit}>
         <input placeholder="Password" type="password" onChange={handleChange} />
-        <button type="submit">Submit</button>
+        <button type="submit">View Page</button>
         {message && <div className="form__message">{message}</div>}
       </form>
     </div>

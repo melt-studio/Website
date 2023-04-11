@@ -17,7 +17,8 @@ const DisableRender = () => useFrame(() => null, 1000);
 
 const Scene = ({ name, controls, config, updateConfig, localStorageConfig, containerRef, updateName }) => {
   const mesh = useRef();
-  const [inView, setInView] = useState(true);
+  // const [inView, setInView] = useState(true);
+  const [inView] = useState(true);
 
   const [blurStrength, setBlurStrength] = useState(2);
   const updateBlurStrength = (value) => setBlurStrength(value);
@@ -192,21 +193,21 @@ const Scene = ({ name, controls, config, updateConfig, localStorageConfig, conta
     }
   }, [size, updateName, controls, name]);
 
-  const handleFadeOut = () => {
-    const time = mesh.current.material.uniforms.uTime.value;
-    const t = mesh.current.material.uniforms.uTransition.value.w;
-    if (mesh.current.material.uniforms.uTransition.value.x === 0 && time > t) {
-      mesh.current.material.uniforms.uTransition.value.x = 1;
-      mesh.current.material.uniforms.uTransition.value.y = time;
-    }
+  // const handleFadeOut = () => {
+  //   const time = mesh.current.material.uniforms.uTime.value;
+  //   const t = mesh.current.material.uniforms.uTransition.value.w;
+  //   if (mesh.current.material.uniforms.uTransition.value.x === 0 && time > t) {
+  //     mesh.current.material.uniforms.uTransition.value.x = 1;
+  //     mesh.current.material.uniforms.uTransition.value.y = time;
+  //   }
 
-    if (containerRef.current) {
-      if (time > t + 3.5 && containerRef.current.style.display === "block") {
-        containerRef.current.style.display = "none";
-        setInView(false);
-      }
-    }
-  };
+  //   if (containerRef.current) {
+  //     if (time > t + 3.5 && containerRef.current.style.display === "block") {
+  //       containerRef.current.style.display = "none";
+  //       setInView(false);
+  //     }
+  //   }
+  // };
 
   useFrame((state, delta) => {
     if (!inView) return;
@@ -219,7 +220,7 @@ const Scene = ({ name, controls, config, updateConfig, localStorageConfig, conta
       mesh.current.material.uniforms.uMouse.value.set(mouse.x, mouse.y);
     }
 
-    if (!controls) handleFadeOut();
+    // if (!controls) handleFadeOut();
   });
 
   return (

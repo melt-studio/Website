@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 import "./NotFound.css";
-import Drippy from "../../assets/images/MELT__DRIPPY.svg";
+import Drippy from "../../assets/images/MELT__DRIPPY__YELLOW.svg";
 
 const NotFound = () => {
   return (
@@ -14,7 +14,7 @@ const NotFound = () => {
         <h1>
           4<img src={Drippy} alt="MELT Logo" />4
         </h1>
-        <p>Page not found</p>
+        {/* <p>Page not found</p> */}
       </div>
     </div>
   );

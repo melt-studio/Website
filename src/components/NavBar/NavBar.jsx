@@ -27,7 +27,7 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn }) => {
   const navigate = useNavigate();
 
   const excludes = useMemo(() => {
-    return ["/about", "/404", "/other", "/admin", "/login"];
+    return ["/about", "/404", "/other", "/admin", "/login", "/animations"];
   }, []);
 
   useEffect(() => {
@@ -59,8 +59,8 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn }) => {
 
   const handleLogout = () => {
     setLoggedIn(false);
-    if (window.localStorage.getItem("admin-password")) {
-      window.localStorage.removeItem("admin-password");
+    if (window.localStorage.getItem("melt_admin_password")) {
+      window.localStorage.removeItem("melt_admin_password");
     }
 
     document.body.classList.remove("logged-in");

@@ -79,14 +79,14 @@ export default function ProjectTiles({ projects, cursor, setScroll, setBackgroun
     // }
     setScroll(window.scrollY);
     navigate(`/project/${project.projectUrl}`);
-    cursorEvents.onMouseLeave(project.unofficials ? "unofficial" : "project");
+    cursorEvents.onMouseLeave(project.unofficials ? ["project", "unofficial"] : ["project"]);
     // document.body.scrollTop = 0; // For Safari
     // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };
 
   const handleMouseEnter = (project) => {
     // console.log(project);
-    cursorEvents.onMouseEnter(project.unofficials ? "unofficial" : "project");
+    cursorEvents.onMouseEnter(project.unofficials ? ["project", "unofficial"] : ["project"]);
     if (cursor && cursor.current) {
       cursor.current.style.backgroundColor = project.color.cursor;
       // cursor.current.firstElementChild.style.fill = project.color.cursor;
@@ -99,7 +99,7 @@ export default function ProjectTiles({ projects, cursor, setScroll, setBackgroun
   };
 
   const handleMouseLeave = (project) => {
-    cursorEvents.onMouseLeave(project.unofficials ? "unofficial" : "project");
+    cursorEvents.onMouseLeave(project.unofficials ? ["project", "unofficial"] : ["project"]);
     if (cursor && cursor.current) {
       cursor.current.style.removeProperty("background-color");
       // cursor.current.firstElementChild.style.fill = "transparent";

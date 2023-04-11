@@ -68,7 +68,7 @@ export default function MainContainer({
 
         <Route
           path="/:type/:id"
-          element={<Other embeds={embeds} cursor={cursor} mobile={mobile} viewport={viewport} />}
+          element={<Other embeds={embeds} config={config} cursor={cursor} mobile={mobile} viewport={viewport} />}
         />
 
         {/* <Route

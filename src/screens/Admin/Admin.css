@@ -12,6 +12,9 @@
 .admin-page .page-container {
   width: 100%;
   flex-grow: 1;
+}
+
+.admin-page.logged-in .page-container {
   padding: 100px 2% 50px;
 }
 

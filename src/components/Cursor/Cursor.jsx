@@ -5,20 +5,24 @@ import CursorPause from "./CursorPause.jsx";
 import "./Cursor.css";
 
 export const cursorEvents = {
-  onMouseEnter: (name = "link") => {
+  onMouseEnter: (name = ["link"]) => {
     const cursor = document.getElementById("cursor");
     if (cursor) {
-      if (!cursor.classList.contains(name)) {
-        cursor.classList.add(name);
-      }
+      name.forEach((n) => {
+        if (!cursor.classList.contains(n)) {
+          cursor.classList.add(n);
+        }
+      });
     }
   },
-  onMouseLeave: (name = "link") => {
+  onMouseLeave: (name = ["link"]) => {
     const cursor = document.getElementById("cursor");
     if (cursor) {
-      if (cursor.classList.contains(name)) {
-        cursor.classList.remove(name);
-      }
+      name.forEach((n) => {
+        if (cursor.classList.contains(n)) {
+          cursor.classList.remove(n);
+        }
+      });
     }
   },
 };

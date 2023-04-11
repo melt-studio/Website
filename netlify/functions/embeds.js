@@ -39,7 +39,12 @@ exports.handler = (event, context, callback) => {
       }
 
       const records = response.data.records.map(({ id, createdTime, fields }) => {
-        const { password, ...fieldsRest } = fields;
+        const { password, embedUrl, ...fieldsRest } = fields;
+
+        if (!fieldsRest.protected) {
+          fieldsRest.embedUrl = embedUrl;
+        }
+
         return {
           id,
           createdTime,
@@ -68,6 +73,14 @@ exports.handler = (event, context, callback) => {
     try {
       const response = await axios.get(`${URL}/${id}`, { headers });
 
+      const { password, ...fieldsRest } = response.data.fields;
+
+      const data = {
+        id,
+        createdTime: response.data.createdTime,
+        fields: { ...fieldsRest },
+      };
+
       if (!response || !response.data || !response.data.fields || !response.data.fields.password) {
         return pass(404, { error: "Airtable record not found" });
       }
@@ -76,7 +89,7 @@ exports.handler = (event, context, callback) => {
         return pass(401, { error: "Wrong password" });
       }
 
-      return pass(200, {});
+      return pass(200, data);
     } catch (error) {
       return pass(404, { error: "Airtable record not found" });
     }

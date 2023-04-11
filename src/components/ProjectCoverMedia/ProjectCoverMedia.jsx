@@ -90,8 +90,8 @@ const ProjectCoverMedia = ({ project, setLoading, cursor, viewport }) => {
     return (
       <div
         onClick={toggleVidPlay}
-        onMouseEnter={() => cursorEvents.onMouseEnter("video")}
-        onMouseLeave={() => cursorEvents.onMouseLeave("video")}
+        onMouseEnter={() => cursorEvents.onMouseEnter(["video"])}
+        onMouseLeave={() => cursorEvents.onMouseLeave(["video"])}
         style={{
           width: "100%",
           height: "fit-content",

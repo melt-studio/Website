@@ -57,7 +57,7 @@ const keyframesItemSelected = {
 };
 
 const links = [
-  { text: "Works", href: "/#projects", nav: true },
+  { text: "Works", href: "/", nav: true },
   { text: "About Us", href: "/about", nav: true },
   { text: "Say Hello", href: "mailto:hello@melt.works", nav: false },
   { text: "Follow", href: "https://www.instagram.com/melt.works/", nav: false },

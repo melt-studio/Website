@@ -80,7 +80,7 @@ export default function Home({
           }
         }}
       >
-        {projects.length && <Background backgroundColor={backgroundColor} />}
+        {!mobile && projects.length && <Background backgroundColor={backgroundColor} />}
         {!mobile && (
           <div className="logo-animation">
             <LogoAnimation serverConfig={config} fade={fadeAnimation} />

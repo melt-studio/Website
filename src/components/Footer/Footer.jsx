@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 export default function Footer() {
   const location = useLocation();
 
-  const excludes = ["/project/", "/other/", "/admin", "/login"];
+  const excludes = ["/project/", "/other/", "/admin", "/login", "/animations"];
   if (excludes.some((ex) => location.pathname.includes(ex))) return null;
 
   return (

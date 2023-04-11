@@ -21,50 +21,82 @@
 
 .form .form__message {
   color: orangered;
-  margin: 20px 0 0;
+  /* margin: 20px 0 0; */
 }
 
 .form {
-  padding: 30px;
   background: #000;
-  background: #1b1b1d;
+  /* background: #1b1b1d; */
   border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* min-width: 400px; */
+  width: 100%;
+  /* padding: 30px; */
 }
 
 .page .form h1 {
-  font-size: 18px;
-  margin-bottom: 30px;
+  font-size: 16px;
+  margin-top: 30px;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .form form {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  min-width: 400px;
+  gap: 30px 0;
+  align-items: center;
+  /* flex-grow: 1; */
+  width: 100%;
+  max-width: 600px;
 }
 
 .form input {
   padding: 15px;
-  font-size: 20px;
+  font-size: 30px;
   /* border: 1px solid transparent; */
   border: none;
+  border-bottom: 3px solid var(--yellow);
   background: #fff;
-  color: #000000;
-  border-radius: 2px 2px 0 0;
+  background: #000;
+  color: var(--yellow);
+  /* border-radius: 2px 2px 0 0; */
   font-family: var(--font-family);
+  text-align: center;
+  width: 96%;
+  border-radius: 0;
 }
+
+@media (min-width: 800px) {
+  .form input {
+    font-size: 40px;
+    width: 100%;
+    padding: 15px;
+  }
+}
+
+/* .form input:focus {
+  outline: 1px solid var(--yellow);
+} */
 
 .form.error input {
   color: orangered;
+  border-color: orangered;
 }
 
 .form button {
-  padding: 15px;
-  font-size: 20px;
+  padding: 15px 20px;
+  font-size: 16px;
+  text-transform: uppercase;
   font-family: var(--font-family);
-  font-weight: 600;
+  font-weight: 500;
   background: var(--yellow);
   border: none;
   border-radius: 0 0 2px 2px;
+  border-radius: 2px;
   cursor: pointer;
+  width: fit-content;
+  color: #000000;
 }

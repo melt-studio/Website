@@ -37,6 +37,7 @@ const Login = ({ loggedIn, setLoggedIn }) => {
       setLoggedIn(true);
       window.localStorage.setItem("melt_admin_password", password);
       document.body.classList.add("logged-in");
+      setPassword("");
       // return navigate("/admin");
     } catch (error) {
       setLoggedIn(false);
@@ -74,12 +75,12 @@ const Login = ({ loggedIn, setLoggedIn }) => {
 
   return (
     <div className="form login-form" ref={form}>
-      <h1>Login to Admin Panel</h1>
       <form onSubmit={handleLogin}>
         <input placeholder="Password" type="password" onChange={handleChange} />
-        <button type="submit">Login</button>
+        <button type="submit">Login to Admin Panel</button>
         {message && <div className="form__message">{message}</div>}
       </form>
+      {/* <h1>Login to Admin Panel</h1> */}
     </div>
   );
 };
