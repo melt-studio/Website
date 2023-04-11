@@ -68,7 +68,10 @@ export default function About({ aboutInfo, embeds, cursor }) {
     if (aboutInfo.length) {
       const { aboutText, whatWeDo, whatWeDontDo } = aboutInfo[0].fields;
 
-      setAboutText(aboutText);
+      // setAboutText(aboutText);
+      // ReactMarkdown causes unwanted re-renders when using components prop (and in this case wrapping each p element with the FadeIn component), so instead pre-splitting the text into paragraphs then wrapping each paragraph with FadeIn and ReactMarkdown
+      // Only needed if doing staggered fadeIn
+      setAboutText(aboutText.split("\n").filter((t) => t.length > 0));
 
       if (whatWeDo) {
         setWhatWeDoTags(whatWeDo.map((tag) => ({ text: tag })));
@@ -111,27 +114,14 @@ export default function About({ aboutInfo, embeds, cursor }) {
           <div className="row">
             <div className="col primary">
               <div className="description-text jumbo-text">
-                {aboutText && (
-                  <ReactMarkdown
-                    key={aboutText}
-                    includeElementIndex={true}
-                    components={{
-                      p: ({ node, index, siblingCount, ...props }) => {
-                        return (
-                          <FadeIn {...fadeInText} delay={fadeInText.delay + fadeInText.damping * index}>
-                            <p {...props} />
-                          </FadeIn>
-                        );
-                      },
-                      // a: ({ node, index, siblingCount, ...props }) => {
-                      //   console.log(props);
-                      //   return <TagLink tag={{ text: props.children, href: props.href }} />;
-                      // },
-                    }}
-                  >
-                    {aboutText}
-                  </ReactMarkdown>
-                )}
+                {aboutText &&
+                  aboutText.map((text, i) => (
+                    <FadeIn key={text} {...fadeInText} delay={fadeInText.delay + fadeInText.damping * i}>
+                      <ReactMarkdown key={aboutText} includeElementIndex={true}>
+                        {text}
+                      </ReactMarkdown>
+                    </FadeIn>
+                  ))}
               </div>
             </div>
 
