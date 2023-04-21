@@ -55,7 +55,7 @@
 }
 
 .project-images__image.video {
-  max-width: 90%;
+  /* max-width: 90%; */
 }
 
 @media (min-width: 800px) {
