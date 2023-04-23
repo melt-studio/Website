@@ -60,6 +60,7 @@ const ProjectCover = ({ project, overlay, mobile, viewport, cursor }) => {
             project={project}
             setLoading={setLoading}
             cursor={cursor}
+            mobile={mobile}
             viewport={viewport}
           />
         </FadeScroll>

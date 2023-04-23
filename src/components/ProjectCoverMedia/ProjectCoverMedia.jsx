@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import ReactPlayer from "react-player";
 import { cursorEvents } from "../Cursor/Cursor";
+import CursorPlay from "../Cursor/CursorPlay";
 import "./ProjectCoverMedia.css";
 
-const ProjectCoverMedia = ({ project, setLoading, cursor, viewport }) => {
+const ProjectCoverMedia = ({ project, setLoading, cursor, mobile, viewport }) => {
   const [vidPlay, setVidPlay] = useState(false);
   const [size, setSize] = useState(null);
 
@@ -98,6 +99,7 @@ const ProjectCoverMedia = ({ project, setLoading, cursor, viewport }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          position: "relative",
         }}
       >
         <ReactPlayer
@@ -110,6 +112,11 @@ const ProjectCoverMedia = ({ project, setLoading, cursor, viewport }) => {
           onReady={handleLoad}
           ref={ref}
         />
+        {mobile && !vidPlay && (
+          <div id="video-mobile-icon">
+            <CursorPlay />
+          </div>
+        )}
       </div>
     );
   }

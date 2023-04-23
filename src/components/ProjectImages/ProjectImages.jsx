@@ -60,6 +60,7 @@ const ProjectImage = ({ image, project, viewport }) => {
             autoPlay={true}
             ref={ref}
             onReady={handleLoad}
+            playsinline={true}
           />
         ) : (
           <img

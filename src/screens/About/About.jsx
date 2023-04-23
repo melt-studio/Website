@@ -28,13 +28,31 @@ const fadeInText = {
   damping: 0.25,
 };
 
-const contactInfo = [
-  { text: "Say Hello", href: "mailto:hello@melt.works" },
-  { text: "Join Our Team", href: "mailto:careers@melt.works" },
-  { text: "P/ 347.249.0123", href: "tel:+347-249-0123" },
-];
+// const contactInfo = [
+//   { text: "Say Hello", href: "mailto:hello@melt.works" },
+//   { text: "Join Our Team", href: "mailto:careers@melt.works" },
+//   { text: "P/ 347.249.0123", href: "tel:+347-249-0123" },
+// ];
 
-const followInfo = [{ text: "Instagram", href: "https://www.instagram.com/melt.works/" }];
+// const followInfo = [{ text: "Instagram", href: "https://www.instagram.com/melt.works/" }];
+
+const parseLinks = (links) => {
+  return links
+    .trim()
+    .split("\n")
+    .map((c) => {
+      const text = c.substring(1, c.indexOf("]"));
+      let href = c.substring(c.indexOf("]") + 2, c.length - 2);
+      if (href.includes("tel:")) {
+        href = href.substring(href.indexOf("tel:"));
+      }
+
+      return {
+        text,
+        href,
+      };
+    });
+};
 
 export default function About({ aboutInfo, embeds, cursor }) {
   const [loading, setLoading] = useState(true);
@@ -67,7 +85,7 @@ export default function About({ aboutInfo, embeds, cursor }) {
 
   useEffect(() => {
     if (aboutInfo.length) {
-      const { aboutText, whatWeDo, whatWeDontDo } = aboutInfo[0].fields;
+      const { aboutText, whatWeDo, whatWeDontDo, contact, follow } = aboutInfo[0].fields;
 
       // setAboutText(aboutText);
       // ReactMarkdown causes unwanted re-renders when using components prop (and in this case wrapping each p element with the FadeIn component, causing repeated fade ins on viewport change, incl. scrolling on mobile as browser height changes), so instead pre-splitting the text into paragraphs then wrapping each paragraph with FadeIn and ReactMarkdown
@@ -83,8 +101,10 @@ export default function About({ aboutInfo, embeds, cursor }) {
       }
 
       // Set contact/follow data at same time so renders at same time as airtable data
-      setContactTags(contactInfo);
-      setFollowTags(followInfo);
+      // setContactTags(contactInfo);
+      // setFollowTags(followInfo);
+      setContactTags(parseLinks(contact));
+      setFollowTags(parseLinks(follow));
 
       setLoading(false);
     }
@@ -93,7 +113,9 @@ export default function About({ aboutInfo, embeds, cursor }) {
   useEffect(() => {
     if (embeds && embeds.length) {
       setEmbedTags(
-        embeds.map((e) => ({ text: e.fields.title, href: `/${e.fields.pageType}/${e.fields.pageUrl}`, nav: true }))
+        embeds
+          .filter((e) => !e.fields.hideOnAbout)
+          .map((e) => ({ text: e.fields.title, href: `/${e.fields.pageType}/${e.fields.pageUrl}`, nav: true }))
       );
     }
   }, [embeds]);

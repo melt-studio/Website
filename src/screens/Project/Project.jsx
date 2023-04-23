@@ -43,6 +43,7 @@ const Project = ({ projects, cursor, mobile, viewport }) => {
 
       // Update root project-color CSS variable
       document.documentElement.style.setProperty("--text-color", project.fields.colorText);
+      document.documentElement.style.setProperty("--cursor-color", project.fields.cursorColor);
 
       // Instead of using order field just take array from airtable (assuming always returns in row order, then can just rearrange in airtable)
       const order = projects.indexOf(project);

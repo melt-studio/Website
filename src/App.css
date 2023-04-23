@@ -62,7 +62,8 @@ a {
 }
 
 .page .jumbo-text {
-  font-size: 1.25rem;
+  /* font-size: 1.25rem; */
+  font-size: 22px;
   /* font-weight: 600; */
   font-weight: 550;
   /* letter-spacing: -0.05rem; */
