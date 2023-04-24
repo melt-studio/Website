@@ -23,6 +23,11 @@
   transition: font-variation-settings 0.3s ease;
 }
 
+.about-page .nav-bar .tag-link h3,
+.about-page .tag-link-nav h3 {
+  color: #000000;
+}
+
 .about-page .page .tag-link-nav h3 {
   color: #000000;
 }
@@ -62,6 +67,11 @@
 .nav-bar .tag-link .tag-link-underline hr,
 .tag-link-nav .tag-link-underline hr {
   background: #ffffff;
+}
+
+.about-page .nav-bar .tag-link .tag-link-underline hr,
+.about-page .tag-link-nav .tag-link-underline hr {
+  background: #000000;
 }
 
 .about-page .page .tag-link-nav .tag-link-underline hr {

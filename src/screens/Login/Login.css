@@ -22,6 +22,8 @@
 .form .form__message {
   color: orangered;
   /* margin: 20px 0 0; */
+  position: absolute;
+  margin-top: -20px;
 }
 
 .form {
@@ -46,7 +48,7 @@
 .form form {
   display: flex;
   flex-direction: column;
-  gap: 30px 0;
+  gap: 40px 0;
   align-items: center;
   /* flex-grow: 1; */
   width: 100%;
@@ -58,7 +60,7 @@
   font-size: 30px;
   /* border: 1px solid transparent; */
   border: none;
-  border-bottom: 3px solid var(--yellow);
+  border-bottom: 2px solid var(--yellow);
   background: #fff;
   background: #000;
   color: var(--yellow);
@@ -67,11 +69,13 @@
   text-align: center;
   width: 96%;
   border-radius: 0;
+  color: var(--yellow);
+  outline: none;
 }
 
 @media (min-width: 800px) {
   .form input {
-    font-size: 40px;
+    font-size: 60px;
     width: 100%;
     padding: 15px;
   }
@@ -88,15 +92,46 @@
 
 .form button {
   padding: 15px 20px;
-  font-size: 16px;
+  font-size: 14px;
   text-transform: uppercase;
   font-family: var(--font-family);
   font-weight: 500;
   background: var(--yellow);
+  background: transparent;
   border: none;
   border-radius: 0 0 2px 2px;
-  border-radius: 2px;
+  border-radius: 24px;
   cursor: pointer;
   width: fit-content;
+  color: var(--yellow);
+  color: #ffffff;
+  border: 1px solid var(--yellow);
+  transition: all 0.25s;
+}
+.form button:hover {
+  background: var(--yellow);
   color: #000000;
 }
+
+input::-webkit-input-placeholder {
+  /* text-stroke: 1px var(--yellow); */
+  color: var(--yellow);
+  /* color: #000000; */
+  /* text-transform: uppercase; */
+}
+input:-moz-placeholder {
+  color: var(--yellow);
+}
+
+/* #login-holder {
+  position: relative;
+}
+
+#login-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: red;
+  width: 20px;
+  height: 20px;
+} */

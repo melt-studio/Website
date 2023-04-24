@@ -13,6 +13,10 @@
   }
 }
 
+/* .about-page .nav-bar .tag-link {
+  color: #000000;
+} */
+
 #about-background {
   position: fixed;
   z-index: -9999;

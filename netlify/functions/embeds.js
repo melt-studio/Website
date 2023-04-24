@@ -62,10 +62,10 @@ exports.handler = (event, context, callback) => {
   const openEmbed = async () => {
     const { body } = event;
 
-    const { id, password } = JSON.parse(body);
+    const { password: userPassword, id } = JSON.parse(body);
 
     // Check password
-    if (!password || password === "") {
+    if (!userPassword || userPassword === "") {
       return pass(401, { error: "Wrong password" });
     }
 
@@ -85,7 +85,7 @@ exports.handler = (event, context, callback) => {
         return pass(404, { error: "Airtable record not found" });
       }
 
-      if (response.data.fields.password !== password) {
+      if (response.data.fields.password !== userPassword) {
         return pass(401, { error: "Wrong password" });
       }
 

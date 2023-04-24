@@ -76,7 +76,7 @@ const Login = ({ loggedIn, setLoggedIn }) => {
   return (
     <div className="form login-form" ref={form}>
       <form onSubmit={handleLogin}>
-        <input placeholder="Password" type="password" onChange={handleChange} />
+        <input placeholder="Password" type="password" onChange={handleChange} autoFocus={true} />
         <button type="submit">Login to Admin Panel</button>
         {message && <div className="form__message">{message}</div>}
       </form>

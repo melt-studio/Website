@@ -1,12 +1,12 @@
 import { useEffect, useState, useMemo } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import TagLink from "../TagLink/TagLink";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
-import { cursorEvents } from "../Cursor/Cursor";
+// import { cursorEvents } from "../Cursor/Cursor";
 import "./NavBar.css";
 // import DrippyLogo from "../../assets/images/Logo/MELT_DRIPPY WHT.png";
-import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
+// import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
 
 const keyframes = {
   enter: {
@@ -24,7 +24,7 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn }) => {
   const location = useLocation();
   const { scrollY } = useScroll();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const excludes = useMemo(() => {
     return ["/about", "/404", "/other", "/admin", "/login", "/animations"];
@@ -85,22 +85,6 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn }) => {
           <TagLink tag={{ text: "MELT Studio", href: "/" }} nav />
         </div> */}
 
-        <div className="nav-bar__logo nav-bar__item">
-          <img
-            onClick={() => {
-              if (location.pathname === "/") {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              } else {
-                navigate("/");
-              }
-            }}
-            onMouseEnter={() => cursorEvents.onMouseEnter()}
-            onMouseLeave={() => cursorEvents.onMouseLeave()}
-            src={DrippyLogo}
-            alt="MELT Logo"
-          />
-        </div>
-
         {/* <select
         // value={this.state.selectValue}
         // onChange={this.handleChange}
@@ -111,27 +95,56 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn }) => {
 
         {/* {!location.pathname.includes("/admin") && ( */}
         {!location.pathname.includes("/admin") && (
-          <div className="nav-bar__item-holder">
+          // <div className="nav-bar__item-holder">
+          <>
             <div className="nav-bar__item">
               <TagLink tag={{ text: "About Us", href: "/about" }} nav />
+            </div>
+
+            <div className="nav-bar__logo nav-bar__item">
+              {/* <img
+                onClick={() => {
+                  if (location.pathname === "/") {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  } else {
+                    navigate("/");
+                  }
+                }}
+                onMouseEnter={() => cursorEvents.onMouseEnter()}
+                onMouseLeave={() => cursorEvents.onMouseLeave()}
+                src={DrippyLogo}
+                alt="MELT Logo"
+              /> */}
+
+              <div className="nav-bar__item">
+                <TagLink tag={{ text: "Melt Studio", href: "/" }} nav />
+              </div>
             </div>
 
             <div className="nav-bar__item">
               <TagLink tag={{ text: "Say Hello", href: "mailto:hello@melt.work" }} />
             </div>
-          </div>
+          </>
         )}
 
         {location.pathname.includes("/admin") && loggedIn && (
-          <div className="nav-bar__item">
-            <TagLink
-              tag={{
-                text: "Logout",
-                onClick: handleLogout,
-              }}
-              nav
-            />
-          </div>
+          <>
+            <div className="nav-bar__logo nav-bar__item">
+              <div className="nav-bar__item">
+                <TagLink tag={{ text: "Return to homepage", href: "/" }} nav />
+              </div>
+            </div>
+
+            <div className="nav-bar__item">
+              <TagLink
+                tag={{
+                  text: "Logout",
+                  onClick: handleLogout,
+                }}
+                nav
+              />
+            </div>
+          </>
         )}
       </div>
     </FadeInOut>

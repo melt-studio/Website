@@ -3,11 +3,13 @@
   position: fixed;
   top: 0;
   padding-top: 15px;
+  /* padding-bottom: 15px; */
   width: 100%;
   z-index: 98;
   /* height: 42px; */
   /* transform: translate(0, -100%); */
   /* animation: navBarShow 1s ease-out 0.5s 1 forwards; */
+  /* border-bottom: 1px solid #000; */
 }
 
 .nav-bar__items {
