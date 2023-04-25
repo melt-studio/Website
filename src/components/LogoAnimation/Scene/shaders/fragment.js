@@ -208,7 +208,8 @@ const fragment = /* glsl */ `
     ft = cubicInOut(uTransition.y);
     float a = clamp((color.r + color.g + color.b) / mix(1., 3., ft), 0., 1.);
     a = mix(a, smoothstep(.2, 1., a), ft);
-    a *= mix(1., .08, ft);
+    // a *= mix(1., .08, ft);
+    a *= mix(1., .0, ft);
     color.a = mix(a, 1., uControls);
 
     color += c * float(uShowMouse);
