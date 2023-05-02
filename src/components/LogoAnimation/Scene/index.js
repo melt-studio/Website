@@ -18,7 +18,7 @@ import { blur } from "../../helpers/blurTexture";
 // https://eriksachse.medium.com/react-three-fiber-custom-postprocessing-render-target-solution-without-using-the-effectcomposer-d3a94e6ae3c3
 
 const LogoScene = forwardRef(
-  ({ fps, name, controls, config, updateConfig, localStorageConfig, updateName, fade }, ref) => {
+  ({ fps, name, controls, config, updateConfig, localStorageConfig, updateName, fade, fromProject }, ref) => {
     const cam = useRef();
     const mesh = useRef();
     const trail = useRef();
@@ -113,6 +113,14 @@ const LogoScene = forwardRef(
     }, [controls]);
 
     useEffect(() => {
+      // If coming from project page (either via "close" in project nav or browser back button) initialize logo to faded
+      if (mesh.current && mesh.current.material) {
+        mesh.current.material.uniforms.uTransition.value.x = fromProject ? 1 : 0;
+        mesh.current.material.uniforms.uTransition.value.y = fromProject ? 1 : 0;
+      }
+    }, [fromProject]);
+
+    useEffect(() => {
       // console.log(viewport);
       if (mesh.current && mesh.current.material) {
         mesh.current.material.uniforms.uDPR.value = viewport.dpr;
@@ -186,6 +194,7 @@ const LogoScene = forwardRef(
     useEffect(() => {
       if (mesh.current) {
         const stage = fade ? 1 : 0;
+        // console.log("fade", fade, mesh.current.material.uniforms.uTransition.value.x);
         if (mesh.current.material.uniforms.uTransition.value.x !== stage) {
           const { uTransition, uTime, uFadeLast } = mesh.current.material.uniforms;
           uFadeLast.value = uTransition.value.y;

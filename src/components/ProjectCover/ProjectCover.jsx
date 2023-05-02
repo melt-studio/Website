@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import ProjectCoverMedia from "../ProjectCoverMedia/ProjectCoverMedia.jsx";
 import FadeScroll from "../FadeScroll/FadeScroll.jsx";
 import "./ProjectCover.css";
+import Background from "../Background/Background.js";
 
 const ProjectCover = ({ project, overlay, mobile, viewport, cursor }) => {
   const [loading, setLoading] = useState(true);
@@ -50,7 +51,12 @@ const ProjectCover = ({ project, overlay, mobile, viewport, cursor }) => {
 
   return (
     <>
-      <FadeScroll viewport={{ amount: 0.7 }} className={`project-cover-full${mainVid ? " wide" : ""}`} style={style}>
+      <FadeScroll
+        viewport={{ amount: 0.7 }}
+        className={`project-cover-full${mainVid ? " wide" : ""}`}
+        // style={style}
+      >
+        {!mobile && <Background backgroundColor={project.fields.backgroundColor} />}
         <FadeScroll
           viewport={{ amount: 0.3 }}
           className={`project-cover-full__background${loading ? " loading" : ""} show`}

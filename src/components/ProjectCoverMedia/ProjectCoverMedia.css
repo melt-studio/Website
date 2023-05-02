@@ -19,9 +19,9 @@
     transition: opacity 1s ease-in-out 0.5s, transform 1s ease-in-out 0.5s;
   }
 
-  .project-cover-full__image.video {
+  /* .project-cover-full__image.video {
     cursor: default;
-  }
+  } */
 }
 
 .wide .project-cover-full__image {

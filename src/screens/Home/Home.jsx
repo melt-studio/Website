@@ -21,6 +21,7 @@ export default function Home({
 }) {
   const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [fadeAnimation, setFadeAnimation] = useState(false);
+  const [fromProject, setFromProject] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   const { scrollY } = useScroll();
@@ -58,6 +59,14 @@ export default function Home({
     }
   }, [initial, loaded, scroll, history]);
 
+  useEffect(() => {
+    if (history && history.length > 1 && history[1].includes("/project/")) {
+      setFromProject(true);
+    } else {
+      setFromProject(false);
+    }
+  }, [history]);
+
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (mobile) return;
 
@@ -84,7 +93,7 @@ export default function Home({
         {!mobile && projects.length && <Background backgroundColor={backgroundColor} />}
         {!mobile && (
           <div className="logo-animation">
-            <LogoAnimation serverConfig={config} fade={fadeAnimation} />
+            <LogoAnimation serverConfig={config} fade={fadeAnimation} fromProject={fromProject} />
           </div>
         )}
         {projects.length && (

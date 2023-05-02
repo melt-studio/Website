@@ -23,12 +23,19 @@ const fragmentShader = /* glsl */ `
 
   uniform vec3 uColor1;
   uniform vec3 uColor2;
+  uniform float uTime;
 
   void main() {
     vec3 color = vec3(0.);
     float f = 1. - vUv.y;
-    f = smoothstep(.35, 1., f);
+    // f = smoothstep(.35, 1., f);
     // f = smoothstep(.5, 1., f);
+    vec2 vUv2 = vUv + sin(vUv.x * 4. + uTime * .5) - cos(-vUv.y * 3. + vUv.x * 0. - uTime * .333);
+    f = sin(length(vUv2) + uTime) * .5 + .5;
+    f += sin(-vUv.x * 4.- vUv.y * 2.+ length(vUv) * sin(uTime * .5) + sin(vUv.y * 4. + uTime * .25) + uTime * .5 + sin(-vUv.x * vUv.y + uTime * .5) * 2.) * .5 + .5;
+    f /= 2.;
+    // f = clamp(f, 0., 1.);
+    // f = smoothstep(.3, .7, f);
     gl_FragColor = vec4(mix(uColor1, uColor2, f), 1.);
   }
 `;
@@ -42,6 +49,7 @@ const Background = ({ backgroundColor }) => {
     const uniforms = {
       uColor1: { value: new Color(0x000000) },
       uColor2: { value: new Color(0x000000) },
+      uTime: { value: 0 },
     };
     return uniforms;
   }, []);
@@ -77,15 +85,16 @@ const Background = ({ backgroundColor }) => {
         <div ref={background2}></div>
       </div>
       <div
-        style={{
-          width: "100%",
-          height: "100vh",
-          zIndex: -1,
-          pointerEvents: "none",
-          position: "fixed",
-          left: 0,
-          top: 0,
-        }}
+        id="background-container"
+        // style={{
+        //   width: "100%",
+        //   height: "100vh",
+        //   zIndex: -1,
+        //   pointerEvents: "none",
+        //   position: "fixed",
+        //   left: 0,
+        //   top: 0,
+        // }}
       >
         <Canvas dpr={[1, 2]}>
           <OrthographicCamera makeDefault manual left={-1} right={1} top={1} bottom={-1} near={-1} far={1} />
@@ -127,6 +136,12 @@ const Mesh = ({ background, background1, background2, uniforms }) => {
         background.current.material.uniforms.uColor2.value = color2.setRGB(...rgb);
         // console.log(background.current.material.uniforms.uColor2.value);
       }
+    }
+  });
+
+  useFrame((state, delta) => {
+    if (background.current) {
+      background.current.material.uniforms.uTime.value += delta;
     }
   });
 

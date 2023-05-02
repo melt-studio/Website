@@ -15,7 +15,7 @@ const glSettings = {
   antialias: false,
 };
 
-const LogoAnimation = ({ serverConfig, controls, effectRef, mobile, fade = false }) => {
+const LogoAnimation = ({ serverConfig, controls, effectRef, mobile, fade = false, fromProject = false }) => {
   const { metric, value } = defaultConfig.devices.mobile;
   const [name, setName] = useState(
     (mobile && controls) || window[`inner${metric[0].toUpperCase() + metric.slice(1)}`] < value ? "logo-mobile" : "logo"
@@ -116,6 +116,7 @@ const LogoAnimation = ({ serverConfig, controls, effectRef, mobile, fade = false
               containerRef={container}
               updateName={updateName}
               fade={fade}
+              fromProject={fromProject}
             />
           </PerformanceMonitor>
         </Canvas>

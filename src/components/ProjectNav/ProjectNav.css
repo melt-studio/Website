@@ -29,7 +29,7 @@
 
 .project-nav__link .tag-link h3 {
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 @media (min-width: 800px) {
@@ -50,6 +50,6 @@
 
   .project-nav__link .tag-link h3 {
     font-size: 12px;
-    font-weight: 400;
+    /* font-weight: 400; */
   }
 }

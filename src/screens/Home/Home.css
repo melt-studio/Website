@@ -10,10 +10,23 @@
   position: relative;
 
   opacity: 1;
+
   min-height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
+}
+
+/* .animation-container {
+  opacity: 0;
+  transition: opacity 3s ease 3s;
+}
+.animation-container.show {
+  opacity: 1;
+} */
+
+.logo-animation.loaded {
+  opacity: 1;
 }
 
 .projects {

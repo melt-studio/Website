@@ -8,6 +8,20 @@
   z-index: -9999;
 }
 
+#background-container {
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.project-page #background-container {
+  position: absolute;
+}
+
 #background div {
   background-color: #000000;
   transition: background-color 1s ease 0.1s;
