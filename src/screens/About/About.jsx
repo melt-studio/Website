@@ -5,6 +5,7 @@ import TagBlock from "../../components/TagBlock/TagBlock.jsx";
 import FadeIn from "../../components/FadeIn/FadeIn.jsx";
 import { keyframes } from "../../utils/keyframes.js";
 import Page from "../Page.jsx";
+import Background from "../../components/Background/Background.js";
 import "./About.css";
 
 keyframes`
@@ -130,7 +131,8 @@ export default function About({ aboutInfo, embeds, cursor }) {
         <title>MELLLLLLT - About</title>
       </Helmet>
 
-      <div id="about-background"></div>
+      <Background backgroundColor={"#bcfc45, #ffffff"} />
+      {/* <div id="about-background"></div> */}
 
       {aboutInfo.length && (
         <div className={`page-container${loading ? " loading" : ""}`}>
