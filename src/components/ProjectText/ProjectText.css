@@ -16,6 +16,13 @@
   /* transition: opacity 1.5s ease 0.5s, transform 1.5s ease 0.5s; */
 }
 
+.project-text .tag-block__title {
+  margin-bottom: 5px;
+}
+.project-text .tag-block__title h1 {
+  margin-bottom: 0;
+}
+
 @media (min-width: 800px) {
   .project-text {
     gap: 40px 0;

@@ -13,6 +13,7 @@ export default function Layout({
   scrollCutOff,
   loggedIn,
   setLoggedIn,
+  projects,
   children,
 }) {
   return (
@@ -33,9 +34,11 @@ export default function Layout({
 
       <main>{children}</main>
 
-      <footer>
-        <Footer />
-      </footer>
+      {projects.length && (
+        <footer>
+          <Footer />
+        </footer>
+      )}
     </div>
   );
 }

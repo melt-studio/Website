@@ -146,6 +146,7 @@ function App() {
         initial={initial}
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
+        projects={projects}
       >
         <MainContainer
           initial={initial}
