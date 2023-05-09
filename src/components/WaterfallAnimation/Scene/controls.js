@@ -1,7 +1,7 @@
 // import { useEffect } from 'react'
-import * as THREE from 'three'
-import { useControls, folder } from 'leva'
-import { useLevaHelpers } from '../../helpers/LevaControls/levaHelpers'
+import * as THREE from "three";
+import { useControls, folder } from "leva";
+import { useLevaHelpers } from "../../helpers/LevaControls/levaHelpers";
 
 export const useLeva = (
   name,
@@ -11,55 +11,55 @@ export const useLeva = (
   updateConfig,
   dependencies
 ) => {
-  const [mesh, imageOptions, updateBlurStrength] = dependencies
+  const [mesh, updateBlurStrength] = dependencies;
 
   const schema = {
     image: folder(
       {
-        image: {
-          options: imageOptions,
-          order: -4,
-        },
+        // image: {
+        //   options: imageOptions,
+        //   order: -4,
+        // },
         uploadWaterfall: {
-          label: 'upload',
+          label: "upload",
           image: null,
           order: -3,
         },
         blurStrength: {
-          label: 'blur',
+          label: "blur",
           value: 2,
           min: 0,
           max: 20,
           step: 1,
           order: -2,
           onEditEnd: (v) => {
-            updateBlurStrength(v)
+            updateBlurStrength(v);
           },
           // Only render blur slider if upload !== null
-          render: (get) => get('image.uploadWaterfall'),
+          render: (get) => get("image.uploadWaterfall"),
         },
         // downloadImage: '',
         imageScale: {
-          label: 'scale',
+          label: "scale",
           value: 1,
           min: 0.1,
           max: 2,
           step: 0.01,
           onChange: (v) => {
             if (mesh.current && mesh.current.material) {
-              mesh.current.material.uniforms.uImageScale.value = v
+              mesh.current.material.uniforms.uImageScale.value = v;
             }
           },
         },
         imageStrength: {
-          label: 'strength',
+          label: "strength",
           value: defaults.imageStrength,
           min: 0,
           max: 1,
           step: 0.01,
           onChange: (v) => {
             if (mesh.current && mesh.current.material) {
-              mesh.current.material.uniforms.uDistortion.value.x = v
+              mesh.current.material.uniforms.uDistortion.value.x = v;
             }
           },
           order: 0,
@@ -70,71 +70,71 @@ export const useLeva = (
     lines: folder(
       {
         lineCount: {
-          label: 'count',
+          label: "count",
           value: defaults.lineCount,
           min: 1,
           max: 50,
           step: 1,
           onChange: (v) => {
             if (mesh.current && mesh.current.material) {
-              mesh.current.material.uniforms.uLine.value.x = v
+              mesh.current.material.uniforms.uLine.value.x = v;
             }
           },
         },
         lineSpeed: {
-          label: 'speed',
+          label: "speed",
           value: defaults.lineSpeed,
           min: 0,
           max: 3,
           step: 0.1,
           onChange: (v) => {
             if (mesh.current && mesh.current.material) {
-              mesh.current.material.uniforms.uLine.value.y = v
+              mesh.current.material.uniforms.uLine.value.y = v;
             }
           },
         },
         lineWidth: {
-          label: 'width',
+          label: "width",
           value: defaults.lineWidth,
           min: 0,
           max: 1,
           step: 0.01,
           onChange: (v) => {
             if (mesh.current && mesh.current.material) {
-              mesh.current.material.uniforms.uLine.value.z = v
+              mesh.current.material.uniforms.uLine.value.z = v;
             }
           },
         },
         lineDistortion: {
-          label: 'distortion',
+          label: "distortion",
           value: defaults.lineDistortion,
           min: 0,
           max: 1,
           step: 0.01,
           onChange: (v) => {
             if (mesh.current && mesh.current.material) {
-              mesh.current.material.uniforms.uDistortion.value.y = v
+              mesh.current.material.uniforms.uDistortion.value.y = v;
             }
           },
         },
         lineColor: {
-          label: 'color',
+          label: "color",
           value: defaults.lineColor,
           onChange: (v) => {
             if (mesh.current && mesh.current.material) {
-              mesh.current.material.uniforms.uColor.value = new THREE.Color(v)
+              mesh.current.material.uniforms.uColor.value = new THREE.Color(v);
             }
           },
         },
         colorShift: {
-          label: 'col shift',
+          label: "col shift",
           value: defaults.colorShift,
           min: 0,
           max: 1,
           step: 0.01,
           onChange: (v) => {
             if (mesh.current && mesh.current.material) {
-              mesh.current.material.uniforms.uLine.value.w = v
+              mesh.current.material.uniforms.uLine.value.w = v;
             }
           },
         },
@@ -144,14 +144,14 @@ export const useLeva = (
     mouse: folder(
       {
         mouseStrength: {
-          label: 'strength',
+          label: "strength",
           value: defaults.mouseStrength,
           min: 0,
           max: 1,
           step: 0.01,
           onChange: (v) => {
             if (mesh.current && mesh.current.material) {
-              mesh.current.material.uniforms.uDistortion.value.w = v
+              mesh.current.material.uniforms.uDistortion.value.w = v;
             }
           },
         },
@@ -161,34 +161,34 @@ export const useLeva = (
     debug: folder(
       {
         showCursor: {
-          label: 'cursor',
+          label: "cursor",
           value: true,
           onChange: (v) => {
-            document.body.style.cursor = v ? 'default' : 'none'
+            document.body.style.cursor = v ? "default" : "none";
           },
         },
       },
       { order: -1 }
     ),
-  }
+  };
 
   // Could limit levaControls to empty object if !controls
   // Also need to pass controls as dependency so store rebuilds input schema
 
-  const { image, uploadWaterfall } = useControls(schema, [controls])
+  const { uploadWaterfall } = useControls(schema, [controls]);
 
   const { buttons, changes } = useLevaHelpers(
     name,
     defaults,
     config,
     updateConfig
-  )
+  );
 
   useControls({ controls: folder(buttons, { order: 10 }) }, [
     controls,
     changes,
     config,
-  ])
+  ]);
 
   // // Add download image button template
   // const downloadImage = document.getElementById('image.downloadImage')
@@ -218,6 +218,6 @@ export const useLeva = (
 
   return {
     upload: controls ? uploadWaterfall : null,
-    image: controls ? image : null,
-  }
-}
+    // image: controls ? image : null,
+  };
+};

@@ -22,10 +22,14 @@
   height: 100px;
   left: -50px;
   top: -50px;
-  background-color: #bcfc45;
+  /* background-color: #bcfc45; */
   border-radius: 50%;
 }
 #cursor img {
+  position: absolute;
+  top: 0;
+}
+#cursor img:nth-of-type(1) {
   animation: rotate 12s linear infinite reverse;
 }
 
