@@ -9,6 +9,7 @@ import vertexShader from "./shaders/vertex";
 import fragmentShader from "./shaders/fragment";
 
 import meltLogo from "../assets/textures/melt_logo.png";
+// import meltLogo2 from "../assets/textures/melt_logo3.png";
 import smiley from "../assets/textures/smiley.png";
 import noise from "../assets/textures/noise.png";
 import { blur } from "../../helpers/blurTexture";
@@ -45,14 +46,11 @@ const Scene = ({
   //   console.log('USEEFFECT RENDER WATERFALL')
   // }, [])
 
-  const { upload, image } = useLeva(
-    name,
-    controls,
-    defaults,
-    config,
-    updateConfig,
-    [mesh, imageOptions, updateBlurStrength]
-  );
+  const { upload } = useLeva(name, controls, defaults, config, updateConfig, [
+    mesh,
+    imageOptions,
+    updateBlurStrength,
+  ]);
 
   // Set texture source if upload/image undefined (if controls disabled)
   // TODO: add API get texture from server
@@ -61,12 +59,17 @@ const Scene = ({
       return upload;
     }
 
-    if (image !== undefined && image !== null) {
-      return image;
-    }
+    // if (image !== undefined && image !== null) {
+    //   return image;
+    // }
+    // if (name.includes("mobile")) return smiley;
+
+    if (size.width < 1000) return smiley;
 
     return meltLogo;
   };
+
+  // const filltexture = useTexture(meltLogo2);
 
   const texture = useTexture(textureSource());
   // NB: split noiseTexture else any textureSource change will reload noiseTexture (which will create new uniform)
@@ -106,6 +109,7 @@ const Scene = ({
       uNoise: { value: null },
       uTransition: { value: new THREE.Vector4(0, 0, 3, 7) },
       uImageScale: { value: 1 },
+      // uFillTex: { value: filltexture },
     };
 
     return [uniforms, mouse];
