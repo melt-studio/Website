@@ -39,6 +39,10 @@ body.home-page {
     cursor: none;
   }
 
+  body.project-page {
+    cursor: none;
+  }
+
   body.home-page .project img:hover {
     cursor: none;
   }

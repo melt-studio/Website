@@ -1,21 +1,25 @@
 import TagBlock from "../TagBlock/TagBlock";
 import FadeScroll from "../FadeScroll/FadeScroll";
 import Markdown from "../Markdown/Markdown";
+// import ProjectTitle from "../ProjectTitle/ProjectTitle";
 import "./ProjectText.css";
 
-const ProjectText = ({ project }) => {
+const ProjectText = ({ project, mobile }) => {
   const { name, description, projectCopy, projectScope, projectCollaborators, colorText } = project.fields;
+  // const { projectCopy, projectScope, projectCollaborators, colorText } = project.fields;
   const scope = projectScope ? projectScope.map((t) => ({ text: t })) : [];
   const collaborators = projectCollaborators ? projectCollaborators.map((t) => ({ text: t })) : [];
 
   return (
     <FadeScroll viewport={{ amount: 0.25 }} className="project-text">
-      <div className="row">
-        <div className="col full">
-          {name && <h1 className="title-text">{name}</h1>}
-          {description && <h3 className="subtitle-text">{description}</h3>}
+      {mobile && (
+        <div className="row">
+          <div className="col full">
+            {name && <h1 className="title-text">{name}</h1>}
+            {description && <h3 className="subtitle-text">{description}</h3>}
+          </div>
         </div>
-      </div>
+      )}
       <div className="row">
         <div className="col primary">
           {projectCopy && (

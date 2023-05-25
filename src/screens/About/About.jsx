@@ -59,10 +59,10 @@ export default function About({ aboutInfo, embeds, cursor }) {
   const [loading, setLoading] = useState(true);
   const [aboutText, setAboutText] = useState(null);
   const [contactTags, setContactTags] = useState([]);
-  const [followTags, setFollowTags] = useState([]);
+  // const [followTags, setFollowTags] = useState([]);
   const [whatWeDoTags, setWhatWeDoTags] = useState([]);
   const [whatWeDontDoTags, setWhatWeDontDoTags] = useState([]);
-  const [embedTags, setEmbedTags] = useState([]);
+  // const [embedTags, setEmbedTags] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -86,7 +86,8 @@ export default function About({ aboutInfo, embeds, cursor }) {
 
   useEffect(() => {
     if (aboutInfo.length) {
-      const { aboutText, whatWeDo, whatWeDontDo, contact, follow } = aboutInfo[0].fields;
+      // const { aboutText, whatWeDo, whatWeDontDo, contact, follow } = aboutInfo[0].fields;
+      const { aboutText, whatWeDo, whatWeDontDo, contact } = aboutInfo[0].fields;
 
       // setAboutText(aboutText);
       // ReactMarkdown causes unwanted re-renders when using components prop (and in this case wrapping each p element with the FadeIn component, causing repeated fade ins on viewport change, incl. scrolling on mobile as browser height changes), so instead pre-splitting the text into paragraphs then wrapping each paragraph with FadeIn and ReactMarkdown
@@ -105,21 +106,21 @@ export default function About({ aboutInfo, embeds, cursor }) {
       // setContactTags(contactInfo);
       // setFollowTags(followInfo);
       setContactTags(parseLinks(contact));
-      setFollowTags(parseLinks(follow));
+      // setFollowTags(parseLinks(follow));
 
       setLoading(false);
     }
   }, [aboutInfo]);
 
-  useEffect(() => {
-    if (embeds && embeds.length) {
-      setEmbedTags(
-        embeds
-          .filter((e) => !e.fields.hideOnAbout)
-          .map((e) => ({ text: e.fields.title, href: `/${e.fields.pageType}/${e.fields.pageUrl}`, nav: true }))
-      );
-    }
-  }, [embeds]);
+  // useEffect(() => {
+  //   if (embeds && embeds.length) {
+  //     setEmbedTags(
+  //       embeds
+  //         .filter((e) => !e.fields.hideOnAbout)
+  //         .map((e) => ({ text: e.fields.title, href: `/${e.fields.pageType}/${e.fields.pageUrl}`, nav: true }))
+  //     );
+  //   }
+  // }, [embeds]);
 
   return (
     <Page>
@@ -136,7 +137,7 @@ export default function About({ aboutInfo, embeds, cursor }) {
 
       {aboutInfo.length && (
         <div className={`page-container${loading ? " loading" : ""}`}>
-          <div className="row">
+          <div className="row col-3">
             <div className="col primary">
               <div className="description-text jumbo-text">
                 {aboutText &&
@@ -150,11 +151,17 @@ export default function About({ aboutInfo, embeds, cursor }) {
 
             <div className="col">
               <div className="sticky">
-                <TagBlock title="Contact" tags={contactTags} />
-                <TagBlock title="Follow" tags={followTags} />
-                <TagBlock title="Other" tags={embedTags} />
                 <TagBlock title="What We Do" tags={whatWeDoTags} />
                 <TagBlock title="What We Don't Do" tags={whatWeDontDoTags} />
+              </div>
+            </div>
+
+            <div className="col">
+              <div className="sticky">
+                <TagBlock tags={contactTags} />
+                {/* <TagBlock title="Contact" tags={contactTags} /> */}
+                {/* <TagBlock title="Follow" tags={followTags} /> */}
+                {/* <TagBlock title="Other" tags={embedTags} /> */}
               </div>
             </div>
           </div>

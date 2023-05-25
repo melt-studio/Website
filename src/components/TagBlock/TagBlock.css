@@ -6,6 +6,12 @@
   margin-bottom: 1rem;
 }
 
+.page .tag-block__title h1 {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
 .tag-block__title__underline {
   display: flex;
   /* background-color: #000000; */
@@ -25,8 +31,9 @@
 .tag-block__tags {
   display: flex;
   flex-direction: column;
-  /* gap: 5px 0; */
-  gap: 3px 0;
+  gap: 5px 0;
+  /* gap: 3px 0; */
+  /* gap: 4px 0; */
 }
 
 .tag-block__tags h3 {
@@ -36,6 +43,10 @@
 @media (min-width: 800px) {
   .tag-block {
     margin-bottom: 40px;
+  }
+
+  .page .tag-block__title h1 {
+    font-size: 20px;
   }
 
   .tag-block__title__underline {

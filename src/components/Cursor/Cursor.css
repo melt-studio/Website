@@ -11,6 +11,8 @@
   transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
   width: 100px;
   height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background-color: transparent;
   opacity: 1;
@@ -34,6 +36,12 @@
 .about-page .cursor {
   opacity: 1;
   background-color: var(--yellow);
+  transform: translate(-50%, -50%) scale(var(--cursor-scale));
+}
+
+.project-page .cursor {
+  opacity: 1;
+  background-color: var(--cursor-color);
   transform: translate(-50%, -50%) scale(var(--cursor-scale));
 }
 

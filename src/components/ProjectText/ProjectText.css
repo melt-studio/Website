@@ -20,7 +20,7 @@
   margin-bottom: 5px;
 }
 .project-text .tag-block__title h1 {
-  margin-bottom: 0;
+  /* margin-bottom: 0; */
 }
 
 @media (min-width: 800px) {

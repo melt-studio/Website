@@ -34,7 +34,10 @@
 
 @media (min-width: 800px) {
   .project-nav {
-    padding: 0 2% 30px;
+    /* padding: 0 2% 30px; */
+    /* padding: 0 1.5% 30px; */
+    /* padding: 0 min(1.5%, 25px) 30px; */
+    padding: 0 min(1.5%, 25px) 10px;
     flex-direction: row;
   }
 
@@ -49,7 +52,8 @@
   }
 
   .project-nav__link .tag-link h3 {
-    font-size: 12px;
-    /* font-weight: 400; */
+    /* font-size: 12px; */
+    font-size: 20px;
+    font-weight: 400;
   }
 }
