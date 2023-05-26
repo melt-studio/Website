@@ -19,8 +19,12 @@
 .project-text .tag-block__title {
   margin-bottom: 5px;
 }
-.project-text .tag-block__title h1 {
-  /* margin-bottom: 0; */
+/* .project-text .tag-block__title h1 {
+  margin-bottom: 0;
+} */
+
+.project-text .col .tag-block {
+  margin-top: 3px;
 }
 
 @media (min-width: 800px) {

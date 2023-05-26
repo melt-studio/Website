@@ -28,6 +28,7 @@ const LogoAnimation = ({ serverConfig, controls, effectRef, mobile, fade = false
   const container = useRef();
 
   const created = ({ gl }) => {
+    console.log("created");
     gl.domElement.id = "logoAnimation";
     if (container && container.current) {
       container.current.classList.add("show");

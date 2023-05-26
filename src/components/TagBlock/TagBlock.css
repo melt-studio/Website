@@ -25,7 +25,8 @@
 }
 
 .tag-block__title__underline {
-  height: 3px;
+  /* height: 3px; */
+  height: 2px;
 }
 
 .tag-block__tags {
@@ -34,6 +35,10 @@
   gap: 5px 0;
   /* gap: 3px 0; */
   /* gap: 4px 0; */
+}
+
+.tag-links .tag-block__tags {
+  gap: 3px 0;
 }
 
 .tag-block__tags h3 {
@@ -45,11 +50,17 @@
     margin-bottom: 40px;
   }
 
-  .page .tag-block__title h1 {
+  /* .page .tag-block__title h1 {
     font-size: 20px;
-  }
+  } */
 
   .tag-block__title__underline {
     display: none;
+  }
+}
+
+@media (min-width: 1920px) {
+  .page .tag-block__title h1 {
+    font-size: 20px;
   }
 }

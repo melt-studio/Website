@@ -5,10 +5,11 @@ import Markdown from "../Markdown/Markdown";
 import "./ProjectText.css";
 
 const ProjectText = ({ project, mobile }) => {
-  const { name, description, projectCopy, projectScope, projectCollaborators, colorText } = project.fields;
+  // const { name, description, projectCopy, projectScope, projectCollaborators, colorText } = project.fields;
+  const { name, description, projectCopy, projectScope, colorText } = project.fields;
   // const { projectCopy, projectScope, projectCollaborators, colorText } = project.fields;
   const scope = projectScope ? projectScope.map((t) => ({ text: t })) : [];
-  const collaborators = projectCollaborators ? projectCollaborators.map((t) => ({ text: t })) : [];
+  // const collaborators = projectCollaborators ? projectCollaborators.map((t) => ({ text: t })) : [];
 
   return (
     <FadeScroll viewport={{ amount: 0.25 }} className="project-text">
@@ -30,8 +31,8 @@ const ProjectText = ({ project, mobile }) => {
           )}
         </div>
         <div className="col">
-          <TagBlock title="Project Scope" tags={scope} underlineColor={colorText} />
-          <TagBlock title="Project Collaborators" tags={collaborators} underlineColor={colorText} />
+          <TagBlock tags={scope} underlineColor={colorText} />
+          {/* <TagBlock title="Project Collaborators" tags={collaborators} underlineColor={colorText} /> */}
         </div>
       </div>
     </FadeScroll>

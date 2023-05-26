@@ -24,11 +24,22 @@ const ProjectTitle = ({ project, mobile, viewport }) => {
     if (mobile) {
       setIsVisible(false);
     } else {
+      // const sMax = document.body.offsetHeight - viewport.height;
+      // const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
+      // const s2 = sMax - 50;
+      // const latest = window.scrollY;
+
       if (window.scrollY >= scrollCutOff) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
+
+      // if (latest >= s && latest < s2) {
+      //   setIsVisible(true);
+      // } else if (latest < s || latest >= s2) {
+      //   setIsVisible(false);
+      // }
     }
   }, [mobile, scrollCutOff]);
 
@@ -37,19 +48,25 @@ const ProjectTitle = ({ project, mobile, viewport }) => {
 
     const sMax = document.body.offsetHeight - viewport.height;
     const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
-    const s2 = sMax;
+    // const s2 = sMax - 50;
 
-    if (!isVisible && latest >= s && latest < s2) {
-      if (!isVisible) setIsVisible(true);
-    } else if (isVisible && (latest < s || latest >= s2)) {
-      if (isVisible) setIsVisible(false);
+    // if (!isVisible && latest >= s && latest < s2) {
+    //   setIsVisible(true);
+    // } else if (isVisible && (latest < s || latest >= s2)) {
+    //   setIsVisible(false);
+    // }
+
+    if (!isVisible && latest >= s) {
+      setIsVisible(true);
+    } else if (isVisible && latest < s) {
+      setIsVisible(false);
     }
   });
 
   return (
     <FadeInOut
       isVisible={isVisible}
-      transition={{ duration: 0.5, delay: 0, ease: "easeInOut" }}
+      transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
       keyframes={keyframes}
       className="project-title"
     >

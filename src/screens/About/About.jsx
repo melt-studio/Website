@@ -158,7 +158,7 @@ export default function About({ aboutInfo, embeds, cursor }) {
 
             <div className="col">
               <div className="sticky">
-                <TagBlock tags={contactTags} />
+                <TagBlock tags={contactTags} links={true} />
                 {/* <TagBlock title="Contact" tags={contactTags} /> */}
                 {/* <TagBlock title="Follow" tags={followTags} /> */}
                 {/* <TagBlock title="Other" tags={embedTags} /> */}

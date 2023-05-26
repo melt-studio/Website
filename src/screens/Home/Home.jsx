@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
+import { Helmet } from "react-helmet";
 import Background from "../../components/Background/Background";
 import IntroAnimation from "../../components/IntroAnimation/IntroAnimation.jsx";
 import ProjectTiles from "../../components/ProjectTiles/ProjectsTiles.jsx";
@@ -81,6 +82,10 @@ export default function Home({
 
   return (
     <>
+      <Helmet>
+        <title>MELLLLLLT</title>
+      </Helmet>
+
       {mobile && <IntroAnimation initial={initial} setInitial={setInitial} mobile={mobile} viewport={viewport} />}
 
       <Page
@@ -90,13 +95,13 @@ export default function Home({
           }
         }}
       >
-        {!mobile && projects.length && <Background backgroundColor={backgroundColor} />}
+        {!mobile && projects.length > 0 ? <Background backgroundColor={backgroundColor} /> : null}
         {!mobile && (
           <div className="logo-animation">
             <LogoAnimation serverConfig={config} fade={fadeAnimation} fromProject={fromProject} />
           </div>
         )}
-        {projects.length && (
+        {projects.length > 0 ? (
           <ProjectTiles
             setLoaded={setLoaded}
             projects={projects}
@@ -107,7 +112,7 @@ export default function Home({
             viewport={viewport}
             setScroll={setScroll}
           />
-        )}
+        ) : null}
       </Page>
     </>
   );

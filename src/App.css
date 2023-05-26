@@ -44,7 +44,8 @@ a {
   /* font-size: 12px; */
   /* font-size: 10px; */
   /* font-size: 9.5px; */
-  font-size: 14px;
+  /* font-size: 14px; */
+  font-size: 13px;
   letter-spacing: 0.025rem;
   line-height: 1.1;
   font-weight: 400;
@@ -132,7 +133,8 @@ a {
     /* font-size: min(max(2rem, 3vw), 2.5rem); */
     /* font-size: min(max(2rem, 4vw), 54px); */
     /* font-size: min(max(2rem, 3vw), 50px); */
-    font-size: min(max(1.75rem, 3vw), 50px);
+    /* font-size: min(max(1.75rem, 3vw), 50px); */
+    font-size: min(max(1.5rem, 3vw), 40px);
 
     letter-spacing: -0.04rem;
     letter-spacing: -0.075rem;
@@ -154,3 +156,9 @@ a {
     letter-spacing: -0.085rem;
   }
 } */
+
+@media (min-width: 1920px) {
+  .page .jumbo-text {
+    font-size: min(max(1.75rem, 3vw), 50px);
+  }
+}

@@ -80,6 +80,9 @@ export default function ProjectTiles({ projects, cursor, setScroll, setBackgroun
     setScroll(window.scrollY);
     navigate(`/project/${project.projectUrl}`);
     cursorEvents.onMouseLeave(project.unofficials ? ["project", "unofficial"] : ["project"]);
+    if (cursor.current) {
+      cursor.current.classList.add("project-click");
+    }
     // document.body.scrollTop = 0; // For Safari
     // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };

@@ -34,11 +34,11 @@ export default function Layout({
 
       <main>{children}</main>
 
-      {projects.length && (
+      {projects.length > 0 ? (
         <footer>
           <Footer />
         </footer>
-      )}
+      ) : null}
     </div>
   );
 }

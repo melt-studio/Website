@@ -48,7 +48,8 @@ main {
     gap: 0 4%;
     /* padding: 0 2%; */
     /* padding: 0 1.5%; */
-    padding: 0 min(1.5%, 25px);
+    /* padding: 0 min(1.5%, 25px); */
+    padding: 0 20px;
   }
 
   .col {

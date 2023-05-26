@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import TagLink from "../TagLink/TagLink";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
@@ -24,7 +24,7 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn }) => {
   const location = useLocation();
   const { scrollY } = useScroll();
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const excludes = useMemo(() => {
     return ["/about", "/404", "/other", "/admin", "/login", "/animations"];
@@ -117,7 +117,20 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn }) => {
               /> */}
 
               <div className="nav-bar__item">
-                <TagLink tag={{ text: "Melt Studio", href: "/" }} nav />
+                <TagLink
+                  tag={{
+                    text: "Melt Studio",
+                    href: "/",
+                    onClick: () => {
+                      if (location.pathname === "/") {
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      } else {
+                        navigate("/");
+                      }
+                    },
+                  }}
+                  nav
+                />
               </div>
             </div>
 

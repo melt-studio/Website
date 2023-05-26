@@ -20,7 +20,8 @@
   position: relative;
   /* padding: 0 2%; */
   /* height: 45px; */
-  padding: 0 min(1.5%, 25px);
+  /* padding: 0 min(1.5%, 25px); */
+  padding: 0 20px;
   height: 40px;
 }
 
@@ -33,7 +34,8 @@
 
 .nav-bar .tag-link h3 {
   /* font-size: 11px; */
-  font-size: 20px;
+  /* font-size: 20px; */
+  font-size: 18px;
   font-weight: 400;
 }
 
@@ -92,6 +94,12 @@
 @media (min-width: 800px) {
   .nav-bar {
     display: block;
+  }
+}
+
+@media (min-width: 1920px) {
+  .nav-bar .tag-link h3 {
+    font-size: 20px;
   }
 }
 

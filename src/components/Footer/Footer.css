@@ -34,6 +34,7 @@
   .footer__tags {
     /* padding: 30px 2% 30px; */
     /* padding: 30px 1.5% 30px; */
-    padding: 30px min(1.5%, 25px);
+    /* padding: 30px min(1.5%, 25px); */
+    padding: 30px 20px;
   }
 }

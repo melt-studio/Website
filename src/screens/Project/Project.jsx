@@ -64,7 +64,7 @@ const Project = ({ projects, cursor, mobile, viewport }) => {
       window.scrollTo(0, 0);
     };
 
-    if (projects.length) {
+    if (projects.length > 0) {
       const project = projects.find((project) => project.fields.projectUrl === id);
 
       if (!project) {
@@ -125,9 +125,9 @@ const Project = ({ projects, cursor, mobile, viewport }) => {
               viewport={viewport}
               cursor={cursor}
             />
-            <ProjectTitle key={`${project.id}_title`} project={project} mobile={mobile} viewport={viewport} />
             <ProjectText key={`${project.id}_text`} project={project} mobile={mobile} />
             <ProjectImages key={`${project.id}_images`} project={project} mobile={mobile} viewport={viewport} />
+            <ProjectTitle key={`${project.id}_title`} project={project} mobile={mobile} viewport={viewport} />
             <ProjectNav prev={prev} next={next} />
           </>
         )}

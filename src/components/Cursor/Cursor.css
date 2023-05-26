@@ -39,6 +39,7 @@
   transform: translate(-50%, -50%) scale(var(--cursor-scale));
 }
 
+.home-page .cursor.project-click,
 .project-page .cursor {
   opacity: 1;
   background-color: var(--cursor-color);

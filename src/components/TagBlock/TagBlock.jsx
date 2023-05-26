@@ -32,11 +32,11 @@ const fadeInTag = {
   damping: 0.1,
 };
 
-const TagBlock = ({ title, tags, underlineColor }) => {
+const TagBlock = ({ title, tags, underlineColor, links = false }) => {
   if (!tags || tags.length === 0) return null;
 
   return (
-    <div className="tag-block">
+    <div className={`tag-block${links ? " tag-links" : ""}`}>
       {title && (
         <div className="tag-block__title">
           <FadeIn {...fadeInTagTitle}>

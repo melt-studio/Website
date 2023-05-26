@@ -16,11 +16,19 @@
   margin: 0 0 0.35rem;
 }
 
+.tag-links .tag-link {
+  margin-bottom: 0;
+}
+
 .nav-bar .tag-link h3,
 .tag-link-nav h3 {
   text-transform: uppercase;
   color: #ffffff;
   transition: font-variation-settings 0.3s ease;
+}
+
+.tag-links .tag-block__tags h3 {
+  font-weight: 550;
 }
 
 .about-page .nav-bar .tag-link h3,
@@ -41,29 +49,31 @@
   bottom: 6px;
   width: 100%;
   height: 2px;
-  transform: scaleX(1);
+  /* transform: scaleX(1); */
   transition: transform 0.3s ease;
-}
-
-.nav-bar .tag-link .tag-link-underline,
-.tag-link-nav .tag-link-underline {
-  /* display: none; */
   transform: scaleX(0);
 }
 
-.tag-block .tag-link-nav .tag-link-underline {
+/* .nav-bar .tag-link .tag-link-underline,
+.tag-link-nav .tag-link-underline {
+  display: none;
+  transform: scaleX(0);
+} */
+
+/* .tag-block .tag-link-nav .tag-link-underline {
   transform: scaleX(1);
-}
+} */
 
 .tag-link-underline.hover,
 .tag-block .tag-link-nav .tag-link-underline.hover {
-  transform: scaleX(0);
-}
-
-.nav-bar .tag-link .tag-link-underline.hover,
-.tag-link-nav .tag-link-underline.hover {
+  /* transform: scaleX(0); */
   transform: scaleX(1);
 }
+
+/* .nav-bar .tag-link .tag-link-underline.hover,
+.tag-link-nav .tag-link-underline.hover {
+  transform: scaleX(1);
+} */
 
 .nav-bar .tag-link .tag-link-underline hr,
 .tag-link-nav .tag-link-underline hr {
