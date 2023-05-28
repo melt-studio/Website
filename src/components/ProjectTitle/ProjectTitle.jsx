@@ -3,7 +3,7 @@ import { useScroll, useMotionValueEvent } from "framer-motion";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
 import "./ProjectTitle.css";
 
-const keyframes = {
+const keyframesDown = {
   enter: {
     opacity: 1,
     y: 0,
@@ -14,9 +14,21 @@ const keyframes = {
   },
 };
 
+const keyframesUp = {
+  enter: {
+    opacity: 1,
+    y: 0,
+  },
+  exit: {
+    opacity: 0,
+    y: "-100%",
+  },
+};
+
 const ProjectTitle = ({ project, mobile, viewport }) => {
   const { name, description } = project.fields;
   const [isVisible, setIsVisible] = useState(false);
+  const [keyframes, setKeyframes] = useState(keyframesUp);
   const { scrollY } = useScroll();
   const scrollCutOff = 0.25 * viewport.height;
 
@@ -24,43 +36,49 @@ const ProjectTitle = ({ project, mobile, viewport }) => {
     if (mobile) {
       setIsVisible(false);
     } else {
-      // const sMax = document.body.offsetHeight - viewport.height;
-      // const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
-      // const s2 = sMax - 50;
-      // const latest = window.scrollY;
-
-      if (window.scrollY >= scrollCutOff) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-
-      // if (latest >= s && latest < s2) {
+      // if (window.scrollY >= scrollCutOff) {
       //   setIsVisible(true);
-      // } else if (latest < s || latest >= s2) {
+      // } else {
       //   setIsVisible(false);
       // }
+
+      const sMax = document.body.offsetHeight - viewport.height;
+      const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
+      const s2 = sMax - 50;
+      const latest = window.scrollY;
+
+      if (latest >= s && latest < s2) {
+        setIsVisible(true);
+      } else if (latest < s || latest >= s2) {
+        setIsVisible(false);
+      }
     }
-  }, [mobile, scrollCutOff]);
+  }, [mobile, scrollCutOff, viewport]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (mobile) return;
 
     const sMax = document.body.offsetHeight - viewport.height;
     const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
-    // const s2 = sMax - 50;
+    const s2 = sMax - 50;
 
-    // if (!isVisible && latest >= s && latest < s2) {
-    //   setIsVisible(true);
-    // } else if (isVisible && (latest < s || latest >= s2)) {
-    //   setIsVisible(false);
-    // }
-
-    if (!isVisible && latest >= s) {
+    if (!isVisible && latest >= s && latest < s2) {
       setIsVisible(true);
-    } else if (isVisible && latest < s) {
+    } else if (isVisible && (latest < s || latest >= s2)) {
       setIsVisible(false);
     }
+
+    if (latest < (document.body.offsetHeight - viewport.height) / 2) {
+      setKeyframes(keyframesDown);
+    } else {
+      setKeyframes(keyframesUp);
+    }
+
+    // if (!isVisible && latest >= s) {
+    //   setIsVisible(true);
+    // } else if (isVisible && latest < s) {
+    //   setIsVisible(false);
+    // }
   });
 
   return (

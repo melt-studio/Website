@@ -9,7 +9,7 @@ export default function ProjectTiles({ projects, cursor, setScroll, setBackgroun
   const [projectData, setProjectData] = useState([]);
 
   useEffect(() => {
-    if (projects.length) {
+    if (projects.length > 0) {
       const projectsMapped = projects.map((project) => {
         const { id } = project;
         const {

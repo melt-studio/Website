@@ -7,7 +7,7 @@
 }
 
 .page .tag-block__title h1 {
-  font-size: 18px;
+  font-size: 17px;
   text-transform: uppercase;
   font-weight: 500;
 }
@@ -27,6 +27,7 @@
 .tag-block__title__underline {
   /* height: 3px; */
   height: 2px;
+  height: 1px;
 }
 
 .tag-block__tags {

@@ -15,11 +15,20 @@ const glSettings = {
   antialias: false,
 };
 
-const LogoAnimation = ({ serverConfig, controls, effectRef, mobile, fade = false, fromProject = false }) => {
+const LogoAnimation = ({
+  serverConfig,
+  controls,
+  effectRef,
+  mobile,
+  fade = false,
+  fromProject = false,
+  // projectsLoaded,
+}) => {
   const { metric, value } = defaultConfig.devices.mobile;
   const [name, setName] = useState(
     (mobile && controls) || window[`inner${metric[0].toUpperCase() + metric.slice(1)}`] < value ? "logo-mobile" : "logo"
   );
+  // const [canvasLoaded, setCanvasLoaded] = useState(false);
 
   const updateName = (newName) => {
     setName(newName);
@@ -28,12 +37,21 @@ const LogoAnimation = ({ serverConfig, controls, effectRef, mobile, fade = false
   const container = useRef();
 
   const created = ({ gl }) => {
-    console.log("created");
+    // console.log("created");
     gl.domElement.id = "logoAnimation";
     if (container && container.current) {
       container.current.classList.add("show");
     }
+    // setCanvasLoaded(true);
   };
+
+  // useEffect(() => {
+  //   if (projectsLoaded && canvasLoaded) {
+  //     if (container && container.current) {
+  //       container.current.classList.add("show");
+  //     }
+  //   }
+  // }, [projectsLoaded, canvasLoaded]);
 
   useEffect(() => {
     if (controls) {

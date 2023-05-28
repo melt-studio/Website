@@ -55,8 +55,9 @@
 
   .project-nav__link .tag-link h3 {
     /* font-size: 12px; */
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 400;
+    font-weight: 300;
   }
 }
 

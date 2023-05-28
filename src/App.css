@@ -3,7 +3,7 @@
   text-align: center;
 }
 hr {
-  height: 2px;
+  height: 1px;
   background-color: black;
   border: none;
   opacity: 1;
@@ -78,13 +78,13 @@ a {
   line-height: normal;
   line-height: 1;
   letter-spacing: -0.025rem;
-  letter-spacing: -0.015rem;
+  /* letter-spacing: -0.015rem; */
   /* font-weight: 700; */
   /* visibility: hidden; */
 }
 
 .page .jumbo-text p {
-  margin: 0 0 1.5em;
+  margin: 0 0 1.25em;
 }
 
 .page .jumbo-text a {
@@ -134,7 +134,9 @@ a {
     /* font-size: min(max(2rem, 4vw), 54px); */
     /* font-size: min(max(2rem, 3vw), 50px); */
     /* font-size: min(max(1.75rem, 3vw), 50px); */
-    font-size: min(max(1.5rem, 3vw), 40px);
+    /* font-size: min(max(1.5rem, 3vw), 40px); */
+    font-size: min(max(1.5rem, 2.75vw), 40px);
+    /* font-size: 100px; */
 
     letter-spacing: -0.04rem;
     letter-spacing: -0.075rem;

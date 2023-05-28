@@ -60,6 +60,10 @@ export default function Home({
     }
   }, [initial, loaded, scroll, history]);
 
+  // useEffect(() => {
+  //   console.log("loaded!", loaded);
+  // }, [loaded]);
+
   useEffect(() => {
     if (history && history.length > 1 && history[1].includes("/project/")) {
       setFromProject(true);
@@ -83,7 +87,7 @@ export default function Home({
   return (
     <>
       <Helmet>
-        <title>MELLLLLLT</title>
+        <title>MELT studio designs stuff</title>
       </Helmet>
 
       {mobile && <IntroAnimation initial={initial} setInitial={setInitial} mobile={mobile} viewport={viewport} />}
@@ -94,11 +98,17 @@ export default function Home({
             cursor.current.style.opacity = 1;
           }
         }}
+        style={{ minHeight: "100dvh" }}
       >
         {!mobile && projects.length > 0 ? <Background backgroundColor={backgroundColor} /> : null}
         {!mobile && (
           <div className="logo-animation">
-            <LogoAnimation serverConfig={config} fade={fadeAnimation} fromProject={fromProject} />
+            <LogoAnimation
+              serverConfig={config}
+              fade={fadeAnimation}
+              fromProject={fromProject}
+              // projectsLoaded={loaded}
+            />
           </div>
         )}
         {projects.length > 0 ? (
