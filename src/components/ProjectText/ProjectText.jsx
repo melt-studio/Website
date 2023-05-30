@@ -13,7 +13,7 @@ const ProjectText = ({ project, mobile }) => {
 
   return (
     <FadeScroll viewport={{ amount: 0.25 }} className="project-text">
-      {mobile && (
+      {true && (
         <div className="row">
           <div className="col full">
             {name && <h1 className="title-text">{name}</h1>}
@@ -31,7 +31,7 @@ const ProjectText = ({ project, mobile }) => {
           )}
         </div>
         <div className="col">
-          <TagBlock tags={scope} underlineColor={colorText} />
+          <TagBlock title="Project Scope" tags={scope} underlineColor={colorText} />
           {/* <TagBlock title="Project Collaborators" tags={collaborators} underlineColor={colorText} /> */}
         </div>
       </div>

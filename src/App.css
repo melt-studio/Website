@@ -4,7 +4,7 @@
 }
 hr {
   height: 1px;
-  background-color: black;
+  background-color: #ffffff;
   border: none;
   opacity: 1;
 }
@@ -14,7 +14,7 @@ a {
 }
 
 .page a {
-  color: #000000;
+  color: #ffffff;
 }
 
 .page {
@@ -27,6 +27,8 @@ a {
   font-size: 14px;
   font-weight: 600;
   margin-top: 0;
+  font-size: 20px;
+  text-transform: uppercase;
 }
 .page h2 {
   font-size: 1.2rem;

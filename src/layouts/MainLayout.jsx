@@ -19,7 +19,13 @@ export default function Layout({
   return (
     <div id="layout">
       <nav>
-        <NavBar viewport={viewport} scrollCutOff={scrollCutOff} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+        <NavBar
+          viewport={viewport}
+          scrollCutOff={scrollCutOff}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+          setNavMenuOpen={setNavMenuOpen}
+        />
 
         <NavMenuLogo
           setNavMenuOpen={setNavMenuOpen}

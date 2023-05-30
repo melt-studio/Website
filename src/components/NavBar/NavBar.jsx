@@ -1,12 +1,12 @@
 import { useEffect, useState, useMemo } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import TagLink from "../TagLink/TagLink";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
 // import { cursorEvents } from "../Cursor/Cursor";
 import "./NavBar.css";
 // import DrippyLogo from "../../assets/images/Logo/MELT_DRIPPY WHT.png";
-// import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
+import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
 
 const keyframes = {
   enter: {
@@ -19,12 +19,12 @@ const keyframes = {
   },
 };
 
-const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn }) => {
+const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavMenuOpen }) => {
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const excludes = useMemo(() => {
     return ["/about", "/404", "/other", "/admin", "/login", "/animations"];
@@ -97,26 +97,27 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn }) => {
         {!location.pathname.includes("/admin") && (
           // <div className="nav-bar__item-holder">
           <>
-            <div className="nav-bar__item">
+            {/* <div className="nav-bar__item">
               <TagLink tag={{ text: "About Us", href: "/about" }} nav />
-            </div>
+            </div> */}
 
             <div className="nav-bar__logo nav-bar__item">
-              {/* <img
+              <img
                 onClick={() => {
-                  if (location.pathname === "/") {
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  } else {
-                    navigate("/");
-                  }
+                  // if (location.pathname === "/") {
+                  //   window.scrollTo({ top: 0, behavior: "smooth" });
+                  // } else {
+                  //   navigate("/");
+                  // }
+                  setNavMenuOpen(true);
                 }}
-                onMouseEnter={() => cursorEvents.onMouseEnter()}
-                onMouseLeave={() => cursorEvents.onMouseLeave()}
+                // onMouseEnter={() => cursorEvents.onMouseEnter()}
+                // onMouseLeave={() => cursorEvents.onMouseLeave()}
                 src={DrippyLogo}
                 alt="MELT Logo"
-              /> */}
+              />
 
-              <div className="nav-bar__item">
+              {/* <div className="nav-bar__item">
                 <TagLink
                   tag={{
                     text: "Melt Studio",
@@ -131,12 +132,12 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn }) => {
                   }}
                   nav
                 />
-              </div>
+              </div> */}
             </div>
 
-            <div className="nav-bar__item">
+            {/* <div className="nav-bar__item">
               <TagLink tag={{ text: "Say Hello", href: "mailto:hello@melt.work" }} />
-            </div>
+            </div> */}
           </>
         )}
 

@@ -16,7 +16,7 @@
 .nav-bar__items {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   position: relative;
   /* padding: 0 2%; */
   /* height: 45px; */
@@ -68,8 +68,8 @@
 
 .nav-bar__logo img {
   width: auto;
-  height: 30px;
-  width: 30px;
+  height: 35px;
+  width: 35px;
   transform: scale(1);
   position: relative;
   top: 2px;

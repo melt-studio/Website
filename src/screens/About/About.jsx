@@ -132,7 +132,7 @@ export default function About({ aboutInfo, embeds, cursor }) {
         <title>MELLLLLLT - About</title>
       </Helmet>
 
-      <Background backgroundColor={"#bcfc45, #ffffff"} />
+      <Background backgroundColor={"#bcfc45, #333333"} />
       {/* <div id="about-background"></div> */}
 
       {aboutInfo.length && (

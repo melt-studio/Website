@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, useIsPresent } from "framer-motion";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
@@ -140,6 +140,10 @@ const NavMenu = ({ navMenuOpen, setNavMenuOpen }) => {
   const closeNavMenu = () => {
     setNavMenuOpen(false);
   };
+
+  useEffect(() => {
+    console.log(navMenuOpen);
+  }, [navMenuOpen]);
 
   return (
     <FadeInOut isVisible={navMenuOpen} keyframes={keyframesContainer} className="nav-menu">
