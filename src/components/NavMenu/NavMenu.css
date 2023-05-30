@@ -8,10 +8,10 @@
   z-index: 999;
   background-color: #000000;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   transition: height 1s;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   gap: 20px 0;
 }
 
@@ -26,6 +26,7 @@
   justify-content: center;
   align-items: center;
   height: fit-content;
+  margin: auto 0;
 }
 
 .nav-menu__items a {

@@ -32,6 +32,7 @@ main {
   flex-direction: column;
   /* width: 100%; */
   gap: 20px;
+  /* position: relative; */
 }
 
 .col {
@@ -95,7 +96,7 @@ main {
     order: 1;
   }
 
-  .sticky {
+  .col-2.sticky {
     top: 50px;
     position: sticky;
   }

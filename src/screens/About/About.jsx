@@ -150,16 +150,16 @@ export default function About({ aboutInfo, embeds, cursor }) {
               </div>
             </div>
 
-            <div className="col-2">
+            <div className="col-2 sticky">
               <div className="col what">
-                <div className="sticky">
+                <div className="">
                   <TagBlock title="What We Do" tags={whatWeDoTags} />
                   <TagBlock title="What We Don't Do" tags={whatWeDontDoTags} />
                 </div>
               </div>
 
               <div className="col links">
-                <div className="sticky">
+                <div className="">
                   <TagBlock tags={contactTags} links={true} />
                   {/* <TagBlock title="Contact" tags={contactTags} /> */}
                   {/* <TagBlock title="Follow" tags={followTags} /> */}

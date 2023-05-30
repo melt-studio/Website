@@ -5,6 +5,10 @@
 .about-page .page-container {
   padding: 40vw 0px 100px;
 }
+/* 
+.about-page .col.links {
+  margin-bottom: 20px;
+} */
 
 @media (min-width: 800px) {
   .about-page .page-container {
