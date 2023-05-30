@@ -7,7 +7,7 @@
 }
 
 .page .tag-block__title h1 {
-  font-size: 17px;
+  font-size: 22px;
   text-transform: uppercase;
   font-weight: 500;
 }
@@ -22,6 +22,8 @@
 
 .about-page .tag-block__title__underline {
   background-color: #000000;
+  background-color: #ffffff;
+  display: none;
 }
 
 .tag-block__title__underline {
@@ -40,6 +42,7 @@
 
 .tag-links .tag-block__tags {
   gap: 3px 0;
+  gap: 8px 0;
 }
 
 .tag-block__tags h3 {

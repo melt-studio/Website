@@ -132,7 +132,8 @@ export default function About({ aboutInfo, embeds, cursor }) {
         <title>MELLLLLLT - About</title>
       </Helmet>
 
-      <Background backgroundColor={"#bcfc45, #333333"} />
+      {/* <Background backgroundColor={"#bcfc45, #333333"} /> */}
+      <Background backgroundColor={"#000000, #333333"} />
       {/* <div id="about-background"></div> */}
 
       {aboutInfo.length && (
@@ -149,19 +150,21 @@ export default function About({ aboutInfo, embeds, cursor }) {
               </div>
             </div>
 
-            <div className="col">
-              <div className="sticky">
-                <TagBlock title="What We Do" tags={whatWeDoTags} />
-                <TagBlock title="What We Don't Do" tags={whatWeDontDoTags} />
+            <div className="col-2">
+              <div className="col what">
+                <div className="sticky">
+                  <TagBlock title="What We Do" tags={whatWeDoTags} />
+                  <TagBlock title="What We Don't Do" tags={whatWeDontDoTags} />
+                </div>
               </div>
-            </div>
 
-            <div className="col">
-              <div className="sticky">
-                <TagBlock tags={contactTags} links={true} />
-                {/* <TagBlock title="Contact" tags={contactTags} /> */}
-                {/* <TagBlock title="Follow" tags={followTags} /> */}
-                {/* <TagBlock title="Other" tags={embedTags} /> */}
+              <div className="col links">
+                <div className="sticky">
+                  <TagBlock tags={contactTags} links={true} />
+                  {/* <TagBlock title="Contact" tags={contactTags} /> */}
+                  {/* <TagBlock title="Follow" tags={followTags} /> */}
+                  {/* <TagBlock title="Other" tags={embedTags} /> */}
+                </div>
               </div>
             </div>
           </div>

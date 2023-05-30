@@ -15,6 +15,11 @@ a {
 
 .page a {
   color: #ffffff;
+  transition: color 0.5s ease;
+}
+
+.page a:hover {
+  color: var(--yellow);
 }
 
 .page {
@@ -25,7 +30,7 @@ a {
 .page h1 {
   font-size: 1rem;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   margin-top: 0;
   font-size: 20px;
   text-transform: uppercase;
@@ -80,6 +85,7 @@ a {
   line-height: normal;
   line-height: 1;
   letter-spacing: -0.025rem;
+  letter-spacing: -0.01rem;
   /* letter-spacing: -0.015rem; */
   /* font-weight: 700; */
   /* visibility: hidden; */
@@ -141,8 +147,8 @@ a {
     /* font-size: 100px; */
 
     letter-spacing: -0.04rem;
-    letter-spacing: -0.075rem;
-    letter-spacing: -0.09rem;
+    /* letter-spacing: -0.075rem; */
+    /* letter-spacing: -0.09rem; */
     line-height: 1;
     /* font-weight: 600; */
 

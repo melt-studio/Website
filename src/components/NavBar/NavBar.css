@@ -68,11 +68,11 @@
 
 .nav-bar__logo img {
   width: auto;
-  height: 35px;
-  width: 35px;
+  height: 50px;
+  width: 50px;
   transform: scale(1);
   position: relative;
-  top: 2px;
+  top: 15px;
   transition: transform 0.5s ease;
 }
 

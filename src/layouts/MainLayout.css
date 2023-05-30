@@ -42,10 +42,17 @@ main {
   margin-top: 30px;
 } */
 
-@media (min-width: 800px) {
+.col-2 {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+@media (min-width: 960px) {
   .row {
     flex-direction: row;
     gap: 0 4%;
+    gap: 0 8%;
     /* padding: 0 2%; */
     /* padding: 0 1.5%; */
     /* padding: 0 min(1.5%, 25px); */
@@ -55,12 +62,12 @@ main {
   .col {
     /* padding: 0 0 0 8%; */
     padding: 0 0 0 8%;
-    padding: 0 0 0 6%;
-    padding: 0 0 0 3%;
+    /* padding: 0 0 0 6%; */
+    /* padding: 0 0 0 3%; */
   }
 
   .col-3 .col {
-    width: 25%;
+    /* width: 25%; */
     max-width: 400px;
   }
 
@@ -71,10 +78,17 @@ main {
   .col.primary {
     /* width: 50%; */
     /* width: 70%; */
-    width: 50%;
+    width: 70%;
     padding: 0;
     max-width: 1000px;
     /* max-width: 4000px; */
+  }
+
+  .col.what {
+    order: 2;
+  }
+  .col.links {
+    order: 1;
   }
 
   .sticky {
@@ -83,9 +97,29 @@ main {
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1440px) {
+  .row {
+    gap: 0 4%;
+  }
   .col-3 .col {
     width: 20%;
+  }
+
+  .col-2 {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+  }
+
+  .col-2 .col {
+    width: 50%;
+  }
+
+  .col.what {
+    order: 1;
+  }
+  .col.links {
+    order: 2;
   }
 
   .col.primary {
@@ -97,7 +131,7 @@ main {
 @media (min-width: 1920px) {
   .col-3 .col {
     /* padding: 0 0 0 6%; */
-    width: 15%;
+    width: 50%;
   }
 
   .col.primary {

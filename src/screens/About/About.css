@@ -3,7 +3,7 @@
 } */
 
 .about-page .page-container {
-  padding: 40vw 0 100px;
+  padding: 40vw 0px 100px;
 }
 
 @media (min-width: 800px) {
@@ -12,6 +12,24 @@
     padding-top: min(30vw, 300px);
   }
 }
+
+@media (min-width: 960px) {
+  .about-page .page-container {
+    /* padding-top: min(30vw, 400px); */
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+/* .about-page .col.primary {
+  order: 0;
+}
+.about-page .col.what {
+  order: 2;
+}
+.about-page .col.links {
+  order: 1;
+} */
 
 /* .about-page .nav-bar .tag-link {
   color: #000000;
