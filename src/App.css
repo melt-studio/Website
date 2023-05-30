@@ -33,6 +33,7 @@ a {
   font-weight: 500;
   margin-top: 0;
   font-size: 20px;
+  font-size: 18px;
   text-transform: uppercase;
 }
 .page h2 {
@@ -143,7 +144,7 @@ a {
     /* font-size: min(max(2rem, 3vw), 50px); */
     /* font-size: min(max(1.75rem, 3vw), 50px); */
     /* font-size: min(max(1.5rem, 3vw), 40px); */
-    font-size: min(max(1.5rem, 2.75vw), 40px);
+    font-size: min(max(1.5rem, 2.75vw), 38px);
     /* font-size: 100px; */
 
     letter-spacing: -0.04rem;

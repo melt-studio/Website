@@ -92,9 +92,11 @@
 #cursor-video-pause {
   width: 105px;
   height: 105px;
+  width: 70px;
+  height: 70px;
   pointer-events: none;
   position: absolute;
-  /* transform: translate(-20px, -20px); */
+  transform: translate(-20px, -20px);
   top: 0;
   left: 0;
   /* fill: transparent; */

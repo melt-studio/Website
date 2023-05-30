@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 25px 0;
-  padding: 0 20px;
+  padding: 0;
 }
 
 .project-text .row {
@@ -31,5 +31,6 @@
 @media (min-width: 800px) {
   .project-text {
     gap: 40px 0;
+    padding: 0 20px;
   }
 }
