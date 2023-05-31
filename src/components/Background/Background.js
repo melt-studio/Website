@@ -25,6 +25,10 @@ const fragmentShader = /* glsl */ `
   uniform vec3 uColor2;
   uniform float uTime;
 
+  float rand(vec2 co){
+    return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+  }
+
   void main() {
     vec3 color = vec3(0.);
     float f = 1. - vUv.y;
@@ -35,7 +39,7 @@ const fragmentShader = /* glsl */ `
     f += sin(-vUv.x * 4.- vUv.y * 2.+ length(vUv) * sin(uTime * .25) + sin(vUv.y * 4. + uTime * .125) + uTime * .25 + sin(-vUv.x * vUv.y + uTime * .25) * 2.) * .5 + .5;
     f /= 2.;
     // f = smoothstep(.3, .7, f);
-    f = smoothstep(.15, .85, f);
+    f = smoothstep(.15, .85, f * (.9 + .1 *rand(vec2(f))));
     // f = smoothstep(.45, .55, f);
     // f = clamp(f, 0., 1.);
     // f = smoothstep(.3, .7, f);

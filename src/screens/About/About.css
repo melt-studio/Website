@@ -3,18 +3,24 @@
 } */
 
 .about-page .page-container {
-  padding: 40vw 0px 100px;
+  /* padding: 40vw 0px 100px; */
+  padding: 0 0 100px;
 }
 /* 
 .about-page .col.links {
   margin-bottom: 20px;
 } */
 
+.about-feature {
+  font-size: 240px;
+  margin-bottom: 50px;
+}
+
 @media (min-width: 800px) {
-  .about-page .page-container {
-    /* padding-top: min(30vw, 400px); */
-    padding-top: min(30vw, 300px);
-  }
+  /* .about-page .page-container { */
+  /* padding-top: min(30vw, 400px); */
+  /* padding-top: min(30vw, 300px); */
+  /* } */
 }
 
 @media (min-width: 960px) {

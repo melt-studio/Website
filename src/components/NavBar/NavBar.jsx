@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import TagLink from "../TagLink/TagLink";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
-// import { cursorEvents } from "../Cursor/Cursor";
+import { cursorEvents } from "../Cursor/Cursor";
 import "./NavBar.css";
 // import DrippyLogo from "../../assets/images/Logo/MELT_DRIPPY WHT.png";
 import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
@@ -111,8 +111,8 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
                   // }
                   setNavMenuOpen(true);
                 }}
-                // onMouseEnter={() => cursorEvents.onMouseEnter()}
-                // onMouseLeave={() => cursorEvents.onMouseLeave()}
+                onMouseEnter={() => cursorEvents.onMouseEnter()}
+                onMouseLeave={() => cursorEvents.onMouseLeave()}
                 src={DrippyLogo}
                 alt="MELT Logo"
               />

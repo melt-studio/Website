@@ -7,6 +7,7 @@ import { keyframes } from "../../utils/keyframes.js";
 import Page from "../Page.jsx";
 import Background from "../../components/Background/Background.js";
 import "./About.css";
+import TextFeature from "../../components/TextFeature/TextFeature.js";
 
 keyframes`
   @keyframes customAnimationText {
@@ -55,7 +56,7 @@ const parseLinks = (links) => {
     });
 };
 
-export default function About({ aboutInfo, embeds, cursor }) {
+export default function About({ aboutInfo, embeds, cursor, mobile }) {
   const [loading, setLoading] = useState(true);
   const [aboutText, setAboutText] = useState(null);
   const [contactTags, setContactTags] = useState([]);
@@ -129,46 +130,52 @@ export default function About({ aboutInfo, embeds, cursor }) {
 
       <Helmet>
         <meta charSet="utf-8" />
-        <title>MELLLLLLT - About</title>
+        <title>MELT • About</title>
       </Helmet>
 
       {/* <Background backgroundColor={"#bcfc45, #333333"} /> */}
-      <Background backgroundColor={"#000000, #333333"} />
+      <Background backgroundColor={"#14170e, #427402"} />
       {/* <div id="about-background"></div> */}
 
       {aboutInfo.length && (
-        <div className={`page-container${loading ? " loading" : ""}`}>
-          <div className="row col-3">
-            <div className="col primary">
-              <div className="description-text jumbo-text">
-                {aboutText &&
-                  aboutText.map((text, i) => (
-                    <FadeIn key={text} {...fadeInText} delay={fadeInText.delay + fadeInText.damping * i}>
-                      <Markdown>{text}</Markdown>
-                    </FadeIn>
-                  ))}
-              </div>
-            </div>
+        <>
+          <FadeIn {...fadeInText}>
+            <TextFeature mobile={mobile} />
+          </FadeIn>
 
-            <div className="col-2 sticky">
-              <div className="col what">
-                <div className="">
-                  <TagBlock title="What We Do" tags={whatWeDoTags} />
-                  <TagBlock title="What We Don't Do" tags={whatWeDontDoTags} />
+          <div className={`page-container${loading ? " loading" : ""}`}>
+            <div className="row col-3">
+              <div className="col primary">
+                <div className="description-text jumbo-text">
+                  {aboutText &&
+                    aboutText.map((text, i) => (
+                      <FadeIn key={text} {...fadeInText} delay={fadeInText.delay + fadeInText.damping * i}>
+                        <Markdown>{text}</Markdown>
+                      </FadeIn>
+                    ))}
                 </div>
               </div>
 
-              <div className="col links">
-                <div className="">
-                  <TagBlock tags={contactTags} links={true} />
-                  {/* <TagBlock title="Contact" tags={contactTags} /> */}
-                  {/* <TagBlock title="Follow" tags={followTags} /> */}
-                  {/* <TagBlock title="Other" tags={embedTags} /> */}
+              <div className="col-2 sticky">
+                <div className="col what">
+                  <div className="">
+                    <TagBlock title="What We Do" tags={whatWeDoTags} />
+                    <TagBlock title="What We Don't Do" tags={whatWeDontDoTags} />
+                  </div>
+                </div>
+
+                <div className="col links">
+                  <div className="">
+                    <TagBlock tags={contactTags} links={true} />
+                    {/* <TagBlock title="Contact" tags={contactTags} /> */}
+                    {/* <TagBlock title="Follow" tags={followTags} /> */}
+                    {/* <TagBlock title="Other" tags={embedTags} /> */}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </>
       )}
       {/* </div> */}
     </Page>

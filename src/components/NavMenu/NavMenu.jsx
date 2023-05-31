@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useIsPresent } from "framer-motion";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
@@ -7,12 +7,13 @@ import "./NavMenu.css";
 // import DrippyLogo from "../../assets/images/Logo/MELT_DRIPPY WHT.png";
 
 const keyframesContainer = {
-  enter: { opacity: [0, 1, 1], y: 0, transition: { duration: 1.5, ease: "easeInOut", when: "beforeChildren" } },
+  // enter: { opacity: [0, 1, 1], y: 0, transition: { duration: 1.5, ease: "easeInOut", when: "beforeChildren" } },
+  enter: { opacity: [0, 1, 1], y: 0, transition: { duration: 1, ease: "easeInOut", when: "beforeChildren" } },
   exit: {
     opacity: [1, 1, 0],
     y: "-100%",
     transition: {
-      duration: 1.5,
+      duration: 1,
       ease: "easeInOut",
       // when: "afterChildren" ,
       delay: 1,
@@ -22,10 +23,11 @@ const keyframesContainer = {
 
 const keyframesItems = {
   enter: {
-    transition: { staggerChildren: 0.2, delayChildren: 0 },
+    // transition: { staggerChildren: 0.2, delayChildren: 0 },
+    transition: { staggerChildren: 0.15, delayChildren: 0 },
   },
   exit: {
-    transition: { staggerChildren: 0.1, staggerDirection: 1 },
+    transition: { staggerChildren: 0.1, staggerDirection: -1 },
   },
 };
 
@@ -140,10 +142,6 @@ const NavMenu = ({ navMenuOpen, setNavMenuOpen }) => {
   const closeNavMenu = () => {
     setNavMenuOpen(false);
   };
-
-  useEffect(() => {
-    console.log(navMenuOpen);
-  }, [navMenuOpen]);
 
   return (
     <FadeInOut isVisible={navMenuOpen} keyframes={keyframesContainer} className="nav-menu">

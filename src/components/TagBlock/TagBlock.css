@@ -6,12 +6,12 @@
   margin-bottom: 1rem;
 }
 
-.page .tag-block__title h1 {
+/* .page .tag-block__title h1 {
   font-size: 22px;
   font-size: 17px;
   text-transform: uppercase;
   font-weight: 500;
-}
+} */
 
 .tag-block__title__underline {
   display: flex;
@@ -65,8 +65,8 @@
   }
 }
 
-@media (min-width: 1920px) {
+/* @media (min-width: 1920px) {
   .page .tag-block__title h1 {
     font-size: 20px;
   }
-}
+} */

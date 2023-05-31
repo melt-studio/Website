@@ -114,7 +114,7 @@ const Project = ({ projects, cursor, mobile, viewport }) => {
         {!loading && project && (
           <>
             <Helmet>
-              <title>MELLLLLLT - {project.fields.name}</title>
+              <title>MELT • {project.fields.name}</title>
             </Helmet>
 
             <ProjectCover

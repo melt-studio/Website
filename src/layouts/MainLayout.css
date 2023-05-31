@@ -96,10 +96,10 @@ main {
     order: 1;
   }
 
-  .col-2.sticky {
+  /* .col-2.sticky {
     top: 50px;
     position: sticky;
-  }
+  } */
 }
 
 @media (min-width: 1440px) {
@@ -129,7 +129,6 @@ main {
 
   .col.primary {
     width: 60%;
-    max-width: 4000px;
   }
 }
 
@@ -141,5 +140,6 @@ main {
 
   .col.primary {
     width: 70%;
+    max-width: 1920px;
   }
 }

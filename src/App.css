@@ -34,6 +34,7 @@ a {
   margin-top: 0;
   font-size: 20px;
   font-size: 17px;
+  font-size: 15px;
   text-transform: uppercase;
 }
 .page h2 {
@@ -53,10 +54,13 @@ a {
   /* font-size: 10px; */
   /* font-size: 9.5px; */
   /* font-size: 14px; */
-  font-size: 12px;
-  letter-spacing: 0.025rem;
+  /* font-size: 12px; */
+  /* font-size: 11.5px; */
+  font-size: 11px;
+  letter-spacing: 0.04em;
   line-height: 1.1;
   font-weight: 400;
+  /* font-weight: 350; */
   margin: 0;
 }
 
@@ -86,7 +90,7 @@ a {
   line-height: normal;
   line-height: 1;
   letter-spacing: -0.025rem;
-  letter-spacing: -0.01rem;
+  letter-spacing: -0.01em;
   /* letter-spacing: -0.015rem; */
   /* font-weight: 700; */
   /* visibility: hidden; */
@@ -145,9 +149,10 @@ a {
     /* font-size: min(max(1.75rem, 3vw), 50px); */
     /* font-size: min(max(1.5rem, 3vw), 40px); */
     font-size: min(max(1.5rem, 2.75vw), 38px);
+    letter-spacing: -0.02em;
     /* font-size: 100px; */
 
-    letter-spacing: -0.04rem;
+    /* letter-spacing: -0.04rem; */
     /* letter-spacing: -0.075rem; */
     /* letter-spacing: -0.09rem; */
     line-height: 1;
@@ -170,6 +175,16 @@ a {
 
 @media (min-width: 1920px) {
   .page .jumbo-text {
-    font-size: min(max(1.75rem, 3vw), 50px);
+    font-size: min(max(1.25rem, 2vw), 44px);
+  }
+
+  .page h1 {
+    font-size: 16px;
+  }
+
+  .page h3,
+  .tag h3 {
+    font-size: 11.5px;
+    /* font-weight: 400; */
   }
 }

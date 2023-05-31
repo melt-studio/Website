@@ -59,7 +59,10 @@ export default function MainContainer({
           }
         />
 
-        <Route path="/about" element={<About aboutInfo={aboutInfo} embeds={embeds} cursor={cursor} />} />
+        <Route
+          path="/about"
+          element={<About aboutInfo={aboutInfo} embeds={embeds} cursor={cursor} mobile={mobile} />}
+        />
 
         <Route
           path="/project/:id"

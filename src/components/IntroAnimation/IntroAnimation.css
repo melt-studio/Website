@@ -71,7 +71,16 @@
   margin: 0;
   color: white;
   line-height: 0.8;
-  line-height: 0.9;
+  /* line-height: 0.9; */
+
+  line-height: 0.85;
+  font-size: max(min(17.5vw, 14rem), 3.5rem);
+  letter-spacing: -0.15rem;
+  word-spacing: 0.2rem;
+  text-transform: uppercase;
+  font-weight: 300;
+  /* text-align: center; */
+
   /* transition: font-size 2s ease-in-out; */
 }
 

@@ -1,6 +1,6 @@
 .project-nav {
   padding: 0 5% 100px;
-  padding: 0 5% 30px;
+  padding: 0 10% 60px;
 }
 
 .project-nav__links {
@@ -16,7 +16,8 @@
 }
 
 .project-nav__links .tag-link h3 {
-  font-size: 11px;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .project-nav.show .project-nav__links {
@@ -27,11 +28,6 @@
 /* .project-nav__link.close {
   order: 3;
 } */
-
-.project-nav__link .tag-link h3 {
-  font-size: 1rem;
-  font-weight: 400;
-}
 
 @media (min-width: 800px) {
   .project-nav {
@@ -52,17 +48,11 @@
     width: auto;
     order: initial;
   }
-
-  .project-nav__link .tag-link h3 {
-    /* font-size: 12px; */
-    font-size: 17px;
-    font-weight: 400;
-    /* font-weight: 300; */
-  }
 }
 
 @media (min-width: 1920px) {
   .project-nav__link .tag-link h3 {
-    font-size: 30px;
+    /* font-size: 30px; */
+    font-size: 16px;
   }
 }
