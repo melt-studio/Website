@@ -34,29 +34,33 @@ const keyframesItems = {
 const keyframesItem = {
   enter: {
     y: 0,
+    // x: 0,
     opacity: 1,
     transition: { duration: 1, ease: "easeInOut" },
   },
   exit: {
     y: 20,
+    // x: 20,
     opacity: 0,
     transition: { duration: 0.5, ease: "easeInOut" },
   },
 };
 
-const keyframesItemSelected = {
-  enter: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 0.75, delay: 0.5, ease: "easeInOut" },
-  },
-  exit: {
-    y: -20,
-    opacity: 0,
-    // transition: { duration: 0.75, delay: 0.75, ease: "easeInOut" },
-    transition: { duration: 0.75, delay: 0.5, ease: "easeInOut" },
-  },
-};
+// const keyframesItemSelected = {
+//   enter: {
+//     y: 0,
+//     // x: 0,
+//     opacity: 1,
+//     transition: { duration: 0.75, delay: 0.5, ease: "easeInOut" },
+//   },
+//   exit: {
+//     y: -20,
+//     // x: 0,
+//     opacity: 0,
+//     // transition: { duration: 0.75, delay: 0.75, ease: "easeInOut" },
+//     transition: { duration: 0.75, delay: 0.5, ease: "easeInOut" },
+//   },
+// };
 
 const links = [
   { text: "Works", href: "/", nav: true },
@@ -92,7 +96,8 @@ const NavMenuClose = ({ closeNavMenu, present }) => {
 const NavMenuLinkText = ({ text, selected }) => (
   <motion.p
     className="nav-menu__link"
-    variants={selected ? keyframesItemSelected : keyframesItem}
+    // variants={selected ? keyframesItemSelected : keyframesItem}
+    variants={keyframesItem}
     onMouseEnter={() => cursorEvents.onMouseEnter()}
     onMouseLeave={() => cursorEvents.onMouseLeave()}
   >

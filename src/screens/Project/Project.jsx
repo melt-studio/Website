@@ -14,6 +14,7 @@ const Project = ({ projects, cursor, mobile, viewport }) => {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(true);
+  const [coverLoading, setCoverLoading] = useState(true);
   const [project, setProject] = useState(null);
   const [prev, setPrev] = useState(null);
   const [next, setNext] = useState(null);
@@ -32,8 +33,13 @@ const Project = ({ projects, cursor, mobile, viewport }) => {
     };
   }, [cursor]);
 
+  // useEffect(() => {
+  //   console.log("coverLoading", coverLoading);
+  // }, [coverLoading]);
+
   useEffect(() => {
     const updateProject = (project) => {
+      setCoverLoading(true);
       setProject(project);
 
       // Update cursor color to current project color
@@ -110,7 +116,7 @@ const Project = ({ projects, cursor, mobile, viewport }) => {
   return (
     // <Page style={!loading && project ? { color: project.fields.colorText } : null}>
     <Page>
-      <div className={`page-container${loading ? " loading" : ""}`}>
+      <div className={`page-container${loading || coverLoading ? " loading" : ""}`}>
         {!loading && project && (
           <>
             <Helmet>
@@ -121,14 +127,20 @@ const Project = ({ projects, cursor, mobile, viewport }) => {
               overlay={overlay}
               key={`${project.id}_cover`}
               project={project}
+              loading={coverLoading}
+              setLoading={setCoverLoading}
               mobile={mobile}
               viewport={viewport}
               cursor={cursor}
             />
-            <ProjectText key={`${project.id}_text`} project={project} mobile={mobile} />
-            <ProjectImages key={`${project.id}_images`} project={project} mobile={mobile} viewport={viewport} />
-            {/* <ProjectTitle key={`${project.id}_title`} project={project} mobile={mobile} viewport={viewport} /> */}
-            <ProjectNav prev={prev} next={next} />
+            {!coverLoading && (
+              <>
+                <ProjectText key={`${project.id}_text`} project={project} mobile={mobile} />
+                <ProjectImages key={`${project.id}_images`} project={project} mobile={mobile} viewport={viewport} />
+                {/* <ProjectTitle key={`${project.id}_title`} project={project} mobile={mobile} viewport={viewport} /> */}
+                <ProjectNav prev={prev} next={next} />
+              </>
+            )}
           </>
         )}
       </div>

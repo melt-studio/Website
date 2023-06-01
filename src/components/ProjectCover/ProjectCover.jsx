@@ -1,11 +1,12 @@
-import { useState, useMemo } from "react";
+// import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import ProjectCoverMedia from "../ProjectCoverMedia/ProjectCoverMedia.jsx";
 import FadeScroll from "../FadeScroll/FadeScroll.jsx";
 import "./ProjectCover.css";
 import Background from "../Background/Background.js";
 
-const ProjectCover = ({ project, overlay, mobile, viewport, cursor }) => {
-  const [loading, setLoading] = useState(true);
+const ProjectCover = ({ project, overlay, loading, setLoading, mobile, viewport, cursor }) => {
+  // const [loading, setLoading] = useState(true);
 
   const { mainImage, mainVid } = project.fields;
 

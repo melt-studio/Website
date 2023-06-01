@@ -3,6 +3,7 @@ import { Color } from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrthographicCamera } from "@react-three/drei";
 import "./Background.css";
+import { Perf } from "r3f-perf";
 
 const vertexShader = /* glsl */ `
   varying vec2 vUv;
@@ -25,12 +26,19 @@ const fragmentShader = /* glsl */ `
   uniform vec3 uColor2;
   uniform float uTime;
 
+  uniform float uCount;
+  uniform float uMultiple;
+  uniform vec3 uC0;
+  uniform vec3 uC1;
+  uniform vec3 uC2;
+  uniform vec3 uC3;
+  uniform vec3 uC4;
+
   float rand(vec2 co){
     return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
   }
 
   void main() {
-    vec3 color = vec3(0.);
     float f = 1. - vUv.y;
     // f = smoothstep(.35, 1., f);
     // f = smoothstep(.5, 1., f);
@@ -41,13 +49,38 @@ const fragmentShader = /* glsl */ `
     // f = smoothstep(.3, .7, f);
     f = smoothstep(.15, .85, f * (.9 + .1 *rand(vec2(f))));
     // f = smoothstep(.45, .55, f);
-    // f = clamp(f, 0., 1.);
+    f = clamp(f, 0., 1.);
     // f = smoothstep(.3, .7, f);
-    gl_FragColor = vec4(mix(uColor1, uColor2, f), 1.);
+
+    vec3 color = mix(uColor1, uColor2, f);
+
+    if (uMultiple == 1.) {
+      vec3 colorA = uC0;
+      float stopA = 0.;
+      for (float i = 1.; i < uCount; i++) {
+        vec3 cB = uC1;
+        if (i == 2.) cB = uC2;
+        if (i == 3.) cB = uC3;
+        if (i == 4.) cB = uC4;
+        vec3 colorB = cB;
+        float stopB = i / uCount;
+        float fc = smoothstep(stopA , stopB, f);
+        colorA = mix(colorA, colorB, fc);
+        stopA = stopB;
+      }
+
+      color = colorA;
+    }
+
+    gl_FragColor = vec4(color, 1.);
   }
 `;
 
-const Background = ({ backgroundColor }) => {
+const Background = ({
+  backgroundColor,
+  multiple = false,
+  multiColors = [0x000000, 0xffffff, 0xff0000, 0x0000ff, 0x00ff00],
+}) => {
   const background = useRef();
   const background1 = useRef();
   const background2 = useRef();
@@ -57,7 +90,15 @@ const Background = ({ backgroundColor }) => {
       uColor1: { value: new Color(0x000000) },
       uColor2: { value: new Color(0x000000) },
       uTime: { value: 0 },
+      uCount: { value: 2 },
+      uMultiple: { value: 0 },
+      uC0: { value: new Color() },
+      uC1: { value: new Color() },
+      uC2: { value: new Color() },
+      uC3: { value: new Color() },
+      uC4: { value: new Color() },
     };
+
     return uniforms;
   }, []);
 
@@ -105,14 +146,22 @@ const Background = ({ backgroundColor }) => {
       >
         <Canvas dpr={[1, 2]}>
           <OrthographicCamera makeDefault manual left={-1} right={1} top={1} bottom={-1} near={-1} far={1} />
-          <Mesh background={background} background1={background1} background2={background2} uniforms={uniforms} />
+          <Mesh
+            background={background}
+            background1={background1}
+            background2={background2}
+            uniforms={uniforms}
+            multiple={multiple}
+            multiColors={multiColors}
+          />
+          <Perf />
         </Canvas>
       </div>
     </>
   );
 };
 
-const Mesh = ({ background, background1, background2, uniforms }) => {
+const Mesh = ({ background, background1, background2, uniforms, multiColors, multiple }) => {
   const [styles1, styles2, color1, color2] = useMemo(() => {
     const styles1 = background1 && background1.current ? window.getComputedStyle(background1.current) : null;
     const styles2 = background2 && background2.current ? window.getComputedStyle(background2.current) : null;
@@ -120,6 +169,17 @@ const Mesh = ({ background, background1, background2, uniforms }) => {
     const color2 = new Color();
     return [styles1, styles2, color1, color2];
   }, [background1, background2]);
+
+  useEffect(() => {
+    if (background.current) {
+      multiColors.forEach((c, i) => {
+        background.current.material.uniforms[`uC${i}`].value = new Color(c);
+      });
+
+      background.current.material.uniforms.uCount.value = multiColors.length;
+      background.current.material.uniforms.uMultiple.value = multiple ? 1 : 0;
+    }
+  }, [multiColors, multiple, background]);
 
   useFrame(() => {
     if (background && background.current) {

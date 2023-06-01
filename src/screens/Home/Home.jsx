@@ -87,7 +87,7 @@ export default function Home({
   return (
     <>
       <Helmet>
-        <title>MELT • A creative studio bringing stories to life through design.</title>
+        <title>MELT • a creative design studio</title>
       </Helmet>
 
       {mobile && <IntroAnimation initial={initial} setInitial={setInitial} mobile={mobile} viewport={viewport} />}

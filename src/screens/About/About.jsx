@@ -130,11 +130,12 @@ export default function About({ aboutInfo, embeds, cursor, mobile }) {
 
       <Helmet>
         <meta charSet="utf-8" />
-        <title>MELT • About</title>
+        <title>MELT • About Us</title>
       </Helmet>
 
       {/* <Background backgroundColor={"#bcfc45, #333333"} /> */}
-      <Background backgroundColor={"#14170e, #427402"} />
+      <Background backgroundColor={"#000000, #333333"} />
+      {/* <Background backgroundColor={"#14170e, #427402"} multiple={true} multiColors={[0xbcfc45, 0x00a742, 0x000000]} /> */}
       {/* <div id="about-background"></div> */}
 
       {aboutInfo.length && (

@@ -5,6 +5,7 @@
   left: 0;
   top: 0;
   /* mix-blend-mode: difference; */
+  display: none;
 }
 
 .cursor {
@@ -53,7 +54,7 @@
 
 .cursor.project {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(var(--cursor-scale));
+  transform: translate(-50%, -50%) scale(2);
 }
 
 .cursor.link {
@@ -123,6 +124,12 @@
     transform: rotateZ(360deg);
   }
 } */
+
+@media screen and (min-width: 800px) {
+  .cursor-container {
+    display: block;
+  }
+}
 
 @media screen and (min-width: 1920px) {
   .cursor {

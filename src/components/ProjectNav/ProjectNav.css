@@ -20,6 +20,10 @@
   font-weight: 500;
 }
 
+.project-nav__links .tag-link:hover h3 {
+  color: #aaaaaa;
+}
+
 .project-nav.show .project-nav__links {
   opacity: 1;
   transform: translateY(0);
