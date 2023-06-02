@@ -1,9 +1,10 @@
 import { useMemo, useEffect, useRef } from "react";
-import { Color } from "three";
+import { Color, MathUtils } from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrthographicCamera } from "@react-three/drei";
+import { useScroll, useMotionValueEvent } from "framer-motion";
 import "./Background.css";
-import { Perf } from "r3f-perf";
+// import { Perf } from "r3f-perf";
 
 const vertexShader = /* glsl */ `
   varying vec2 vUv;
@@ -28,6 +29,7 @@ const fragmentShader = /* glsl */ `
 
   uniform float uCount;
   uniform float uMultiple;
+  uniform float uScroll;
   uniform vec3 uC0;
   uniform vec3 uC1;
   uniform vec3 uC2;
@@ -42,12 +44,13 @@ const fragmentShader = /* glsl */ `
     float f = 1. - vUv.y;
     // f = smoothstep(.35, 1., f);
     // f = smoothstep(.5, 1., f);
-    vec2 vUv2 = vUv + sin(vUv.x * 4. + uTime * .25) - cos(-vUv.y * 3. + vUv.x * 0. - uTime * .333/2.);
+    vec2 vUv2 = vUv + sin(vUv.x * 4. + uTime * .25 + uC0.r + uC1.g + uC2.b) - cos(-vUv.y * 3. + vUv.x * 0. - uTime * .333/2. + uC2.r + uC3.g + uC4.b);
     f = sin(length(vUv2) + uTime * .25) * .5 + .5;
-    f += sin(-vUv.x * 4.- vUv.y * 2.+ length(vUv) * sin(uTime * .25) + sin(vUv.y * 4. + uTime * .125) + uTime * .25 + sin(-vUv.x * vUv.y + uTime * .25) * 2.) * .5 + .5;
+    f += sin(-vUv.x * 4.- vUv.y * 2.+ length(vUv) * sin(uTime * .25) + sin(vUv.y * 4. + uTime * .125) + uTime * .25 + sin(-vUv.x * vUv.y + uTime * .25 + uC0.r + uC1.g + uC2.b) * 2.) * .5 + .5;
     f /= 2.;
     // f = smoothstep(.3, .7, f);
-    f = smoothstep(.15, .85, f * (.9 + .1 *rand(vec2(f))));
+    // f = smoothstep(.15, .85, f * (.9 + .1 *rand(vec2(f))));
+    f = smoothstep(.15, .85, f);
     // f = smoothstep(.45, .55, f);
     f = clamp(f, 0., 1.);
     // f = smoothstep(.3, .7, f);
@@ -55,6 +58,7 @@ const fragmentShader = /* glsl */ `
     vec3 color = mix(uColor1, uColor2, f);
 
     if (uMultiple == 1.) {
+      vec3 m2 = mix(vec3(0.), vec3(0.175), f);
       vec3 colorA = uC0;
       float stopA = 0.;
       for (float i = 1.; i < uCount; i++) {
@@ -70,6 +74,7 @@ const fragmentShader = /* glsl */ `
       }
 
       color = colorA;
+      color = mix(color, m2, uScroll);
     }
 
     gl_FragColor = vec4(color, 1.);
@@ -97,10 +102,39 @@ const Background = ({
       uC2: { value: new Color() },
       uC3: { value: new Color() },
       uC4: { value: new Color() },
+      uScroll: { value: 0 },
     };
 
     return uniforms;
   }, []);
+
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    // if (mobile) return;
+
+    // const sMax = document.body.offsetHeight - viewport.height;
+    // const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
+
+    // const s = 50;
+    // console.log(latest, scrollCutOff, document.body.offsetHeight, sMax, s);
+
+    const l = MathUtils.clamp(latest, 0, window.innerHeight / 2);
+
+    // console.log(l);
+
+    // console.log(l, window.innerHeight / l);
+
+    if (background.current) {
+      background.current.material.uniforms.uScroll.value = l / (window.innerHeight / 2);
+    }
+
+    // if (isVisible && latest >= s) {
+    //   setIsVisible(false);
+    // } else if (!isVisible && latest < s) {
+    //   setIsVisible(true);
+    // }
+  });
 
   useEffect(() => {
     const color = backgroundColor;
@@ -154,7 +188,7 @@ const Background = ({
             multiple={multiple}
             multiColors={multiColors}
           />
-          <Perf />
+          {/* <Perf /> */}
         </Canvas>
       </div>
     </>
@@ -176,6 +210,9 @@ const Mesh = ({ background, background1, background2, uniforms, multiColors, mul
         background.current.material.uniforms[`uC${i}`].value = new Color(c);
       });
 
+      console.log(background.current.material.uniforms);
+
+      // console.log(multiColors.length);
       background.current.material.uniforms.uCount.value = multiColors.length;
       background.current.material.uniforms.uMultiple.value = multiple ? 1 : 0;
     }

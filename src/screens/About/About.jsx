@@ -30,6 +30,14 @@ const fadeInText = {
   damping: 0.25,
 };
 
+const fadeInText2 = {
+  name: "customAnimationTextIntro",
+  duration: 2,
+  delay: 0.5,
+  // stagger: true,
+  damping: 0.25,
+};
+
 // const contactInfo = [
 //   { text: "Say Hello", href: "mailto:hello@melt.works" },
 //   { text: "Join Our Team", href: "mailto:careers@melt.works" },
@@ -56,10 +64,11 @@ const parseLinks = (links) => {
     });
 };
 
-export default function About({ aboutInfo, embeds, cursor, mobile }) {
+export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scrollCutOff }) {
   const [loading, setLoading] = useState(true);
   const [aboutText, setAboutText] = useState(null);
   const [contactTags, setContactTags] = useState([]);
+  const [gradientCols, setGradientCols] = useState([]);
   // const [followTags, setFollowTags] = useState([]);
   const [whatWeDoTags, setWhatWeDoTags] = useState([]);
   const [whatWeDontDoTags, setWhatWeDontDoTags] = useState([]);
@@ -88,7 +97,21 @@ export default function About({ aboutInfo, embeds, cursor, mobile }) {
   useEffect(() => {
     if (aboutInfo.length) {
       // const { aboutText, whatWeDo, whatWeDontDo, contact, follow } = aboutInfo[0].fields;
-      const { aboutText, whatWeDo, whatWeDontDo, contact } = aboutInfo[0].fields;
+      const { aboutText, whatWeDo, whatWeDontDo, contact, gradient } = aboutInfo[0].fields;
+
+      // console.log(gradient.);
+      let colors = gradient.split(", ");
+      console.log(colors);
+      const selectedColors = [];
+      const n = colors.length < 5 ? colors.length : 5;
+      for (let i = 0; i < n; i++) {
+        const j = Math.floor(Math.random() * colors.length);
+        console.log(j);
+        selectedColors.push(colors[j]);
+        colors = colors.filter((c, i) => i !== j);
+      }
+      console.log(selectedColors);
+      setGradientCols(selectedColors);
 
       // setAboutText(aboutText);
       // ReactMarkdown causes unwanted re-renders when using components prop (and in this case wrapping each p element with the FadeIn component, causing repeated fade ins on viewport change, incl. scrolling on mobile as browser height changes), so instead pre-splitting the text into paragraphs then wrapping each paragraph with FadeIn and ReactMarkdown
@@ -134,14 +157,19 @@ export default function About({ aboutInfo, embeds, cursor, mobile }) {
       </Helmet>
 
       {/* <Background backgroundColor={"#bcfc45, #333333"} /> */}
-      <Background backgroundColor={"#000000, #333333"} />
-      {/* <Background backgroundColor={"#14170e, #427402"} multiple={true} multiColors={[0xbcfc45, 0x00a742, 0x000000]} /> */}
+      {/* <Background backgroundColor={"#000000, #333333"} /> */}
+      <Background
+        backgroundColor={"#14170e, #427402"}
+        multiple={true}
+        // multiColors={[0xbcfc45, 0x00a742, 0xff0000, 0x00ff00, 0x0000ff]}
+        multiColors={gradientCols}
+      />
       {/* <div id="about-background"></div> */}
 
       {aboutInfo.length && (
         <>
-          <FadeIn {...fadeInText}>
-            <TextFeature mobile={mobile} />
+          <FadeIn {...fadeInText2} style={{}}>
+            <TextFeature mobile={mobile} viewport={viewport} scrollCutOff={scrollCutOff} />
           </FadeIn>
 
           <div className={`page-container${loading ? " loading" : ""}`}>

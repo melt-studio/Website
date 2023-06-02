@@ -4,7 +4,8 @@
 
 .about-page .page-container {
   /* padding: 40vw 0px 100px; */
-  padding: 0 0 100px;
+  padding: 100vh 0 100px;
+  padding: 100dvh 0 100px;
 }
 /* 
 .about-page .col.links {

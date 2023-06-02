@@ -4,7 +4,10 @@
 // import { OrthographicCamera, useTexture } from "@react-three/drei";
 import FadeIn from "../../components/FadeIn/FadeIn.jsx";
 import { keyframes } from "../../utils/keyframes.js";
+import { useState, useRef } from "react";
+import { useScroll, useMotionValueEvent } from "framer-motion";
 import "./TextFeature.css";
+import { MathUtils } from "three";
 
 // // import Archivo from "../../assets/fonts/Archivo-Regular.ttf";
 // import image from "../../assets/images/TEXT.png";
@@ -195,7 +198,7 @@ const fadeInText = {
   damping: 0.125,
 };
 
-const TextFeature = ({ mobile }) => {
+const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
   // const created = ({ gl }) => {
   //   // gl.setClearColor(0x0000ff);
   // };
@@ -215,12 +218,43 @@ const TextFeature = ({ mobile }) => {
     }
   }
 
+  const [isVisible] = useState(true);
+  const { scrollY } = useScroll();
+
+  const text2 = useRef();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    // if (mobile) return;
+
+    // const sMax = document.body.offsetHeight - viewport.height;
+    // const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
+
+    // const s = 50;
+    // console.log(latest, scrollCutOff, document.body.offsetHeight, sMax, s);
+
+    const l = MathUtils.clamp(latest, 0, 200);
+
+    console.log(l);
+
+    if (text2.current) {
+      text2.current.style.transform = `translate(0, -${l}px)`;
+    }
+
+    // if (isVisible && latest >= s) {
+    //   setIsVisible(false);
+    // } else if (!isVisible && latest < s) {
+    //   setIsVisible(true);
+    // }
+  });
+
   return (
     <>
       <div id="textFeature-container">
-        {text.map((line, i) => (
-          <div key={`about_line_${i}`}>{line}</div>
-        ))}
+        <div ref={text2} className={`textFeature-text${isVisible ? " show" : ""}`}>
+          {text.map((line, i) => (
+            <div key={`about_line_${i}`}>{line}</div>
+          ))}
+        </div>
         {/* <Canvas dpr={[1, 2]} onCreated={created}>
           <OrthographicCamera makeDefault manual left={-1} right={1} top={1} bottom={-1} near={-1} far={1} />
           <Mesh mobile={mobile} />

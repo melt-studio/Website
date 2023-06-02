@@ -163,6 +163,7 @@ function App() {
           scroll={scroll}
           setScroll={setScroll}
           history={history}
+          scrollCutOff={scrollCutOff}
         />
       </Layout>
       {!mobile && <Cursor ref={cursor} />}

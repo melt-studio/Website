@@ -28,6 +28,7 @@ export default function MainContainer({
   scroll,
   setScroll,
   history,
+  scrollCutOff,
 }) {
   const [adminMessage, setAdminMessage] = useState(null);
 
@@ -61,7 +62,16 @@ export default function MainContainer({
 
         <Route
           path="/about"
-          element={<About aboutInfo={aboutInfo} embeds={embeds} cursor={cursor} mobile={mobile} />}
+          element={
+            <About
+              aboutInfo={aboutInfo}
+              embeds={embeds}
+              cursor={cursor}
+              mobile={mobile}
+              viewport={viewport}
+              scrollCutOff={scrollCutOff}
+            />
+          }
         />
 
         <Route

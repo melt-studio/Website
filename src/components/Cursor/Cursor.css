@@ -10,15 +10,15 @@
 
 .cursor {
   transform: translate(-50%, -50%) scale(var(--cursor-scale));
-  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  transition: transform 0.4s ease-in-out, background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
   /* width: 100px;
   height: 100px;
   width: 80px;
   height: 80px;
   width: 25px;
   height: 25px; */
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background-color: transparent;
   opacity: 1;
@@ -54,7 +54,7 @@
 
 .cursor.project {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(2);
+  transform: translate(-50%, -50%) scale(3);
 }
 
 .cursor.link {
@@ -131,9 +131,9 @@
   }
 }
 
-@media screen and (min-width: 1920px) {
+/* @media screen and (min-width: 1920px) {
   .cursor {
-    width: 25px;
-    height: 25px;
+    width: 16px;
+    height: 16px;
   }
-}
+} */
