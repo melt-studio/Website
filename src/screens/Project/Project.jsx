@@ -26,6 +26,7 @@ const Project = ({ projects, cursor, mobile, viewport, history }) => {
     document.body.classList.add("project-page");
 
     // console.log("PROJECT mount");
+    // window.scrollTo(0, 0);
 
     return () => {
       document.body.classList.remove("project-page");

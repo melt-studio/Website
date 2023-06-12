@@ -1,5 +1,6 @@
 .project-page .page-container.loading {
   min-height: 101vh;
+  min-height: 101dvh;
 }
 
 .project-page .page-container {

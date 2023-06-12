@@ -25,10 +25,14 @@ const NavMenuLogo = ({ setNavMenuOpen, initial, mobile, viewport, scrollCutOff }
     if (!mobile) {
       setIsVisible(false);
     } else {
+      if (location.pathname.includes("/project/")) {
+        return setIsVisible(false);
+      }
+
       if (
         excludes.some((ex) => location.pathname.includes(ex)) ||
         location.pathname === "/" ||
-        window.scrollY >= scrollCutOff
+        window.scrollY > scrollCutOff
       ) {
         if (location.pathname === "/") {
           setIsVisible(true && !initial);
@@ -46,9 +50,9 @@ const NavMenuLogo = ({ setNavMenuOpen, initial, mobile, viewport, scrollCutOff }
     const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
     // console.log(latest, scrollCutOff, document.body.offsetHeight, sMax, s);
 
-    if (!isVisible && latest >= s) {
+    if (!isVisible && latest > s) {
       setIsVisible(true);
-    } else if (isVisible && latest < s) {
+    } else if (isVisible && latest <= s) {
       setIsVisible(false);
     }
   });

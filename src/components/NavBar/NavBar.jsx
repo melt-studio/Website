@@ -39,8 +39,12 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
     if (mobile || location.pathname.match(/^\/admin\/[\w-]+$/)) {
       setIsVisible(false);
     } else {
+      if (location.pathname.includes("/project/")) {
+        return setIsVisible(false);
+      }
+
       // if (excludes.includes(location.pathname) || window.scrollY >= scrollCutOff) {
-      if (excludes.some((ex) => location.pathname.includes(ex)) || window.scrollY >= scrollCutOff) {
+      if (excludes.some((ex) => location.pathname.includes(ex)) || window.scrollY > scrollCutOff) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -54,9 +58,9 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
     const sMax = document.body.offsetHeight - viewport.height;
     const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
 
-    if (!isVisible && latest >= s) {
+    if (!isVisible && latest > s) {
       setIsVisible(true);
-    } else if (isVisible && latest < s) {
+    } else if (isVisible && latest <= s) {
       setIsVisible(false);
     }
   });
