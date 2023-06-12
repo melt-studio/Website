@@ -40,7 +40,7 @@ const LogoAnimation = ({
     // console.log("created");
     gl.domElement.id = "logoAnimation";
     if (container && container.current) {
-      container.current.classList.add("show");
+      // container.current.classList.add("show");
     }
     // setCanvasLoaded(true);
   };

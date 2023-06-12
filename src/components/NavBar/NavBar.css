@@ -78,6 +78,10 @@
   transition: transform 0.5s ease;
 }
 
+.nav-bar__logo {
+  cursor: pointer;
+}
+
 .nav-bar__logo img:hover {
   transform: scale(1.2);
   transition: transform 0.5s ease;

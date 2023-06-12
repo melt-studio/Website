@@ -1,8 +1,11 @@
+.project-page .page-container.loading {
+  min-height: 101vh;
+}
+
 .project-page .page-container {
   gap: 100px 0;
   background-color: transparent;
   transition: background-color 1s;
-  min-height: 100vh;
 }
 
 .project-page .page {

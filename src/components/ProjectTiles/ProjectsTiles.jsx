@@ -83,6 +83,11 @@ export default function ProjectTiles({ projects, cursor, setScroll, setBackgroun
     if (cursor.current) {
       cursor.current.classList.add("project-click");
     }
+
+    // // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    // // setTimeout(() => window.scrollTo(0, 0), 1);
+    // window.scrollTo(0, 0);
+
     // document.body.scrollTop = 0; // For Safari
     // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };

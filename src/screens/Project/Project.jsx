@@ -9,8 +9,9 @@ import ProjectNav from "../../components/ProjectNav/ProjectNav.jsx";
 import Page from "../Page.jsx";
 import "./Project.css";
 
-const Project = ({ projects, cursor, mobile, viewport }) => {
+const Project = ({ projects, cursor, mobile, viewport, history }) => {
   const navigate = useNavigate();
+  // const location = useLocation();
   const { id } = useParams();
 
   const [loading, setLoading] = useState(true);
@@ -24,13 +25,20 @@ const Project = ({ projects, cursor, mobile, viewport }) => {
   useEffect(() => {
     document.body.classList.add("project-page");
 
-    if (cursor && cursor.current) {
-      cursor.current.className = "cursor";
-    }
+    // console.log("PROJECT mount");
 
     return () => {
       document.body.classList.remove("project-page");
+
+      // console.log(history);
+      // console.log("PROJECT unmount");
     };
+  }, []);
+
+  useEffect(() => {
+    if (cursor && cursor.current) {
+      cursor.current.className = "cursor";
+    }
   }, [cursor]);
 
   // useEffect(() => {
@@ -65,8 +73,8 @@ const Project = ({ projects, cursor, mobile, viewport }) => {
 
       setLoading(false);
 
-      // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-      // setTimeout(() => window.scrollTo(0, 0), 1);
+      // // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      // // setTimeout(() => window.scrollTo(0, 0), 1);
       window.scrollTo(0, 0);
     };
 
@@ -115,7 +123,11 @@ const Project = ({ projects, cursor, mobile, viewport }) => {
 
   return (
     // <Page style={!loading && project ? { color: project.fields.colorText } : null}>
-    <Page>
+    <Page
+    // onAnimationStart={() => {
+    //   console.log(scrollY.current, window.scrollY);
+    // }}
+    >
       <div className={`page-container${loading || coverLoading ? " loading" : ""}`}>
         {!loading && project && (
           <>

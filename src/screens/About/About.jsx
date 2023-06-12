@@ -8,6 +8,7 @@ import Page from "../Page.jsx";
 import Background from "../../components/Background/Background.js";
 import "./About.css";
 import TextFeature from "../../components/TextFeature/TextFeature.js";
+import FadeScroll from "../../components/FadeScroll/FadeScroll.jsx";
 
 keyframes`
   @keyframes customAnimationText {
@@ -30,12 +31,9 @@ const fadeInText = {
   damping: 0.25,
 };
 
-const fadeInText2 = {
+const fadeInTextIntro = {
+  ...fadeInText,
   name: "customAnimationTextIntro",
-  duration: 2,
-  delay: 0.5,
-  // stagger: true,
-  damping: 0.25,
 };
 
 // const contactInfo = [
@@ -68,7 +66,8 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
   const [loading, setLoading] = useState(true);
   const [aboutText, setAboutText] = useState(null);
   const [contactTags, setContactTags] = useState([]);
-  const [gradientCols, setGradientCols] = useState([]);
+  const [gradientCols, setGradientCols] = useState([0x000000]);
+  const [gradientColsLoaded, setGradientColsLoaded] = useState(false);
   // const [followTags, setFollowTags] = useState([]);
   const [whatWeDoTags, setWhatWeDoTags] = useState([]);
   const [whatWeDontDoTags, setWhatWeDontDoTags] = useState([]);
@@ -100,18 +99,19 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
       const { aboutText, whatWeDo, whatWeDontDo, contact, gradient } = aboutInfo[0].fields;
 
       // console.log(gradient.);
-      let colors = gradient.split(", ");
-      console.log(colors);
+      let colors = gradient.split(", ").map((c) => c.trim());
+      // console.log(colors);
       const selectedColors = [];
       const n = colors.length < 5 ? colors.length : 5;
       for (let i = 0; i < n; i++) {
         const j = Math.floor(Math.random() * colors.length);
-        console.log(j);
+        // console.log(j);
         selectedColors.push(colors[j]);
         colors = colors.filter((c, i) => i !== j);
       }
-      console.log(selectedColors);
+      // console.log(selectedColors);
       setGradientCols(selectedColors);
+      setGradientColsLoaded(true);
 
       // setAboutText(aboutText);
       // ReactMarkdown causes unwanted re-renders when using components prop (and in this case wrapping each p element with the FadeIn component, causing repeated fade ins on viewport change, incl. scrolling on mobile as browser height changes), so instead pre-splitting the text into paragraphs then wrapping each paragraph with FadeIn and ReactMarkdown
@@ -163,16 +163,18 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
         multiple={true}
         // multiColors={[0xbcfc45, 0x00a742, 0xff0000, 0x00ff00, 0x0000ff]}
         multiColors={gradientCols}
+        multiLoaded={gradientColsLoaded}
+        viewport={viewport}
       />
       {/* <div id="about-background"></div> */}
 
-      {aboutInfo.length && (
+      {aboutInfo.length > 0 && (
         <>
-          <FadeIn {...fadeInText2} style={{}}>
+          <FadeIn {...fadeInTextIntro}>
             <TextFeature mobile={mobile} viewport={viewport} scrollCutOff={scrollCutOff} />
           </FadeIn>
 
-          <div className={`page-container${loading ? " loading" : ""}`}>
+          <FadeScroll viewport={{ amount: 0.01 }} className={`page-container${loading ? " loading" : ""}`}>
             <div className="row col-3">
               <div className="col primary">
                 <div className="description-text jumbo-text">
@@ -203,7 +205,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                 </div>
               </div>
             </div>
-          </div>
+          </FadeScroll>
         </>
       )}
       {/* </div> */}

@@ -15,6 +15,11 @@ html {
   --cursor-scale: 1; /* of 80px */
 }
 
+html,
+body {
+  cursor: none;
+}
+
 body {
   margin: 0;
   font-family: var(--font-family);
@@ -24,32 +29,8 @@ body {
   background: transparent;
   transition: background-color 1s ease;
   color: #ffffff;
-  /* cursor: none; */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
-
-body.home-page {
-  /* cursor: default; */
-  cursor: none;
-}
-
-@media (min-width: 800px) {
-  body.home-page {
-    cursor: none;
-  }
-
-  body.about-page {
-    cursor: none;
-  }
-
-  body.project-page {
-    cursor: none;
-  }
-
-  body.home-page .project img:hover {
-    cursor: none;
-  }
 }

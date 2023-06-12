@@ -9,6 +9,7 @@ const Page = ({
   className = "page",
   style,
   onAnimationComplete,
+  onAnimationStart,
   children,
 }) => {
   return (
@@ -18,6 +19,7 @@ const Page = ({
       exit={exit}
       transition={transition}
       onAnimationComplete={onAnimationComplete}
+      onAnimationStart={onAnimationStart}
       id={id}
       className={className}
       style={style}

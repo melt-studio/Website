@@ -1,12 +1,39 @@
-/* .about-page .page {
-  color: #000000;
-} */
+.about-page .page {
+  /* color: #000000; */
+  margin-top: 100vh;
+}
 
 .about-page .page-container {
   /* padding: 40vw 0px 100px; */
-  padding: 100vh 0 100px;
-  padding: 100dvh 0 100px;
+  /* padding: 10vw 0 100px; */
+  padding: 0 0 100px;
+
+  /* position: sticky;
+  top: 10vw; */
+
+  /* opacity: 0; */
+  /* transform: translate(0, 50px); */
+  /* transition: opacity 1.5s ease-in-out 0s, transform 1.5s ease-in-out; */
 }
+
+.about-page .page-container .col {
+  opacity: 0;
+  transform: translate(0, 50px);
+}
+.about-page .page-container .col.primary {
+  transition: opacity 1.5s ease-in-out 0s, transform 1.5s ease-in-out 0s;
+}
+.about-page .page-container .col.what {
+  transition: opacity 1.5s ease-in-out 0.5s, transform 1.5s ease-in-out 0.5s;
+}
+.about-page .page-container .col.links {
+  transition: opacity 1.5s ease-in-out 1s, transform 1.5s ease-in-out 1s;
+}
+.about-page .page-container.show .col {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
 /* 
 .about-page .col.links {
   margin-bottom: 20px;
@@ -17,11 +44,24 @@
   margin-bottom: 50px;
 }
 
-@media (min-width: 800px) {
-  /* .about-page .page-container { */
-  /* padding-top: min(30vw, 400px); */
-  /* padding-top: min(30vw, 300px); */
-  /* } */
+@media (min-width: 960px) and (max-width: 1440px) {
+  .about-page .page-container .col.what,
+  .about-page .page-container .col.links {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .about-page .page-container .col-2.sticky {
+    opacity: 0;
+    transform: translate(0, 50px);
+    transition: opacity 1.5s ease-in-out 0.5s, transform 1s ease-in-out 0.5s;
+  }
+
+  .about-page .page-container.show .col-2.sticky {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
 }
 
 @media (min-width: 960px) {
@@ -31,20 +71,6 @@
     padding-right: 20px;
   }
 }
-
-/* .about-page .col.primary {
-  order: 0;
-}
-.about-page .col.what {
-  order: 2;
-}
-.about-page .col.links {
-  order: 1;
-} */
-
-/* .about-page .nav-bar .tag-link {
-  color: #000000;
-} */
 
 #about-background {
   position: fixed;

@@ -20,7 +20,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background-color: transparent;
+  background-color: var(--yellow);
   opacity: 1;
 }
 

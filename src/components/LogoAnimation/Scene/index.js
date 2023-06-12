@@ -1,7 +1,7 @@
 import { useEffect, useRef, useMemo, forwardRef } from "react";
 import { MathUtils, LinearFilter, Scene, OrthographicCamera, Vector2, Vector3, Vector4, FrontSide } from "three";
 import { useFrame, useThree, createPortal, useLoader } from "@react-three/fiber";
-import { useFBO, useTexture, PerspectiveCamera } from "@react-three/drei";
+import { useFBO, useTexture, PerspectiveCamera, useProgress } from "@react-three/drei";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import { useLeva } from "./controls";
 import defaultConfig from "../../helpers/LevaControls/config.json";
@@ -18,7 +18,10 @@ import { blur } from "../../helpers/blurTexture";
 // https://eriksachse.medium.com/react-three-fiber-custom-postprocessing-render-target-solution-without-using-the-effectcomposer-d3a94e6ae3c3
 
 const LogoScene = forwardRef(
-  ({ fps, name, controls, config, updateConfig, localStorageConfig, updateName, fade, fromProject }, ref) => {
+  (
+    { fps, name, controls, config, updateConfig, localStorageConfig, updateName, fade, fromProject, containerRef },
+    ref
+  ) => {
     const cam = useRef();
     const mesh = useRef();
     const trail = useRef();
@@ -44,6 +47,8 @@ const LogoScene = forwardRef(
       updateConfig,
       [mesh, trail]
     );
+
+    const progress = useProgress();
 
     const texture = useTexture(upload === undefined || upload === null ? meltLogo : upload);
     const textureFade = useTexture(meltLogoFade);
@@ -336,6 +341,13 @@ const LogoScene = forwardRef(
       if (!fade) updateMouse(state);
       animate(delta);
       getFadeTime();
+
+      if (containerRef.current) {
+        if (progress.progress >= 100 && !containerRef.current.classList.contains("show")) {
+          containerRef.current.classList.add("show");
+          // console.log("progress");
+        }
+      }
 
       state.gl.setRenderTarget(target);
       state.gl.clear();

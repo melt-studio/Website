@@ -1,17 +1,24 @@
-.not-found-page {
+body.not-found-page footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.page.not-found-page {
   flex-grow: 1;
   display: flex;
   color: #ffffff;
   color: var(--yellow);
+  /* height: 100dvh; */
 }
 
-.not-found-page .page-container {
+.page.not-found-page .page-container {
   display: flex;
   align-items: center;
   justify-content: center;
   /* height: 100%; */
   flex-grow: 1;
-  animation: fade404 1s ease-in-out 1 forwards;
 }
 
 @keyframes fade404 {
@@ -33,12 +40,17 @@
   -webkit-text-stroke: 1px var(--yellow);
   text-stroke: 1px var(--yellow);
   color: transparent;
+  animation: fade404 1s ease-in-out 1 forwards;
 }
 
 .page.not-found-page img {
   width: 90px;
 }
 
-.not-found-page p {
+.page.not-found-page p {
   font-size: 20px;
 }
+
+/* .page.not-found-page .footer {
+  display: none;
+} */

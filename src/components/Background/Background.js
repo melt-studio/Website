@@ -1,90 +1,20 @@
 import { useMemo, useEffect, useRef } from "react";
-import { Color, MathUtils } from "three";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Color, MathUtils, Vector2 } from "three";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrthographicCamera } from "@react-three/drei";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import "./Background.css";
 // import { Perf } from "r3f-perf";
 
-const vertexShader = /* glsl */ `
-  varying vec2 vUv;
-
-  void main() {
-    vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-    vec4 viewPosition = viewMatrix * modelPosition;
-    vec4 projectionPosition = projectionMatrix * viewPosition;
-
-    gl_Position = projectionPosition;
-
-    vUv = uv;
-  }
-`;
-
-const fragmentShader = /* glsl */ `
-  varying vec2 vUv;
-
-  uniform vec3 uColor1;
-  uniform vec3 uColor2;
-  uniform float uTime;
-
-  uniform float uCount;
-  uniform float uMultiple;
-  uniform float uScroll;
-  uniform vec3 uC0;
-  uniform vec3 uC1;
-  uniform vec3 uC2;
-  uniform vec3 uC3;
-  uniform vec3 uC4;
-
-  float rand(vec2 co){
-    return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
-  }
-
-  void main() {
-    float f = 1. - vUv.y;
-    // f = smoothstep(.35, 1., f);
-    // f = smoothstep(.5, 1., f);
-    vec2 vUv2 = vUv + sin(vUv.x * 4. + uTime * .25 + uC0.r + uC1.g + uC2.b) - cos(-vUv.y * 3. + vUv.x * 0. - uTime * .333/2. + uC2.r + uC3.g + uC4.b);
-    f = sin(length(vUv2) + uTime * .25) * .5 + .5;
-    f += sin(-vUv.x * 4.- vUv.y * 2.+ length(vUv) * sin(uTime * .25) + sin(vUv.y * 4. + uTime * .125) + uTime * .25 + sin(-vUv.x * vUv.y + uTime * .25 + uC0.r + uC1.g + uC2.b) * 2.) * .5 + .5;
-    f /= 2.;
-    // f = smoothstep(.3, .7, f);
-    // f = smoothstep(.15, .85, f * (.9 + .1 *rand(vec2(f))));
-    f = smoothstep(.15, .85, f);
-    // f = smoothstep(.45, .55, f);
-    f = clamp(f, 0., 1.);
-    // f = smoothstep(.3, .7, f);
-
-    vec3 color = mix(uColor1, uColor2, f);
-
-    if (uMultiple == 1.) {
-      vec3 m2 = mix(vec3(0.), vec3(0.175), f);
-      vec3 colorA = uC0;
-      float stopA = 0.;
-      for (float i = 1.; i < uCount; i++) {
-        vec3 cB = uC1;
-        if (i == 2.) cB = uC2;
-        if (i == 3.) cB = uC3;
-        if (i == 4.) cB = uC4;
-        vec3 colorB = cB;
-        float stopB = i / uCount;
-        float fc = smoothstep(stopA , stopB, f);
-        colorA = mix(colorA, colorB, fc);
-        stopA = stopB;
-      }
-
-      color = colorA;
-      color = mix(color, m2, uScroll);
-    }
-
-    gl_FragColor = vec4(color, 1.);
-  }
-`;
+import vertexShader from "./shaders/vertex";
+import fragmentShader from "./shaders/fragment";
 
 const Background = ({
   backgroundColor,
   multiple = false,
-  multiColors = [0x000000, 0xffffff, 0xff0000, 0x0000ff, 0x00ff00],
+  multiColors = [0x000000, 0x333333],
+  multiLoaded = false,
+  viewport,
 }) => {
   const background = useRef();
   const background1 = useRef();
@@ -103,38 +33,11 @@ const Background = ({
       uC3: { value: new Color() },
       uC4: { value: new Color() },
       uScroll: { value: 0 },
+      uMultiLoaded: { value: new Vector2(0, 0) },
     };
 
     return uniforms;
   }, []);
-
-  const { scrollY } = useScroll();
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    // if (mobile) return;
-
-    // const sMax = document.body.offsetHeight - viewport.height;
-    // const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
-
-    // const s = 50;
-    // console.log(latest, scrollCutOff, document.body.offsetHeight, sMax, s);
-
-    const l = MathUtils.clamp(latest, 0, window.innerHeight / 2);
-
-    // console.log(l);
-
-    // console.log(l, window.innerHeight / l);
-
-    if (background.current) {
-      background.current.material.uniforms.uScroll.value = l / (window.innerHeight / 2);
-    }
-
-    // if (isVisible && latest >= s) {
-    //   setIsVisible(false);
-    // } else if (!isVisible && latest < s) {
-    //   setIsVisible(true);
-    // }
-  });
 
   useEffect(() => {
     const color = backgroundColor;
@@ -187,6 +90,8 @@ const Background = ({
             uniforms={uniforms}
             multiple={multiple}
             multiColors={multiColors}
+            multiLoaded={multiLoaded}
+            viewport={viewport}
           />
           {/* <Perf /> */}
         </Canvas>
@@ -195,7 +100,7 @@ const Background = ({
   );
 };
 
-const Mesh = ({ background, background1, background2, uniforms, multiColors, multiple }) => {
+const Mesh = ({ background, background1, background2, uniforms, multiColors, multiple, multiLoaded, viewport }) => {
   const [styles1, styles2, color1, color2] = useMemo(() => {
     const styles1 = background1 && background1.current ? window.getComputedStyle(background1.current) : null;
     const styles2 = background2 && background2.current ? window.getComputedStyle(background2.current) : null;
@@ -204,19 +109,67 @@ const Mesh = ({ background, background1, background2, uniforms, multiColors, mul
     return [styles1, styles2, color1, color2];
   }, [background1, background2]);
 
+  const { clock } = useThree();
+
+  const scroll = useMemo(() => new Vector2(), []);
+
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    // if (mobile) return;
+
+    // const sMax = document.body.offsetHeight - viewport.height;
+    // const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
+
+    // const s = 50;
+    // console.log(latest, scrollCutOff, document.body.offsetHeight, sMax, s);
+
+    scroll.x = MathUtils.clamp(latest, 0, window.innerHeight / 2);
+
+    // console.log(l, window.innerHeight / l);
+
+    // if (background.current) {
+    //   background.current.material.uniforms.uScroll.value = l / (window.innerHeight / 2);
+    // }
+
+    // if (isVisible && latest >= s) {
+    //   setIsVisible(false);
+    // } else if (!isVisible && latest < s) {
+    //   setIsVisible(true);
+    // }
+  });
+
+  useFrame((state, delta) => {
+    if (background.current) {
+      // background.current.material.uniforms.uScroll.value = l / (window.innerHeight / 2);
+      scroll.y = MathUtils.damp(scroll.y, scroll.x, 2, delta);
+      // console.log(scroll.x);
+      // scroll.y = MathUtils.clamp(scroll.y, 0, window.innerHeight / 2);
+      // scroll.y += (scroll.x - scroll.y) * 0.9;
+      // console.log(scroll.x, scroll.y);
+      background.current.material.uniforms.uScroll.value = scroll.y / (window.innerHeight / 2);
+    }
+  });
+
   useEffect(() => {
     if (background.current) {
       multiColors.forEach((c, i) => {
         background.current.material.uniforms[`uC${i}`].value = new Color(c);
       });
 
-      console.log(background.current.material.uniforms);
+      // console.log(background.current.material.uniforms);
 
       // console.log(multiColors.length);
       background.current.material.uniforms.uCount.value = multiColors.length;
       background.current.material.uniforms.uMultiple.value = multiple ? 1 : 0;
     }
   }, [multiColors, multiple, background]);
+
+  useEffect(() => {
+    if (background.current && multiLoaded) {
+      background.current.material.uniforms.uMultiLoaded.value.set(1, clock.elapsedTime);
+    }
+  }, [multiLoaded, background, clock]);
 
   useFrame(() => {
     if (background && background.current) {

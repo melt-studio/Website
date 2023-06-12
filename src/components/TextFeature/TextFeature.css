@@ -21,27 +21,31 @@
 
 .css-customAnimationTextIntro {
   position: fixed;
-  pointer-events: none;
+  /* pointer-events: none; */
   top: 0;
   left: 0;
   height: 100vh;
-  height: 100dvh;
+  /* height: 100dvh; */
   width: 100%;
   display: flex;
   align-items: center;
+  /* overflow: hidden; */
 }
 
 .textFeature-text {
   margin: auto 0;
-  /* opacity: 0;
-  transform: translate(0, -50px);
-  transition: opacity 0.75s ease 1.25s, transform 2s ease; */
+  margin-top: -50px;
+  /* transition: transform 2s ease; */
+  opacity: 0;
+  /* transform: translate3d(0, -50vh, 0); */
+  transform: translate3d(0, -10dvh, 0);
+  transition: opacity 1s ease-in-out 0s, transform 2s ease-in-out;
 }
 
-/* .textFeature-text.show {
+.textFeature-text.show {
   opacity: 1;
-  transform: translate(0, 0);
-} */
+  transform: translate3d(0, 0, 0);
+}
 
 #textFeature-container .textFeature-text div {
   /* font-size: 15.5dvw; */
@@ -52,8 +56,8 @@
   line-height: 0.8;
   letter-spacing: -0.05em;
   display: flex;
+  /* overflow-y: hidden; */
 }
-
 /* #textFeature-container {
   font-size: 16vw;
   text-align: center;
@@ -63,12 +67,25 @@
   letter-spacing: -0.05em;
 } */
 
+#textFeature-container img {
+  margin-left: 20px;
+  /* margin-top: 150px; */
+  height: 10dvw;
+  position: fixed;
+  bottom: 50px;
+  display: none;
+}
+
 @media screen and (min-width: 800px) {
   #textFeature-container {
     /* margin-top: min(30vw, 300px); */
     /* margin-bottom: 50px; */
     /* margin-bottom: 60px; */
     padding: 0 40px;
+  }
+
+  .textFeature-text {
+    margin-top: 0;
   }
 }
 

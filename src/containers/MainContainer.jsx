@@ -29,6 +29,7 @@ export default function MainContainer({
   setScroll,
   history,
   scrollCutOff,
+  setMounting,
 }) {
   const [adminMessage, setAdminMessage] = useState(null);
 
@@ -76,7 +77,15 @@ export default function MainContainer({
 
         <Route
           path="/project/:id"
-          element={<Project projects={projects} cursor={cursor} mobile={mobile} viewport={viewport} />}
+          element={
+            <Project
+              projects={projects}
+              cursor={cursor}
+              mobile={mobile}
+              viewport={viewport}
+              setMounting={setMounting}
+            />
+          }
         />
 
         <Route

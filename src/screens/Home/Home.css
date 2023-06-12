@@ -17,6 +17,10 @@
   top: 0;
 }
 
+.home-page .page {
+  min-height: 100vh;
+}
+
 /* .animation-container {
   opacity: 0;
   transition: opacity 3s ease 3s;

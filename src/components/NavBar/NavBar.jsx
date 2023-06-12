@@ -31,6 +31,11 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
   }, []);
 
   useEffect(() => {
+    // console.log("navBar MOUNT", window.scrollY);
+  }, []);
+
+  useEffect(() => {
+    // console.log("navBar LOCATION", window.scrollY, location.pathname);
     if (mobile || location.pathname.match(/^\/admin\/[\w-]+$/)) {
       setIsVisible(false);
     } else {
@@ -48,7 +53,6 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
 
     const sMax = document.body.offsetHeight - viewport.height;
     const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
-    // console.log(latest, scrollCutOff, document.body.offsetHeight, sMax, s);
 
     if (!isVisible && latest >= s) {
       setIsVisible(true);
@@ -101,7 +105,7 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
               <TagLink tag={{ text: "About Us", href: "/about" }} nav />
             </div> */}
 
-            <div className="nav-bar__logo nav-bar__item">
+            <div className="nav-bar__logo nav-bar__item" style={{ cursor: "pointer" }}>
               <img
                 onClick={() => {
                   // if (location.pathname === "/") {
