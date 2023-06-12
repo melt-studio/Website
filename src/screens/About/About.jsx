@@ -77,7 +77,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
     window.scrollTo(0, 0);
 
     if (cursor && cursor.current) {
-      cursor.current.style.backgroundColor = "var(--yellow)";
+      cursor.current.style.backgroundColor = "var(--gray)";
       // document.body.style.cursor = "none";
       cursor.current.className = "cursor";
     }
@@ -166,7 +166,6 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
         multiLoaded={gradientColsLoaded}
         viewport={viewport}
       />
-      {/* <div id="about-background"></div> */}
 
       {aboutInfo.length > 0 && (
         <>

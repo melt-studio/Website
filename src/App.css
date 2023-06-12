@@ -20,6 +20,7 @@ a {
 
 .page a:hover {
   color: var(--yellow);
+  color: var(--gray);
 }
 
 .page {

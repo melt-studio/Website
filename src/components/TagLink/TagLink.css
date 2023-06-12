@@ -30,10 +30,13 @@
 .nav-bar .tag-link:hover h3,
 .tag-link-nav:hover h3 {
   color: var(--yellow);
+  color: var(--gray);
 }
 
 .about-page .tag-link h3 {
   color: var(--yellow);
+  color: var(--gray);
+  transition: font-variation-settings 0.3s ease, color 0.5s ease;
 }
 
 .about-page .tag-link:hover h3 {
