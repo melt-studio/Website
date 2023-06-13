@@ -7,13 +7,12 @@
 
 .project-text .col {
   opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 1.5s ease-in-out 0.5s, transform 1.5s ease-in-out 0.5s;
+  transform: translateY(25px);
+  transition: opacity 1s ease-in-out 0.5s, transform 1s ease-in-out 0.5s;
 }
 
-.project-text .col.full,
 .project-text .col.primary {
-  transition: opacity 1.5s ease-in-out 0s, transform 1.5s ease-in-out 0s;
+  transition: opacity 1s ease-in-out 0s, transform 1s ease-in-out 0s;
 }
 
 .project-text.show .col {
