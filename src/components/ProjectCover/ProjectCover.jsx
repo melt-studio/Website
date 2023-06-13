@@ -1,13 +1,10 @@
-// import { useState, useMemo } from "react";
 import { useMemo } from "react";
 import ProjectCoverMedia from "../ProjectCoverMedia/ProjectCoverMedia.jsx";
 import FadeScroll from "../FadeScroll/FadeScroll.jsx";
-import "./ProjectCover.css";
 import Background from "../Background/Background.js";
+import "./ProjectCover.css";
 
 const ProjectCover = ({ project, overlay, loading, setLoading, mobile, viewport, cursor }) => {
-  // const [loading, setLoading] = useState(true);
-
   const { mainImage, mainVid } = project.fields;
 
   const size = useMemo(() => {
@@ -26,10 +23,6 @@ const ProjectCover = ({ project, overlay, loading, setLoading, mobile, viewport,
     return size;
   }, [mainImage, viewport.width]);
 
-  // useEffect(() => {
-  //   console.log("PROJECT COVER");
-  // }, []);
-
   if (!mainImage && !mainVid) return null;
 
   const background = project.fields.backgroundColor
@@ -42,8 +35,6 @@ const ProjectCover = ({ project, overlay, loading, setLoading, mobile, viewport,
 
   const style = {
     background: mobile ? "transparent" : `linear-gradient(to bottom, ${background[0]} 35%, ${background[1]} 100%)`, // to match Background smoothstep
-    // backgroundColor: project.fields.cursorColor,
-    // backgroundColor: mobile ? "transparent" : project.fields.cursorColor,
   };
 
   if (mobile && size.height) {
@@ -52,11 +43,7 @@ const ProjectCover = ({ project, overlay, loading, setLoading, mobile, viewport,
 
   return (
     <>
-      <FadeScroll
-        viewport={{ amount: 0.7 }}
-        className={`project-cover-full${mainVid ? " wide" : ""}`}
-        // style={style}
-      >
+      <FadeScroll viewport={{ amount: 0.7 }} className={`project-cover-full${mainVid ? " wide" : ""}`}>
         {!mobile && <Background backgroundColor={project.fields.backgroundColor} />}
         <FadeScroll
           viewport={{ amount: 0.3 }}

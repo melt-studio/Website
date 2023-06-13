@@ -6,8 +6,6 @@ import "./ProjectImages.css";
 import Pattern from "../../assets/images/MELT__PATTERN.png";
 
 const ProjectImage = ({ image, project, viewport }) => {
-  // const [loading, setLoading] = useState(true)
-
   const ref = useRef();
   const imgHolder = useRef();
 
@@ -34,7 +32,6 @@ const ProjectImage = ({ image, project, viewport }) => {
 
       if (ref.current.wrapper) ref.current.wrapper.classList.remove("loading");
       else ref.current.classList.remove("loading");
-      // imgHolder.current.style.background = "transparent";
       imgHolder.current.classList.remove("loading");
     }
   };
@@ -52,7 +49,6 @@ const ProjectImage = ({ image, project, viewport }) => {
             width="100%"
             height="auto"
             url={image.url}
-            // controls
             muted={true}
             volume={0}
             playing={true}

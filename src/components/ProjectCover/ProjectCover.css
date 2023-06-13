@@ -1,7 +1,5 @@
 .project-cover-full {
   width: 100%;
-  /* transition: height 1s; */
-
   display: flex;
   justify-content: center;
   padding-top: 10%;
@@ -38,14 +36,11 @@
   background: transparent;
   pointer-events: none;
   opacity: 0;
-  /* display: none; */
   transition: opacity 1s;
 }
 
 #overlay.show {
   opacity: 1;
-  /* display: block; */
-  /* background-color: #000000; */
 }
 
 @media (min-width: 800px) {

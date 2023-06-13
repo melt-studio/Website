@@ -1,4 +1,3 @@
-// const FadeDiv = ({ name, duration, delay, easing, stagger, damping, i = 0, children }) => {
 const FadeDiv = ({ className, duration, delay, stagger, damping, i = 0, children }) => {
   return (
     <div
@@ -17,8 +16,6 @@ const FadeIn = ({ name, duration = 1, delay = 0, easing = "ease", stagger = fals
 
   const className = `css-${name}`;
   const settings = {
-    // name,
-    // easing,
     className,
     duration,
     delay,

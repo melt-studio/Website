@@ -62,61 +62,36 @@ export default function ProjectTiles({ projects, cursor, setScroll, setBackgroun
         };
       });
 
-      // console.log(projects);
-      // console.log(projectsMapped);
-
       setProjectData(projectsMapped);
     }
   }, [projects]);
 
   const handleClick = (project) => {
-    // console.log(project);
-    // const p = document.getElementById(`project_${project.id}`);
-    // if (p) {
-    //   console.log(p);
-    //   // p.style.opacity = 1;
-    //   // p.classList.add("show");
-    // }
     setScroll(window.scrollY);
     navigate(`/project/${project.projectUrl}`);
     cursorEvents.onMouseLeave(project.unofficials ? ["project", "unofficial"] : ["project"]);
     if (cursor.current) {
       cursor.current.classList.add("project-click");
     }
-
-    // // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    // // setTimeout(() => window.scrollTo(0, 0), 1);
-    // window.scrollTo(0, 0);
-
-    // document.body.scrollTop = 0; // For Safari
-    // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };
 
   const handleMouseEnter = (project) => {
-    // console.log(project);
     cursorEvents.onMouseEnter(project.unofficials ? ["project", "unofficial"] : ["project"]);
     if (cursor && cursor.current) {
       cursor.current.style.backgroundColor = project.color.cursor;
-      // cursor.current.firstElementChild.style.fill = project.color.cursor;
       Array.from(cursor.current.children).forEach((c) => (c.style.fill = project.color.cursor));
     }
-    // setBackgroundColor(`${project.color.cursor}, #0000ff`);
+
     setBackgroundColor(project.color.background);
-    // document.body.style.backgroundColor = project.color.cursor;
-    // document.documentElement.style.setProperty("background-color", project.color.cursor);
   };
 
   const handleMouseLeave = (project) => {
     cursorEvents.onMouseLeave(project.unofficials ? ["project", "unofficial"] : ["project"]);
     if (cursor && cursor.current) {
       cursor.current.style.removeProperty("background-color");
-      // cursor.current.firstElementChild.style.fill = "transparent";
       Array.from(cursor.current.children).forEach((c) => (c.style.fill = "transparent"));
     }
     setBackgroundColor("#000000");
-    // setBackgroundColor("#000000");
-    // document.body.style.backgroundColor = "#000000";
-    // document.documentElement.style.setProperty("background-color", "#000000");
   };
 
   return (

@@ -3,7 +3,6 @@ import CursorUnofficial from "./CusorUnofficial.jsx";
 import CursorPlay from "./CursorPlay.jsx";
 import CursorPause from "./CursorPause.jsx";
 import "./Cursor.css";
-// import { useLocation } from "react-router-dom";
 
 export const cursorEvents = {
   onMouseEnter: (name = ["link"]) => {
@@ -30,13 +29,10 @@ export const cursorEvents = {
 
 const Cursor = forwardRef((props, ref) => {
   const container = useRef();
-  // const location = useLocation();
 
   useEffect(() => {
     const updateCursorPos = (e) => {
       if (container && container.current) {
-        // ref.current.style.left = `${e.clientX}px`;
-        // ref.current.style.top = `${e.clientY}px`;
         container.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
       }
     };
@@ -47,12 +43,6 @@ const Cursor = forwardRef((props, ref) => {
       document.removeEventListener("mousemove", updateCursorPos);
     };
   }, [ref]);
-
-  // useEffect(() => {
-  //   if (location.pathname === "/" && ref.current) {
-  //     ref.current.classList.add("initial");
-  //   }
-  // }, [ref, location]);
 
   return (
     <div ref={container} className="cursor-container">

@@ -4,7 +4,6 @@ const fragmentShader = /* glsl */ `
   uniform vec3 uColor1;
   uniform vec3 uColor2;
   uniform float uTime;
-
   uniform float uCount;
   uniform float uMultiple;
   uniform vec2 uMultiLoaded;
@@ -24,23 +23,15 @@ const fragmentShader = /* glsl */ `
 
     float tf = 1. - uMultiple * .5;
 
-    // f = smoothstep(.35, 1., f);
-    // f = smoothstep(.5, 1., f);
     vec2 vUv2 = vUv + sin(vUv.x * 4. + uTime * .25 * tf) - cos(-vUv.y * 3. + vUv.x * 0. - uTime * .333/2.* tf);
     f = sin(length(vUv2) + uTime * .25 * tf + uC0.r + uC1.g + uC2.b) * .5 + .5;
     f += sin(-vUv.x * 4.- vUv.y * 2.+ length(vUv) * sin(uTime * .25 * tf) + sin(vUv.y * 4. + uTime * .125 * tf + uC2.r + uC3.g + uC4.b) + uTime * .25 * tf + sin(-vUv.x * vUv.y + uTime * .25 * tf + uC1.g - uC2.r + uC3.g) * 2.) * .5 + .5;
     f /= 2.;
-    // f = smoothstep(.3, .7, f);
     float ff = uMultiple == 1. ? .05 : .1;
-    f = smoothstep(.15, .85, f * ((1.-ff) + ff *rand(vec2(f))));
-    // f = smoothstep(.15, .85, f);
-    // f = smoothstep(.45, .55, f);
+    f = smoothstep(.15, .85, f * ((1.-ff) + ff * rand(vec2(f))));
     f = clamp(f, 0., 1.);
-    // f = smoothstep(.3, .7, f);
 
     vec3 color = mix(uColor1, uColor2, f);
-    
-
     vec3 m2 = mix(vec3(0.), vec3(51./255.), f);
 
     if (uMultiple == 1.) {

@@ -45,7 +45,6 @@
   width: 100%;
   transition: opacity 1.5s ease-in-out;
   opacity: 1;
-  /* transform: translate(0, 30px); */
   z-index: 10;
   position: relative;
 }
@@ -53,10 +52,6 @@
 .project-images__image.loading {
   opacity: 0;
 }
-
-/* .project-images__image.video {
-  max-width: 90%;
-} */
 
 @media (min-width: 800px) {
   .project-images {

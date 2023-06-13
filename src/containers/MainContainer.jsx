@@ -4,7 +4,6 @@ import About from "../screens/About/About.jsx";
 import Home from "../screens/Home/Home.jsx";
 import Project from "../screens/Project/Project.jsx";
 import Other from "../screens/Other/Other.jsx";
-// import Login from "../screens/Login/Login.jsx";
 import Admin from "../screens/Admin/Admin.jsx";
 import AdminConfig from "../screens/Admin/AdminConfig.jsx";
 import TempLandingPage from "../screens/TempLandingPage/TempLandingPage.jsx";
@@ -47,7 +46,6 @@ export default function MainContainer({
 
         <Route
           path="/admin"
-          // element={loggedIn ? <Admin adminMessage={adminMessage} /> : <Navigate to="/login" replace />}
           element={<Admin loggedIn={loggedIn} setLoggedIn={setLoggedIn} adminMessage={adminMessage} />}
         />
         <Route
@@ -92,13 +90,6 @@ export default function MainContainer({
           path="/:type/:id"
           element={<Other embeds={embeds} config={config} cursor={cursor} mobile={mobile} viewport={viewport} />}
         />
-
-        {/* <Route
-          path="/login"
-          element={
-            loggedIn ? <Navigate to="/admin" replace /> : <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-          }
-        /> */}
 
         <Route
           path="/"

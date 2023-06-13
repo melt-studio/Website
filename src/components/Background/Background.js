@@ -4,7 +4,6 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrthographicCamera } from "@react-three/drei";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import "./Background.css";
-// import { Perf } from "r3f-perf";
 
 import vertexShader from "./shaders/vertex";
 import fragmentShader from "./shaders/fragment";
@@ -69,18 +68,7 @@ const Background = ({
         <div ref={background1}></div>
         <div ref={background2}></div>
       </div>
-      <div
-        id="background-container"
-        // style={{
-        //   width: "100%",
-        //   height: "100vh",
-        //   zIndex: -1,
-        //   pointerEvents: "none",
-        //   position: "fixed",
-        //   left: 0,
-        //   top: 0,
-        // }}
-      >
+      <div id="background-container">
         <Canvas dpr={[1, 2]}>
           <OrthographicCamera makeDefault manual left={-1} right={1} top={1} bottom={-1} near={-1} far={1} />
           <Mesh
@@ -93,14 +81,13 @@ const Background = ({
             multiLoaded={multiLoaded}
             viewport={viewport}
           />
-          {/* <Perf /> */}
         </Canvas>
       </div>
     </>
   );
 };
 
-const Mesh = ({ background, background1, background2, uniforms, multiColors, multiple, multiLoaded, viewport }) => {
+const Mesh = ({ background, background1, background2, uniforms, multiColors, multiple, multiLoaded }) => {
   const [styles1, styles2, color1, color2] = useMemo(() => {
     const styles1 = background1 && background1.current ? window.getComputedStyle(background1.current) : null;
     const styles2 = background2 && background2.current ? window.getComputedStyle(background2.current) : null;
@@ -116,37 +103,12 @@ const Mesh = ({ background, background1, background2, uniforms, multiColors, mul
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    // if (mobile) return;
-
-    // const sMax = document.body.offsetHeight - viewport.height;
-    // const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
-
-    // const s = 50;
-    // console.log(latest, scrollCutOff, document.body.offsetHeight, sMax, s);
-
     scroll.x = MathUtils.clamp(latest, 0, window.innerHeight / 2);
-
-    // console.log(l, window.innerHeight / l);
-
-    // if (background.current) {
-    //   background.current.material.uniforms.uScroll.value = l / (window.innerHeight / 2);
-    // }
-
-    // if (isVisible && latest >= s) {
-    //   setIsVisible(false);
-    // } else if (!isVisible && latest < s) {
-    //   setIsVisible(true);
-    // }
   });
 
   useFrame((state, delta) => {
     if (background.current) {
-      // background.current.material.uniforms.uScroll.value = l / (window.innerHeight / 2);
       scroll.y = MathUtils.damp(scroll.y, scroll.x, 2, delta);
-      // console.log(scroll.x);
-      // scroll.y = MathUtils.clamp(scroll.y, 0, window.innerHeight / 2);
-      // scroll.y += (scroll.x - scroll.y) * 0.9;
-      // console.log(scroll.x, scroll.y);
       background.current.material.uniforms.uScroll.value = scroll.y / (window.innerHeight / 2);
     }
   });
@@ -157,9 +119,6 @@ const Mesh = ({ background, background1, background2, uniforms, multiColors, mul
         background.current.material.uniforms[`uC${i}`].value = new Color(c);
       });
 
-      // console.log(background.current.material.uniforms);
-
-      // console.log(multiColors.length);
       background.current.material.uniforms.uCount.value = multiColors.length;
       background.current.material.uniforms.uMultiple.value = multiple ? 1 : 0;
     }

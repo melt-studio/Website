@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import styled, { keyframes, css } from "styled-components";
-import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
-// import DrippyLogo from "../../assets/images/MELT__DRIPPY__ANIMATED.gif";
 import FadeInOut from "../FadeInOut/FadeInOut";
 import "./IntroAnimation.css";
+
+import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
 
 const fadeInLogo = keyframes`
   from {
@@ -14,19 +14,6 @@ const fadeInLogo = keyframes`
     opacity: 1;
     transform: translateY(0) scale(1);
   }
-
-  // 0% {
-  //   opacity: 0;
-  //   transform: translateY(30px) scale(1);
-  // }
-  // 50% {
-  //   opacity: 1;
-  //   transform: translateY(0) scale(1);
-  // }
-  // 100% {
-  //   opacity: 0;
-  //   transform: translateY(0) scale(0.85);
-  // }
 `;
 
 const fadeOutLogo = keyframes`
@@ -44,27 +31,10 @@ const FadeLogo = styled.img`
   opacity: 0;
   transform: translateY(30px) scale(1);
   animation: ${({ mobile }) => {
-    // if (mobile) {
-    // return css`
-    //   ${fadeInLogo} 2s ease 1s forwards, ${fadeOutLogo} 2s ease 3s forwards;
-    // `;
     return css`
-      // ${fadeInLogo} 2s ease 1s forwards;
       ${fadeInLogo} 2s ease 1s forwards, ${fadeOutLogo} 2s ease 3s forwards;
     `;
-    // }
-
-    // return css`
-    //   ${fadeInLogo} 2s ease 0.8s forwards
-    // `;
   }};
-
-  // .hide & {
-  //   animation: ${({ mobile }) => css`
-    //     ${fadeOutLogo} 2s ease 0s forwards;
-    //
-  `};
-  // }
 `;
 
 const fadeInText = keyframes`
@@ -97,8 +67,6 @@ const FadeText = styled.p`
 `;
 
 export default function IntroAnimation({ initial, setInitial, mobile }) {
-  // const [ended, setEnded] = useState(false);
-
   const container = useRef();
   const copy = useRef();
 
@@ -126,16 +94,6 @@ export default function IntroAnimation({ initial, setInitial, mobile }) {
       className="intro"
       containerRef={container}
     >
-      {/* <AnimatePresence> */}
-      {/* {initial && (
-        <motion.div
-          initial={false}
-          animate={{ opacity: [0, 1, 1] }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: mobile ? 1 : 2, ease: "easeInOut", delay: 0.5 }}
-          className="intro"
-          ref={container}
-        > */}
       <div className="intro__logo">
         <FadeLogo
           src={DrippyLogo}
@@ -145,7 +103,6 @@ export default function IntroAnimation({ initial, setInitial, mobile }) {
             if (!mobile) {
               if (e.animationName === fadeInLogo.name) {
                 if (container && container.current) {
-                  // setEnded(true);
                   setInitial(false);
                 }
               }
@@ -162,7 +119,6 @@ export default function IntroAnimation({ initial, setInitial, mobile }) {
               delay={i * 0.1}
               onAnimationEnd={(e) => {
                 if (i === lines.length - 1) {
-                  // setEnded(true);
                   if (e.animationName === fadeInText.name) {
                     if (container && container.current && copy && copy.current) {
                       const h = copy.current.getBoundingClientRect().height;
@@ -173,15 +129,6 @@ export default function IntroAnimation({ initial, setInitial, mobile }) {
                       }
                     }
                   }
-
-                  // if (e.animationName === fadeInLogo.name) {
-                  //   if (container && container.current) {
-                  //     // setEnded(true);
-                  //     setInitial(false);
-                  //   }
-                  // }
-
-                  // console.log(h);
                 }
 
                 if (i === 0) {
@@ -196,9 +143,6 @@ export default function IntroAnimation({ initial, setInitial, mobile }) {
           ))}
         </div>
       )}
-      {/* </motion.div>
-      )}
-    </AnimatePresence> */}
     </FadeInOut>
   );
 }

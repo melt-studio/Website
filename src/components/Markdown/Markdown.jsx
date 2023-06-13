@@ -5,17 +5,6 @@ const Markdown = ({ props, children }) => {
   return (
     <ReactMarkdown
       components={{
-        // p: ({ node, index, siblingCount, ...props }) => {
-        //   return (
-        //     <FadeIn
-        //       key={`fadeIn_${index}_${siblingCount}`}
-        //       {...fadeInText}
-        //       delay={fadeInText.delay + fadeInText.damping * index}
-        //     >
-        //       <p {...props} />
-        //     </FadeIn>
-        //   );
-        // },
         a: ({ node, index, siblingCount, ...props }) => {
           return (
             <a

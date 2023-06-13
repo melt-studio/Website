@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate, useParams } from "react-router-dom";
 import ProjectCover from "../../components/ProjectCover/ProjectCover.jsx";
-// import ProjectTitle from "../../components/ProjectTitle/ProjectTitle.jsx";
 import ProjectText from "../../components/ProjectText/ProjectText.jsx";
 import ProjectImages from "../../components/ProjectImages/ProjectImages.jsx";
 import ProjectNav from "../../components/ProjectNav/ProjectNav.jsx";
@@ -150,7 +149,6 @@ const Project = ({ projects, cursor, mobile, viewport, history }) => {
               <>
                 <ProjectText key={`${project.id}_text`} project={project} mobile={mobile} />
                 <ProjectImages key={`${project.id}_images`} project={project} mobile={mobile} viewport={viewport} />
-                {/* <ProjectTitle key={`${project.id}_title`} project={project} mobile={mobile} viewport={viewport} /> */}
                 <ProjectNav prev={prev} next={next} />
               </>
             )}

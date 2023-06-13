@@ -4,10 +4,10 @@ import { useScroll, useMotionValueEvent } from "framer-motion";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
 import { cursorEvents } from "../Cursor/Cursor.jsx";
 import "./NavMenuLogo.css";
+
 import MeltLogo from "../../assets/images/MELT__LOGO.png";
 
 const keyframes = {
-  // initial: { opacity: 1, y: -20 },
   enter: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -20 }, // y: 20
 };
@@ -48,7 +48,6 @@ const NavMenuLogo = ({ setNavMenuOpen, initial, mobile, viewport, scrollCutOff }
 
     const sMax = document.body.offsetHeight - viewport.height;
     const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
-    // console.log(latest, scrollCutOff, document.body.offsetHeight, sMax, s);
 
     if (!isVisible && latest > s) {
       setIsVisible(true);

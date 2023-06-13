@@ -1,9 +1,9 @@
-// import FadeIn from "../../components/FadeIn/FadeIn.jsx";
 import { keyframes } from "../../utils/keyframes.js";
 import { useEffect, useRef, useState } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import "./TextFeature.css";
-import Arrow from "../../assets/images/MELT__ARROW.svg";
+
+// import Arrow from "../../assets/images/MELT__ARROW.svg";
 
 keyframes`
   @keyframes customAnimationTextFeature {
@@ -22,7 +22,6 @@ const fadeInText = {
   name: "customAnimationTextFeature",
   duration: 2,
   delay: 0.5,
-  // stagger: true,
   damping: 0.125,
 };
 
@@ -38,9 +37,6 @@ const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
       const s = str[j];
       const delay = fadeInText.delay + fadeInText.damping * (j + i * 2);
       text[i].push(
-        // <FadeIn key={`${s}_${i}_${j}`} {...fadeInText} delay={fadeInText.delay + fadeInText.damping * (j + i * 2)}>
-        //   {s === " " ? <span>&nbsp;</span> : <span>{s}</span>}
-        // </FadeIn>
         <div className="textFeature-text__text" key={`${s}_${i}_${j}`} style={{ transitionDelay: `${delay}s` }}>
           {s === " " ? <span>&nbsp;</span> : <span>{s}</span>}
         </div>
@@ -67,14 +63,9 @@ const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
   useMotionValueEvent(scrollY, "change", (latest) => {
     const s = viewport.height * 0.1;
 
-    // const dir = scrollY.current - scrollY.prev < 0 ? -1 : 1;
-    // const className = dir === -1 ? "exit" : "show";
-
     if (isVisible && latest > s) {
-      // text2.current.classList.remove("show");
       setIsVisible(false);
     } else if (!isVisible && latest <= s) {
-      // text2.current.classList.add("show");
       setIsVisible(true);
     }
   });
@@ -89,7 +80,7 @@ const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
             </div>
           ))}
         </div>
-        <img src={Arrow} alt="Scroll down" />
+        {/* <img src={Arrow} alt="Scroll down" /> */}
       </div>
     </>
   );

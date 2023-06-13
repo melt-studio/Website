@@ -20,16 +20,10 @@ const ProjectCoverMedia = ({ project, setLoading, cursor, mobile, viewport }) =>
   useEffect(() => {
     const resize = () => {
       // Get aspect ratio of image
-      // console.log(ref.current);
-      // console.log(ref.current.width);
-      // console.log(ref.current.height);
-      // console.log(viewport);
-
       if (ref && ref.current && size) {
         const aS = viewport.width / viewport.height;
         const aI = size.width / size.height;
 
-        // console.log(aS, aI);
         let target = ref.current.wrapper ? ref.current.wrapper.children[0] : ref.current;
 
         if (aI > aS) {
@@ -55,20 +49,13 @@ const ProjectCoverMedia = ({ project, setLoading, cursor, mobile, viewport }) =>
         // for ReactPlayer
         ref.current.wrapper.classList.add("loaded");
 
-        // console.log(e.wrapper.children[0].videoHeight);
-
         setSize({ width: e.wrapper.children[0].videoWidth, height: e.wrapper.children[0].videoHeight });
       } else {
         ref.current.classList.add("loaded");
 
-        // console.log(e);
         setSize({ width: e.target.naturalWidth, height: e.target.naturalHeight });
       }
     }
-
-    // if (overlay && overlay.current) {
-    //   overlay.current.classList.remove("show");
-    // }
 
     setLoading(false);
   };
