@@ -6,14 +6,19 @@ import { cursorEvents } from "../Cursor/Cursor.jsx";
 import "./NavMenu.css";
 
 const keyframesContainer = {
-  enter: { opacity: [0, 1, 1], y: 0, transition: { duration: 1.25, ease: "easeInOut", when: "beforeChildren" } },
+  enter: {
+    opacity: [0, 1, 1, 1, 1, 1],
+    y: 0,
+    transition: { duration: 1.25, ease: "easeInOut", when: "beforeChildren" },
+  },
   exit: {
-    opacity: [1, 1, 0],
+    opacity: [1, 1, 1, 1, 1, 0],
     y: "-100%",
     transition: {
-      duration: 1,
+      duration: 1.25,
       ease: "easeInOut",
-      delay: 1,
+      delay: 1.3,
+      // when: "afterChildren",
     },
   },
 };
@@ -36,7 +41,7 @@ const keyframesItem = {
   exit: {
     y: 20,
     opacity: 0,
-    transition: { duration: 0.5, ease: "easeInOut" },
+    transition: { duration: 1, ease: "easeInOut" },
   },
 };
 

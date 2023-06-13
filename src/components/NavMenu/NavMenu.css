@@ -92,7 +92,7 @@
 }
 
 .nav-menu__close-container .nav-menu__close-bar {
-  animation: nav-menu__close-bar-left 1.5s ease-in-out 1.1s 1 forwards;
+  animation: nav-menu__close-bar-left 1.5s ease-in-out 1.5s 1 forwards;
 }
 
 .nav-menu__close-container .nav-menu__close-bar.right {

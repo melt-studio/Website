@@ -7,6 +7,7 @@ import { cursorEvents } from "../Cursor/Cursor";
 import "./NavBar.css";
 
 import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
+// import DrippyLogo from "./DrippyLogo.jsx";
 
 const keyframes = {
   enter: {

@@ -32,7 +32,7 @@ const fragmentShader = /* glsl */ `
     f = clamp(f, 0., 1.);
 
     vec3 color = mix(uColor1, uColor2, f);
-    vec3 m2 = mix(vec3(0.), vec3(51./255.), f);
+    vec3 m2 = mix(vec3(0.), vec3(51./255.)*0., f);
 
     if (uMultiple == 1.) {
       color = vec3(0.);
