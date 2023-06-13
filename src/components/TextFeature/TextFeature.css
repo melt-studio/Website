@@ -19,7 +19,7 @@
 
 .textFeature-text .textFeature-text__text {
   opacity: 0;
-  transform: translate3d(0, 10dvh, 0);
+  transform: translate3d(0, -10dvh, 0);
   transition: opacity 1s ease-in-out, transform 2s ease-in-out;
 }
 

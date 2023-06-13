@@ -27,6 +27,11 @@ const fadeInText = {
 
 const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
   const [isVisible, setIsVisible] = useState(false);
+  // const [strs, setStrs] = useState(["WE BRING", "STORIES", "TO LIFE"]);
+
+  // useEffect(() => {
+
+  // }, [])
 
   const strs = ["WE BRING", "STORIES", "TO LIFE"];
   const text = [];
