@@ -19,7 +19,19 @@ import { blur } from "../../helpers/blurTexture";
 
 const LogoScene = forwardRef(
   (
-    { fps, name, controls, config, updateConfig, localStorageConfig, updateName, fade, fromProject, containerRef },
+    {
+      fps,
+      name,
+      controls,
+      config,
+      updateConfig,
+      localStorageConfig,
+      updateName,
+      fade,
+      fromProject,
+      containerRef,
+      cursor,
+    },
     ref
   ) => {
     const cam = useRef();
@@ -345,7 +357,10 @@ const LogoScene = forwardRef(
       if (containerRef.current) {
         if (progress.progress >= 100 && !containerRef.current.classList.contains("show")) {
           containerRef.current.classList.add("show");
-          // console.log("progress");
+          if (cursor.current) {
+            cursor.current.classList.remove("initial");
+            console.log("progress");
+          }
         }
       }
 

@@ -77,7 +77,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
     window.scrollTo(0, 0);
 
     if (cursor && cursor.current) {
-      cursor.current.style.backgroundColor = "var(--gray)";
+      cursor.current.style.backgroundColor = "var(--yellow)";
       // document.body.style.cursor = "none";
       cursor.current.className = "cursor";
     }

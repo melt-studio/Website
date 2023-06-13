@@ -27,7 +27,7 @@ const keyframesItems = {
     transition: { staggerChildren: 0.15, delayChildren: 0 },
   },
   exit: {
-    transition: { staggerChildren: 0.1, staggerDirection: -1 },
+    transition: { staggerChildren: 0.15, staggerDirection: -1 },
   },
 };
 

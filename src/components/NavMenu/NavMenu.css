@@ -71,7 +71,6 @@
 
 .nav-menu__items a:hover p {
   color: var(--yellow);
-  color: var(--gray);
 }
 
 .nav-menu__logo {

@@ -1,6 +1,6 @@
-import FadeIn from "../../components/FadeIn/FadeIn.jsx";
+// import FadeIn from "../../components/FadeIn/FadeIn.jsx";
 import { keyframes } from "../../utils/keyframes.js";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import "./TextFeature.css";
 import Arrow from "../../assets/images/MELT__ARROW.svg";
@@ -27,9 +27,7 @@ const fadeInText = {
 };
 
 const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
-  // const created = ({ gl }) => {
-  //   // gl.setClearColor(0x0000ff);
-  // };
+  const [isVisible, setIsVisible] = useState(false);
 
   const strs = ["WE BRING", "STORIES", "TO LIFE"];
   const text = [];
@@ -38,35 +36,57 @@ const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
     text[i] = [];
     for (let j = 0; j < str.length; j++) {
       const s = str[j];
+      const delay = fadeInText.delay + fadeInText.damping * (j + i * 2);
       text[i].push(
-        <FadeIn key={`${s}_${i}_${j}`} {...fadeInText} delay={fadeInText.delay + fadeInText.damping * (j + i * 2)}>
+        // <FadeIn key={`${s}_${i}_${j}`} {...fadeInText} delay={fadeInText.delay + fadeInText.damping * (j + i * 2)}>
+        //   {s === " " ? <span>&nbsp;</span> : <span>{s}</span>}
+        // </FadeIn>
+        <div className="textFeature-text__text" key={`${s}_${i}_${j}`} style={{ transitionDelay: `${delay}s` }}>
           {s === " " ? <span>&nbsp;</span> : <span>{s}</span>}
-        </FadeIn>
+        </div>
       );
     }
   }
 
-  // const [isVisible] = useState(true);
   const { scrollY } = useScroll();
 
   const text2 = useRef();
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (text2.current) {
-      if (latest > viewport.height * 0.1) {
-        text2.current.classList.remove("show");
-      } else {
-        text2.current.classList.add("show");
+  useEffect(() => {
+    setTimeout(() => {
+      const s = viewport.height * 0.1;
+      const latest = scrollY.current;
+      if (latest > s) {
+        setIsVisible(false);
+      } else if (latest <= s) {
+        setIsVisible(true);
       }
+    }, 100);
+  }, [scrollY, viewport]);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const s = viewport.height * 0.1;
+
+    // const dir = scrollY.current - scrollY.prev < 0 ? -1 : 1;
+    // const className = dir === -1 ? "exit" : "show";
+
+    if (isVisible && latest > s) {
+      // text2.current.classList.remove("show");
+      setIsVisible(false);
+    } else if (!isVisible && latest <= s) {
+      // text2.current.classList.add("show");
+      setIsVisible(true);
     }
   });
 
   return (
     <>
       <div id="textFeature-container">
-        <div ref={text2} className="textFeature-text show">
+        <div ref={text2} className={`textFeature-text${isVisible ? " show" : ""}`}>
           {text.map((line, i) => (
-            <div key={`about_line_${i}`}>{line}</div>
+            <div className="textFeature-text__line" key={`about_line_${i}`}>
+              {line}
+            </div>
           ))}
         </div>
         <img src={Arrow} alt="Scroll down" />

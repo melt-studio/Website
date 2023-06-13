@@ -22,6 +22,7 @@ const LogoAnimation = ({
   mobile,
   fade = false,
   fromProject = false,
+  cursor,
   // projectsLoaded,
 }) => {
   const { metric, value } = defaultConfig.devices.mobile;
@@ -136,6 +137,7 @@ const LogoAnimation = ({
               updateName={updateName}
               fade={fade}
               fromProject={fromProject}
+              cursor={cursor}
             />
           </PerformanceMonitor>
         </Canvas>

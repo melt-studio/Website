@@ -30,13 +30,10 @@
 .nav-bar .tag-link:hover h3,
 .tag-link-nav:hover h3 {
   color: var(--yellow);
-  color: var(--gray);
 }
 
 .about-page .tag-link h3 {
   color: var(--yellow);
-  color: var(--gray);
-  transition: font-variation-settings 0.3s ease, color 0.5s ease;
 }
 
 .about-page .tag-link:hover h3 {
@@ -44,11 +41,9 @@
 }
 
 .tag-links .tag-block__tags h3 {
-  /* font-weight: 550; */
   font-weight: 600;
-  /* font-size: 22px; */
-  /* font-size: 17px; */
-  font-size: 13px;
+  /* font-size: 13px; */
+  font-size: 12px;
 }
 
 .about-page .nav-bar .tag-link h3,
@@ -61,14 +56,12 @@
 }
 
 .tag-link-underline {
-  position: absolute;
   position: relative;
   /* bottom: 2px;
   bottom: 4px;
   bottom: 5px; */
   bottom: 6px;
   width: 100%;
-  height: 2px;
   height: 1px;
   /* transform: scaleX(1); */
   transition: transform 0.3s ease;
@@ -116,6 +109,6 @@
     /* font-weight: 550; */
     /* font-weight: 600; */
     /* font-size: 18px; */
-    font-size: 14px;
+    font-size: 13px;
   }
 }

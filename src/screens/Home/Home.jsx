@@ -56,6 +56,12 @@ export default function Home({
   }, []);
 
   useEffect(() => {
+    if (cursor.current) {
+      cursor.current.style.removeProperty("background-color");
+    }
+  }, [cursor]);
+
+  useEffect(() => {
     if (initial) {
       window.scrollTo(0, 0);
     } else {
@@ -117,6 +123,7 @@ export default function Home({
               serverConfig={config}
               fade={fadeAnimation}
               fromProject={fromProject}
+              cursor={cursor}
               // projectsLoaded={loaded}
             />
           </div>
