@@ -7,25 +7,25 @@ import "./NavMenu.css";
 
 const keyframesContainer = {
   enter: {
-    opacity: [0, 1, 1, 1, 1, 1],
+    opacity: [0, 1, 1],
     y: 0,
     transition: { duration: 1.25, ease: "easeInOut", when: "beforeChildren" },
   },
   exit: {
-    opacity: [1, 1, 1, 1, 1, 0],
+    opacity: [1, 1, 0],
     y: "-100%",
     transition: {
       duration: 1.25,
       ease: "easeInOut",
-      // delay: 1.4,
-      when: "afterChildren",
+      delay: 1.25,
+      // when: "afterChildren",
     },
   },
 };
 
 const keyframesItems = {
   enter: {
-    transition: { staggerChildren: 0.15, delayChildren: 0 },
+    transition: { staggerChildren: 0.15, delayChildren: 0, staggerDirection: 1 },
   },
   exit: {
     transition: { staggerChildren: 0.15, staggerDirection: -1 },
@@ -39,7 +39,7 @@ const keyframesItem = {
     transition: { duration: 1, ease: "easeInOut" },
   },
   exit: {
-    y: 20,
+    y: -20,
     opacity: 0,
     transition: { duration: 1, ease: "easeInOut" },
   },
