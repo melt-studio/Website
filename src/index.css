@@ -22,13 +22,15 @@ code {
   }
 }
 
-/* body {
-  cursor: none;
-} */
-
-a {
-  cursor: pointer;
+*,
+html,
+body {
+  cursor: none !important;
 }
+
+/* a {
+  cursor: pointer;
+} */
 
 .canvas-container.loading {
   opacity: 0;
