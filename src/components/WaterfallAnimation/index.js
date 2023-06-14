@@ -60,7 +60,20 @@ const WaterfallAnimation = ({ controls, mobile, cursor }) => {
           // transition: "height 1s",
         }}
       >
-        <Canvas dpr={[1, 2]} gl={glSettings} onCreated={created}>
+        <Canvas
+          dpr={[1, 2]}
+          gl={glSettings}
+          onCreated={created}
+          orthographic
+          camera={{
+            left: -1,
+            right: 1,
+            top: 1,
+            bottom: -1,
+            near: -1,
+            far: 1,
+          }}
+        >
           {controls ? <PerfMonitor /> : null}
           <Scene
             name={name}

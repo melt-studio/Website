@@ -22,9 +22,9 @@ code {
   }
 }
 
-body {
+/* body {
   cursor: none;
-}
+} */
 
 a {
   cursor: pointer;
@@ -36,5 +36,5 @@ a {
 
 .canvas-container {
   opacity: 1;
-  transition: opacity 1s ease;
+  transition: opacity 1s ease 0.5s;
 }
