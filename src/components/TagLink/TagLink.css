@@ -3,7 +3,10 @@
   height: fit-content;
   position: relative;
   margin: 0 0 0.35rem;
-  cursor: pointer;
+}
+
+.tag-link a {
+  cursor: none;
 }
 
 .nav-bar .tag-link,

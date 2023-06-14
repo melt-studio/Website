@@ -6,8 +6,8 @@ import FadeInOut from "../FadeInOut/FadeInOut.jsx";
 import { cursorEvents } from "../Cursor/Cursor";
 import "./NavBar.css";
 
-import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
-// import DrippyLogo from "./DrippyLogo.jsx";
+// import DrippyLogo from "../../assets/images/MELT__DRIPPY.svg";
+import DrippyLogo from "./DrippyLogo.jsx";
 
 const keyframes = {
   enter: {
@@ -77,7 +77,7 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
       <div className="nav-bar__items">
         {!location.pathname.includes("/admin") && (
           <div className="nav-bar__logo nav-bar__item" style={{ cursor: "pointer" }}>
-            <img
+            {/* <img
               onClick={() => {
                 setNavMenuOpen(true);
               }}
@@ -85,7 +85,16 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
               onMouseLeave={() => cursorEvents.onMouseLeave()}
               src={DrippyLogo}
               alt="MELT Logo"
-            />
+            /> */}
+            <div
+              onClick={() => {
+                setNavMenuOpen(true);
+              }}
+              onMouseEnter={() => cursorEvents.onMouseEnter()}
+              onMouseLeave={() => cursorEvents.onMouseLeave()}
+            >
+              <DrippyLogo />
+            </div>
           </div>
         )}
 

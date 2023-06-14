@@ -198,7 +198,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                       tags={whatWeDoTags}
                       viewport={{ amount: 0.25 }}
                       transition={true}
-                      mobile={mobile}
+                      delay={mobile ? 1 : 2.5}
                     />
                     {/* </FadeScroll> */}
                     <TagBlock
@@ -206,7 +206,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                       tags={whatWeDontDoTags}
                       viewport={{ amount: 0.25 }}
                       transition={true}
-                      mobile={mobile}
+                      delay={mobile ? 1 : 2.5}
                     />
                   </div>
                 </div>
@@ -218,7 +218,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                       links={true}
                       viewport={{ amount: 0.25 }}
                       transition={true}
-                      mobile={mobile}
+                      delay={mobile ? 1.5 : 3.5}
                     />
                     {/* <TagBlock title="Contact" tags={contactTags} /> */}
                     {/* <TagBlock title="Follow" tags={followTags} /> */}

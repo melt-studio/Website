@@ -30,7 +30,7 @@
 .nav-menu__items a {
   width: fit-content;
   display: inline-block;
-  cursor: pointer;
+  cursor: none;
 }
 
 .nav-menu__link {
@@ -78,7 +78,7 @@
   width: min(min(12.5vw, 12.5vh), 60px);
   height: min(min(12.5vw, 12.5vh), 60px);
   position: relative;
-  cursor: pointer;
+  cursor: none;
 }
 
 .nav-menu__close-bar {

@@ -31,14 +31,13 @@
   transform: translate3d(0, 40px, 0);
 }
 .about-page .description-text__p p {
-  transition: opacity 2s ease 0.25s, transform 2s ease 0.25s;
+  transition: opacity 2s ease, transform 2s ease;
+  transition-delay: 1.5s;
 }
 .about-page .tag-block {
-  transition: opacity 2s ease 0.5s, transform 2s ease 0.5s;
+  transition: opacity 2s ease, transform 2s ease;
+  transition-delay: 0.5s;
 }
-/* .about-page .tag-block.tag-links {
-  transition: opacity 2s ease 1.5s, transform 2s ease 1.5s;
-} */
 
 .about-page .tag-block.show,
 .about-page .description-text__p.show p {
@@ -86,5 +85,9 @@
   .about-page .page-container {
     padding-left: 20px;
     padding-right: 20px;
+  }
+
+  .about-page .tag-block {
+    transition-delay: 2s;
   }
 }

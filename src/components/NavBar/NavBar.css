@@ -36,24 +36,28 @@
   width: fit-content;
 }
 
-.nav-bar__logo img {
+.nav-bar__logo img,
+.nav-bar__logo svg {
   width: auto;
   height: 35px;
   width: 35px;
   transform: scale(1);
   position: relative;
   top: 15px;
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, fill 0.5s ease;
+  fill: #ffffff;
 }
 
-.nav-bar__logo {
+/* .nav-bar__logo {
   cursor: pointer;
-}
+} */
 
-.nav-bar__logo img:hover {
+.nav-bar__logo img:hover,
+.nav-bar__logo svg:hover {
   transform: scale(1.2);
   transition: transform 0.5s ease;
-  cursor: pointer;
+  cursor: none;
+  fill: var(--yellow);
 }
 
 @media (min-width: 800px) {
@@ -71,7 +75,8 @@
     font-size: 20px;
   }
 
-  .nav-bar__logo img {
+  .nav-bar__logo img,
+  .nav-bar__logo svg {
     width: 40px;
     height: 40px;
   }

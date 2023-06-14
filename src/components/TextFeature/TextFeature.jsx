@@ -1,6 +1,7 @@
 import { keyframes } from "../../utils/keyframes.js";
 import { useEffect, useRef, useState } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
+// import { Vector2 } from "three";
 import "./TextFeature.css";
 
 keyframes`
@@ -57,6 +58,8 @@ const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
 
   const text2 = useRef();
 
+  // const pos = useMemo(() => new Vector2(), []);
+
   useEffect(() => {
     setTimeout(() => {
       const s = viewport.height * 0.1;
@@ -77,6 +80,11 @@ const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
     } else if (!isVisible && latest <= s) {
       setIsVisible(true);
     }
+
+    // pos.x = latest;
+    // pos.y += (pos.y - pos.x) * 1;
+
+    // text2.current.style.transform = `translateY(-${latest / 4}px)`;
 
     // if (scrollY.current - scrollY.prev < 0) {
     //   // text2.current.classList.remove("hide");

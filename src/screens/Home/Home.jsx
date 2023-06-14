@@ -58,6 +58,7 @@ export default function Home({
   useEffect(() => {
     if (cursor.current) {
       cursor.current.style.removeProperty("background-color");
+      cursor.current.className = "cursor";
     }
   }, [cursor]);
 
@@ -103,7 +104,7 @@ export default function Home({
   return (
     <>
       <Helmet>
-        <title>MELT • creative design studio</title>
+        <title>MELT • a creative design studio</title>
       </Helmet>
 
       {mobile && <IntroAnimation initial={initial} setInitial={setInitial} mobile={mobile} viewport={viewport} />}
