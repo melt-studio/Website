@@ -56,7 +56,7 @@
 .nav-bar__logo svg:hover {
   transform: scale(1.2);
   transition: transform 0.5s ease;
-  cursor: none;
+  cursor: pointer;
   fill: var(--yellow);
 }
 

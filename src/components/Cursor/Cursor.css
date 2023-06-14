@@ -56,11 +56,11 @@
   transform: translate(-50%, -50%) scale(var(--cursor-scale));
 }
 
-.cursor.link {
+/* .cursor.link {
   opacity: 1;
   background-color: var(--yellow);
   transform: translate(-50%, -50%) scale(var(--cursor-scale));
-}
+} */
 
 .cursor.project {
   opacity: 1;

@@ -5,9 +5,9 @@
   margin: 0 0 0.35rem;
 }
 
-.tag-link a {
-  cursor: none;
-}
+/* .tag-link a {
+  cursor: pointer;
+} */
 
 .nav-bar .tag-link,
 .tag-link-nav {

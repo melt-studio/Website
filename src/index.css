@@ -15,11 +15,6 @@ html {
   --cursor-scale: 1; /* of 80px */
 }
 
-/* html,
-body {
-  cursor: none;
-} */
-
 body {
   margin: 0;
   font-family: var(--font-family);
