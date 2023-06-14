@@ -37,20 +37,18 @@
 
 @keyframes rotate {
   from {
-    transform: scale(1) rotateZ(0);
+    transform: rotateZ(0);
   }
   to {
-    transform: scale(1) rotateZ(360deg);
+    transform: rotateZ(360deg);
   }
 }
 
 @keyframes fadeIn {
   from {
-    transform: scale(0);
     opacity: 0;
   }
   to {
-    transform: scale(1);
     opacity: 1;
   }
 }
