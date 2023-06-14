@@ -1,7 +1,7 @@
 import { useEffect, useRef, useMemo, useState } from "react";
 import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
-import { OrthographicCamera, useTexture } from "@react-three/drei";
+import { OrthographicCamera, useProgress, useTexture } from "@react-three/drei";
 import { useLeva } from "./controls";
 import defaultConfig from "../../helpers/LevaControls/config.json";
 
@@ -28,6 +28,7 @@ const Scene = ({
 }) => {
   const mesh = useRef();
   const [inView] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const [blurStrength, setBlurStrength] = useState(2);
   const updateBlurStrength = (value) => setBlurStrength(value);
@@ -232,8 +233,15 @@ const Scene = ({
   //   }
   // };
 
+  const progress = useProgress();
+
   useFrame((state, delta) => {
     if (!inView) return;
+
+    if (progress.progress >= 100 && loading && containerRef.current) {
+      containerRef.current.classList.remove("loading");
+      setLoading(false);
+    }
 
     mouse.x += (state.mouse.x - mouse.x) * delta * 5;
     mouse.y += (state.mouse.y - mouse.y) * delta * 5;
