@@ -50,14 +50,14 @@ const WaterfallAnimation = ({ controls, mobile, cursor }) => {
       <LevaControls controls={controls === undefined ? false : controls} />
       <div
         ref={container}
-        className="canvas-container"
+        className="canvas-container loading"
         style={{
           width: mobile && controls ? "390px" : "100%",
           height: mobile && controls ? "844px" : "100dvh",
           display: "block",
           position: "fixed",
           top: 0,
-          transition: "height 1s",
+          // transition: "height 1s",
         }}
       >
         <Canvas dpr={[1, 2]} gl={glSettings} onCreated={created}>

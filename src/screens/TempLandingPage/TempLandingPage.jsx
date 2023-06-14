@@ -6,8 +6,7 @@ import "./TempLandingPage.css";
 // import Button from "../../assets/Cursors/MELT_Live.png";
 // import Button from "../../assets/Cursors/MELT_WEBSITE ICONS_05.08_Live Site Button 1 1.png";
 // import Button2 from "../../assets/Cursors/MELT_WEBSITE ICONS_05.08_Live Site Button 2 2.png";
-import Button2 from "../../assets/Cursors/DROPPING SOON_YLLW 1.png";
-import Button from "../../assets/Cursors/DROPPING SOON_BLK-2 1.png";
+import Button from "../../assets/Cursors/DROPPING SOON_YLLW 1.png";
 // import Button from "../../assets/Cursors/MELT_Live2.svg";
 
 export default function TempLandingPage() {
