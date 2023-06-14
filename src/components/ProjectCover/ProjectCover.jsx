@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import ProjectCoverMedia from "../ProjectCoverMedia/ProjectCoverMedia.jsx";
 import FadeScroll from "../FadeScroll/FadeScroll.jsx";
-import Background from "../Background/Background.js";
+import Background from "../Background/Background.jsx";
 import "./ProjectCover.css";
 
 const ProjectCover = ({ project, overlay, loading, setLoading, mobile, viewport, cursor }) => {

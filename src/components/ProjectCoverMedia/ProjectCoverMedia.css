@@ -8,9 +8,9 @@
   transition: opacity 1s ease-in-out 0s, transform 1s ease-in-out 0s;
 }
 
-.project-cover-full__image.video {
+/* .project-cover-full__image.video {
   cursor: none;
-}
+} */
 
 @media (min-width: 800px) {
   .project-cover-full__image {

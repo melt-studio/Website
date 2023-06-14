@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import Markdown from "../../components/Markdown/Markdown.jsx";
 import TagBlock from "../../components/TagBlock/TagBlock.jsx";
-import FadeIn from "../../components/FadeIn/FadeIn.jsx";
+// import FadeIn from "../../components/FadeIn/FadeIn.jsx";
 import { keyframes } from "../../utils/keyframes.js";
 import Page from "../Page.jsx";
-import Background from "../../components/Background/Background.js";
-import "./About.css";
-import TextFeature from "../../components/TextFeature/TextFeature.js";
+import Background from "../../components/Background/Background.jsx";
+import TextFeature from "../../components/TextFeature/TextFeature.jsx";
 import FadeScroll from "../../components/FadeScroll/FadeScroll.jsx";
+import "./About.css";
 
 keyframes`
   @keyframes customAnimationText {
@@ -23,18 +23,18 @@ keyframes`
   }
 `;
 
-const fadeInText = {
-  name: "customAnimationText",
-  duration: 2,
-  delay: 0.5,
-  // stagger: true,
-  damping: 0.25,
-};
+// const fadeInText = {
+//   name: "customAnimationText",
+//   duration: 2,
+//   delay: 0.5,
+//   // stagger: true,
+//   damping: 0.25,
+// };
 
-const fadeInTextIntro = {
-  ...fadeInText,
-  name: "customAnimationTextIntro",
-};
+// const fadeInTextIntro = {
+//   ...fadeInText,
+//   name: "customAnimationTextIntro",
+// };
 
 // const contactInfo = [
 //   { text: "Say Hello", href: "mailto:hello@melt.works" },
@@ -169,9 +169,9 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
 
       {aboutInfo.length > 0 && (
         <>
-          <FadeIn {...fadeInTextIntro}>
-            <TextFeature mobile={mobile} viewport={viewport} scrollCutOff={scrollCutOff} />
-          </FadeIn>
+          {/* <FadeIn {...fadeInTextIntro}> */}
+          <TextFeature mobile={mobile} viewport={viewport} scrollCutOff={scrollCutOff} />
+          {/* </FadeIn> */}
 
           <FadeScroll viewport={{ amount: 0.01 }} className={`page-container${loading ? " loading" : ""}`}>
             <div className="row col-3">
@@ -179,9 +179,12 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                 <div className="description-text jumbo-text">
                   {aboutText &&
                     aboutText.map((text, i) => (
-                      <FadeIn key={text} {...fadeInText} delay={fadeInText.delay + fadeInText.damping * i}>
+                      // <FadeIn key={text} {...fadeInText} delay={fadeInText.delay + fadeInText.damping * i}>
+
+                      <FadeScroll key={text} viewport={{ amount: 0.25 }} className="description-text__p">
                         <Markdown>{text}</Markdown>
-                      </FadeIn>
+                      </FadeScroll>
+                      // </FadeIn>
                     ))}
                 </div>
               </div>
@@ -189,14 +192,34 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
               <div className="col-2 sticky">
                 <div className="col what">
                   <div className="">
-                    <TagBlock title="What We Do" tags={whatWeDoTags} />
-                    <TagBlock title="What We Don't Do" tags={whatWeDontDoTags} />
+                    {/* <FadeScroll viewport={{ amount: 0.25 }} className="tag-block"> */}
+                    <TagBlock
+                      title="What We Do"
+                      tags={whatWeDoTags}
+                      viewport={{ amount: 0.25 }}
+                      transition={true}
+                      mobile={mobile}
+                    />
+                    {/* </FadeScroll> */}
+                    <TagBlock
+                      title="What We Don't Do"
+                      tags={whatWeDontDoTags}
+                      viewport={{ amount: 0.25 }}
+                      transition={true}
+                      mobile={mobile}
+                    />
                   </div>
                 </div>
 
                 <div className="col links">
                   <div className="">
-                    <TagBlock tags={contactTags} links={true} />
+                    <TagBlock
+                      tags={contactTags}
+                      links={true}
+                      viewport={{ amount: 0.25 }}
+                      transition={true}
+                      mobile={mobile}
+                    />
                     {/* <TagBlock title="Contact" tags={contactTags} /> */}
                     {/* <TagBlock title="Follow" tags={followTags} /> */}
                     {/* <TagBlock title="Other" tags={embedTags} /> */}

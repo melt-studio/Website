@@ -3,13 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import "./TextFeature.css";
 
-// import Arrow from "../../assets/images/MELT__ARROW.svg";
-
 keyframes`
   @keyframes customAnimationTextFeature {
     from {
       opacity: 0;
-      transform: translate3d(0, 40px, 0);
+      transform: translate3d(0, -40px, 0);
     }
     to {
       opacity: 1;
@@ -27,23 +25,29 @@ const fadeInText = {
 
 const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
   const [isVisible, setIsVisible] = useState(false);
-  // const [strs, setStrs] = useState(["WE BRING", "STORIES", "TO LIFE"]);
+  const [copy, setCopy] = useState(["WE BRING", "STORIES", "TO LIFE"]);
 
-  // useEffect(() => {
+  useEffect(() => {
+    if (mobile) {
+      setCopy(["WE", "BRING", "STORIES", "TO", "LIFE"]);
+    } else {
+      setCopy(["WE BRING", "STORIES", "TO LIFE"]);
+    }
+  }, [mobile]);
 
-  // }, [])
-
-  const strs = ["WE BRING", "STORIES", "TO LIFE"];
   const text = [];
-  for (let i = 0; i < strs.length; i++) {
-    const str = strs[i];
+  for (let i = 0; i < copy.length; i++) {
+    const line = copy[i];
+    const words = line.split(" ");
     text[i] = [];
-    for (let j = 0; j < str.length; j++) {
-      const s = str[j];
+    for (let j = 0; j < words.length; j++) {
+      const word = words[j];
       const delay = fadeInText.delay + fadeInText.damping * (j + i * 2);
+      // const delay = fadeInText.delay + fadeInText.damping * (words.length - j - 1 + (copy.length - i - 1) * 2);
       text[i].push(
-        <div className="textFeature-text__text" key={`${s}_${i}_${j}`} style={{ transitionDelay: `${delay}s` }}>
-          {s === " " ? <span>&nbsp;</span> : <span>{s}</span>}
+        <div className="textFeature-text__text" key={`${word}_${i}_${j}`} style={{ transitionDelay: `${delay}s` }}>
+          <span>{word}</span>
+          {j < words.length - 1 ? <span>&nbsp;</span> : null}
         </div>
       );
     }
@@ -73,6 +77,14 @@ const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
     } else if (!isVisible && latest <= s) {
       setIsVisible(true);
     }
+
+    // if (scrollY.current - scrollY.prev < 0) {
+    //   // text2.current.classList.remove("hide");
+    //   // setKeyframes(keyframesDown);
+    // } else {
+    //   // setKeyframes(keyframesUp);
+    //   text2.current.classList.add("hide");
+    // }
   });
 
   return (
@@ -85,7 +97,6 @@ const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
             </div>
           ))}
         </div>
-        {/* <img src={Arrow} alt="Scroll down" /> */}
       </div>
     </>
   );

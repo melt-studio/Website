@@ -15,10 +15,10 @@ html {
   --cursor-scale: 1; /* of 80px */
 }
 
-html,
+/* html,
 body {
   cursor: none;
-}
+} */
 
 body {
   margin: 0;

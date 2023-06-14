@@ -2,6 +2,7 @@ import Tag from "../Tag/Tag.jsx";
 import FadeIn from "../../components/FadeIn/FadeIn.jsx";
 import { keyframes } from "../../utils/keyframes.js";
 import "./TagBlock.css";
+import FadeScroll from "../FadeScroll/FadeScroll.jsx";
 
 keyframes`
   @keyframes customAnimationTag {
@@ -16,27 +17,35 @@ keyframes`
   }
 `;
 
-const fadeInTagTitle = {
-  name: "customAnimationTag",
-  duration: 1,
-  delay: 2,
-  stagger: true,
-  damping: 0.25,
-};
-
-const fadeInTag = {
-  name: "customAnimationTag",
-  duration: 1,
-  delay: 2.5,
-  stagger: true,
-  damping: 0.1,
-};
-
-const TagBlock = ({ title, tags, underlineColor, links = false }) => {
+const TagBlock = ({
+  title,
+  tags,
+  underlineColor,
+  links = false,
+  viewport = { amount: 0 },
+  transition = false,
+  mobile,
+}) => {
   if (!tags || tags.length === 0) return null;
 
+  const fadeInTagTitle = {
+    name: "customAnimationTag",
+    duration: 1,
+    delay: 2,
+    stagger: true,
+    damping: 0.25,
+  };
+
+  const fadeInTag = {
+    name: transition ? "customTransitionTag" : "customAnimationTag",
+    duration: 1,
+    delay: transition ? (links ? (mobile ? 1.5 : 2.5) : 1) : 2.5,
+    stagger: true,
+    damping: links ? 0.15 : 0.1,
+  };
+
   return (
-    <div className={`tag-block${links ? " tag-links" : ""}`}>
+    <FadeScroll viewport={viewport} className={`tag-block${links ? " tag-links" : ""}`}>
       {title && (
         <div className="tag-block__title">
           <FadeIn {...fadeInTagTitle}>
@@ -56,7 +65,7 @@ const TagBlock = ({ title, tags, underlineColor, links = false }) => {
           ))}
         </FadeIn>
       </div>
-    </div>
+    </FadeScroll>
   );
 };
 

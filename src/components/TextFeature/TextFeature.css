@@ -5,9 +5,6 @@
   line-height: 0.8;
   letter-spacing: -0.05em;
   flex-wrap: wrap;
-}
-
-.css-customAnimationTextIntro {
   position: fixed;
   top: 0;
   left: 0;
@@ -19,7 +16,7 @@
 
 .textFeature-text .textFeature-text__text {
   opacity: 0;
-  transform: translate3d(0, -10dvh, 0);
+  transform: translate3d(10dvh, 0, 0);
   transition: opacity 1s ease-in-out, transform 2s ease-in-out;
 }
 
@@ -28,8 +25,13 @@
   transform: translate3d(0, 0, 0);
 }
 
+/* .textFeature-text.hide .textFeature-text__text {
+  opacity: 0;
+  transform: translate3d(0, 10dvh, 0);
+} */
+
 .textFeature-text__line {
-  font-size: 19dvw;
+  font-size: 21dvw;
   height: fit-content;
   font-weight: 300;
   line-height: 0.8;
@@ -48,6 +50,10 @@
 @media screen and (min-width: 800px) {
   #textFeature-container {
     padding: 0 40px;
+  }
+
+  .textFeature-text__line {
+    font-size: 19dvw;
   }
 
   .textFeature-text {

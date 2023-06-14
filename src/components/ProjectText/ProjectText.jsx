@@ -26,7 +26,7 @@ const ProjectText = ({ project, mobile }) => {
           )}
         </div>
         <div className="col">
-          <TagBlock title="Project Scope" tags={scope} underlineColor={colorText} />
+          <TagBlock title="Project Scope" tags={scope} underlineColor={colorText} transition={true} />
         </div>
       </div>
     </FadeScroll>

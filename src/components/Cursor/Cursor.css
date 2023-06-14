@@ -15,6 +15,7 @@
   border-radius: 50%;
   background-color: var(--yellow);
   opacity: 1;
+  /* display: none; */
 }
 
 .cursor.initial {
@@ -58,11 +59,11 @@
   transform: translate(-50%, -50%) scale(3);
 }
 
-.cursor.link {
+/* .cursor.link {
   opacity: 0;
   background-color: transparent;
   transform: translate(-50%, -50%) scale(0);
-}
+} */
 
 #cursor-unofficial {
   width: 100px;

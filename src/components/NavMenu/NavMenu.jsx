@@ -17,8 +17,8 @@ const keyframesContainer = {
     transition: {
       duration: 1.25,
       ease: "easeInOut",
-      delay: 1.25,
-      // when: "afterChildren",
+      // delay: 1.25,
+      when: "afterChildren",
     },
   },
 };

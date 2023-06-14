@@ -4,6 +4,7 @@ const FadeDiv = ({ className, duration, delay, stagger, damping, i = 0, children
       className={className}
       style={{
         animationDelay: `${stagger ? delay + i * damping * duration : delay}s`,
+        transitionDelay: `${stagger ? delay + i * damping * duration : delay}s`,
       }}
     >
       {children}
@@ -33,7 +34,7 @@ const FadeIn = ({ name, duration = 1, delay = 0, easing = "ease", stagger = fals
           animation: ${name} ${duration}s ${easing} ${delay}s 1 both;
         }
       `;
-    document.head.appendChild(style);
+    // document.head.appendChild(style);
   }
 
   if (typeof children === "string" || !children.length) {
