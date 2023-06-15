@@ -8,12 +8,12 @@ import "./NavMenu.css";
 const keyframesContainer = {
   enter: {
     opacity: [0, 1, 1],
-    y: 0,
+    // y: 0,
     transition: { duration: 1.25, ease: "easeInOut", when: "beforeChildren" },
   },
   exit: {
     opacity: [1, 1, 0],
-    y: "-100%",
+    // y: "-100%",
     transition: {
       duration: 1.25,
       ease: "easeInOut",

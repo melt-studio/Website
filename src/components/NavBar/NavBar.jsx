@@ -33,7 +33,7 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
     if (mobile || location.pathname.match(/^\/admin\/[\w-]+$/)) {
       setIsVisible(false);
     } else {
-      if (location.pathname.includes("/project/")) {
+      if (location.pathname.includes("/project/") || pageIsLoading) {
         return setIsVisible(false);
       }
 
@@ -43,7 +43,7 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
         setIsVisible(false);
       }
     }
-  }, [excludes, location, mobile, scrollCutOff]);
+  }, [excludes, location, mobile, scrollCutOff, pageIsLoading]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (mobile || excludes.some((ex) => location.pathname.includes(ex))) return;

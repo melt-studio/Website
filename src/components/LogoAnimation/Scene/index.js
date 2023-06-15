@@ -359,7 +359,7 @@ const LogoScene = forwardRef(
           containerRef.current.classList.add("show");
           if (cursor.current) {
             cursor.current.classList.remove("initial");
-            console.log("progress");
+            // console.log("progress");
           }
         }
       }

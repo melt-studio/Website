@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate, useParams } from "react-router-dom";
 import ProjectCover from "../../components/ProjectCover/ProjectCover.jsx";
@@ -35,9 +35,18 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
     };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setPageIsLoading(true);
   }, [setPageIsLoading]);
+
+  useEffect(() => {
+    // console.log("loading", loading);
+    // console.log("coverLoading", coverLoading);
+    if (!loading && !coverLoading) {
+      window.scrollTo(0, 0);
+      setPageIsLoading(false);
+    }
+  }, [loading, coverLoading, setPageIsLoading]);
 
   useEffect(() => {
     if (cursor && cursor.current) {
@@ -77,11 +86,11 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
 
       setLoading(false);
 
-      setPageIsLoading(false);
-
       // // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       // // setTimeout(() => window.scrollTo(0, 0), 1);
-      window.scrollTo(0, 0);
+      // window.scrollTo(0, 0);
+
+      // setPageIsLoading(false);
     };
 
     if (projects.length > 0) {

@@ -37,10 +37,11 @@ function App() {
     setHistory((h) => [location.pathname, ...h]);
   }, [location]);
 
-  useEffect(() => {
-    if (pageIsLoading) console.log("page loading");
-    else console.log("page loaded");
-  }, [pageIsLoading]);
+  // useEffect(() => {
+  //   if (pageIsLoading) console.log("page loading");
+  //   else console.log("page loaded");
+  //   console.log("------------");
+  // }, [pageIsLoading]);
 
   // useEffect(() => {
   //   console.log(history);
