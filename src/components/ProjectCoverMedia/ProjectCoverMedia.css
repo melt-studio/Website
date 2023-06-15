@@ -12,14 +12,14 @@
   .project-cover-full__image {
     transition: opacity 1s ease-in-out 0.5s, transform 1s ease-in-out 0.5s;
   }
+
+  .project-cover-full__image.video video {
+    cursor: none;
+  }
 }
 
 .wide .project-cover-full__image {
   max-width: 100%;
-}
-
-.project-cover-full__image.video video {
-  cursor: none;
 }
 
 #video-mobile-icon {

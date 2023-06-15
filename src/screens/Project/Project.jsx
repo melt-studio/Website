@@ -8,7 +8,7 @@ import ProjectNav from "../../components/ProjectNav/ProjectNav.jsx";
 import Page from "../Page.jsx";
 import "./Project.css";
 
-const Project = ({ projects, cursor, mobile, viewport, history }) => {
+const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading }) => {
   const navigate = useNavigate();
   // const location = useLocation();
   const { id } = useParams();
@@ -34,6 +34,10 @@ const Project = ({ projects, cursor, mobile, viewport, history }) => {
       // console.log("PROJECT unmount");
     };
   }, []);
+
+  useEffect(() => {
+    setPageIsLoading(true);
+  }, [setPageIsLoading]);
 
   useEffect(() => {
     if (cursor && cursor.current) {
@@ -72,6 +76,8 @@ const Project = ({ projects, cursor, mobile, viewport, history }) => {
       else setNext(null);
 
       setLoading(false);
+
+      setPageIsLoading(false);
 
       // // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       // // setTimeout(() => window.scrollTo(0, 0), 1);
@@ -119,7 +125,7 @@ const Project = ({ projects, cursor, mobile, viewport, history }) => {
     }
     // }, [projects, cursor, id, navigate]);
     // }, [projects, cursor, id, navigate, viewport.width]);
-  }, [projects, cursor, id, navigate, mobile]);
+  }, [projects, cursor, id, navigate, mobile, setPageIsLoading]);
 
   return (
     // <Page style={!loading && project ? { color: project.fields.colorText } : null}>

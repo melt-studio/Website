@@ -28,7 +28,7 @@ export default function MainContainer({
   setScroll,
   history,
   scrollCutOff,
-  setMounting,
+  setPageIsLoading,
 }) {
   const [adminMessage, setAdminMessage] = useState(null);
 
@@ -81,7 +81,7 @@ export default function MainContainer({
               cursor={cursor}
               mobile={mobile}
               viewport={viewport}
-              setMounting={setMounting}
+              setPageIsLoading={setPageIsLoading}
             />
           }
         />

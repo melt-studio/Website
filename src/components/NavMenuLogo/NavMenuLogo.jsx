@@ -12,7 +12,7 @@ const keyframes = {
   exit: { opacity: 0, y: -20 }, // y: 20
 };
 
-const NavMenuLogo = ({ setNavMenuOpen, initial, mobile, viewport, scrollCutOff }) => {
+const NavMenuLogo = ({ setNavMenuOpen, initial, mobile, viewport, scrollCutOff, pageIsLoading }) => {
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
@@ -46,7 +46,10 @@ const NavMenuLogo = ({ setNavMenuOpen, initial, mobile, viewport, scrollCutOff }
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (!mobile || excludes.some((ex) => location.pathname.includes(ex)) || location.pathname === "/") return;
 
-    const sMax = document.body.offsetHeight - viewport.height;
+    if (pageIsLoading) return setIsVisible(false);
+
+    // const sMax = document.body.offsetHeight - viewport.height;
+    const sMax = document.body.scrollHeight - viewport.height;
     const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
 
     if (!isVisible && latest > s) {

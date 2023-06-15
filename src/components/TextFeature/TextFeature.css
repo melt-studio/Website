@@ -1,6 +1,6 @@
 #textFeature-container {
   padding: 0 5%;
-  font-size: 19dvw;
+  /* font-size: 19dvw; */
   font-weight: 300;
   line-height: 0.8;
   letter-spacing: -0.05em;
@@ -53,7 +53,9 @@
   }
 
   .textFeature-text__line {
-    font-size: 19dvw;
+    /* font-size: 19dvw;
+    font-size: min(19dvw, 400px); */
+    font-size: min(min(19vw, 30vh), 400px);
   }
 
   .textFeature-text {

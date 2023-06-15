@@ -20,7 +20,7 @@ const keyframes = {
   },
 };
 
-const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavMenuOpen }) => {
+const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavMenuOpen, pageIsLoading }) => {
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
@@ -48,7 +48,10 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (mobile || excludes.some((ex) => location.pathname.includes(ex))) return;
 
-    const sMax = document.body.offsetHeight - viewport.height;
+    if (pageIsLoading) return setIsVisible(false);
+
+    // const sMax = document.body.offsetHeight - viewport.height;
+    const sMax = document.body.scrollHeight - viewport.height;
     const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
 
     if (!isVisible && latest > s) {

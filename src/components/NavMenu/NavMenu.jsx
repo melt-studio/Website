@@ -39,7 +39,7 @@ const keyframesItem = {
     transition: { duration: 1, ease: "easeInOut" },
   },
   exit: {
-    y: -20,
+    y: "-0.2em",
     opacity: 0,
     transition: { duration: 1, ease: "easeInOut" },
   },
@@ -70,7 +70,7 @@ const NavMenuClose = ({ closeNavMenu, present }) => {
 
 const NavMenuLinkText = ({ text, selected }) => (
   <motion.p
-    className="nav-menu__link"
+    className={`nav-menu__link${selected ? " selected" : ""}`}
     variants={keyframesItem}
     onMouseEnter={() => cursorEvents.onMouseEnter()}
     onMouseLeave={() => cursorEvents.onMouseLeave()}

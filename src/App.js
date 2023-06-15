@@ -25,6 +25,7 @@ function App() {
   const [history, setHistory] = useState([]);
   const [scroll, setScroll] = useState(0);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [pageIsLoading, setPageIsLoading] = useState(false);
 
   const location = useLocation();
 
@@ -35,6 +36,11 @@ function App() {
   useEffect(() => {
     setHistory((h) => [location.pathname, ...h]);
   }, [location]);
+
+  useEffect(() => {
+    if (pageIsLoading) console.log("page loading");
+    else console.log("page loaded");
+  }, [pageIsLoading]);
 
   // useEffect(() => {
   //   console.log(history);
@@ -151,6 +157,7 @@ function App() {
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
         projects={projects}
+        pageIsLoading={pageIsLoading}
       >
         <MainContainer
           initial={initial}
@@ -168,6 +175,7 @@ function App() {
           setScroll={setScroll}
           history={history}
           scrollCutOff={scrollCutOff}
+          setPageIsLoading={setPageIsLoading}
         />
       </Layout>
       {!mobile && <Cursor ref={cursor} />}

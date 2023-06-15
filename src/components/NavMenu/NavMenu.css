@@ -48,6 +48,7 @@
   overflow: hidden;
 }
 
+.nav-menu__items a p.selected,
 .nav-menu__items a:hover p {
   color: var(--yellow);
 }

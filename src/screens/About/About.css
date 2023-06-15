@@ -36,7 +36,7 @@
 }
 .about-page .tag-block {
   transition: opacity 2s ease, transform 2s ease;
-  transition-delay: 0.5s;
+  /* transition-delay: 0.5s; */
 }
 
 .about-page .tag-block.show,
@@ -61,7 +61,7 @@
   margin-bottom: 50px;
 }
 
-@media (min-width: 960px) and (max-width: 1440px) {
+/* @media (min-width: 960px) and (max-width: 1440px) {
   .about-page .page-container .col.what,
   .about-page .page-container .col.links {
     transition: none;
@@ -79,7 +79,7 @@
     opacity: 1;
     transform: translate(0, 0);
   }
-}
+} */
 
 @media (min-width: 960px) {
   .about-page .page-container {

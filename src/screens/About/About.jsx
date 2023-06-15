@@ -177,8 +177,9 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
             <div className="row col-3">
               <div className="col primary">
                 <div className="description-text jumbo-text">
-                  {aboutText &&
-                    aboutText.map((text, i) => (
+                  {viewport.width >= 960 &&
+                    aboutText &&
+                    aboutText.map((text) => (
                       // <FadeIn key={text} {...fadeInText} delay={fadeInText.delay + fadeInText.damping * i}>
 
                       <FadeScroll key={text} viewport={{ amount: 0.25 }} className="description-text__p">
@@ -186,6 +187,13 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                       </FadeScroll>
                       // </FadeIn>
                     ))}
+                  {viewport.width < 960 && aboutText && (
+                    <FadeScroll viewport={{ amount: 0.1 }} className="description-text__p">
+                      {aboutText.map((text) => (
+                        <Markdown key={text}>{text}</Markdown>
+                      ))}
+                    </FadeScroll>
+                  )}
                 </div>
               </div>
 
@@ -198,7 +206,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                       tags={whatWeDoTags}
                       viewport={{ amount: 0.25 }}
                       transition={true}
-                      delay={mobile ? 1 : 2.5}
+                      delay={viewport.width < 960 ? 0.5 : 2.5}
                     />
                     {/* </FadeScroll> */}
                     <TagBlock
@@ -206,7 +214,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                       tags={whatWeDontDoTags}
                       viewport={{ amount: 0.25 }}
                       transition={true}
-                      delay={mobile ? 1 : 2.5}
+                      delay={viewport.width < 960 ? 0.5 : 2.5}
                     />
                   </div>
                 </div>
@@ -218,7 +226,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                       links={true}
                       viewport={{ amount: 0.25 }}
                       transition={true}
-                      delay={mobile ? 1.5 : 3.5}
+                      delay={viewport.width < 960 ? 1 : 3.5}
                     />
                     {/* <TagBlock title="Contact" tags={contactTags} /> */}
                     {/* <TagBlock title="Follow" tags={followTags} /> */}

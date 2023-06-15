@@ -15,6 +15,7 @@ export default function Layout({
   setLoggedIn,
   projects,
   children,
+  pageIsLoading,
 }) {
   return (
     <div id="layout">
@@ -25,6 +26,7 @@ export default function Layout({
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
           setNavMenuOpen={setNavMenuOpen}
+          pageIsLoading={pageIsLoading}
         />
 
         <NavMenuLogo
@@ -33,6 +35,7 @@ export default function Layout({
           viewport={viewport}
           scrollCutOff={scrollCutOff}
           initial={initial}
+          pageIsLoading={pageIsLoading}
         />
 
         <NavMenu navMenuOpen={navMenuOpen} setNavMenuOpen={setNavMenuOpen} />
