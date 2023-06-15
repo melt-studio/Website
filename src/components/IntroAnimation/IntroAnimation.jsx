@@ -55,7 +55,7 @@ const fadeOutText = keyframes`
   }
   to {
     opacity: 0;
-    transform: translateY(-50vh);
+    transform: translateY(-10px);
   }
 `;
 
@@ -116,7 +116,7 @@ export default function IntroAnimation({ initial, setInitial, mobile }) {
           {lines.map((line, i) => (
             <FadeText
               key={line}
-              delay={i * 0.1}
+              delay={i * 0.15}
               onAnimationEnd={(e) => {
                 if (i === lines.length - 1) {
                   if (e.animationName === fadeInText.name) {
