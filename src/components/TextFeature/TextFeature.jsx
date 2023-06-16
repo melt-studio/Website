@@ -32,7 +32,7 @@ const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
     if (mobile) {
       setCopy(["WE", "BRING", "STORIES", "TO", "LIFE"]);
     } else {
-      setCopy(["WE BRING", "STORIES", "TO LIFE"]);
+      setCopy(["MIXING", "CRAFT &", "DESIGN"]);
     }
   }, [mobile]);
 
@@ -43,11 +43,27 @@ const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
     text[i] = [];
     for (let j = 0; j < words.length; j++) {
       const word = words[j];
-      const delay = fadeInText.delay + fadeInText.damping * (j + i * 2);
+      const delay = fadeInText.delay + fadeInText.damping * i * 2;
       // const delay = fadeInText.delay + fadeInText.damping * (words.length - j - 1 + (copy.length - i - 1) * 2);
       text[i].push(
-        <div className="textFeature-text__text" key={`${word}_${i}_${j}`} style={{ transitionDelay: `${delay}s` }}>
-          <span>{word}</span>
+        <div
+          className={`textFeature-text__text text_word_${i}`}
+          key={`${word}_${i}_${j}`}
+          style={{
+            // transitionDelay: `${delay}s`,
+            transition: `opacity 1s ease-in-out ${delay + 0.15 * i}s, transform 1s ease-in-out ${delay}s`,
+          }}
+        >
+          <span className={`feature_text_${word}`}>
+            {word.split("").map((c, i) => {
+              const key = `feature_text_${word}_${c}_${i}`;
+              return (
+                <span key={key} className={key}>
+                  {c}
+                </span>
+              );
+            })}
+          </span>
           {j < words.length - 1 ? <span>&nbsp;</span> : null}
         </div>
       );

@@ -28,11 +28,12 @@ const NavMenuLogo = ({ setNavMenuOpen, initial, mobile, viewport, scrollCutOff, 
       if (location.pathname.includes("/project/") || pageIsLoading) {
         return setIsVisible(false);
       }
+      const scrollCutOff2 = viewport.height * 1;
 
       if (
         excludes.some((ex) => location.pathname.includes(ex)) ||
         location.pathname === "/" ||
-        window.scrollY > scrollCutOff
+        window.scrollY > scrollCutOff2
       ) {
         if (location.pathname === "/") {
           setIsVisible(true && !initial);
@@ -41,7 +42,7 @@ const NavMenuLogo = ({ setNavMenuOpen, initial, mobile, viewport, scrollCutOff, 
         setIsVisible(false);
       }
     }
-  }, [excludes, location, mobile, scrollCutOff, initial, pageIsLoading]);
+  }, [excludes, location, mobile, scrollCutOff, initial, pageIsLoading, viewport]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (!mobile || excludes.some((ex) => location.pathname.includes(ex)) || location.pathname === "/") return;
@@ -51,10 +52,12 @@ const NavMenuLogo = ({ setNavMenuOpen, initial, mobile, viewport, scrollCutOff, 
       return setIsVisible(false);
     }
 
+    const scrollCutOff2 = viewport.height * 1;
+
     // const sMax = document.body.offsetHeight - viewport.height;
     // const sMax = Math.max(document.body.scrollHeight - viewport.height, viewport.height / 2);
     const sMax = document.body.scrollHeight - viewport.height;
-    const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
+    const s = scrollCutOff2 > sMax ? sMax / 2 : scrollCutOff2;
 
     // console.log("--------");
     // console.log(latest, s);
