@@ -12,6 +12,7 @@
   width: 100%;
   display: flex;
   align-items: center;
+  text-transform: uppercase;
 }
 
 .textFeature-text .textFeature-text__text {
@@ -41,7 +42,7 @@
 } */
 
 .textFeature-text__line {
-  font-size: 21dvw;
+  font-size: 24.5dvw;
   height: fit-content;
   font-weight: 300;
   line-height: 0.8;

@@ -30,7 +30,7 @@ const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
 
   useEffect(() => {
     if (mobile) {
-      setCopy(["WE", "BRING", "STORIES", "TO", "LIFE"]);
+      setCopy(["MIXING", "CRAFT", "AND", "DESIGN"]);
     } else {
       setCopy(["MIXING", "CRAFT &", "DESIGN"]);
     }

@@ -54,9 +54,14 @@
   margin: 0;
   color: white;
   line-height: 0.85;
-  font-size: max(min(17.5vw, 14rem), 3.5rem);
-  letter-spacing: -0.15rem;
+  font-size: max(min(18.5vw, 14rem), 3.5rem);
+  /* font-size: max(min(10.5vw, 14rem), 3.4rem); */
+  letter-spacing: -0.2rem;
   word-spacing: 0.2rem;
   text-transform: uppercase;
   font-weight: 300;
+}
+
+.intro__text_4_f_3 {
+  letter-spacing: 0rem;
 }

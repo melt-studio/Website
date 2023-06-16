@@ -74,11 +74,9 @@ export default function IntroAnimation({ initial, setInitial, mobile }) {
     MELT is a
     creative
     studio
-    bringing
-    stories
-    to life
-    through
-    design.
+    mixing
+    craft
+    & design
   `;
 
   const lines = text
@@ -138,7 +136,14 @@ export default function IntroAnimation({ initial, setInitial, mobile }) {
                 }
               }}
             >
-              {line}
+              {line.split("").map((c, j) => {
+                const key = `intro__text_${i}_${c}_${j}`;
+                return (
+                  <span key={key} className={key}>
+                    {c}
+                  </span>
+                );
+              })}
             </FadeText>
           ))}
         </div>
