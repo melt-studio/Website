@@ -34,12 +34,14 @@ main {
 
 .col {
   padding: 0 5%;
+  height: fit-content;
 }
 
 .col-2 {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
+  height: fit-content;
 }
 
 @media (min-width: 960px) {
@@ -97,6 +99,11 @@ main {
 
   .col-2 .col {
     width: 50%;
+  }
+
+  .col-2.sticky .col.links {
+    position: sticky;
+    top: 100px;
   }
 
   .col.what {
