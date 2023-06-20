@@ -27,12 +27,16 @@
 
 .about-page .tag-block,
 .about-page .description-text__p p,
-.about-page .description-text__p h2 {
+.about-page .description-text__p h1,
+.about-page .description-text__p h2,
+.about-page .description-text__p h3 {
   opacity: 0;
   transform: translate3d(0, 40px, 0);
 }
 .about-page .description-text__p p,
-.about-page .description-text__p h2 {
+.about-page .description-text__p h1,
+.about-page .description-text__p h2,
+.about-page .description-text__p h3 {
   transition: opacity 2s ease, transform 2s ease;
   transition-delay: 1.5s;
 }
@@ -43,7 +47,9 @@
 
 .about-page .tag-block.show,
 .about-page .description-text__p.show p,
-.about-page .description-text__p.show h2 {
+.about-page .description-text__p.show h1,
+.about-page .description-text__p.show h2,
+.about-page .description-text__p.show h3 {
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }

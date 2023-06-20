@@ -101,6 +101,10 @@ export default function Home({
     }
   });
 
+  // useEffect(() => {
+  //   console.log(projects);
+  // }, [projects]);
+
   return (
     <>
       <Helmet>

@@ -36,8 +36,10 @@ export default function MainContainer({
 
   let path = location.pathname;
   // Make /project URIs the same for key - this stops AnimatePresence entry/exit on project -> project navigation
-  if (location.pathname.includes("/project/")) path = "/project";
-  else if (location.pathname.includes("/admin/")) path = "/admin";
+  // if (location.pathname.includes("/project/")) path = "/project";
+  if (location.pathname.includes("/admin/")) path = "/admin";
+
+  // console.log(path)
 
   return (
     <AnimatePresence mode="wait">

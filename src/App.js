@@ -101,6 +101,10 @@ function App() {
     setInitial(mobile && initial ? true : false);
   }, [mobile, initial]);
 
+  // useEffect(() => {
+  //   console.log(projects);
+  // }, [projects]);
+
   useEffect(() => {
     const getProjects = async () => {
       try {

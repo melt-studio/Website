@@ -40,7 +40,7 @@ const keyframesItem = {
   enter: {
     y: 0,
     opacity: 1,
-    transition: { duration: 1.5, ease: "easeInOut" },
+    transition: { duration: 1.75, ease: "easeInOut" },
   },
   exit: {
     y: "-0.2em",
