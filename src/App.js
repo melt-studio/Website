@@ -109,7 +109,8 @@ function App() {
     const getProjects = async () => {
       try {
         const response = await projectService.getProjects();
-        setProjects(response);
+        const sortedProjects = response.map((r) => r).sort((a, b) => a.fields.order - b.fields.order);
+        setProjects(sortedProjects);
       } catch (error) {
         console.log(error.response.data.error ? error.response.data.error : "Server error");
       }
