@@ -28,17 +28,17 @@ export default function ProjectTiles({ projects, cursor, setScroll, setBackgroun
         } = project.fields;
 
         let thumbnail = null;
-        if (coverImg[0].thumbnails) {
+        if (coverImg !== undefined && coverImg[0].thumbnails) {
           if (coverImg[0].thumbnails.large) {
             thumbnail = coverImg[0].thumbnails.large;
           }
         }
 
         const cover = {
-          type: coverImg[0].type,
-          url: thumbnail ? thumbnail.url : coverImg[0].url,
-          width: thumbnail ? thumbnail.width : coverImg[0].width,
-          height: thumbnail ? thumbnail.height : coverImg[0].height,
+          type: coverImg === undefined ? null : coverImg[0].type,
+          url: thumbnail ? thumbnail.url : coverImg === undefined ? null : coverImg[0].url,
+          width: thumbnail ? thumbnail.width : coverImg === undefined ? null : coverImg[0].width,
+          height: thumbnail ? thumbnail.height : coverImg === undefined ? null : coverImg[0].height,
         };
 
         cover.aspect = cover.width / cover.height;

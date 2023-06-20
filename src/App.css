@@ -74,6 +74,12 @@ a {
   position: relative;
 }
 
+.page .jumbo-text h2 {
+  font-size: 3rem;
+  font-weight: 450;
+  margin: 0 0 1em;
+}
+
 .page .jumbo-text a:after {
   content: "";
   width: 100%;
@@ -94,7 +100,7 @@ a {
   margin-bottom: 5px;
 }
 
-#admin-nav {
+/* #admin-nav {
   width: 30px;
   height: 30px;
   position: fixed;
@@ -108,7 +114,7 @@ a {
 }
 #admin-nav:hover {
   opacity: 1;
-}
+} */
 
 @media (min-width: 800px) {
   .page .jumbo-text {

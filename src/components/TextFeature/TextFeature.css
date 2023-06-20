@@ -42,13 +42,23 @@
 } */
 
 .textFeature-text__line {
-  font-size: 24.5dvw;
+  /* font-size: 24.5dvw; */
   height: fit-content;
-  font-weight: 300;
+  /* font-weight: 300;
   line-height: 0.8;
-  letter-spacing: -0.07em;
+  letter-spacing: -0.07em; */
   /* letter-spacing: -0.025em; */
   display: flex;
+
+  /* margin: 0; */
+  color: white;
+  line-height: 0.85;
+  font-size: max(min(15.5vw, 14rem), 3.5rem);
+  /* font-size: max(min(10.5vw, 14rem), 3.4rem); */
+  letter-spacing: -0.2rem;
+  word-spacing: 0.2rem;
+  text-transform: uppercase;
+  font-weight: 300;
 }
 
 /* .feature_text_CRAFT {
@@ -56,7 +66,8 @@
 } */
 
 .feature_text_CRAFT_F_3 {
-  letter-spacing: -0.025em;
+  /* letter-spacing: -0.025em; */
+  letter-spacing: 0;
 }
 
 #textFeature-container img {

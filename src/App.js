@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Layout from "./layouts/MainLayout.jsx";
 import MainContainer from "./containers/MainContainer.jsx";
 import Cursor from "./components/Cursor/Cursor.jsx";
@@ -180,19 +180,19 @@ function App() {
         />
       </Layout>
       {!mobile && <Cursor ref={cursor} />}
-      {loggedIn && <AdminNav />}
+      {/* {loggedIn && <AdminNav />} */}
     </>
   );
 }
 
-const AdminNav = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+// const AdminNav = () => {
+//   const navigate = useNavigate();
+//   const location = useLocation();
 
-  const excludes = ["/admin"];
-  if (excludes.some((ex) => location.pathname.includes(ex))) return null;
+//   const excludes = ["/admin"];
+//   if (excludes.some((ex) => location.pathname.includes(ex))) return null;
 
-  return <div onClick={() => navigate("/admin")} id="admin-nav"></div>;
-};
+//   return <div onClick={() => navigate("/admin")} id="admin-nav"></div>;
+// };
 
 export default App;

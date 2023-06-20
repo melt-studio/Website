@@ -88,7 +88,7 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
 
       // // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       // // setTimeout(() => window.scrollTo(0, 0), 1);
-      // window.scrollTo(0, 0);
+      window.scrollTo(0, 0);
 
       // setPageIsLoading(false);
     };

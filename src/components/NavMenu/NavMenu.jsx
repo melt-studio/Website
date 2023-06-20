@@ -33,10 +33,14 @@ const keyframesItems = {
 };
 
 const keyframesItem = {
+  initial: {
+    y: "-0.2em",
+    opacity: 0,
+  },
   enter: {
     y: 0,
     opacity: 1,
-    transition: { duration: 1, ease: "easeInOut" },
+    transition: { duration: 1.5, ease: "easeInOut" },
   },
   exit: {
     y: "-0.2em",
