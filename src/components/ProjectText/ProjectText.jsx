@@ -5,18 +5,17 @@ import "./ProjectText.css";
 
 const ProjectText = ({ project, mobile }) => {
   const { name, description, projectCopy, projectScope, colorText } = project.fields;
+
   const scope = projectScope ? projectScope.map((t) => ({ text: t })) : [];
 
   return (
     <FadeScroll viewport={{ amount: 0.25 }} className="project-text">
-      {true && (
-        <div className="row">
-          <div className="col full">
-            {name && <h1 className="title-text">{name}</h1>}
-            {description && <h3 className="subtitle-text">{description}</h3>}
-          </div>
+      <div className="row">
+        <div className="col full">
+          {name && <h1 className="title-text">{name}</h1>}
+          {description && <h3 className="subtitle-text">{description}</h3>}
         </div>
-      )}
+      </div>
       <div className="row">
         <div className="col primary">
           {projectCopy && (

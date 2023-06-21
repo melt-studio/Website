@@ -142,6 +142,8 @@ const LogoScene = forwardRef(
       if (mesh.current && mesh.current.material) {
         mesh.current.material.uniforms.uDPR.value = viewport.dpr;
         mesh.current.material.needsUpdate = true;
+        // console.log(viewport);
+        // console.log(size);
       }
     }, [viewport]);
 

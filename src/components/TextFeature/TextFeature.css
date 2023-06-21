@@ -55,7 +55,7 @@
   line-height: 0.85;
   font-size: max(min(15.5vw, 14rem), 3.5rem);
   /* font-size: max(min(10.5vw, 14rem), 3.4rem); */
-  letter-spacing: -0.2rem;
+  letter-spacing: -0.07em;
   word-spacing: 0.2rem;
   text-transform: uppercase;
   font-weight: 300;
@@ -66,8 +66,8 @@
 } */
 
 .feature_text_CRAFT_F_3 {
-  /* letter-spacing: -0.025em; */
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
+  /* letter-spacing: 0; */
 }
 
 #textFeature-container img {

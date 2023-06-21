@@ -179,18 +179,18 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                 <div className="description-text jumbo-text">
                   {viewport.width >= 960 &&
                     aboutText &&
-                    aboutText.map((text) => (
+                    aboutText.map((text, i) => (
                       // <FadeIn key={text} {...fadeInText} delay={fadeInText.delay + fadeInText.damping * i}>
 
-                      <FadeScroll key={text} viewport={{ amount: 0.25 }} className="description-text__p">
+                      <FadeScroll key={`${text}_${i}`} viewport={{ amount: 0.25 }} className="description-text__p">
                         <Markdown>{text}</Markdown>
                       </FadeScroll>
                       // </FadeIn>
                     ))}
                   {viewport.width < 960 && aboutText && (
                     <FadeScroll viewport={{ amount: 0.1 }} className="description-text__p">
-                      {aboutText.map((text) => (
-                        <Markdown key={text}>{text}</Markdown>
+                      {aboutText.map((text, i) => (
+                        <Markdown key={`${text}_${i}`}>{text}</Markdown>
                       ))}
                     </FadeScroll>
                   )}

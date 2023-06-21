@@ -44,6 +44,7 @@ const LogoAnimation = ({
       // container.current.classList.add("show");
     }
     // setCanvasLoaded(true);
+    // console.log("created");
   };
 
   // useEffect(() => {

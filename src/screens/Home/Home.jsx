@@ -43,6 +43,7 @@ export default function Home({
     // }
 
     // console.log("HOME mount");
+    window.scrollTo(0, 0);
 
     return () => {
       document.body.classList.remove("home-page");

@@ -74,7 +74,7 @@ const ProjectImage = ({ image, project, viewport }) => {
   );
 };
 
-const ProjectImages = ({ project, mobile, viewport }) => {
+const ProjectImages = ({ project, mobile, viewport, start, next = false }) => {
   const { images, mobileImages } = project.fields;
 
   if (!images && !mobileImages) return null;
@@ -86,6 +86,14 @@ const ProjectImages = ({ project, mobile, viewport }) => {
   } else {
     if (images) projectImages = images;
     else if (mobileImages) projectImages = mobileImages;
+  }
+
+  if (start !== null) {
+    if (next) {
+      projectImages = projectImages.slice(start);
+    } else {
+      projectImages = projectImages.slice(0, start);
+    }
   }
 
   return (
