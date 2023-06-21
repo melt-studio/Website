@@ -4,17 +4,20 @@ import Markdown from "../Markdown/Markdown";
 import "./ProjectText.css";
 
 const ProjectText = ({ project, secondary = false }) => {
-  const { name, description, projectCopy, projectScope, projectCopy2, colorText } = project.fields;
+  const { name, description, projectCopy, projectScope, projectTitle2, projectCopy2, colorText } = project.fields;
 
   const scope = projectScope ? projectScope.map((t) => ({ text: t })) : [];
 
   if (secondary) {
-    if (!projectCopy2) return null;
+    if (!projectCopy2 && !projectTitle2) return null;
 
     return (
       <FadeScroll viewport={{ amount: 0.25 }} className="project-text secondary">
         <div className="row">
-          <div className="col full">
+          <div className="col full">{projectTitle2 && <h1 className="title-text">{projectTitle2}</h1>}</div>
+        </div>
+        <div className="row">
+          <div className="col primary">
             <div className="description-text jumbo-text">
               <Markdown>{projectCopy2}</Markdown>
             </div>
