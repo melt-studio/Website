@@ -73,6 +73,11 @@ main {
     max-width: 1000px;
   }
 
+  .secondary .col.primary {
+    width: 85%;
+    max-width: none;
+  }
+
   .col.what {
     order: 2;
   }
@@ -117,6 +122,10 @@ main {
   .col.primary {
     width: 60%;
   }
+
+  .secondary .col.primary {
+    width: 70%;
+  }
 }
 
 @media (min-width: 1920px) {
@@ -126,6 +135,11 @@ main {
 
   .col.primary {
     width: 70%;
+    max-width: 1920px;
+  }
+
+  .secondary .col.primary {
+    width: 85%;
     max-width: 1920px;
   }
 }
