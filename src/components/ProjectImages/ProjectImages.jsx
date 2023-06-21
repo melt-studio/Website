@@ -74,25 +74,28 @@ const ProjectImage = ({ image, project, viewport }) => {
   );
 };
 
-const ProjectImages = ({ project, mobile, viewport, start, next = false }) => {
-  const { images, mobileImages } = project.fields;
+const ProjectImages = ({ project, mobile, viewport, secondary = false }) => {
+  const { images, images2, mobileImages, mobileImages2 } = project.fields;
 
   if (!images && !mobileImages) return null;
 
   let projectImages = null;
-  if (mobile) {
-    if (mobileImages) projectImages = mobileImages;
-    else if (images) projectImages = images;
-  } else {
-    if (images) projectImages = images;
-    else if (mobileImages) projectImages = mobileImages;
-  }
 
-  if (start !== null) {
-    if (next) {
-      projectImages = projectImages.slice(start);
+  if (secondary) {
+    if (mobile) {
+      if (mobileImages2) projectImages = mobileImages2;
+      else if (images2) projectImages = images2;
     } else {
-      projectImages = projectImages.slice(0, start);
+      if (images2) projectImages = images2;
+      else if (mobileImages2) projectImages = mobileImages2;
+    }
+  } else {
+    if (mobile) {
+      if (mobileImages) projectImages = mobileImages;
+      else if (images) projectImages = images;
+    } else {
+      if (images) projectImages = images;
+      else if (mobileImages) projectImages = mobileImages;
     }
   }
 

@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet";
 import { useNavigate, useParams } from "react-router-dom";
 import ProjectCover from "../../components/ProjectCover/ProjectCover.jsx";
 import ProjectText from "../../components/ProjectText/ProjectText.jsx";
-// import ProjectTextSecondary from "../../components/ProjectText/ProjectTextSecondary.jsx";
 import ProjectImages from "../../components/ProjectImages/ProjectImages.jsx";
 import ProjectNav from "../../components/ProjectNav/ProjectNav.jsx";
 import Page from "../Page.jsx";
@@ -19,8 +18,6 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
   const [project, setProject] = useState(null);
   const [prev, setPrev] = useState(null);
   const [next, setNext] = useState(null);
-  // const [secondaryCopy, setSecondaryCopy] = useState(false);
-  // const [imageStart, setImageStart] = useState(null);
 
   const overlay = useRef();
 
@@ -139,35 +136,6 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
     // }, [projects, cursor, id, navigate, viewport.width]);
   }, [projects, cursor, id, navigate, mobile, setPageIsLoading]);
 
-  // useEffect(() => {
-  //   const splitImages = () => {
-  //     if (project && project.fields) {
-  //       const { secondaryCopy, images, mobileImages } = project.fields;
-
-  //       if (!secondaryCopy) return;
-
-  //       setSecondaryCopy(true);
-
-  //       let projectImages = null;
-  //       if (mobile) {
-  //         if (mobileImages) projectImages = mobileImages;
-  //         else if (images) projectImages = images;
-  //       } else {
-  //         if (images) projectImages = images;
-  //         else if (mobileImages) projectImages = mobileImages;
-  //       }
-
-  //       const count = projectImages.length;
-  //       const start = count % 2 === 0 ? count / 2 : Math.floor(count / 2);
-
-  //       // console.log(split);
-  //       setImageStart(start);
-  //     }
-  //   };
-
-  //   splitImages();
-  // }, [project, mobile]);
-
   return (
     // <Page style={!loading && project ? { color: project.fields.colorText } : null}>
     <Page
@@ -194,30 +162,16 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
             />
             {!coverLoading && (
               <>
-                <ProjectText key={`${project.id}_text`} project={project} mobile={mobile} />
-                {/* {!secondaryCopy && ( */}
+                <ProjectText key={`${project.id}_text`} project={project} />
                 <ProjectImages key={`${project.id}_images`} project={project} mobile={mobile} viewport={viewport} />
-                {/* )} */}
-                {/* {secondaryCopy && (
-                  <>
-                    <ProjectImages
-                      key={`${project.id}_images`}
-                      project={project}
-                      mobile={mobile}
-                      viewport={viewport}
-                      start={imageStart}
-                    />
-                    <ProjectTextSecondary key={`${project.id}_text_secondary`} project={project} />
-                    <ProjectImages
-                      key={`${project.id}_images_next`}
-                      project={project}
-                      mobile={mobile}
-                      viewport={viewport}
-                      start={imageStart}
-                      next={true}
-                    />
-                  </>
-                )} */}
+                <ProjectText key={`${project.id}_text_secondary`} project={project} secondary={true} />
+                <ProjectImages
+                  key={`${project.id}_images_secondary`}
+                  project={project}
+                  mobile={mobile}
+                  viewport={viewport}
+                  secondary={true}
+                />
                 <ProjectNav prev={prev} next={next} />
               </>
             )}
