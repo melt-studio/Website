@@ -135,11 +135,12 @@ main {
 
   .col.primary {
     width: 70%;
-    max-width: 1920px;
+    /* max-width: 1920px; */
+    max-width: 1440px;
   }
 
   .secondary .col.primary {
-    width: 85%;
-    max-width: 1920px;
+    width: 70%;
+    max-width: 1440px;
   }
 }

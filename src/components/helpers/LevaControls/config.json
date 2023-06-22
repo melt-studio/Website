@@ -20,7 +20,7 @@
       "y": -3,
       "z": 3
     },
-    "imageScale": 1
+    "imageScale": 1.27
   },
   "logo-mobile": {
     "title": "animation_config_logo_mobile",
@@ -43,7 +43,7 @@
       "y": -3,
       "z": 3
     },
-    "imageScale": 1
+    "imageScale": 1.79
   },
   "waterfall": {
     "title": "animation_config_waterfall",

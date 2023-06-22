@@ -48,8 +48,8 @@ const LogoScene = forwardRef(
     const defaults = controls ? (localStorageConfig ? localStorageConfig : config) : config;
 
     // useEffect(() => {
-    //   console.log('USEEFFECT RENDER LOGO')
-    // }, [])
+    //   console.log("CONFIG", config);
+    // }, [config]);
 
     const { upload, mouseArea, refractionRatio, mouseSpeed, rotAngle, rotSpeed } = useLeva(
       name,
@@ -144,6 +144,8 @@ const LogoScene = forwardRef(
         mesh.current.material.needsUpdate = true;
         // console.log(viewport);
         // console.log(size);
+        // console.log("viewport", viewport);
+        // console.log("size", size);
       }
     }, [viewport]);
 
@@ -177,6 +179,9 @@ const LogoScene = forwardRef(
           mesh.current.material.uniforms.uLogoC.value = blurTexture;
         }
 
+        // console.log("tex width", texture.source.data.width);
+        // console.log("tex height", texture.source.data.height);
+
         mesh.current.material.uniforms.uResolution.value.z = texture.source.data.width;
         mesh.current.material.uniforms.uResolution.value.w = texture.source.data.height;
         mesh.current.material.needsUpdate = true;
@@ -194,6 +199,8 @@ const LogoScene = forwardRef(
         trail.current.material.uniforms.uResolution.value.x = size.width;
         trail.current.material.uniforms.uResolution.value.y = size.height;
       }
+
+      // console.log("size", size.width, size.height);
 
       // Update camera position for narrow and tall screens
       if (cam.current && size.height < 1000) {
@@ -361,7 +368,7 @@ const LogoScene = forwardRef(
           containerRef.current.classList.add("show");
           if (cursor.current) {
             cursor.current.classList.remove("initial");
-            // console.log("progress");
+            // console.log("progress", progress);
           }
         }
       }

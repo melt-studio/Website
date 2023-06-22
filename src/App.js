@@ -138,7 +138,9 @@ function App() {
       try {
         const response = await configService.getConfig();
         // console.log(response);
-        setConfig(response);
+        setTimeout(() => {
+          setConfig(response);
+        }, 2000);
       } catch (error) {
         console.log(error.response.data.error ? error.response.data.error : "Server error");
       }

@@ -87,6 +87,7 @@
     /* font-size: 19dvw;
     font-size: min(19dvw, 400px); */
     font-size: min(min(22vw, 30vh), 400px);
+    line-height: 0.85;
     /* font-size: min(min(13vw, 30vh), 400px); */
   }
 
