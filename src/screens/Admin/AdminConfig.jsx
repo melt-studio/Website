@@ -31,11 +31,6 @@ const AdminConfig = ({ mobile, config, setAdminMessage }) => {
       );
     };
 
-    // if (!loggedIn) {
-    //   console.log("navigating to admin - login");
-    //   return navigate("/admin");
-    // }
-
     if (!config || !config[mode]) {
       console.log("navigating to admin - config");
       updateMessage("Animation config not found on Airtable");

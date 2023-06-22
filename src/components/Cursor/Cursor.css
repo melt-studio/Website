@@ -8,59 +8,20 @@
 }
 
 .cursor {
-  /* transform: translate(-50%, -50%) scale(var(--cursor-scale)); */
   transform: translate(-50%, -50%) scale(0);
   transition: transform 0.4s ease-in-out, background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  /* background-color: var(--yellow); */
   background-color: transparent;
   opacity: 1;
-  /* display: none; */
 }
 
-/* .cursor.initial {
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
-  background-color: transparent;
-  transition: transform 0.4s ease-in-out 1s, background-color 0.2s ease-in-out 1s, opacity 0.2s ease-in-out 1s;
-} */
-
-/* .home-page .cursor,
-.project-page .cursor,
-.other-page .cursor,
-.admin-page .cursor,
-.not-found-page .cursor {
-  opacity: 1;
-  background-color: var(--yellow);
-  transform: translate(-50%, -50%) scale(var(--cursor-scale));
-} */
-
-/* .other-page .cursor.animation {
-  opacity: 1;
-  background-color: var(--yellow);
-  transform: translate(-50%, -50%) scale(var(--cursor-scale));
-} */
-
-/* .about-page .cursor {
-  opacity: 1;
-  background-color: var(--yellow);
-  transform: translate(-50%, -50%) scale(var(--cursor-scale));
-} */
-
 .home-page .cursor.project-click {
-  /* .project-page .cursor { */
   opacity: 1;
   background-color: var(--cursor-color);
   transform: translate(-50%, -50%) scale(var(--cursor-scale));
 }
-
-/* .cursor.link {
-  opacity: 1;
-  background-color: var(--yellow);
-  transform: translate(-50%, -50%) scale(var(--cursor-scale));
-} */
 
 .cursor.project {
   opacity: 1;

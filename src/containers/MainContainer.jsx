@@ -39,8 +39,6 @@ export default function MainContainer({
   // if (location.pathname.includes("/project/")) path = "/project";
   if (location.pathname.includes("/admin/")) path = "/admin";
 
-  // console.log(path)
-
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={path}>

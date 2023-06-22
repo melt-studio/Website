@@ -3,13 +3,9 @@ import { button, levaStore } from "leva";
 import { downloadConfig } from "./downloadConfig.js";
 import configService from "../../../services/config.js";
 
-// import { AuthContext } from '../../AdminPage/AuthContext'
-
 export const useLevaHelpers = (name, defaults, config, updateConfig) => {
   const [changes, setChanges] = useState(false);
 
-  // eslint-disable-next-line no-undef
-  // const REACT_APP_MELT_PASSWORD = process.env.REACT_APP_MELT_PASSWORD
   const localPassword = window.localStorage.getItem("melt_config_password");
 
   const setMessage = (text, classes = null) => {
@@ -33,7 +29,6 @@ export const useLevaHelpers = (name, defaults, config, updateConfig) => {
     if (passwordInput === null) return;
     passwordInput.setAttribute("type", "password");
     const span = document.createElement("span");
-    // span.style.marginRight = '5px'
     span.style.padding = "5px";
     span.style.cursor = "pointer";
     span.style.fontSize = "16px";
@@ -53,7 +48,6 @@ export const useLevaHelpers = (name, defaults, config, updateConfig) => {
   }, [passwordInput]);
 
   const getStore = useCallback(() => {
-    // console.log('GET STORE')
     // NB: store.data contains list of all leva control values (not grouped by logo/watefall mode)
     // For this reason control names should also be unique across modes
     const data = levaStore.getData();
@@ -73,7 +67,6 @@ export const useLevaHelpers = (name, defaults, config, updateConfig) => {
   const updateLocalStorage = useCallback(() => {
     const values = getStore();
 
-    // console.log('UPDATELOCALSTORAGE')
     let localConfig = JSON.parse(window.localStorage.getItem("melt_config"));
     if (localConfig === null) localConfig = {};
     if (localConfig[name] === undefined) localConfig[name] = {};
@@ -82,9 +75,9 @@ export const useLevaHelpers = (name, defaults, config, updateConfig) => {
   }, [getStore, name]);
 
   const checkChanges = useCallback(() => {
-    // console.log('UPDATECHANGES')
     const values = getStore();
-    const paths = Object.keys(values).filter((k) => k !== "lastUpdated"); // Ignore lastUpdated field
+    // Ignore lastUpdated field
+    const paths = Object.keys(values).filter((k) => k !== "lastUpdated");
 
     let hasChanged = false;
     paths.forEach((p) => {
@@ -107,7 +100,6 @@ export const useLevaHelpers = (name, defaults, config, updateConfig) => {
   }, [getStore, config]);
 
   const resetStore = useCallback(() => {
-    // console.log('RESET STORE')
     // Reset to config (not localStorage)
     const data = levaStore.getData();
     const paths = Object.keys(data);
@@ -122,11 +114,9 @@ export const useLevaHelpers = (name, defaults, config, updateConfig) => {
 
     updateLocalStorage();
     setChanges(false);
-    // updateChanges()
   }, [updateLocalStorage, config]);
 
   const downloadStore = useCallback(() => {
-    // downloadConfig(name, JSON.stringify(getStore()))
     downloadConfig(name, getStore());
   }, [getStore, name]);
 
@@ -155,9 +145,7 @@ export const useLevaHelpers = (name, defaults, config, updateConfig) => {
     //   }
     // }
 
-    // // console.log('SAVESTORE')
     const values = getStore();
-    // console.log('values', values)
 
     const password = levaStore.get("controls.password");
 
@@ -173,13 +161,10 @@ export const useLevaHelpers = (name, defaults, config, updateConfig) => {
     // Only send sub config (i.e. logo or waterfall)
     try {
       const savedConfig = await configService.updateConfig(values, password);
-      // console.log('saved levaHelpers', savedConfig)
-      // console.log('saved levaHelpers', JSON.parse(savedConfig.fields.config))
 
       // Set password in localStorage
       const localPassword = window.localStorage.getItem("melt_config_password");
       if (localPassword !== password) {
-        // console.log('updating localstorage password')
         window.localStorage.setItem("melt_config_password", password);
       }
 
@@ -188,8 +173,6 @@ export const useLevaHelpers = (name, defaults, config, updateConfig) => {
       // updateConfig(savedConfig.config) // snippet
       updateConfig(savedConfig); // airtable
     } catch (error) {
-      // console.log(error)
-
       setMessage(error.response.data.error);
     }
   };
@@ -199,7 +182,6 @@ export const useLevaHelpers = (name, defaults, config, updateConfig) => {
     const subscriptions = [];
 
     // Initialize values
-    // console.log('INITIALIZING VALUES')
     paths.forEach((path) => {
       const p = path.split(".").pop();
       if (defaults[p] !== undefined) {
@@ -211,8 +193,6 @@ export const useLevaHelpers = (name, defaults, config, updateConfig) => {
     checkChanges();
 
     return () => {
-      // console.log('**** UNSUBSCRIBING')
-
       // Unsubscribe to listeners on unmount
       subscriptions.forEach((s) => s());
       // // Should dispose paths too?

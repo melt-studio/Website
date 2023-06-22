@@ -5,7 +5,6 @@ export const getLocalStorageConfig = (name, defaultConfig) => {
       console.log(`Mismatching record ids: ${localConfig[name].id}, ${defaultConfig[name].id}`);
     }
 
-    // console.log("localConfig", localConfig[name]);
     return localConfig[name];
   }
   return null;

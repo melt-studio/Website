@@ -23,7 +23,6 @@ const NotFound = () => {
         <h1>
           4<img src={Drippy} alt="MELT Logo" />4
         </h1>
-        {/* <p>Page not found</p> */}
       </div>
     </div>
   );

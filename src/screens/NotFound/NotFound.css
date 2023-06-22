@@ -10,14 +10,12 @@ body.not-found-page footer {
   display: flex;
   color: #ffffff;
   color: var(--yellow);
-  /* height: 100dvh; */
 }
 
 .page.not-found-page .page-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* height: 100%; */
   flex-grow: 1;
 }
 
@@ -50,7 +48,3 @@ body.not-found-page footer {
 .page.not-found-page p {
   font-size: 20px;
 }
-
-/* .page.not-found-page .footer {
-  display: none;
-} */

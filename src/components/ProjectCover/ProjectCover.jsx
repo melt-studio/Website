@@ -13,7 +13,6 @@ const ProjectCover = ({ project, overlay, loading, setLoading, mobile, viewport,
       const { width, height } = mainImage[0];
       if (width && height) {
         const aspect = height / width;
-        // console.log(aspect);
         const scl = 1;
         size.width = viewport.width * scl;
         size.height = viewport.width * aspect * scl;

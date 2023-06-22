@@ -10,7 +10,6 @@ import "./Project.css";
 
 const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading }) => {
   const navigate = useNavigate();
-  // const location = useLocation();
   const { id } = useParams();
 
   const [loading, setLoading] = useState(true);
@@ -24,14 +23,8 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
   useEffect(() => {
     document.body.classList.add("project-page");
 
-    // console.log("PROJECT mount");
-    // window.scrollTo(0, 0);
-
     return () => {
       document.body.classList.remove("project-page");
-
-      // console.log(history);
-      // console.log("PROJECT unmount");
     };
   }, []);
 
@@ -40,8 +33,6 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
   }, [setPageIsLoading]);
 
   useEffect(() => {
-    // console.log("loading", loading);
-    // console.log("coverLoading", coverLoading);
     if (!loading && !coverLoading) {
       window.scrollTo(0, 0);
       setPageIsLoading(false);
@@ -53,10 +44,6 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
       cursor.current.className = "cursor";
     }
   }, [cursor]);
-
-  // useEffect(() => {
-  //   console.log("coverLoading", coverLoading);
-  // }, [coverLoading]);
 
   useEffect(() => {
     const updateProject = (project) => {
@@ -86,11 +73,7 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
 
       setLoading(false);
 
-      // // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-      // // setTimeout(() => window.scrollTo(0, 0), 1);
       window.scrollTo(0, 0);
-
-      // setPageIsLoading(false);
     };
 
     if (projects.length > 0) {
@@ -103,46 +86,12 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
         return navigate("/404");
       }
 
-      // if (overlay && overlay.current) {
-      //   overlay.current.addEventListener("transitionend", () => {
-      //     console.log("ok");
-      //     // overlay.current.removeEventListener("transitionend", handleTransition, false);
-      //     // console.log("removed");
-      //     overlay.current.classList.remove("show");
-      //     // overlay.current.removeAttribute("style");
-      //     updateProject(project);
-      //   });
-      // }
-
-      // overlay.current.style.backgroundColor = project.fields.cursorColor;
-      // overlay.current.classList.add("show");
-
       updateProject(project);
-
-      // if (overlay && overlay.current) {
-      //   overlay.current.style.backgroundColor = project.fields.cursorColor;
-      //   overlay.current.classList.add("show");
-      // }
-
-      // setTimeout(() => {
-      //   updateProject(project);
-      //   if (overlay && overlay.current) {
-      //     overlay.current.classList.remove("show");
-      //     // overlay.current.removeAttribute("style");
-      //   }
-      // }, 1000);
     }
-    // }, [projects, cursor, id, navigate]);
-    // }, [projects, cursor, id, navigate, viewport.width]);
   }, [projects, cursor, id, navigate, mobile, setPageIsLoading]);
 
   return (
-    // <Page style={!loading && project ? { color: project.fields.colorText } : null}>
-    <Page
-    // onAnimationStart={() => {
-    //   console.log(scrollY.current, window.scrollY);
-    // }}
-    >
+    <Page>
       <div className={`page-container${loading || coverLoading ? " loading" : ""}`}>
         {!loading && project && (
           <>

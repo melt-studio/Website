@@ -23,14 +23,11 @@ a {
 }
 
 .page {
-  /* font-family: "Archivo", sans-serif; */
-  /* color: red; */
   transition: color 1s ease;
 }
 .page h1 {
   font-weight: 500;
   margin-top: 0;
-  /* font-size: 15px; */
   font-size: 13.5px;
   text-transform: uppercase;
 }
@@ -40,7 +37,6 @@ a {
 
 .page h3,
 .tag h3 {
-  /* font-size: 11px; */
   font-size: 10px;
   letter-spacing: 0.04em;
   line-height: 1.1;
@@ -116,22 +112,6 @@ a {
 .title-text {
   margin-bottom: 5px;
 }
-
-/* #admin-nav {
-  width: 30px;
-  height: 30px;
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  z-index: 99;
-  background: url("./assets/images/MELT__ADMIN.png") no-repeat center / 30px 30px;
-  cursor: pointer;
-  opacity: 0.5;
-  transition: opacity 0.2s;
-}
-#admin-nav:hover {
-  opacity: 1;
-} */
 
 @media (min-width: 800px) {
   .page .jumbo-text {

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import AdminForm from "./AdminForm.jsx";
 import Page from "../Page.jsx";
 import Login from "../Login/Login.jsx";
 import "./Admin.css";
@@ -9,8 +8,6 @@ import ThumbnailLogo from "../../assets/images/ANIMATION_LOGO.jpg";
 import ThumbnailWaterfall from "../../assets/images/ANIMATION_WATERFALL.jpg";
 
 const Admin = ({ loggedIn, setLoggedIn, adminMessage }) => {
-  // const [animationchoice, setAnimationChoice] = useState("waterfall");
-
   useEffect(() => {
     document.body.classList.add("admin-page");
 

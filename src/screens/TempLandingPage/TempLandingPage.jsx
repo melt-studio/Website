@@ -1,4 +1,3 @@
-// import LogoAnimation from '../../components/LogoAnimation'
 import WaterfallAnimation from "../../components/WaterfallAnimation";
 import "./TempLandingPage.css";
 

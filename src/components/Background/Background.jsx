@@ -140,7 +140,6 @@ const Mesh = ({ background, background1, background2, uniforms, multiColors, mul
           .split(",")
           .map((s) => Number(s.trim()) / 255);
         background.current.material.uniforms.uColor1.value = color1.setRGB(...rgb);
-        // console.log(background.current.material.uniforms.uColor1.value);
       }
       if (styles2) {
         const c = styles2.getPropertyValue("background-color");
@@ -150,7 +149,6 @@ const Mesh = ({ background, background1, background2, uniforms, multiColors, mul
           .split(",")
           .map((s) => Number(s.trim()) / 255);
         background.current.material.uniforms.uColor2.value = color2.setRGB(...rgb);
-        // console.log(background.current.material.uniforms.uColor2.value);
       }
     }
   });

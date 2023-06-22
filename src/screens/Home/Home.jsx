@@ -33,26 +33,10 @@ export default function Home({
     // Update root project-color CSS variable
     document.documentElement.style.setProperty("--text-color", "#ffffff");
 
-    // if (cursor && cursor.current) {
-    //   if (cursor && cursor.current) {
-    //     cursor.current.style.opacity = 0;
-    //   }
-    //   // cursor.current.classList.remove("link");
-    //   // cursor.current.classList.remove("video");
-    //   cursor.current.className = "cursor";
-    // }
-
-    // console.log("HOME mount");
     window.scrollTo(0, 0);
 
     return () => {
       document.body.classList.remove("home-page");
-
-      // console.log("HOME unmount");
-
-      // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-      // setTimeout(() => window.scrollTo(0, 0), 1);
-      // window.scrollTo(0, 0);
     };
   }, []);
 
@@ -70,17 +54,12 @@ export default function Home({
       if (loaded && scroll > 0) {
         // Only scroll to project if coming from project page
         if (history && history.length > 1 && history[1].includes("/project/")) {
-          // console.log("scrolling to", scroll);
           window.scrollTo(0, scroll);
           // NB: Chrome retains previous scroll positon using back navigation, however this happens instantly / before project page has faded out, so get "jump" in content
         }
       }
     }
   }, [initial, loaded, scroll, history]);
-
-  // useEffect(() => {
-  //   console.log("loaded!", loaded);
-  // }, [loaded]);
 
   useEffect(() => {
     if (history && history.length > 1 && history[1].includes("/project/")) {
@@ -102,10 +81,6 @@ export default function Home({
     }
   });
 
-  // useEffect(() => {
-  //   console.log(projects);
-  // }, [projects]);
-
   return (
     <>
       <Helmet>
@@ -114,31 +89,17 @@ export default function Home({
 
       {mobile && <IntroAnimation initial={initial} setInitial={setInitial} mobile={mobile} viewport={viewport} />}
 
-      <Page
-      // onAnimationComplete={() => {
-      //   if (cursor && cursor.current) {
-      //     cursor.current.style.opacity = 1;
-      //   }
-      // }}
-      // style={{ minHeight: "100dvh" }}
-      >
+      <Page>
         {!mobile && projects.length > 0 ? <Background backgroundColor={backgroundColor} /> : null}
         {!mobile && (
           <div className="logo-animation">
-            <LogoAnimation
-              serverConfig={config}
-              fade={fadeAnimation}
-              fromProject={fromProject}
-              cursor={cursor}
-              // projectsLoaded={loaded}
-            />
+            <LogoAnimation serverConfig={config} fade={fadeAnimation} fromProject={fromProject} cursor={cursor} />
           </div>
         )}
         {projects.length > 0 ? (
           <ProjectTiles
             setLoaded={setLoaded}
             projects={projects}
-            // setBackgroundImage={setBackgroundImage}
             setBackgroundColor={setBackgroundColor}
             cursor={cursor}
             mobile={mobile}

@@ -39,7 +39,6 @@ const TagBlock = ({
   const fadeInTag = {
     name: transition ? "customTransitionTag" : "customAnimationTag",
     duration: 1,
-    // delay: transition ? (links ? (mobile ? 1.5 : 2.5) : 1) : 2.5,
     delay: transition ? delay : 2.5,
     stagger: true,
     damping: links ? 0.15 : 0.1,

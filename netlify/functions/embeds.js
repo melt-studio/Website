@@ -19,7 +19,6 @@ exports.handler = (event, context, callback) => {
 
   // Here's a function we'll use to define how our response will look like when we call callback
   const pass = (code, body) => {
-    // console.log(body)
     callback(null, {
       statusCode: code,
       body: JSON.stringify(body),
@@ -52,7 +51,6 @@ exports.handler = (event, context, callback) => {
         };
       });
 
-      // return pass(200, response.data.records);
       return pass(200, records);
     } catch (error) {
       return pass(500, { error: "Unable to fetch data" });

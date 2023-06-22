@@ -16,9 +16,6 @@ exports.handler = (event, context, callback) => {
   const TABLE_PASSWORD = process.env.REACT_APP_AIRTABLE_TABLE_PASSWORDS;
   const URL_PASSWORD = `${APP}/${TABLE_PASSWORD}`;
 
-  // eslint-disable-next-line no-undef
-  // const PASSWORD = process.env.REACT_APP_MELT_PASSWORD;
-
   const headers = {
     Authorization: `Bearer ${KEY}`,
     "Content-Type": "application/json",
@@ -26,7 +23,6 @@ exports.handler = (event, context, callback) => {
 
   // Here's a function we'll use to define how our response will look like when we call callback
   const pass = (code, body) => {
-    // console.log(body)
     callback(null, {
       statusCode: code,
       body: JSON.stringify(body),
@@ -65,10 +61,6 @@ exports.handler = (event, context, callback) => {
     const { body } = event;
 
     const { config, password } = JSON.parse(body);
-    // todo: validate/sanitize input
-    // console.log(config, password)
-
-    // console.log(config, password);
 
     // Check password
     if (!password || password === "") {
@@ -117,7 +109,6 @@ exports.handler = (event, context, callback) => {
 
       return pass(200, data);
     } catch (error) {
-      // console.log(error)
       return pass(500, { error: "Something went wrong, saving failed" });
     }
   };

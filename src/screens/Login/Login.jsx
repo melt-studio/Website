@@ -1,6 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-// import { useNavigate } from "react-router-dom";
-// import Page from "../Page";
 import loginService from "../../services/login";
 import "./Login.css";
 
@@ -8,8 +6,6 @@ const Login = ({ loggedIn, setLoggedIn }) => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState(null);
-
-  // const navigate = useNavigate();
 
   const form = useRef();
 
@@ -38,7 +34,6 @@ const Login = ({ loggedIn, setLoggedIn }) => {
       window.localStorage.setItem("melt_admin_password", password);
       document.body.classList.add("logged-in");
       setPassword("");
-      // return navigate("/admin");
     } catch (error) {
       setLoggedIn(false);
       document.body.classList.remove("logged-in");
@@ -46,18 +41,6 @@ const Login = ({ loggedIn, setLoggedIn }) => {
         form.current.classList.add("error");
       }
       setMessage("Wrong password");
-      // if (timeoutId !== null) {
-      //   clearTimeout(timeoutId);
-      //   setTimeoutId(null);
-      // }
-      // setTimeoutId(
-      //   setTimeout(() => {
-      //     setMessage(null);
-      //     if (form && form.current) {
-      //       form.current.classList.remove("error");
-      //     }
-      //   }, 5000)
-      // );
     }
   };
 
@@ -80,28 +63,8 @@ const Login = ({ loggedIn, setLoggedIn }) => {
         <button type="submit">Login to Admin Panel</button>
         {message && <div className="form__message">{message}</div>}
       </form>
-      {/* <h1>Login to Admin Panel</h1> */}
     </div>
   );
 };
 
 export default Login;
-
-// const PasswordForm = () => {
-//   const [password, setPassword] = useState("");
-//   const [message, setMessage] = useState(null);
-//   const [timeoutId, setTimeoutId] = useState(null);
-
-//   const form = useRef()
-
-//   return (
-//     <div className="login-form" ref={form}>
-//     <h1>Login to Admin Panel</h1>
-//     <form onSubmit={handleLogin}>
-//       <input placeholder="Password" type="password" onChange={handleChange} />
-//       <button type="submit">Login</button>
-//       {message && <div className="form__message">{message}</div>}
-//     </form>
-//   </div>
-//   )
-// }

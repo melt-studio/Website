@@ -37,16 +37,6 @@ function App() {
     setHistory((h) => [location.pathname, ...h]);
   }, [location]);
 
-  // useEffect(() => {
-  //   if (pageIsLoading) console.log("page loading");
-  //   else console.log("page loaded");
-  //   console.log("------------");
-  // }, [pageIsLoading]);
-
-  // useEffect(() => {
-  //   console.log(history);
-  // }, [history]);
-
   const cursor = useRef();
 
   useEffect(() => {
@@ -79,17 +69,6 @@ function App() {
       }
     };
 
-    // const login = (password) => {
-    //   if (password === process.env.REACT_APP_MELT_PASSWORD) {
-    //     setLoggedIn(true);
-    //     document.body.classList.add("logged-in");
-    //   } else {
-    //     setLoggedIn(false);
-    //     window.localStorage.removeItem("melt_admin_password");
-    //     document.body.classList.remove("logged-in");
-    //   }
-    // };
-
     if (password) login(password);
   }, []);
 
@@ -100,10 +79,6 @@ function App() {
   useEffect(() => {
     setInitial(mobile && initial ? true : false);
   }, [mobile, initial]);
-
-  // useEffect(() => {
-  //   console.log(projects);
-  // }, [projects]);
 
   useEffect(() => {
     const getProjects = async () => {
@@ -137,10 +112,7 @@ function App() {
     const getConfig = async () => {
       try {
         const response = await configService.getConfig();
-        // console.log(response);
-        setTimeout(() => {
-          setConfig(response);
-        }, 2000);
+        setConfig(response);
       } catch (error) {
         console.log(error.response.data.error ? error.response.data.error : "Server error");
       }
@@ -187,19 +159,8 @@ function App() {
         />
       </Layout>
       {!mobile && <Cursor ref={cursor} />}
-      {/* {loggedIn && <AdminNav />} */}
     </>
   );
 }
-
-// const AdminNav = () => {
-//   const navigate = useNavigate();
-//   const location = useLocation();
-
-//   const excludes = ["/admin"];
-//   if (excludes.some((ex) => location.pathname.includes(ex))) return null;
-
-//   return <div onClick={() => navigate("/admin")} id="admin-nav"></div>;
-// };
 
 export default App;

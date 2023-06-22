@@ -1,8 +1,4 @@
 .logo-animation {
-  /* opacity: 0; */
-  /* transform: translateY(50px); */
-  /* transition: opacity 1s ease-in-out, transform 1s ease-in-out; */
-
   width: 100%;
   display: flex;
   justify-content: center;
@@ -17,22 +13,6 @@
   top: 0;
 }
 
-/* .home-page .page {
-  min-height: 101vh;
-} */
-
-/* .animation-container {
-  opacity: 0;
-  transition: opacity 3s ease 3s;
-}
-.animation-container.show {
-  opacity: 1;
-} */
-
-/* .logo-animation.loaded {
-  opacity: 1;
-} */
-
 .projects {
   margin-top: 45vw;
 }
@@ -41,8 +21,5 @@
   .projects {
     margin-top: 100vh;
     margin-top: 100dvh;
-    /* position: relative; */
-    /* top: 100vh;
-    top: 100dvh; */
   }
 }

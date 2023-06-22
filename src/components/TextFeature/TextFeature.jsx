@@ -1,7 +1,6 @@
 import { keyframes } from "../../utils/keyframes.js";
 import { useEffect, useRef, useState } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
-// import { Vector2 } from "three";
 import "./TextFeature.css";
 
 keyframes`
@@ -44,13 +43,11 @@ const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
     for (let j = 0; j < words.length; j++) {
       const word = words[j];
       const delay = fadeInText.delay + fadeInText.damping * i * 2;
-      // const delay = fadeInText.delay + fadeInText.damping * (words.length - j - 1 + (copy.length - i - 1) * 2);
       text[i].push(
         <div
           className={`textFeature-text__text text_word_${i}`}
           key={`${word}_${i}_${j}`}
           style={{
-            // transitionDelay: `${delay}s`,
             transition: `opacity 1s ease-in-out ${delay + 0.15 * i}s, transform 1s ease-in-out ${delay}s`,
           }}
         >
@@ -74,8 +71,6 @@ const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
 
   const text2 = useRef();
 
-  // const pos = useMemo(() => new Vector2(), []);
-
   useEffect(() => {
     setTimeout(() => {
       const s = viewport.height * 0.1;
@@ -96,19 +91,6 @@ const TextFeature = ({ mobile, viewport, scrollCutOff }) => {
     } else if (!isVisible && latest <= s) {
       setIsVisible(true);
     }
-
-    // pos.x = latest;
-    // pos.y += (pos.y - pos.x) * 1;
-
-    // text2.current.style.transform = `translateY(-${latest / 4}px)`;
-
-    // if (scrollY.current - scrollY.prev < 0) {
-    //   // text2.current.classList.remove("hide");
-    //   // setKeyframes(keyframesDown);
-    // } else {
-    //   // setKeyframes(keyframesUp);
-    //   text2.current.classList.add("hide");
-    // }
   });
 
   return (

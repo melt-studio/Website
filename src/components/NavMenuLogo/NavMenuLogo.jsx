@@ -9,7 +9,7 @@ import MeltLogo from "../../assets/images/MELT__LOGO.png";
 
 const keyframes = {
   enter: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -20 }, // y: 20
+  exit: { opacity: 0, y: -20 },
 };
 
 const NavMenuLogo = ({ setNavMenuOpen, initial, mobile, viewport, scrollCutOff, pageIsLoading }) => {
@@ -48,25 +48,17 @@ const NavMenuLogo = ({ setNavMenuOpen, initial, mobile, viewport, scrollCutOff, 
     if (!mobile || excludes.some((ex) => location.pathname.includes(ex)) || location.pathname === "/") return;
 
     if (pageIsLoading) {
-      // console.log("loading false");
       return setIsVisible(false);
     }
 
     const scrollCutOff2 = viewport.height * 1;
 
-    // const sMax = document.body.offsetHeight - viewport.height;
-    // const sMax = Math.max(document.body.scrollHeight - viewport.height, viewport.height / 2);
     const sMax = document.body.scrollHeight - viewport.height;
     const s = scrollCutOff2 > sMax ? sMax / 2 : scrollCutOff2;
 
-    // console.log("--------");
-    // console.log(latest, s);
-
     if (!isVisible && latest > s) {
-      // console.log("latest true", latest, s);
       setIsVisible(true);
     } else if (isVisible && latest <= s) {
-      // console.log("latest false", latest, s);
       setIsVisible(false);
     }
   });

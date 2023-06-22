@@ -15,21 +15,11 @@ const glSettings = {
   antialias: false,
 };
 
-const LogoAnimation = ({
-  serverConfig,
-  controls,
-  effectRef,
-  mobile,
-  fade = false,
-  fromProject = false,
-  cursor,
-  // projectsLoaded,
-}) => {
+const LogoAnimation = ({ serverConfig, controls, effectRef, mobile, fade = false, fromProject = false, cursor }) => {
   const { metric, value } = defaultConfig.devices.mobile;
   const [name, setName] = useState(
     (mobile && controls) || window[`inner${metric[0].toUpperCase() + metric.slice(1)}`] < value ? "logo-mobile" : "logo"
   );
-  // const [canvasLoaded, setCanvasLoaded] = useState(false);
 
   const updateName = (newName) => {
     setName(newName);
@@ -38,22 +28,11 @@ const LogoAnimation = ({
   const container = useRef();
 
   const created = ({ gl }) => {
-    // console.log("created");
     gl.domElement.id = "logoAnimation";
-    if (container && container.current) {
-      // container.current.classList.add("show");
-    }
-    // setCanvasLoaded(true);
-    // console.log("created");
+    // if (container && container.current) {
+    //   container.current.classList.add("show");
+    // }
   };
-
-  // useEffect(() => {
-  //   if (projectsLoaded && canvasLoaded) {
-  //     if (container && container.current) {
-  //       container.current.classList.add("show");
-  //     }
-  //   }
-  // }, [projectsLoaded, canvasLoaded]);
 
   useEffect(() => {
     if (controls) {
@@ -65,7 +44,6 @@ const LogoAnimation = ({
 
   const [sceneFps, setSceneFps] = useState(60);
 
-  // const [config, updateConfig] = useConfig(name, serverConfig);
   const [config, setConfig] = useState(defaultConfig[name]);
 
   useEffect(() => {
@@ -75,10 +53,6 @@ const LogoAnimation = ({
       }
       setConfig(serverConfig[name]);
     }
-
-    // else {
-    //   console.log(`Config ${name} not found on server`);
-    // }
   }, [name, serverConfig]);
 
   const localStorageConfig = getLocalStorageConfig(name, defaultConfig);
@@ -92,12 +66,9 @@ const LogoAnimation = ({
         className="animation-container"
         ref={container}
         style={{
-          // width: mobile && controls ? "390px" : "100%",
-          // height: mobile && controls ? "844px" : "100%",
           width: "100%",
           height: controls ? "100%" : "100vh",
           maxHeight: controls ? "none" : "1000px",
-          // maxHeight: "1000px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

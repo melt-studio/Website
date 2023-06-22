@@ -34,7 +34,6 @@ const FadeIn = ({ name, duration = 1, delay = 0, easing = "ease", stagger = fals
           animation: ${name} ${duration}s ${easing} ${delay}s 1 both;
         }
       `;
-    // document.head.appendChild(style);
   }
 
   if (typeof children === "string" || !children.length) {

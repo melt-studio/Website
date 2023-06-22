@@ -47,10 +47,6 @@ const LogoScene = forwardRef(
 
     const defaults = controls ? (localStorageConfig ? localStorageConfig : config) : config;
 
-    // useEffect(() => {
-    //   console.log("CONFIG", config);
-    // }, [config]);
-
     const { upload, mouseArea, refractionRatio, mouseSpeed, rotAngle, rotSpeed } = useLeva(
       name,
       controls,
@@ -138,14 +134,9 @@ const LogoScene = forwardRef(
     }, [fromProject]);
 
     useEffect(() => {
-      // console.log(viewport);
       if (mesh.current && mesh.current.material) {
         mesh.current.material.uniforms.uDPR.value = viewport.dpr;
         mesh.current.material.needsUpdate = true;
-        // console.log(viewport);
-        // console.log(size);
-        // console.log("viewport", viewport);
-        // console.log("size", size);
       }
     }, [viewport]);
 
@@ -170,7 +161,6 @@ const LogoScene = forwardRef(
     useEffect(() => {
       if (mesh.current && mesh.current.material) {
         mesh.current.material.uniforms.uLogo.value = texture;
-        // console.log(texture.source.data.width)
 
         if (!controls || (controls && upload === null) || upload === undefined) {
           mesh.current.material.uniforms.uLogoC.value = textureFade;
@@ -178,9 +168,6 @@ const LogoScene = forwardRef(
           const blurTexture = blur(gl, 1024, 20, texture);
           mesh.current.material.uniforms.uLogoC.value = blurTexture;
         }
-
-        // console.log("tex width", texture.source.data.width);
-        // console.log("tex height", texture.source.data.height);
 
         mesh.current.material.uniforms.uResolution.value.z = texture.source.data.width;
         mesh.current.material.uniforms.uResolution.value.w = texture.source.data.height;
@@ -200,8 +187,6 @@ const LogoScene = forwardRef(
         trail.current.material.uniforms.uResolution.value.y = size.height;
       }
 
-      // console.log("size", size.width, size.height);
-
       // Update camera position for narrow and tall screens
       if (cam.current && size.height < 1000) {
         cam.current.position.z = MathUtils.mapLinear(size.height, 1000, 0, 90, 50);
@@ -220,7 +205,6 @@ const LogoScene = forwardRef(
     useEffect(() => {
       if (mesh.current) {
         const stage = fade ? 1 : 0;
-        // console.log("fade", fade, mesh.current.material.uniforms.uTransition.value.x);
         if (mesh.current.material.uniforms.uTransition.value.x !== stage) {
           const { uTransition, uTime, uFadeLast } = mesh.current.material.uniforms;
           uFadeLast.value = uTransition.value.y;
@@ -330,16 +314,6 @@ const LogoScene = forwardRef(
         mesh.current.material.uniforms.uTime.value += delta;
         totalDelta = mesh.current.material.uniforms.uTime.value * 60;
 
-        // if (mesh.current.material.uniforms.uTime.value < 8) {
-        //   const time = mesh.current.material.uniforms.uTime.value;
-        //   let t = THREE.MathUtils.mapLinear(time, 0, 8, 1, 0);
-        //   t = easeOutCubic(t);
-
-        //   mesh.current.material.uniforms.uRefractionRatio.value = 1 - refractionRatio * 0.01 * t;
-        // } else {
-        //   mesh.current.material.uniforms.uRefractionRatio.value = 1 - refractionRatio * mouse.smoothedVector * 0.01;
-        // }
-
         mesh.current.material.uniforms.uRefractionRatio.value = 1 - refractionRatio * mouse.smoothedVector * 0.01;
 
         mesh.current.rotation.x = 0.0003 * rotSpeed.x * totalDelta + 0.0175 * rotAngle.x;
@@ -368,7 +342,6 @@ const LogoScene = forwardRef(
           containerRef.current.classList.add("show");
           if (cursor.current) {
             cursor.current.classList.remove("initial");
-            // console.log("progress", progress);
           }
         }
       }

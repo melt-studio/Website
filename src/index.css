@@ -4,7 +4,6 @@
 
 html {
   background: #000000;
-  /* transition: background-color 1s ease; */
 
   --yellow: #bcfc45;
   --text-color: #ffffff;
@@ -20,7 +19,6 @@ body {
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-color: black; */
   background: transparent;
   transition: background-color 1s ease;
   color: #ffffff;

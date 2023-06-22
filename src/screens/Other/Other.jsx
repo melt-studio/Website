@@ -154,7 +154,6 @@ const PasswordForm = ({ embed, setLocked, setEmbedUrl }) => {
 
   return (
     <div className="form password-form" ref={form}>
-      {/* <h1>Enter password to view page</h1> */}
       <form onSubmit={handleSubmit}>
         <input placeholder="Password" type="password" onChange={handleChange} autoFocus={true} />
         <button type="submit">View page</button>

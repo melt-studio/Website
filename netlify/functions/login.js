@@ -11,8 +11,6 @@ exports.handler = (event, context, callback) => {
   // eslint-disable-next-line no-undef
   const TABLE = process.env.REACT_APP_AIRTABLE_TABLE_PASSWORDS;
   const URL = `${APP}/${TABLE}`;
-  // eslint-disable-next-line no-undef
-  // const PASSWORD = process.env.REACT_APP_MELT_PASSWORD;
 
   const headers = {
     Authorization: `Bearer ${KEY}`,
@@ -21,7 +19,6 @@ exports.handler = (event, context, callback) => {
 
   // Here's a function we'll use to define how our response will look like when we call callback
   const pass = (code, body) => {
-    // console.log(body)
     callback(null, {
       statusCode: code,
       body: JSON.stringify(body),
@@ -58,15 +55,6 @@ exports.handler = (event, context, callback) => {
     } catch (error) {
       return pass(404, { error: "Airtable record not found" });
     }
-
-    // console.log(password, PASSWORD);
-
-    // // Check password
-    // if (!password || password === "" || password !== PASSWORD) {
-    //   return pass(401, { error: "Wrong password" });
-    // }
-
-    // return pass(200, {});
   };
 
   if (event.httpMethod === "PUT") {
