@@ -340,7 +340,7 @@ const LogoScene = forwardRef(
       if (containerRef.current) {
         if (progress.progress >= 100 && !containerRef.current.classList.contains("show")) {
           containerRef.current.classList.add("show");
-          if (cursor.current) {
+          if (!controls && cursor.current) {
             cursor.current.classList.remove("initial");
           }
         }
