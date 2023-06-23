@@ -1,189 +1,201 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import MainContainer from "./containers/MainContainer";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { useLocation } from "react-router-dom";
 import Layout from "./layouts/MainLayout.jsx";
+import MainContainer from "./containers/MainContainer.jsx";
+import Cursor from "./components/Cursor/Cursor.jsx";
+import "./App.css";
 
-import { getAllProjects } from "./services/projects";
-import { getAllAboutInfo } from "./services/about";
-// import { getAllUnofficials } from "./services/unofficials";
-import { getAllMiscInfo } from "./services/miscPages";
+import configService from "./services/config";
+import projectService from "./services/projects";
+import aboutService from "./services/about";
+import embedService from "./services/embeds";
+import loginService from "./services/login.js";
+import otherService from "./services/other.js";
 
-import MeltLogo from "./assets/images/Logo/MELT_LOGO WHT_SM.png";
-import xForOpenMenu from "./assets/Cursors/MELT_WEBSITE ICONS__X.png";
+// import favicon from "./favicon.ico";
 
-const unofficials = [];
 function App() {
+  const widthCutOff = 800;
+
+  const [config, setConfig] = useState([]);
   const [projects, setProjects] = useState([]);
-  const [aboutInfo, setAboutInfo] = useState({});
-  // const [unofficials, setUnofficials] = useState([]);
-  const [miscPageInfo, setMiscPageInfo] = useState([]);
-  const [navTextColor, setNavColor] = useState("white");
-  const [stickyisVis, setStickyIsVis] = useState("sticky-info");
-  const [visible, setVisible] = useState(false);
-  const [hamburgerMenuIsVis, sethamburgerMenuIsVis] = useState(
-    "hamburger-menu-not-visible"
-  );
-  // const [lastKnownScrollPosition, setLastKnownScrollPosition] = useState(0);
-  const [showHamburger, setShowHamburger] = useState(
-    "hamburger__holder hidden"
-  ); ///hidden
-  // const [ticking, setTicking] = useState(false);
-  const [projectBackgroundColors, setColors] = useState([]);
-  const [scroll, setScroll] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState("#000000");
-  const [mobileIntroLogo, setMobileIntroLogo] = useState(
-    "drippy-logo__mobile-intro"
-  );
-  const [fadeInText, setFadeInText] = useState("none"); //inline to activate
-  const [clicks, setClicks] = useState(0);
-  const [navColorTheme, setNavColorTheme] = useState(
-    "nav__with__footer__hover-effect"
-  );
-  const [logoForNavHamburger, setLogoForNavHamburger] = useState(MeltLogo);
-  // console.log("projects", projects)
-  // console.log("backgroundColor", backgroundColor)
+  const [aboutInfo, setAboutInfo] = useState([]);
+  const [embeds, setEmbeds] = useState([]);
+  const [other, setOther] = useState([]);
+  const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
+  const [mobile, setMobile] = useState(viewport.width < widthCutOff);
+  const [navMenuOpen, setNavMenuOpen] = useState(false);
+  const [initial, setInitial] = useState(true);
+  const [history, setHistory] = useState([]);
+  const [scroll, setScroll] = useState(0);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [pageIsLoading, setPageIsLoading] = useState(false);
+  const [title, setTitle] = useState("MELT");
 
-  const homeClick = () => {
-    window.location.reload();
-    window.scrollTo(0, 0);
-  };
+  const location = useLocation();
 
-  const logoXToggle = () => {
-    if (logoForNavHamburger === MeltLogo) {
-      setLogoForNavHamburger(xForOpenMenu);
-    } else {
-      setLogoForNavHamburger(MeltLogo);
-    }
-  };
+  const scrollCutOff = useMemo(() => {
+    return viewport.height * 0.8;
+  }, [viewport]);
 
-  // useEffect(() => { ///// This is to show / hide nav bar Desktop
-  //   function handleScroll() {
-  //     setLastKnownScrollPosition(window.scrollY);
-  //     if (!ticking) {
-  //       if ( window.location.pathname !== "/working-components") {
-  //         window.requestAnimationFrame(() => {
-  //           if (lastKnownScrollPosition > window.scrollY) {
-  //             // console.log('up');
-  // setStickyIsVis("sticky-info")
-  // setVisible(true)
-  //           } else {
-  //             // console.log('down');
-  //              // setStickyIsVis("isNotVis")
-  //             setVisible(false)
-  //           }
-  //           setTicking(false);
-  //         });
-  //         setTicking(true);
-  //       }
-  //       }
-
-  //   }
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, [lastKnownScrollPosition, ticking]);
-
-  // console.log("navTextColor", navTextColor)
   useEffect(() => {
-    const fetchProjects = async () => {
-      const projArray = await getAllProjects();
-      setProjects(projArray);
+    setHistory((h) => [location.pathname, ...h]);
+  }, [location]);
+
+  const cursor = useRef();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setViewport({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
     };
 
-    const fetchAboutInfo = async () => {
-      const aboutInfo = await getAllAboutInfo();
-      setAboutInfo(aboutInfo);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
     };
-    // const fetchUnofficials = async () => {
-    //   const unofficialInfo = await getAllUnofficials();
-    //   setUnofficials(unofficialInfo);
-    // };
-
-    const fetchMiscPageInfo = async () => {
-      const miscInfo = await getAllMiscInfo();
-      setMiscPageInfo(miscInfo);
-    };
-
-    fetchProjects();
-    fetchAboutInfo();
-    // fetchUnofficials()
-    fetchMiscPageInfo();
-    setTimeout(() => {
-      setMobileIntroLogo("drippy-logo__mobile-intro-fade-in");
-
-      setTimeout(() => {
-        setMobileIntroLogo("drippy-logo__mobile-intro-fade-out");
-
-        setTimeout(() => {
-          setMobileIntroLogo("drippy-logo__mobile-intro-gone");
-          setFadeInText("inline");
-          // setTimeout(() => {
-          // }, 500);
-        }, 800);
-      }, 3000);
-    }, 1000);
   }, []);
-  // console.log('App About', aboutInfo)
-  setTimeout(() => {
-    if (projects.length) {
-      const theColors = projects.map((project) => project.fields.colorTheme);
-      setColors(theColors);
-      // console.log("projectBackgroundColors", projectBackgroundColors)
-    }
-  }, 2000);
 
   useEffect(() => {
-    document.body.style.background = backgroundColor;
-  }, [backgroundColor]);
+    const password = window.localStorage.getItem("melt_admin_password");
 
-  // console.log("miscPageInfo", miscPageInfo)
+    const login = async (password) => {
+      try {
+        await loginService.login(password);
+        setLoggedIn(true);
+        document.body.classList.add("logged-in");
+      } catch (error) {
+        setLoggedIn(false);
+        window.localStorage.removeItem("melt_admin_password");
+        document.body.classList.remove("logged-in");
+      }
+    };
+
+    if (password) login(password);
+  }, []);
+
+  useEffect(() => {
+    setMobile(viewport.width < widthCutOff);
+  }, [viewport.width, widthCutOff]);
+
+  useEffect(() => {
+    setInitial(mobile && initial ? true : false);
+  }, [mobile, initial]);
+
+  useEffect(() => {
+    const getProjects = async () => {
+      try {
+        const response = await projectService.getProjects();
+        const sortedProjects = response.map((r) => r).sort((a, b) => a.fields.order - b.fields.order);
+        setProjects(sortedProjects);
+      } catch (error) {
+        console.log(error.response.data.error ? error.response.data.error : "Server error");
+      }
+    };
+
+    const getAboutInfo = async () => {
+      try {
+        const response = await aboutService.getAbout();
+        setAboutInfo(response);
+      } catch (error) {
+        console.log(error.response.data.error ? error.response.data.error : "Server error");
+      }
+    };
+
+    const getEmbeds = async () => {
+      try {
+        const response = await embedService.getEmbeds();
+        setEmbeds(response);
+      } catch (error) {
+        console.log(error.response.data.error ? error.response.data.error : "Server error");
+      }
+    };
+
+    const getConfig = async () => {
+      try {
+        const response = await configService.getConfig();
+        setConfig(response);
+      } catch (error) {
+        console.log(error.response.data.error ? error.response.data.error : "Server error");
+      }
+    };
+
+    const getOther = async () => {
+      try {
+        const response = await otherService.getOther();
+        setOther(response);
+      } catch (error) {
+        console.log(error.response.data.error ? error.response.data.error : "Server error");
+      }
+    };
+
+    getProjects();
+    getAboutInfo();
+    getEmbeds();
+    getConfig();
+    getOther();
+  }, []);
+
+  useEffect(() => {
+    if (other.length > 0) {
+      if (other[0].fields) {
+        const { homeTitle, favicon } = other[0].fields;
+
+        if (homeTitle) setTitle(homeTitle);
+
+        if (favicon[0] && favicon[0].url && favicon[0].type === "image/vnd.microsoft.icon") {
+          let link = document.querySelector("link[rel=icon]");
+          if (!link) {
+            link = document.createElement("link");
+            link.rel = "icon";
+            document.getElementsByTagName("head")[0].appendChild(link);
+          }
+          link.href = favicon[0].url;
+        }
+      }
+    }
+  }, [other]);
+
   return (
-    <Layout
-      logoForNavHamburger={logoForNavHamburger}
-      hamburgerMenuIsVis={hamburgerMenuIsVis}
-      sethamburgerMenuIsVis={sethamburgerMenuIsVis}
-      fadeInText={fadeInText}
-      setFadeInText={setFadeInText}
-      setScroll={setScroll}
-      showHamburger={showHamburger}
-      setShowHamburger={setShowHamburger}
-      setVisible={setVisible}
-      visible={visible}
-      stickyisVis={stickyisVis}
-      setStickyIsVis={setStickyIsVis}
-      navTextColor={navTextColor}
-      setNavColor={setNavColor}
-      // mobileIntro={mobileIntro}
-      // setMobileIntro={setMobileIntro}
-      navColorTheme={navColorTheme}
-      setNavColorTheme={setNavColorTheme}
-      homeClick={homeClick}
-      logoXToggle={logoXToggle}
-    >
-      <MainContainer
-        fadeInText={fadeInText}
-        setFadeInText={setFadeInText}
-        backgroundColor={backgroundColor}
-        setBackgroundColor={setBackgroundColor}
-        scroll={scroll}
-        projectBackgroundColors={projectBackgroundColors}
-        showHamburger={showHamburger}
-        setShowHamburger={setShowHamburger}
-        aboutInfo={aboutInfo}
-        navTextColor={navTextColor}
-        setStickyIsVis={setStickyIsVis}
-        setVisible={setVisible}
+    <>
+      <Layout
+        navMenuOpen={navMenuOpen}
+        setNavMenuOpen={setNavMenuOpen}
+        cursor={cursor}
+        mobile={mobile}
+        viewport={viewport}
+        scrollCutOff={scrollCutOff}
+        initial={initial}
+        loggedIn={loggedIn}
+        setLoggedIn={setLoggedIn}
         projects={projects}
-        unofficials={unofficials}
-        setNavColor={setNavColor}
-        mobileIntroLogo={mobileIntroLogo}
-        setMobileIntroLogo={setMobileIntroLogo}
-        clicks={clicks}
-        setClicks={setClicks}
-        miscPageInfo={miscPageInfo}
-      />
-    </Layout>
+        pageIsLoading={pageIsLoading}
+      >
+        <MainContainer
+          initial={initial}
+          setInitial={setInitial}
+          projects={projects}
+          aboutInfo={aboutInfo}
+          embeds={embeds}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+          config={config}
+          cursor={cursor}
+          mobile={mobile}
+          viewport={viewport}
+          scroll={scroll}
+          setScroll={setScroll}
+          history={history}
+          scrollCutOff={scrollCutOff}
+          setPageIsLoading={setPageIsLoading}
+          title={title}
+        />
+      </Layout>
+      {!mobile && <Cursor ref={cursor} />}
+    </>
   );
 }
 

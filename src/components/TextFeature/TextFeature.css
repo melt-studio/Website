@@ -1,0 +1,64 @@
+#textFeature-container {
+  padding: 0 5%;
+  font-weight: 300;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  flex-wrap: wrap;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.textFeature-text .textFeature-text__text {
+  opacity: 0;
+  transform: translate3d(0, -5dvh, 0);
+}
+
+.textFeature-text.show .textFeature-text__text {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.textFeature-text__line {
+  height: fit-content;
+  display: flex;
+  color: white;
+  line-height: 0.85;
+  font-size: max(min(15.5vw, 14rem), 3.5rem);
+  letter-spacing: -0.07em;
+  word-spacing: 0.2rem;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.feature_text_CRAFT_F_3 {
+  letter-spacing: -0.01em;
+}
+
+#textFeature-container img {
+  margin-left: 20px;
+  height: 10dvw;
+  position: fixed;
+  bottom: 50px;
+  display: none;
+}
+
+@media screen and (min-width: 800px) {
+  #textFeature-container {
+    padding: 0 40px;
+  }
+
+  .textFeature-text__line {
+    font-size: min(min(22vw, 30vh), 400px);
+    line-height: 0.85;
+  }
+
+  .textFeature-text {
+    margin-top: 0;
+  }
+}

@@ -1,14 +1,12 @@
 import axios from "axios";
 
-const KEY = process.env.REACT_APP_AIRTABLE_KEY;
-// const BASE = process.env.REACT_APP_BASE_NUM; 
-const URL = process.env.REACT_APP_AIRTABLE_ENDPOINT_URL_ABOUT;
+const baseUrl = "/.netlify/functions/about";
 
-export const getAllAboutInfo = async () => {
-  const data = await axios.get(URL, {
-    headers: {
-      Authorization: `Bearer ${KEY}`,
-    },
-  });
-  return data.data.records;
+const getAbout = async () => {
+  const response = await axios.get(baseUrl);
+  return response.data;
 };
+
+const aboutService = { getAbout };
+
+export default aboutService;

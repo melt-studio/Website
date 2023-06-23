@@ -1,7 +1,7 @@
 import { useEffect, useRef, useMemo, useState } from "react";
-import * as THREE from "three";
+import { Color, Vector2, Vector4 } from "three";
 import { useFrame, useThree } from "@react-three/fiber";
-import { OrthographicCamera, useProgress, useTexture } from "@react-three/drei";
+import { OrthographicCamera, useTexture } from "@react-three/drei";
 import { useLeva } from "./controls";
 import defaultConfig from "../../helpers/LevaControls/config.json";
 
@@ -9,26 +9,16 @@ import vertexShader from "./shaders/vertex";
 import fragmentShader from "./shaders/fragment";
 
 import meltLogo from "../assets/textures/melt_logo.png";
-// import meltLogo2 from "../assets/textures/melt_logo3.png";
 import smiley from "../assets/textures/smiley.png";
 import noise from "../assets/textures/noise.png";
 import { blur } from "../../helpers/blurTexture";
 
 const DisableRender = () => useFrame(() => null, 1000);
 
-const Scene = ({
-  name,
-  controls,
-  config,
-  updateConfig,
-  localStorageConfig,
-  containerRef,
-  updateName,
-  cursor,
-}) => {
+const Scene = ({ name, controls, config, updateConfig, localStorageConfig, containerRef, updateName }) => {
   const mesh = useRef();
+  // const [inView, setInView] = useState(true);
   const [inView] = useState(true);
-  const [loading, setLoading] = useState(true);
 
   const [blurStrength, setBlurStrength] = useState(2);
   const updateBlurStrength = (value) => setBlurStrength(value);
@@ -37,17 +27,13 @@ const Scene = ({
 
   const { size, gl } = useThree();
 
-  const defaults = controls
-    ? localStorageConfig
-      ? localStorageConfig
-      : config
-    : config;
+  const defaults = controls ? (localStorageConfig ? localStorageConfig : config) : config;
 
   // useEffect(() => {
   //   console.log('USEEFFECT RENDER WATERFALL')
   // }, [])
 
-  const { upload } = useLeva(name, controls, defaults, config, updateConfig, [
+  const { upload, image } = useLeva(name, controls, defaults, config, updateConfig, [
     mesh,
     imageOptions,
     updateBlurStrength,
@@ -60,17 +46,12 @@ const Scene = ({
       return upload;
     }
 
-    // if (image !== undefined && image !== null) {
-    //   return image;
-    // }
-    // if (name.includes("mobile")) return smiley;
-
-    if (size.width < 1000) return smiley;
+    if (image !== undefined && image !== null) {
+      return image;
+    }
 
     return meltLogo;
   };
-
-  // const filltexture = useTexture(meltLogo2);
 
   const texture = useTexture(textureSource());
   // NB: split noiseTexture else any textureSource change will reload noiseTexture (which will create new uniform)
@@ -90,27 +71,26 @@ const Scene = ({
   // }, [controls, texture, blurStrength])
 
   const [uniforms, mouse] = useMemo(() => {
-    const mouse = new THREE.Vector2();
+    const mouse = new Vector2();
 
     const uniforms = {
       uImage: { value: null },
-      uColor: { value: new THREE.Color(0xffffff) },
+      uColor: { value: new Color(0xffffff) },
       uTime: { value: 0 },
       uResolution: {
-        value: new THREE.Vector4(0, 0, 1024, 1024),
+        value: new Vector4(0, 0, 1024, 1024),
       },
       PI: { value: Math.PI },
       uLine: {
-        value: new THREE.Vector4(20, 1, 0.5, 0.5),
+        value: new Vector4(20, 1, 0.5, 0.5),
       },
       uDistortion: {
-        value: new THREE.Vector4(0.5, 0.5, true, 1),
+        value: new Vector4(0.5, 0.5, true, 1),
       },
       uMouse: { value: mouse },
       uNoise: { value: null },
-      uTransition: { value: new THREE.Vector4(0, 0, 3, 7) },
+      uTransition: { value: new Vector4(0, 0, 3, 7) },
       uImageScale: { value: 1 },
-      // uFillTex: { value: filltexture },
     };
 
     return [uniforms, mouse];
@@ -140,7 +120,7 @@ const Scene = ({
       mesh.current.material.uniforms.uDistortion.value.z = mouseEnabled;
       mesh.current.material.uniforms.uDistortion.value.w = mouseStrength;
 
-      mesh.current.material.uniforms.uColor.value = new THREE.Color(lineColor);
+      mesh.current.material.uniforms.uColor.value = new Color(lineColor);
 
       mesh.current.material.needsUpdate = true;
     }
@@ -191,10 +171,8 @@ const Scene = ({
 
       mesh.current.material.needsUpdate = true;
 
-      mesh.current.material.uniforms.uResolution.value.z =
-        texture.source.data.width;
-      mesh.current.material.uniforms.uResolution.value.w =
-        texture.source.data.height;
+      mesh.current.material.uniforms.uResolution.value.z = texture.source.data.width;
+      mesh.current.material.uniforms.uResolution.value.w = texture.source.data.height;
       mesh.current.material.needsUpdate = true;
     }
   }, [texture, controls, upload, gl, blurStrength]);
@@ -210,10 +188,8 @@ const Scene = ({
   useEffect(() => {
     if (!controls) {
       const { metric, value } = defaultConfig.devices.mobile;
-      if (size[metric] < value && name !== "waterfall-mobile")
-        updateName("waterfall-mobile");
-      else if (size[metric] >= value && name !== "waterfall")
-        updateName("waterfall");
+      if (size[metric] < value && name !== "waterfall-mobile") updateName("waterfall-mobile");
+      else if (size[metric] >= value && name !== "waterfall") updateName("waterfall");
     }
   }, [size, updateName, controls, name]);
 
@@ -233,15 +209,8 @@ const Scene = ({
   //   }
   // };
 
-  const progress = useProgress();
-
   useFrame((state, delta) => {
     if (!inView) return;
-
-    if (progress.progress >= 100 && loading && containerRef.current) {
-      containerRef.current.classList.remove("loading");
-      setLoading(false);
-    }
 
     mouse.x += (state.mouse.x - mouse.x) * delta * 5;
     mouse.y += (state.mouse.y - mouse.y) * delta * 5;
@@ -251,7 +220,7 @@ const Scene = ({
       mesh.current.material.uniforms.uMouse.value.set(mouse.x, mouse.y);
     }
 
-    // if (!controls) handleFadeOut()
+    // if (!controls) handleFadeOut();
   });
 
   return (
@@ -260,23 +229,9 @@ const Scene = ({
 
       {inView && (
         <>
-          <OrthographicCamera
-            makeDefault
-            left={-1}
-            right={1}
-            top={1}
-            bottom={-1}
-            near={-1}
-            far={1}
-            manual
-          />
+          <OrthographicCamera makeDefault left={-1} right={1} top={1} bottom={-1} near={-1} far={1} manual />
 
           <mesh
-            onPointerMove={(e) => {
-              if (cursor && cursor.current) {
-                cursor.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-              }
-            }}
             ref={mesh}
             onClick={() => {
               const time = mesh.current.material.uniforms.uTime.value;

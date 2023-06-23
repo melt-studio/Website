@@ -1,6 +1,6 @@
-import { forwardRef } from 'react'
-import { Leva } from 'leva'
-import './Leva.css'
+import { forwardRef } from "react";
+import { Leva } from "leva";
+import "./Leva.css";
 
 const LevaControls = forwardRef(({ controls }, ref) => {
   return (
@@ -8,15 +8,15 @@ const LevaControls = forwardRef(({ controls }, ref) => {
       ref={ref}
       className="leva"
       style={{
-        visibility: 'visible',
-        cursor: 'default',
+        visibility: "visible",
+        cursor: "default",
       }}
     >
       <Leva hidden={!controls} />
     </div>
-  )
-})
+  );
+});
 
-LevaControls.displayName = 'LevaControls'
+LevaControls.displayName = "LevaControls";
 
-export default LevaControls
+export default LevaControls;

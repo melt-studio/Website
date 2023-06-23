@@ -1,4 +1,4 @@
-const vertexShader = /* glsl */ `
+const vertex = /* glsl */ `
   uniform sampler2D positions;
   uniform float uTime;
   uniform float uSize;
@@ -90,4 +90,4 @@ const vertexShader = /* glsl */ `
   }
 `;
 
-export default vertexShader;
+export default vertex;

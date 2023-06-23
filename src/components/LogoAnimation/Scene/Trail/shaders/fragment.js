@@ -1,4 +1,4 @@
-const fragmentShader = /* glsl */ `
+const fragment = /* glsl */ `
   uniform vec4 uInfo; // vec4(count, strokeweight, radius, decay)
 
   varying vec2 vUv;
@@ -42,4 +42,4 @@ const fragmentShader = /* glsl */ `
   }
 `;
 
-export default fragmentShader;
+export default fragment;

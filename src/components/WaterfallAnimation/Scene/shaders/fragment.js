@@ -1,4 +1,4 @@
-const fragmentShader = /* glsl */ `
+const fragment = /* glsl */ `
   varying vec2 vUv;
 
   uniform sampler2D uImage;
@@ -169,4 +169,4 @@ const fragmentShader = /* glsl */ `
   }
 `;
 
-export default fragmentShader;
+export default fragment;

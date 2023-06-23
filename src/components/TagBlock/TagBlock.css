@@ -1,0 +1,48 @@
+.tag-block {
+  margin-bottom: 30px;
+}
+
+.tag-block__title {
+  margin-bottom: 1rem;
+}
+
+.tag-block__title__underline {
+  display: flex;
+  background-color: #ffffff;
+  width: 100%;
+  margin-top: -5px;
+  display: none;
+}
+
+.about-page .tag-block__title__underline {
+  background-color: #ffffff;
+  display: none;
+}
+
+.tag-block__title__underline {
+  height: 1px;
+}
+
+.tag-block__tags {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0;
+}
+
+.tag-links .tag-block__tags {
+  gap: 8px 0;
+}
+
+.tag-block__tags h3 {
+  text-transform: uppercase;
+}
+
+@media (min-width: 800px) {
+  .tag-block {
+    margin-bottom: 40px;
+  }
+
+  .tag-block__title__underline {
+    display: none;
+  }
+}

@@ -1,0 +1,22 @@
+.project {
+  margin-bottom: 80px;
+}
+
+.project__cover-img {
+  position: relative;
+  opacity: 0;
+  transform: scale(0.8, 0.8) translateY(0px);
+  transition: opacity 1s ease-in-out, transform 1s ease;
+  cursor: pointer;
+}
+
+.show .project__cover-img {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+@media (min-width: 800px) {
+  .project__cover-img {
+    cursor: none;
+  }
+}

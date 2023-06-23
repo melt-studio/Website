@@ -1,0 +1,38 @@
+.project-page .page-container.loading {
+  min-height: 101vh;
+  min-height: 101dvh;
+}
+
+.project-page .page-container {
+  gap: 100px 0;
+  background-color: transparent;
+  transition: background-color 1s;
+}
+
+.project-page .page {
+  position: relative;
+  color: var(--text-color);
+}
+
+.project-page .page a {
+  color: inherit;
+}
+
+.project-page .project-content {
+  display: flex;
+  flex-direction: column;
+  gap: 100px 0;
+  opacity: 1;
+  transition: opacity 1s ease 0s;
+}
+
+.project-page .project-content.loading {
+  opacity: 0;
+}
+
+@media (min-width: 800px) {
+  .project-page .page-container,
+  .project-page .project-content {
+    gap: 150px 0;
+  }
+}

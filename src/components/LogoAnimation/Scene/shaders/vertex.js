@@ -1,4 +1,4 @@
-const vertexShader = /* glsl */ `
+const vertex = /* glsl */ `
   varying vec3 eyeVector;
   varying vec3 worldNormal;
   uniform vec4 uResolution;
@@ -15,4 +15,4 @@ const vertexShader = /* glsl */ `
   }
 `;
 
-export default vertexShader;
+export default vertex;

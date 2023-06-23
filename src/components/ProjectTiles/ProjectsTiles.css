@@ -1,0 +1,18 @@
+.projects {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+.projects.loading {
+  min-height: 5000px;
+}
+
+@media (min-width: 800px) {
+  .projects {
+    align-items: normal;
+  }
+}

@@ -1,0 +1,111 @@
+.login-page .page {
+  height: 100vh;
+  display: flex;
+  background: #000;
+  transition: background-color 1s;
+}
+
+.login-page .page.logged-in {
+  background: #1b1b1d;
+}
+
+.login-page .page-container {
+  width: 100%;
+  margin: 75px 0;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form .form__message {
+  color: orangered;
+  position: absolute;
+  margin-top: -20px;
+}
+
+.form {
+  background: #000;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.page .form h1 {
+  font-size: 16px;
+  margin-top: 30px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.form form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px 0;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.form input {
+  padding: 15px;
+  font-size: 30px;
+  border: none;
+  border-bottom: 2px solid var(--yellow);
+  background: #fff;
+  background: #000;
+  color: var(--yellow);
+  font-family: var(--font-family);
+  text-align: center;
+  width: 96%;
+  border-radius: 0;
+  color: var(--yellow);
+  outline: none;
+}
+
+@media (min-width: 800px) {
+  .form input {
+    font-size: 60px;
+    width: 100%;
+    padding: 15px;
+  }
+}
+
+.form.error input {
+  color: orangered;
+  border-color: orangered;
+}
+
+.form button {
+  padding: 15px 20px;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-family: var(--font-family);
+  font-weight: 500;
+  background: var(--yellow);
+  background: transparent;
+  border: none;
+  border-radius: 0 0 2px 2px;
+  border-radius: 24px;
+  cursor: pointer;
+  width: fit-content;
+  color: var(--yellow);
+  color: #ffffff;
+  border: 1px solid var(--yellow);
+  transition: all 0.25s;
+}
+
+.form button:hover {
+  background: var(--yellow);
+  color: #000000;
+}
+
+input::-webkit-input-placeholder {
+  color: var(--yellow);
+}
+
+input:-moz-placeholder {
+  color: var(--yellow);
+}

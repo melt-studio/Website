@@ -1,4 +1,4 @@
-const fragmentShader = /* glsl */ `
+const fragment = /* glsl */ `
   uniform sampler2D uScene;
   uniform sampler2D uLogo;
   uniform sampler2D uLogoC;
@@ -44,26 +44,6 @@ const fragmentShader = /* glsl */ `
 
     vec3 normal = worldNormal;
     vec3 ev = eyeVector;
-    // ev.z += 1.;
-
-    // vec2 aspectS = vec2(
-    //   uResolution.x > uResolution.y ? uResolution.x / uResolution.y : 1., 
-    //   uResolution.x > uResolution.y ? 1. : uResolution.y / uResolution.x 
-    // );
-    // vec2 aspectI = vec2(1.);
-    // aspectI = vec2(
-    //   uResolution.z > uResolution.w ? 1.: uResolution.z / uResolution.w, 
-    //   uResolution.z > uResolution.w ? uResolution.w / uResolution.z : 1.
-    // );
-    
-    // vec2 imgScale = aspectI * aspectS / uImageScale;
-    // vec2 imgOff = vec2(
-    //   // aspectS.x > aspectI.x ? (aspectS.x - aspectI.x) * .5 : 0.,
-    //   // aspectS.y > aspectI.y ? (aspectS.y - aspectI.y) * .5 : 0.
-    //   (aspectS.x - aspectI.x * uImageScale) * .5 / uImageScale,
-    //   (aspectS.y - aspectI.y * uImageScale) * .5 / uImageScale
-    // );
-
 
     vec2 imgUv = uv;
 
@@ -96,23 +76,7 @@ const fragmentShader = /* glsl */ `
 
     imgUv -= uvOff;
     imgUv *= uImgFitWidth == 1.? uResolution.z / uResolution.x : uResolution.w / uResolution.y;
-    // imgUv += uImgOffset;
     imgUv /= imgScale;
-
-    // if (imgUv.x < 0. || imgUv.x >= 1. || imgUv.y < 0. || imgUv.y >= 1.) discard; 
-
-
-
-    // imgOff += 0.5;
-
-    // if (aspectS.x > 1.) {
-    //   float scl = min(2560. / uResolution.y, aspectS.x);
-    //   imgScale /= scl;
-    //   // imgOff += vec2(
-    //   //   aspectS.x - scl,
-    //   //   aspectS.y - scl
-    //   // ) * 0.5 / scl;
-    // }
 
     float ft = cubicInOut(uTransition.y);
 
@@ -160,8 +124,6 @@ const fragmentShader = /* glsl */ `
     float alpha = texture2D(uScene, uv_).a;
     alpha *= 1.-ft;
 
-
-
     float x = c.r * 2. - 1.;
     float y = c.g * 2. - 1.;
     float strength = map(uDisp.x, 0., 1., 0., 0.3);
@@ -196,7 +158,7 @@ const fragmentShader = /* glsl */ `
 
     vec4 c2 = texture2D(uLogoC, newUv + off) * cg * 3.; // * 1.
     // color += c2 * smoothstep(0., 1., c2.a) * alpha; // can affect smoothstep to get thicker/thinner colour  
-    color += c2 * alpha ;
+    color += c2 * alpha;
     // color += vec4(c2.rgb * alpha, c2.a); // can affect smoothstep to get thicker/thinner colour  
     // color.a += (c2.r + c2.g + c2.b) / 3. * alpha;
 
@@ -208,7 +170,7 @@ const fragmentShader = /* glsl */ `
     ft = cubicInOut(uTransition.y);
     float a = clamp((color.r + color.g + color.b) / mix(1., 3., ft), 0., 1.);
     a = mix(a, smoothstep(.2, 1., a), ft);
-    a *= mix(1., .08, ft);
+    a *= mix(1., .0, ft);
     color.a = mix(a, 1., uControls);
 
     color += c * float(uShowMouse);
@@ -218,4 +180,4 @@ const fragmentShader = /* glsl */ `
   }
 `;
 
-export default fragmentShader;
+export default fragment;

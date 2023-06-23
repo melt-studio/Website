@@ -1,4 +1,4 @@
-const vertexShader = /* glsl */ `
+const vertex = /* glsl */ `
   varying vec2 vUv;
   
   void main() {
@@ -12,4 +12,4 @@ const vertexShader = /* glsl */ `
   }
 `;
 
-export default vertexShader;
+export default vertex;

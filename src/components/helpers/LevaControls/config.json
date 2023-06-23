@@ -7,27 +7,13 @@
     "displacementDecay": 0.5,
     "colorNoise": 1,
     "colorShift": 1,
-    "refractionRatio": 17,
+    "refractionRatio": 18,
     "mouseSpeed": 20,
-    "mouseArea": 0.9,
+    "mouseArea": 1,
     "rotAngle": { "x": 90, "y": 50, "z": 145 },
     "rotSpeed": { "x": -9, "y": -3, "z": 3 },
-    "imageScale": 1.2,
-    "lastUpdated": "2023-03-30T16:30:46.423Z"
-  },
-  "waterfall": {
-    "title": "animation_config_waterfall_mobile",
-    "lineCount": 50,
-    "lineSpeed": 0.19999999999999996,
-    "lineWidth": 0.53,
-    "lineDistortion": 0.6200000000000001,
-    "lineColor": "#f2f2f2",
-    "colorShift": 0.19999999999999996,
-    "imageStrength": 0.16,
-    "mouseEnabled": true,
-    "mouseStrength": 0.6900000000000001,
-    "id": "recDo4ymkcLDeO1bk",
-    "imageScale": 0.91
+    "imageScale": 1.27,
+    "lastUpdated": "2023-06-05T00:16:45.877Z"
   },
   "logo-mobile": {
     "title": "animation_config_logo_mobile",
@@ -45,20 +31,35 @@
     "imageScale": 1.79,
     "lastUpdated": "2023-04-04T15:41:48.394Z"
   },
-  "waterfall-mobile": {
+  "waterfall": {
     "title": "animation_config_waterfall_mobile",
     "lineCount": 50,
-    "lineSpeed": 0.19999999999999998,
-    "lineWidth": 0.45999999999999996,
-    "lineDistortion": 0.5,
+    "lineSpeed": 0.19999999999999993,
+    "lineWidth": 0.52,
+    "lineDistortion": 0.7,
+    "lineColor": "#ffffff",
+    "colorShift": 0.23999999999999994,
+    "imageStrength": 0.21000000000000002,
+    "mouseEnabled": true,
+    "mouseStrength": 1,
+    "id": "recDo4ymkcLDeO1bk",
+    "imageScale": 1.1400000000000001,
+    "lastUpdated": "2023-05-10T16:14:58.253Z"
+  },
+  "waterfall-mobile": {
+    "title": "animation_config_waterfall_mobile",
+    "lineCount": 33,
+    "lineSpeed": 0.3,
+    "lineWidth": 0.46,
+    "lineDistortion": 0.2,
     "lineColor": "#f2f2f2",
-    "colorShift": 0.18999999999999995,
-    "imageStrength": 0.14999999999999997,
+    "colorShift": 0.31,
+    "imageStrength": 0.32999999999999996,
     "mouseEnabled": true,
     "mouseStrength": 0.99,
     "id": "rectu3rbrpw4uKrvT",
-    "imageScale": 1.2,
-    "lastUpdated": "2023-03-31T19:20:58.614Z"
+    "imageScale": 1.08,
+    "lastUpdated": "2023-05-08T17:42:04.619Z"
   },
   "devices": {
     "mobile": {

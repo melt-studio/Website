@@ -1,25 +1,18 @@
 // import { useEffect } from 'react'
-import * as THREE from "three";
+import { Color } from "three";
 import { useControls, folder } from "leva";
 import { useLevaHelpers } from "../../helpers/LevaControls/levaHelpers";
 
-export const useLeva = (
-  name,
-  controls,
-  defaults,
-  config,
-  updateConfig,
-  dependencies
-) => {
-  const [mesh, updateBlurStrength] = dependencies;
+export const useLeva = (name, controls, defaults, config, updateConfig, dependencies) => {
+  const [mesh, imageOptions, updateBlurStrength] = dependencies;
 
   const schema = {
     image: folder(
       {
-        // image: {
-        //   options: imageOptions,
-        //   order: -4,
-        // },
+        image: {
+          options: imageOptions,
+          order: -4,
+        },
         uploadWaterfall: {
           label: "upload",
           image: null,
@@ -122,7 +115,7 @@ export const useLeva = (
           value: defaults.lineColor,
           onChange: (v) => {
             if (mesh.current && mesh.current.material) {
-              mesh.current.material.uniforms.uColor.value = new THREE.Color(v);
+              mesh.current.material.uniforms.uColor.value = new Color(v);
             }
           },
         },
@@ -158,37 +151,30 @@ export const useLeva = (
       },
       { order: -2 }
     ),
-    debug: folder(
-      {
-        showCursor: {
-          label: "cursor",
-          value: true,
-          onChange: (v) => {
-            document.body.style.cursor = v ? "default" : "none";
-          },
-        },
-      },
-      { order: -1 }
-    ),
+    // debug: folder(
+    //   {
+    //     showCursor: {
+    //       label: "cursor",
+    //       value: true,
+    //       onChange: (v) => {
+    //         if (controls) {
+    //           document.body.style.cursor = v ? "default" : "none";
+    //         }
+    //       },
+    //     },
+    //   },
+    //   { order: -1 }
+    // ),
   };
 
   // Could limit levaControls to empty object if !controls
   // Also need to pass controls as dependency so store rebuilds input schema
 
-  const { uploadWaterfall } = useControls(schema, [controls]);
+  const { image, uploadWaterfall } = useControls(schema, [controls]);
 
-  const { buttons, changes } = useLevaHelpers(
-    name,
-    defaults,
-    config,
-    updateConfig
-  );
+  const { buttons, changes } = useLevaHelpers(name, defaults, config, updateConfig);
 
-  useControls({ controls: folder(buttons, { order: 10 }) }, [
-    controls,
-    changes,
-    config,
-  ]);
+  useControls({ controls: folder(buttons, { order: 10 }) }, [controls, changes, config]);
 
   // // Add download image button template
   // const downloadImage = document.getElementById('image.downloadImage')
@@ -218,6 +204,6 @@ export const useLeva = (
 
   return {
     upload: controls ? uploadWaterfall : null,
-    // image: controls ? image : null,
+    image: controls ? image : null,
   };
 };
