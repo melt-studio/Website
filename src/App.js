@@ -10,6 +10,9 @@ import projectService from "./services/projects";
 import aboutService from "./services/about";
 import embedService from "./services/embeds";
 import loginService from "./services/login.js";
+import otherService from "./services/other.js";
+
+// import favicon from "./favicon.ico";
 
 function App() {
   const widthCutOff = 800;
@@ -18,6 +21,7 @@ function App() {
   const [projects, setProjects] = useState([]);
   const [aboutInfo, setAboutInfo] = useState([]);
   const [embeds, setEmbeds] = useState([]);
+  const [other, setOther] = useState([]);
   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
   const [mobile, setMobile] = useState(viewport.width < widthCutOff);
   const [navMenuOpen, setNavMenuOpen] = useState(false);
@@ -26,6 +30,7 @@ function App() {
   const [scroll, setScroll] = useState(0);
   const [loggedIn, setLoggedIn] = useState(false);
   const [pageIsLoading, setPageIsLoading] = useState(false);
+  const [title, setTitle] = useState("MELT");
 
   const location = useLocation();
 
@@ -118,11 +123,41 @@ function App() {
       }
     };
 
+    const getOther = async () => {
+      try {
+        const response = await otherService.getOther();
+        setOther(response);
+      } catch (error) {
+        console.log(error.response.data.error ? error.response.data.error : "Server error");
+      }
+    };
+
     getProjects();
     getAboutInfo();
     getEmbeds();
     getConfig();
+    getOther();
   }, []);
+
+  useEffect(() => {
+    if (other.length > 0) {
+      if (other[0].fields) {
+        const { homeTitle, favicon } = other[0].fields;
+
+        if (homeTitle) setTitle(homeTitle);
+
+        if (favicon[0] && favicon[0].url && favicon[0].type === "image/vnd.microsoft.icon") {
+          let link = document.querySelector("link[rel=icon]");
+          if (!link) {
+            link = document.createElement("link");
+            link.rel = "icon";
+            document.getElementsByTagName("head")[0].appendChild(link);
+          }
+          link.href = favicon[0].url;
+        }
+      }
+    }
+  }, [other]);
 
   return (
     <>
@@ -156,6 +191,7 @@ function App() {
           history={history}
           scrollCutOff={scrollCutOff}
           setPageIsLoading={setPageIsLoading}
+          title={title}
         />
       </Layout>
       {!mobile && <Cursor ref={cursor} />}

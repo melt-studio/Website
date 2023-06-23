@@ -19,6 +19,7 @@ export default function Home({
   scroll,
   setScroll,
   history,
+  title,
 }) {
   const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [fadeAnimation, setFadeAnimation] = useState(false);
@@ -84,7 +85,7 @@ export default function Home({
   return (
     <>
       <Helmet>
-        <title>MELT • a design studio</title>
+        <title>{title}</title>
       </Helmet>
 
       {mobile && <IntroAnimation initial={initial} setInitial={setInitial} mobile={mobile} viewport={viewport} />}

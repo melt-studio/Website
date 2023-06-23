@@ -29,6 +29,7 @@ export default function MainContainer({
   history,
   scrollCutOff,
   setPageIsLoading,
+  title,
 }) {
   const [adminMessage, setAdminMessage] = useState(null);
 
@@ -107,6 +108,7 @@ export default function MainContainer({
               scroll={scroll}
               setScroll={setScroll}
               history={history}
+              title={title}
             />
           }
         />
