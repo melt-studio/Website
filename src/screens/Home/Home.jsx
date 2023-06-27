@@ -48,6 +48,12 @@ export default function Home({
     }
   }, [cursor]);
 
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     document.body.style.height = "101vh";
+  //   }, 3000);
+  // }, []);
+
   useEffect(() => {
     if (initial) {
       window.scrollTo(0, 0);

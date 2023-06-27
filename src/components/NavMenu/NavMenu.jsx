@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion, useIsPresent } from "framer-motion";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
 import { cursorEvents } from "../Cursor/Cursor.jsx";
@@ -85,12 +85,17 @@ const NavMenuLinkText = ({ text, selected }) => (
 const NavMenuLink = ({ link, closeNavMenu }) => {
   const [selected, setSelected] = useState(false);
 
+  const location = useLocation();
+
   if (link.nav) {
     return (
       <Link
         to={link.href}
         onClick={() => {
           setSelected(true);
+          if (link.href === "/" && location.pathname === "/") {
+            window.scrollTo(0, 0);
+          }
           closeNavMenu();
         }}
       >
