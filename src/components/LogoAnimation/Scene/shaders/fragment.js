@@ -108,15 +108,17 @@ const fragment = /* glsl */ `
 
     vec2 vUv3 = uv;
       
-    // Horizontal Blur
-    vec3 accumulation = vec3(0);
-    vec3 weightsum = vec3(0);
-    for (float i = -kernel; i <= kernel; i++){
-        accumulation += texture2D(uScene, uv_ + vec2(i, i) * pixelSize).xyz * weight;
-        weightsum += weight;
-    }
+    // // Horizontal Blur
+    // vec3 accumulation = vec3(0);
+    // vec3 weightsum = vec3(0);
+    // for (float i = -kernel; i <= kernel; i++){
+    //     accumulation += texture2D(uScene, uv_ + vec2(i, i) * pixelSize).xyz * weight;
+    //     weightsum += weight;
+    // }
     
-    sum = accumulation / weightsum;
+    // sum = accumulation / weightsum;
+
+    sum = texture2D(uScene, uv_).rgb;
 
     vec4 c = vec4(sum, 1.);
     c *= 1.-ft;
@@ -176,7 +178,7 @@ const fragment = /* glsl */ `
     color += c * float(uShowMouse);
     color += vec4(normal, 1.) * float(uNormal);
 
-    gl_FragColor = color;
+    gl_FragColor = vec4(sum, 1.);
   }
 `;
 
