@@ -181,7 +181,7 @@ const fragment = /* glsl */ `
     color += vec4(normal, 1.) * float(uNormal);
 
     gl_FragColor = color;
-    gl_FragColor = vec4(sum, 1.);
+    // gl_FragColor = vec4(sum, 1.);
   }
 `;
 
