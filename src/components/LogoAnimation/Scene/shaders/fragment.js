@@ -120,6 +120,8 @@ const fragment = /* glsl */ `
 
     sum = texture2D(uScene, uv_).rgb;
 
+      ft = 0.;
+
     vec4 c = vec4(sum, 1.);
     c *= 1.-ft;
 
@@ -178,6 +180,7 @@ const fragment = /* glsl */ `
     color += c * float(uShowMouse);
     color += vec4(normal, 1.) * float(uNormal);
 
+    gl_FragColor = color;
     gl_FragColor = vec4(sum, 1.);
   }
 `;
