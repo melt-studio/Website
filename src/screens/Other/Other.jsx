@@ -41,11 +41,15 @@ const Other = ({ embeds, config }) => {
     }
   }, [embeds, type, id, navigate]);
 
+  useEffect(() => {
+    console.log(embed);
+  }, [embed]);
+
   return (
     <Page>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>MELLLLLLT - Other</title>
+        <title>MELLLLLLT - {embed && embed.fields.title ? embed.fields.title : "Other"}</title>
       </Helmet>
 
       <div
