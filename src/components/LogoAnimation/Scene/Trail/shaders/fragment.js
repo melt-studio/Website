@@ -32,15 +32,11 @@ const fragment = /* glsl */ `
       vUv.y
     );
     // color.a *= vUv.y;
-    
     // color.rgb *= sin(pow(cubicInOut(1.-abs(vUv.x * 2. - 1.)), 3.) * 3.14159 * 2. + uTime * 0.);
     color.rgb *= pow(cubicInOut(1.-abs(vUv.x * 2. - 1.)), 3.); // add seperation at edge
     // color.rgb *= smoothstep(.5, .6, 1.-abs(vUv.x * 2. - 1.)); // add seperation at edge
     color.a *= cubicInOut(1.-abs(vUv.x * 2. - 1.)); // fade edge
     // color.a *= smoothstep(.2, .8, 1.-abs(vUv.x * 2. - 1.)); // fade edge
-
-    // color.rgb = vec3(1., 0., 0.);
-    // color.a = 1.;
 
     gl_FragColor = color;
   }

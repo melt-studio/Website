@@ -164,8 +164,6 @@ const Trail = forwardRef(({ fps }, ref) => {
     // https://github.com/pmndrs/react-three-fiber/discussions/941
     mouse.set(state.mouse.x, state.mouse.y);
 
-    // console.log(mouse.x);
-
     if (!mousePoints && mouse.clone().sub(mouseLast).length() > 0.01) {
       for (let i = 0; i < pointCount; i++) {
         points[i].set(mouse.x, mouse.y, 0);
@@ -225,7 +223,6 @@ const Trail = forwardRef(({ fps }, ref) => {
           depthWrite={false}
           precision="lowp"
           alphaTest={0}
-          // wireframe={true}
         />
       </mesh>
     </>
