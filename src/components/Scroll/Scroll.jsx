@@ -9,10 +9,6 @@ const Scroll = ({ scroll = 0, loaded = true }) => {
   const { scrollY } = useScroll();
 
   useEffect(() => {
-    console.log(scroll);
-  }, [scroll]);
-
-  useEffect(() => {
     const showHelper = () =>
       setTimeout(() => {
         scrollHelper.current.classList.remove("hide");

@@ -50,6 +50,8 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
   const [whatWeDoTags, setWhatWeDoTags] = useState([]);
   const [whatWeDontDoTags, setWhatWeDontDoTags] = useState([]);
 
+  // console.log(aboutInfo);
+
   useEffect(() => {
     window.scrollTo(0, 0);
 
@@ -116,7 +118,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
         viewport={viewport}
       />
 
-      <Scroll />
+      {aboutInfo.length > 0 && <Scroll />}
 
       {aboutInfo.length > 0 && (
         <>

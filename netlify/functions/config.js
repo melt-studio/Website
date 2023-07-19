@@ -33,6 +33,17 @@ exports.handler = (event, context, callback) => {
     });
   };
 
+  const handleError = (error) => {
+    const { status, statusText, data } = error.response;
+    return pass(status ? status : 500, {
+      error: {
+        status,
+        statusText,
+        data,
+      },
+    });
+  };
+
   const getConfig = async () => {
     try {
       const response = await axios.get(URL, { headers });
@@ -53,7 +64,8 @@ exports.handler = (event, context, callback) => {
 
       return pass(200, data);
     } catch (error) {
-      return pass(500, { error: "Unable to fetch data" });
+      // return pass(500, { error: "Unable to fetch data" });
+      handleError(error);
     }
   };
 
@@ -87,7 +99,8 @@ exports.handler = (event, context, callback) => {
     try {
       await axios.get(`${URL}/${config.id}`, { headers });
     } catch (error) {
-      return pass(404, { error: "Airtable config record not found" });
+      // return pass(404, { error: "Airtable config record not found" });
+      handleError(error);
     }
 
     const updatedConfig = {
