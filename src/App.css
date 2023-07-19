@@ -117,13 +117,15 @@ a {
 @media (min-width: 800px) {
   .page .jumbo-text {
     font-size: 1.5rem; /* fallback */
-    font-size: min(max(1.5rem, 2.75vw), 38px);
+    /* font-size: min(max(1.5rem, 2.75vw), 38px); */
+    font-size: min(max(1.5rem, 2.75vw), 36px);
     letter-spacing: -0.02em;
     line-height: 1;
   }
 
   .page .jumbo-text h1 {
-    font-size: min(max(1.5rem, 2.75vw), 38px);
+    /* font-size: min(max(1.5rem, 2.75vw), 38px); */
+    font-size: min(max(1.5rem, 2.75vw), 36px);
     font-weight: 450;
     margin: 0 0 1em;
     letter-spacing: -0.02em;
@@ -137,7 +139,8 @@ a {
 
 @media (min-width: 1920px) {
   .page .jumbo-text {
-    font-size: min(max(1.25rem, 2vw), 44px);
+    /* font-size: min(max(1.25rem, 2vw), 44px); */
+    font-size: min(max(1.25rem, 2vw), 42px);
   }
 
   .page h1 {
