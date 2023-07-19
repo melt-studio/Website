@@ -12,7 +12,7 @@ const Scroll = ({ scroll = 0, loaded = true }) => {
     const showHelper = () =>
       setTimeout(() => {
         scrollHelper.current.classList.remove("hide");
-      }, 2000);
+      }, 3000);
 
     if (scrollHelper.current && loaded && scroll < 20) {
       showHelper();
@@ -30,7 +30,11 @@ const Scroll = ({ scroll = 0, loaded = true }) => {
   });
 
   return (
-    <div ref={scrollHelper} className="scroll-helper hide">
+    <div
+      ref={scrollHelper}
+      className="scroll-helper hide"
+      onTransitionEnd={() => scrollHelper.current.classList.add("animate")}
+    >
       <span className="scroll-helper__icon">
         <img src={ArrowDown} alt="Scroll down" />
       </span>
