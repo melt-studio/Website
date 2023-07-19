@@ -197,26 +197,3 @@ const PasswordForm = ({ embed, setLocked, setEmbedUrl }) => {
     </div>
   );
 };
-
-// const passwordInput = document.getElementById("controls.password");
-//   useLayoutEffect(() => {
-//     if (passwordInput === null) return;
-//     passwordInput.setAttribute("type", "password");
-//     const span = document.createElement("span");
-//     span.style.padding = "5px";
-//     span.style.cursor = "pointer";
-//     span.style.fontSize = "16px";
-//     span.style.marginTop = "-3px";
-//     span.innerHTML = "&#9678";
-//     span.addEventListener("click", () => {
-//       const type = passwordInput.getAttribute("type");
-//       passwordInput.setAttribute("type", type === "text" ? "password" : "text");
-//     });
-//     passwordInput.insertAdjacentElement("afterend", span);
-//     const div = document.createElement("div");
-//     div.setAttribute("id", "passwordMessage");
-//     div.textContent = "Password required";
-//     if (passwordInput.parentNode && passwordInput.parentNode.parentNode) {
-//       passwordInput.parentNode.parentNode.insertAdjacentElement("afterend", div);
-//     }
-//   }, [passwordInput]);
