@@ -63,6 +63,15 @@
   letter-spacing: 0;
 }
 
+.drippylogo {
+  display: block;
+  width: 42px;
+  height: 58.8px;
+  position: relative;
+  top: 20px;
+  /* background: url("../../assets/images/MELT__DRIPPY.gif") no-repeat 0 0 / 42px 58.8px; */
+}
+
 @media (min-width: 800px) {
   .nav-bar {
     display: block;

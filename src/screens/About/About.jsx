@@ -8,6 +8,7 @@ import Background from "../../components/Background/Background.jsx";
 import TextFeature from "../../components/TextFeature/TextFeature.jsx";
 import FadeScroll from "../../components/FadeScroll/FadeScroll.jsx";
 import "./About.css";
+import Scroll from "../../components/Scroll/Scroll.jsx";
 
 keyframes`
   @keyframes customAnimationText {
@@ -114,6 +115,8 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
         multiLoaded={gradientColsLoaded}
         viewport={viewport}
       />
+
+      <Scroll />
 
       {aboutInfo.length > 0 && (
         <>
