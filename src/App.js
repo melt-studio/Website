@@ -92,7 +92,7 @@ function App() {
         const sortedProjects = response.map((r) => r).sort((a, b) => a.fields.order - b.fields.order);
         setProjects(sortedProjects);
       } catch (error) {
-        console.log(error.response.data.error ? error.response.data.error : "Server error");
+        console.log("Projects", error.response.data.error ? error.response.data.error : "Server error");
       }
     };
 
@@ -101,7 +101,7 @@ function App() {
         const response = await aboutService.getAbout();
         setAboutInfo(response);
       } catch (error) {
-        console.log(error.response.data.error ? error.response.data.error : "Server error");
+        console.log("About", error.response.data.error ? error.response.data.error : "Server error");
       }
     };
 
@@ -110,7 +110,7 @@ function App() {
         const response = await embedService.getEmbeds();
         setEmbeds(response);
       } catch (error) {
-        console.log(error.response.data.error ? error.response.data.error : "Server error");
+        console.log("Embeds", error.response.data.error ? error.response.data.error : "Server error");
       }
     };
 
@@ -119,7 +119,7 @@ function App() {
         const response = await configService.getConfig();
         setConfig(response);
       } catch (error) {
-        console.log(error.response.data.error ? error.response.data.error : "Server error");
+        console.log("Config", error.response.data.error ? error.response.data.error : "Server error");
       }
     };
 
@@ -128,7 +128,7 @@ function App() {
         const response = await otherService.getOther();
         setOther(response);
       } catch (error) {
-        console.log(error.response.data.error ? error.response.data.error : "Server error");
+        console.log("Other", error.response.data.error ? error.response.data.error : "Server error");
       }
     };
 

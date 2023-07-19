@@ -6,6 +6,7 @@ import IntroAnimation from "../../components/IntroAnimation/IntroAnimation.jsx";
 import ProjectTiles from "../../components/ProjectTiles/ProjectsTiles.jsx";
 import LogoAnimation from "../../components/LogoAnimation/index.js";
 import Page from "../Page";
+import Scroll from "../../components/Scroll/Scroll";
 import "./Home.css";
 
 export default function Home({
@@ -95,6 +96,8 @@ export default function Home({
       </Helmet>
 
       {mobile && <IntroAnimation initial={initial} setInitial={setInitial} mobile={mobile} viewport={viewport} />}
+
+      {!mobile && <Scroll scroll={scroll} loaded={loaded} />}
 
       <Page>
         {!mobile && projects.length > 0 ? <Background backgroundColor={backgroundColor} /> : null}

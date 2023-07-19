@@ -15,6 +15,10 @@
   transform: scale(1) translateY(0);
 }
 
+.show .project__cover-img:hover {
+  transform: scale(1.03) translateY(0);
+}
+
 @media (min-width: 800px) {
   .project__cover-img {
     cursor: none;

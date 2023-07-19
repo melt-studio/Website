@@ -8,6 +8,7 @@ import Background from "../../components/Background/Background.jsx";
 import TextFeature from "../../components/TextFeature/TextFeature.jsx";
 import FadeScroll from "../../components/FadeScroll/FadeScroll.jsx";
 import "./About.css";
+import Scroll from "../../components/Scroll/Scroll.jsx";
 
 keyframes`
   @keyframes customAnimationText {
@@ -48,6 +49,8 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
   const [gradientColsLoaded, setGradientColsLoaded] = useState(false);
   const [whatWeDoTags, setWhatWeDoTags] = useState([]);
   const [whatWeDontDoTags, setWhatWeDontDoTags] = useState([]);
+
+  // console.log(aboutInfo);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -114,6 +117,8 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
         multiLoaded={gradientColsLoaded}
         viewport={viewport}
       />
+
+      {aboutInfo.length > 0 && <Scroll />}
 
       {aboutInfo.length > 0 && (
         <>

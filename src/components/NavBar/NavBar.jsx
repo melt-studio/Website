@@ -4,6 +4,7 @@ import { useScroll, useMotionValueEvent } from "framer-motion";
 import TagLink from "../TagLink/TagLink";
 import FadeInOut from "../FadeInOut/FadeInOut.jsx";
 import { cursorEvents } from "../Cursor/Cursor";
+// import DrippyIcon from "../../assets/images/MELT__DRIPPY.gif";
 import "./NavBar.css";
 
 import DrippyLogo from "./DrippyLogo.jsx";
@@ -86,6 +87,8 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
               onMouseLeave={() => cursorEvents.onMouseLeave()}
             >
               <DrippyLogo />
+              {/* <span className="drippylogo"></span> */}
+              {/* <img src={DrippyIcon} alt="MELT logo" /> */}
             </div>
           </div>
         )}

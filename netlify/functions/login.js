@@ -29,6 +29,17 @@ exports.handler = (event, context, callback) => {
     });
   };
 
+  const handleError = (error) => {
+    const { status, statusText, data } = error.response;
+    return pass(status ? status : 500, {
+      error: {
+        status,
+        statusText,
+        data,
+      },
+    });
+  };
+
   const login = async () => {
     const { body } = event;
 
@@ -53,7 +64,8 @@ exports.handler = (event, context, callback) => {
 
       return pass(200, {});
     } catch (error) {
-      return pass(404, { error: "Airtable record not found" });
+      // return pass(404, { error: "Airtable record not found" });
+      handleError(error);
     }
   };
 
