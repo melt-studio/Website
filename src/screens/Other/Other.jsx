@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import embedService from "../../services/embeds";
 import Page from "../Page";
 import WaterfallAnimation from "../../components/WaterfallAnimation";
+import PasswordVisible from "../../assets/images/MELT__PASSWORD_VISIBLE.svg";
+import PasswordHidden from "../../assets/images/MELT__PASSWORD_HIDDEN.svg";
 import "./Other.css";
 
 const Other = ({ embeds, config }) => {
@@ -20,6 +22,7 @@ const Other = ({ embeds, config }) => {
 
     return () => {
       document.body.classList.remove("other-page");
+      document.body.classList.remove("embed-page");
     };
   }, []);
 
@@ -41,11 +44,19 @@ const Other = ({ embeds, config }) => {
     }
   }, [embeds, type, id, navigate]);
 
+  useEffect(() => {
+    if (embedUrl) {
+      document.body.classList.add("embed-page");
+    } else {
+      document.body.classList.remove("embed-page");
+    }
+  }, [embedUrl]);
+
   return (
     <Page>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>MELLLLLLT - Other</title>
+        <title>MELLLLLLT - {embed && embed.fields.title ? embed.fields.title : "Other"}</title>
       </Helmet>
 
       <div
@@ -112,6 +123,9 @@ const PasswordForm = ({ embed, setLocked, setEmbedUrl }) => {
   const [message, setMessage] = useState(null);
   const [timeoutId, setTimeoutId] = useState(null);
   const form = useRef();
+  const passwordInput = useRef();
+  const passwordToggle = useRef();
+  const passwordToggleImage = useRef();
 
   const handleChange = (e) => {
     if (form && form.current) {
@@ -122,6 +136,11 @@ const PasswordForm = ({ embed, setLocked, setEmbedUrl }) => {
       clearTimeout(timeoutId);
       setTimeoutId(null);
     }
+
+    if (passwordToggle.current) {
+      passwordToggle.current.style.visibility = e.target.value.length > 0 ? "visible" : "hidden";
+    }
+
     setPassword(e.target.value);
   };
 
@@ -155,7 +174,23 @@ const PasswordForm = ({ embed, setLocked, setEmbedUrl }) => {
   return (
     <div className="form password-form" ref={form}>
       <form onSubmit={handleSubmit}>
-        <input placeholder="Password" type="password" onChange={handleChange} autoFocus={true} />
+        <div className="form__password-container">
+          <input ref={passwordInput} placeholder="Password" type="password" onChange={handleChange} autoFocus={true} />
+          <span
+            ref={passwordToggle}
+            style={{ visibility: "hidden" }}
+            className="form__password-toggle"
+            onClick={() => {
+              if (passwordInput.current && passwordToggleImage.current) {
+                const type = passwordInput.current.type === "password" ? "text" : "password";
+                passwordInput.current.type = type;
+                passwordToggleImage.current.src = type === "text" ? PasswordHidden : PasswordVisible;
+              }
+            }}
+          >
+            <img ref={passwordToggleImage} src={PasswordVisible} alt="Toggle password visibility" />
+          </span>
+        </div>
         <button type="submit">View page</button>
         {message && <div className="form__message">{message}</div>}
       </form>

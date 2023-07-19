@@ -118,6 +118,8 @@ const fragment = /* glsl */ `
     
     sum = accumulation / weightsum;
 
+    ft = 0.;
+
     vec4 c = vec4(sum, 1.);
     c *= 1.-ft;
 

@@ -3,7 +3,7 @@
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  transition: height 1s;
+  transition: height 1s, background-color 0.5s ease;
 }
 
 main {

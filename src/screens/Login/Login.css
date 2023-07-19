@@ -25,7 +25,7 @@
 }
 
 .form {
-  background: #000;
+  background: #000000;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -54,8 +54,8 @@
   font-size: 30px;
   border: none;
   border-bottom: 2px solid var(--yellow);
-  background: #fff;
-  background: #000;
+  background: #ffffff;
+  background: #000000;
   color: var(--yellow);
   font-family: var(--font-family);
   text-align: center;
