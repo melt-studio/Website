@@ -31,13 +31,11 @@ exports.handler = (event, context, callback) => {
 
   const handleError = (error) => {
     const { status, statusText, data } = error.response;
-    return pass(status ? status : 500, {
-      error: {
-        status,
-        statusText,
-        data,
-      },
-    });
+    return {
+      status,
+      statusText,
+      data,
+    };
   };
 
   const getEmbeds = async () => {
@@ -65,7 +63,9 @@ exports.handler = (event, context, callback) => {
       return pass(200, records);
     } catch (error) {
       // return pass(500, { error: "Unable to fetch data" });
-      handleError(error);
+      const errorData = handleError(error);
+      console.log(errorData);
+      return pass(errorData.status ? errorData.status : 500, { error: errorData });
     }
   };
 
@@ -102,7 +102,9 @@ exports.handler = (event, context, callback) => {
       return pass(200, data);
     } catch (error) {
       // return pass(404, { error: "Airtable record not found" });
-      handleError(error);
+      const errorData = handleError(error);
+      console.log(errorData);
+      return pass(errorData.status ? errorData.status : 500, { error: errorData });
     }
   };
 

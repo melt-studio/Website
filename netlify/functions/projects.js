@@ -31,13 +31,11 @@ exports.handler = (event, context, callback) => {
 
   const handleError = (error) => {
     const { status, statusText, data } = error.response;
-    return pass(status ? status : 500, {
-      error: {
-        status,
-        statusText,
-        data,
-      },
-    });
+    return {
+      status,
+      statusText,
+      data,
+    };
   };
 
   const getProjects = async () => {
@@ -50,7 +48,9 @@ exports.handler = (event, context, callback) => {
 
       return pass(200, response.data.records);
     } catch (error) {
-      handleError(error);
+      const errorData = handleError(error);
+      console.log(errorData);
+      return pass(errorData.status ? errorData.status : 500, { error: errorData });
     }
   };
 
