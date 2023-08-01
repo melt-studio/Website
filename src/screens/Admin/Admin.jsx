@@ -6,6 +6,7 @@ import "./Admin.css";
 
 import ThumbnailLogo from "../../assets/images/ANIMATION_LOGO.jpg";
 import ThumbnailWaterfall from "../../assets/images/ANIMATION_WATERFALL.jpg";
+import ThumbnailMelter from "../../assets/images/TOOL_MELTER.jpg";
 
 const Admin = ({ loggedIn, setLoggedIn, adminMessage }) => {
   useEffect(() => {
@@ -32,10 +33,12 @@ const AdminLogin = ({ setLoggedIn }) => {
 };
 
 const AdminDashboard = ({ adminMessage }) => {
-  const links = [
+  const animationLinks = [
     { text: "Logo", href: "/admin/logo", thumb: ThumbnailLogo },
     { text: "Waterfall", href: "/admin/waterfall", thumb: ThumbnailWaterfall },
   ];
+
+  const otherLinks = [{ text: "Melter", href: "/STGMelter/", thumb: ThumbnailMelter }];
 
   return (
     <Page transition={{ duration: 0.5, ease: "easeInOut" }}>
@@ -45,8 +48,16 @@ const AdminDashboard = ({ adminMessage }) => {
           <div className="block">
             <h2>Animation Settings</h2>
             <ul>
-              {links.map((link) => (
+              {animationLinks.map((link) => (
                 <AnimationLink key={link.href} link={link} />
+              ))}
+            </ul>
+          </div>
+          <div className="block">
+            <h2>Tools</h2>
+            <ul>
+              {otherLinks.map((link) => (
+                <ToolLink key={link.href} link={link} />
               ))}
             </ul>
           </div>
@@ -63,10 +74,22 @@ const AnimationLink = ({ link }) => {
     <li
       style={{ background: `#151515 url(${link.thumb}) no-repeat center center / cover` }}
       onClick={() => navigate(link.href)}
+      className="animation-link"
     >
       <span className="block__gradient"></span>
       <p>{link.text}</p>
     </li>
+  );
+};
+
+const ToolLink = ({ link }) => {
+  return (
+    <a href={link.href} className="admin-link">
+      <li style={{ background: `#151515 url(${link.thumb}) no-repeat center center / cover` }}>
+        <span className="block__gradient"></span>
+        <p>{link.text}</p>
+      </li>
+    </a>
   );
 };
 
