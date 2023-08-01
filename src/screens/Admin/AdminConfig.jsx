@@ -32,7 +32,7 @@ const AdminConfig = ({ mobile, config, setAdminMessage }) => {
     };
 
     if (!config || !config[mode]) {
-      console.log("navigating to admin - config");
+      // console.log("navigating to admin - config");
       updateMessage("Animation config not found on Airtable");
       return navigate("/admin");
     }
@@ -42,16 +42,16 @@ const AdminConfig = ({ mobile, config, setAdminMessage }) => {
     return <div>Please view on desktop</div>;
   }
 
+  const modeComponent = () => {
+    if (mode === "logo") return <LogoAnimation serverConfig={config} effectRef={null} controls />;
+    else if (mode === "waterfall") return <WaterfallAnimation serverConfig={config} controls />;
+    return null;
+  };
+
   return (
     <Page transition={{ duration: 0.5, ease: "easeInOut" }}>
       <div className="page-container">
-        <div style={{ width: "100%", height: "100%", backgroundColor: "#000000" }}>
-          {mode === "logo" ? (
-            <LogoAnimation serverConfig={config} effectRef={null} controls />
-          ) : mode === "waterfall" ? (
-            <WaterfallAnimation serverConfig={config} controls />
-          ) : null}
-        </div>
+        <div style={{ width: "100%", height: "100%", backgroundColor: "#000000" }}>{modeComponent()}</div>
       </div>
     </Page>
   );

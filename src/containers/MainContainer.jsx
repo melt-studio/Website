@@ -112,6 +112,7 @@ export default function MainContainer({
             />
           }
         />
+        <Route path="/STGMelter" element={<Navigate to="/STGMelter/index.html" />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" />} />
       </Routes>
