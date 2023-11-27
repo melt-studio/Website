@@ -14,10 +14,26 @@ const Background = ({
   multiColors = [0x000000, 0x333333],
   multiLoaded = false,
   viewport,
+  cursor = false,
 }) => {
   const background = useRef();
   const background1 = useRef();
   const background2 = useRef();
+  const backgroundContainer = useRef();
+
+  useEffect(() => {
+    const updateCursorPos = (e) => {
+      if (backgroundContainer && backgroundContainer.current && cursor) {
+        backgroundContainer.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+      }
+    };
+
+    document.addEventListener("mousemove", updateCursorPos);
+
+    return () => {
+      document.removeEventListener("mousemove", updateCursorPos);
+    };
+  }, [cursor]);
 
   const uniforms = useMemo(() => {
     const uniforms = {
@@ -33,10 +49,11 @@ const Background = ({
       uC4: { value: new Color() },
       uScroll: { value: 0 },
       uMultiLoaded: { value: new Vector2(0, 0) },
+      uCursor: { value: cursor },
     };
 
     return uniforms;
-  }, []);
+  }, [cursor]);
 
   useEffect(() => {
     const color = backgroundColor;
@@ -68,8 +85,8 @@ const Background = ({
         <div ref={background1}></div>
         <div ref={background2}></div>
       </div>
-      <div id="background-container">
-        <Canvas dpr={[1, 2]}>
+      <div ref={backgroundContainer} id="background-container">
+        <Canvas dpr={cursor ? 1 : [1, 2]}>
           <OrthographicCamera makeDefault manual left={-1} right={1} top={1} bottom={-1} near={-1} far={1} />
           <Mesh
             background={background}
@@ -80,6 +97,8 @@ const Background = ({
             multiColors={multiColors}
             multiLoaded={multiLoaded}
             viewport={viewport}
+            cursor={cursor}
+            backgroundContainer={backgroundContainer}
           />
         </Canvas>
       </div>

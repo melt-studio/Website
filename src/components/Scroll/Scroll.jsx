@@ -12,7 +12,7 @@ const Scroll = ({ scroll = 0, loaded = true }) => {
     const showHelper = () =>
       setTimeout(() => {
         scrollHelper.current.classList.remove("hide");
-      }, 3000);
+      }, 1000); // 3000
 
     if (scrollHelper.current && loaded && scroll < 20) {
       showHelper();

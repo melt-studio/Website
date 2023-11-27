@@ -5,10 +5,10 @@ import TagBlock from "../../components/TagBlock/TagBlock.jsx";
 import { keyframes } from "../../utils/keyframes.js";
 import Page from "../Page.jsx";
 import Background from "../../components/Background/Background.jsx";
-import TextFeature from "../../components/TextFeature/TextFeature.jsx";
+// import TextFeature from "../../components/TextFeature/TextFeature.jsx";
 import FadeScroll from "../../components/FadeScroll/FadeScroll.jsx";
 import "./About.css";
-import Scroll from "../../components/Scroll/Scroll.jsx";
+// import Scroll from "../../components/Scroll/Scroll.jsx";
 
 keyframes`
   @keyframes customAnimationText {
@@ -23,28 +23,28 @@ keyframes`
   }
 `;
 
-const parseLinks = (links) => {
-  return links
-    .trim()
-    .split("\n")
-    .map((c) => {
-      const text = c.substring(1, c.indexOf("]"));
-      let href = c.substring(c.indexOf("]") + 2, c.length - 2);
-      if (href.includes("tel:")) {
-        href = href.substring(href.indexOf("tel:"));
-      }
+// const parseLinks = (links) => {
+//   return links
+//     .trim()
+//     .split("\n")
+//     .map((c) => {
+//       const text = c.substring(1, c.indexOf("]"));
+//       let href = c.substring(c.indexOf("]") + 2, c.length - 2);
+//       if (href.includes("tel:")) {
+//         href = href.substring(href.indexOf("tel:"));
+//       }
 
-      return {
-        text,
-        href,
-      };
-    });
-};
+//       return {
+//         text,
+//         href,
+//       };
+//     });
+// };
 
 export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scrollCutOff }) {
   const [loading, setLoading] = useState(true);
   const [aboutText, setAboutText] = useState(null);
-  const [contactTags, setContactTags] = useState([]);
+  // const [contactTags, setContactTags] = useState([]);
   const [gradientCols, setGradientCols] = useState([0x000000]);
   const [gradientColsLoaded, setGradientColsLoaded] = useState(false);
   const [whatWeDoTags, setWhatWeDoTags] = useState([]);
@@ -72,7 +72,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
 
   useEffect(() => {
     if (aboutInfo.length) {
-      const { aboutText, whatWeDo, whatWeDontDo, contact, gradient } = aboutInfo[0].fields;
+      const { aboutText, whatWeDo, whatWeDontDo, gradient } = aboutInfo[0].fields;
 
       let colors = gradient.split(", ").map((c) => c.trim());
       const selectedColors = [];
@@ -97,7 +97,8 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
         setWhatWeDontDoTags(whatWeDontDo.map((tag) => ({ text: tag })));
       }
 
-      setContactTags(parseLinks(contact));
+      // console.log(parseLinks(contact));
+      // setContactTags(parseLinks(contact));
 
       setLoading(false);
     }
@@ -116,56 +117,58 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
         multiColors={gradientCols}
         multiLoaded={gradientColsLoaded}
         viewport={viewport}
+        cursor={true}
       />
 
-      {aboutInfo.length > 0 && <Scroll />}
+      {/* {aboutInfo.length > 0 && <Scroll />} */}
 
-      {aboutInfo.length > 0 && (
-        <>
-          <TextFeature mobile={mobile} viewport={viewport} scrollCutOff={scrollCutOff} />
+      {/* {aboutInfo.length > 0 && ( */}
+      <>
+        {/* <TextFeature mobile={mobile} viewport={viewport} scrollCutOff={scrollCutOff} /> */}
 
-          <FadeScroll viewport={{ amount: 0.01 }} className={`page-container${loading ? " loading" : ""}`}>
-            <div className="row col-3">
-              <div className="col primary">
-                <div className="description-text jumbo-text">
-                  {viewport.width >= 960 &&
-                    aboutText &&
-                    aboutText.map((text, i) => (
-                      <FadeScroll key={`${text}_${i}`} viewport={{ amount: 0.25 }} className="description-text__p">
-                        <Markdown>{text}</Markdown>
-                      </FadeScroll>
-                    ))}
-                  {viewport.width < 960 && aboutText && (
-                    <FadeScroll viewport={{ amount: 0.1 }} className="description-text__p">
-                      {aboutText.map((text, i) => (
-                        <Markdown key={`${text}_${i}`}>{text}</Markdown>
-                      ))}
+        {/* <FadeScroll viewport={{ amount: 0.01 }} className={`page-container${loading ? " loading" : ""}`}> */}
+        <div className={`page-container${loading ? " loading" : ""}`}>
+          <div className="row col-3">
+            <div className="col primary">
+              <div className="description-text jumbo-text">
+                {viewport.width >= 960 &&
+                  aboutText &&
+                  aboutText.map((text, i) => (
+                    <FadeScroll key={`${text}_${i}`} viewport={{ amount: 0.25 }} className="description-text__p">
+                      <Markdown>{text}</Markdown>
                     </FadeScroll>
-                  )}
+                  ))}
+                {viewport.width < 960 && aboutText && (
+                  <FadeScroll viewport={{ amount: 0.1 }} className="description-text__p">
+                    {aboutText.map((text, i) => (
+                      <Markdown key={`${text}_${i}`}>{text}</Markdown>
+                    ))}
+                  </FadeScroll>
+                )}
+              </div>
+            </div>
+
+            <div className="col-1 sticky">
+              <div className="col what">
+                <div className="">
+                  <TagBlock
+                    title="What We Do"
+                    tags={whatWeDoTags}
+                    viewport={{ amount: 0.25 }}
+                    transition={true}
+                    delay={viewport.width < 960 ? 0.5 : 2.5}
+                  />
+                  <TagBlock
+                    title="What We Don't Do"
+                    tags={whatWeDontDoTags}
+                    viewport={{ amount: 0.25 }}
+                    transition={true}
+                    delay={viewport.width < 960 ? 0.5 : 2.5}
+                  />
                 </div>
               </div>
 
-              <div className="col-2 sticky">
-                <div className="col what">
-                  <div className="">
-                    <TagBlock
-                      title="What We Do"
-                      tags={whatWeDoTags}
-                      viewport={{ amount: 0.25 }}
-                      transition={true}
-                      delay={viewport.width < 960 ? 0.5 : 2.5}
-                    />
-                    <TagBlock
-                      title="What We Don't Do"
-                      tags={whatWeDontDoTags}
-                      viewport={{ amount: 0.25 }}
-                      transition={true}
-                      delay={viewport.width < 960 ? 0.5 : 2.5}
-                    />
-                  </div>
-                </div>
-
-                <div className="col links">
+              {/* <div className="col links">
                   <div className="">
                     <TagBlock
                       tags={contactTags}
@@ -175,12 +178,14 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                       delay={viewport.width < 960 ? 1 : 3.5}
                     />
                   </div>
-                </div>
-              </div>
+                </div> */}
             </div>
-          </FadeScroll>
-        </>
-      )}
+          </div>
+        </div>
+        {/* </FadeScroll> */}
+      </>
+
+      {/* )} */}
     </Page>
   );
 }

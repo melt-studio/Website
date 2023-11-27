@@ -13,6 +13,7 @@ const fragmentShader = /* glsl */ `
   uniform vec3 uC2;
   uniform vec3 uC3;
   uniform vec3 uC4;
+  uniform float uCursor;
 
   float rand(vec2 co){
     return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
@@ -28,14 +29,19 @@ const fragmentShader = /* glsl */ `
     f += sin(-vUv.x * 4.- vUv.y * 2.+ length(vUv) * sin(uTime * .25 * tf) + sin(vUv.y * 4. + uTime * .125 * tf + uC2.r + uC3.g + uC4.b) + uTime * .25 * tf + sin(-vUv.x * vUv.y + uTime * .25 * tf + uC1.g - uC2.r + uC3.g) * 2.) * .5 + .5;
     f /= 2.;
     float ff = uMultiple == 1. ? .05 : .1;
-    f = smoothstep(.15, .85, f * ((1.-ff) + ff * rand(vec2(f))));
+    // 27/11/23 reduced blur
+    f = mix(
+      smoothstep(.4, .5, f * mix(1., ((1.-ff) + ff * rand(vec2(f))), .1)),
+      smoothstep(.15, .85, f * mix(1., (1.-ff) + ff * rand(vec2(f)), .1)),
+      uCursor
+    );
     f = clamp(f, 0., 1.);
 
     vec3 color = mix(uColor1, uColor2, f);
-    vec3 m2 = mix(vec3(0.), vec3(51./255.)*0., f);
+    vec3 m2 = mix(mix(vec3(0.), vec3(51./255.)*0., f), vec3(1.), uCursor);
 
     if (uMultiple == 1.) {
-      color = vec3(0.);
+      color = vec3(uCursor);
 
       if (uMultiLoaded.x == 1.) {
         vec3 colorA = uC0;
@@ -53,7 +59,7 @@ const fragmentShader = /* glsl */ `
         }
   
         color = colorA;
-        color = mix(color, m2, uScroll);
+        color = mix(color, m2, uScroll * (1.-uCursor));
       }
     }
 
@@ -63,7 +69,7 @@ const fragmentShader = /* glsl */ `
       if (uTime < uMultiLoaded.y) t = 0.;
       else if (uTime < uMultiLoaded.y + ld) t = (uTime - uMultiLoaded.y) / ld;
       else t = 1.;
-      color = mix(vec3(0.), color, t);
+      color = mix(vec3(uCursor), color, t);
     }
 
     gl_FragColor = vec4(color, 1.);

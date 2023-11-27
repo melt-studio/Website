@@ -25,12 +25,26 @@ a {
 .page {
   transition: color 1s ease;
 }
+
+.about-page .page {
+  background: #ffffff;
+  color: #000000;
+}
+
+h1,
 .page h1 {
-  font-weight: 500;
+  font-weight: 400;
   margin-top: 0;
   font-size: 13.5px;
-  text-transform: uppercase;
+  font-size: 15px;
+  color: #777777;
+  /* text-transform: uppercase; */
 }
+
+.about-page .page h1 {
+  color: #333333;
+}
+
 .page h2 {
   font-size: 1.2rem;
 }
@@ -44,9 +58,16 @@ a {
   margin: 0;
 }
 
-.subtitle-text,
+/* .subtitle-text, */
 .tag h3 {
   text-transform: uppercase;
+}
+
+.nav-menu .tag h3,
+.project-text .subtitle-text {
+  font-size: 16px;
+  text-transform: none;
+  font-weight: 300;
 }
 
 .tag-container {
@@ -55,12 +76,23 @@ a {
   gap: 3px 0;
 }
 
+.project-text .tag h3,
 .page .jumbo-text {
   font-size: 22px;
   /* font-weight: 400; */
-  font-weight: 350;
+  /* font-weight: 350; */
+  font-weight: 300;
   line-height: 1;
   letter-spacing: -0.01em;
+}
+
+.about-page .jumbo-text {
+  font-size: 30px;
+}
+
+.project-text .tag h3 {
+  font-weight: 250;
+  text-transform: none;
 }
 
 .page .jumbo-text p {
@@ -115,12 +147,18 @@ a {
 }
 
 @media (min-width: 800px) {
-  .page .jumbo-text {
+  .page .jumbo-text,
+  .project-text .tag h3 {
     font-size: 1.5rem; /* fallback */
     /* font-size: min(max(1.5rem, 2.75vw), 38px); */
     font-size: min(max(1.5rem, 2.75vw), 36px);
     letter-spacing: -0.02em;
     line-height: 1;
+  }
+
+  .about-page .jumbo-text {
+    /* font-size: min(max(1.5rem, 3vw), 60px); */
+    font-size: min(5vw, 80px);
   }
 
   .page .jumbo-text h1 {
@@ -138,9 +176,14 @@ a {
 }
 
 @media (min-width: 1920px) {
-  .page .jumbo-text {
+  .page .jumbo-text,
+  .project-text .tag h3 {
     /* font-size: min(max(1.25rem, 2vw), 44px); */
     font-size: min(max(1.25rem, 2vw), 42px);
+  }
+
+  .about-page .jumbo-text {
+    font-size: 80px;
   }
 
   .page h1 {

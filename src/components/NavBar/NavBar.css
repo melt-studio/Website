@@ -47,6 +47,10 @@
   fill: #ffffff;
 }
 
+.about-page .nav-bar__logo svg {
+  fill: #000000;
+}
+
 .nav-bar__logo img:hover,
 .nav-bar__logo svg:hover {
   transform: scale(1.2);

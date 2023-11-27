@@ -25,6 +25,8 @@ const TagBlock = ({
   viewport = { amount: 0 },
   transition = false,
   delay,
+  row,
+  rowDelimiter = ", ",
 }) => {
   if (!tags || tags.length === 0) return null;
 
@@ -60,9 +62,13 @@ const TagBlock = ({
 
       <div className="tag-block__tags">
         <FadeIn {...fadeInTag}>
-          {tags.map((tag) => (
-            <Tag key={tag.text} tag={tag} />
-          ))}
+          {row ? (
+            <div className="tag">
+              <h3>{tags.map((tag) => tag.text).join(rowDelimiter)}</h3>
+            </div>
+          ) : (
+            tags.map((tag) => <Tag key={tag.text} tag={tag} />)
+          )}
         </FadeIn>
       </div>
     </FadeScroll>

@@ -6,6 +6,7 @@ import { cursorEvents } from "../Cursor/Cursor.jsx";
 import "./NavMenuLogo.css";
 
 import MeltLogo from "../../assets/images/MELT__LOGO.png";
+import MeltLogoDark from "../../assets/images/MELT__LOGO_DARK.png";
 
 const keyframes = {
   enter: { opacity: 1, y: 0 },
@@ -81,7 +82,7 @@ const NavMenuLogo = ({ setNavMenuOpen, initial, mobile, viewport, scrollCutOff, 
             <img
               onClick={openNavMenu}
               className="nav-menu-logo__img"
-              src={MeltLogo}
+              src={location.pathname.includes("/about") ? MeltLogoDark : MeltLogo}
               alt="MELT Logo"
               onMouseEnter={() => cursorEvents.onMouseEnter()}
               onMouseLeave={() => cursorEvents.onMouseLeave()}

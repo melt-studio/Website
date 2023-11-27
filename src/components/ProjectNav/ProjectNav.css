@@ -16,7 +16,8 @@
 
 .project-nav__links .tag-link h3 {
   font-size: 15px;
-  font-weight: 400;
+  /* font-weight: 400; */
+  font-weight: 300;
 }
 
 .project-nav.show .project-nav__links {

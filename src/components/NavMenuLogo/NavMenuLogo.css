@@ -2,7 +2,7 @@
   display: flex;
   position: fixed;
   width: 100%;
-  z-index: 998;
+  z-index: 996;
   /* offset with Fade translate so gradient apepars fixed to top of screen */
   top: -20px;
 }

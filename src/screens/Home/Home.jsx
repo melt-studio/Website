@@ -8,6 +8,7 @@ import LogoAnimation from "../../components/LogoAnimation/index.js";
 import Page from "../Page";
 import Scroll from "../../components/Scroll/Scroll";
 import "./Home.css";
+import { useSearchParams } from "react-router-dom";
 
 export default function Home({
   initial,
@@ -89,6 +90,16 @@ export default function Home({
     }
   });
 
+  const [searchParams] = useSearchParams();
+  const filter = searchParams.get("filter");
+
+  let filteredProjects = projects;
+  if (filter !== null) {
+    const f = filter.toLowerCase().trim();
+    if (["print", "gfx"].includes(f))
+      filteredProjects = projects.filter((p) => p.fields.tag !== undefined && p.fields.tag.toLowerCase().trim() === f);
+  }
+
   return (
     <>
       <Helmet>
@@ -106,10 +117,10 @@ export default function Home({
             <LogoAnimation serverConfig={config} fade={fadeAnimation} fromProject={fromProject} cursor={cursor} />
           </div>
         )}
-        {projects.length > 0 ? (
+        {filteredProjects.length > 0 ? (
           <ProjectTiles
             setLoaded={setLoaded}
-            projects={projects}
+            projects={filteredProjects}
             setBackgroundColor={setBackgroundColor}
             cursor={cursor}
             mobile={mobile}

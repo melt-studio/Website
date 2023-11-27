@@ -1,7 +1,8 @@
 .project-text {
   display: flex;
   flex-direction: column;
-  gap: 25px 0;
+  /* gap: 25px 0; */
+  gap: 0px 0;
   padding: 0;
 }
 
@@ -21,7 +22,8 @@
 }
 
 .project-text .tag-block__title {
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
+  margin-bottom: 1em;
 }
 
 .project-text .col .tag-block {
@@ -41,7 +43,7 @@
 
 @media (min-width: 800px) {
   .project-text {
-    gap: 40px 0;
+    /* gap: 40px 0; */
     padding: 0 20px;
   }
 }
