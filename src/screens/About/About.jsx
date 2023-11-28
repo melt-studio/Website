@@ -4,7 +4,7 @@ import Markdown from "../../components/Markdown/Markdown.jsx";
 import TagBlock from "../../components/TagBlock/TagBlock.jsx";
 import { keyframes } from "../../utils/keyframes.js";
 import Page from "../Page.jsx";
-import Background from "../../components/Background/Background.jsx";
+// import Background from "../../components/Background/Background.jsx";
 // import TextFeature from "../../components/TextFeature/TextFeature.jsx";
 import FadeScroll from "../../components/FadeScroll/FadeScroll.jsx";
 import "./About.css";
@@ -45,8 +45,8 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
   const [loading, setLoading] = useState(true);
   const [aboutText, setAboutText] = useState(null);
   // const [contactTags, setContactTags] = useState([]);
-  const [gradientCols, setGradientCols] = useState([0x000000]);
-  const [gradientColsLoaded, setGradientColsLoaded] = useState(false);
+  // const [gradientCols, setGradientCols] = useState([0x000000]);
+  // const [gradientColsLoaded, setGradientColsLoaded] = useState(false);
   const [whatWeDoTags, setWhatWeDoTags] = useState([]);
   const [whatWeDontDoTags, setWhatWeDontDoTags] = useState([]);
 
@@ -72,18 +72,18 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
 
   useEffect(() => {
     if (aboutInfo.length) {
-      const { aboutText, whatWeDo, whatWeDontDo, gradient } = aboutInfo[0].fields;
+      const { aboutText, whatWeDo, whatWeDontDo } = aboutInfo[0].fields;
 
-      let colors = gradient.split(", ").map((c) => c.trim());
-      const selectedColors = [];
-      const n = colors.length < 5 ? colors.length : 5;
-      for (let i = 0; i < n; i++) {
-        const j = Math.floor(Math.random() * colors.length);
-        selectedColors.push(colors[j]);
-        colors = colors.filter((c, i) => i !== j);
-      }
-      setGradientCols(selectedColors);
-      setGradientColsLoaded(true);
+      // let colors = gradient.split(", ").map((c) => c.trim());
+      // const selectedColors = [];
+      // const n = colors.length < 5 ? colors.length : 5;
+      // for (let i = 0; i < n; i++) {
+      //   const j = Math.floor(Math.random() * colors.length);
+      //   selectedColors.push(colors[j]);
+      //   colors = colors.filter((c, i) => i !== j);
+      // }
+      // setGradientCols(selectedColors);
+      // setGradientColsLoaded(true);
 
       // ReactMarkdown causes unwanted re-renders when using components prop (and in this case wrapping each p element with the FadeIn component, causing repeated fade ins on viewport change, incl. scrolling on mobile as browser height changes), so instead pre-splitting the text into paragraphs then wrapping each paragraph with FadeIn and ReactMarkdown
       // Only needed if doing staggered fadeIn
@@ -111,14 +111,14 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
         <title>MELT • About Us</title>
       </Helmet>
 
-      <Background
+      {/* <Background
         backgroundColor={"#14170e, #427402"}
         multiple={true}
         multiColors={gradientCols}
         multiLoaded={gradientColsLoaded}
         viewport={viewport}
         cursor={true}
-      />
+      /> */}
 
       {/* {aboutInfo.length > 0 && <Scroll />} */}
 
@@ -145,13 +145,40 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                     ))}
                   </FadeScroll>
                 )}
+
+                <TagBlock
+                  title="What We Do"
+                  tags={whatWeDoTags}
+                  // viewport={{ amount: 0.25 }}
+                  // transition={true}
+                  // delay={viewport.width < 960 ? 0.5 : 2.5}
+                  row
+                />
+                <TagBlock
+                  title="What We Don't Do"
+                  tags={whatWeDontDoTags}
+                  // viewport={{ amount: 0.25 }}
+                  // transition={true}
+                  // delay={viewport.width < 960 ? 0.5 : 2.5}
+                  row
+                />
               </div>
             </div>
 
             <div className="col-1 sticky">
-              <div className="col what">
-                <div className="">
-                  <TagBlock
+              <div className="col nav">
+                {/* <div className=""> */}
+                <div className="sections">
+                  <div>Who We Are</div>
+                  <div>Our Approach</div>
+                  <div>The Results</div>
+                  <div>What We Do</div>
+                  <div>What We Don&apos;t Do</div>
+                </div>
+                <div>
+                  <a href="/">Back To Work</a>
+                </div>
+                {/* <TagBlock
                     title="What We Do"
                     tags={whatWeDoTags}
                     viewport={{ amount: 0.25 }}
@@ -164,8 +191,8 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                     viewport={{ amount: 0.25 }}
                     transition={true}
                     delay={viewport.width < 960 ? 0.5 : 2.5}
-                  />
-                </div>
+                  /> */}
+                {/* </div> */}
               </div>
 
               {/* <div className="col links">

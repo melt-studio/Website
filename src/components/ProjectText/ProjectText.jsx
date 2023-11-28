@@ -40,6 +40,11 @@ const ProjectText = ({ project, secondary = false }) => {
       </div>
       <div className="row">
         <div className="col primary">
+          <TagBlock title="Project Scope" tags={scope} underlineColor={colorText} transition={true} row />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col primary">
           {/* <div className="col full">
           {name && <h1 className="title-text">{name}</h1>}
           {description && <h3 className="subtitle-text">{description}</h3>}
@@ -47,11 +52,6 @@ const ProjectText = ({ project, secondary = false }) => {
           {name && description && (
             <TagBlock title="Client" tags={[{ text: description }]} underlineColor={colorText} transition={true} />
           )}
-        </div>
-      </div>
-      <div className="row">
-        <div className="col primary">
-          <TagBlock title="Project Scope" tags={scope} underlineColor={colorText} transition={true} row />
         </div>
       </div>
     </FadeScroll>

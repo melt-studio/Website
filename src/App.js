@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import Layout from "./layouts/MainLayout.jsx";
 import MainContainer from "./containers/MainContainer.jsx";
-import Cursor from "./components/Cursor/Cursor.jsx";
+// import Cursor from "./components/Cursor/Cursor.jsx";
 import "./App.css";
 
 import configService from "./services/config";
@@ -194,7 +194,7 @@ function App() {
           title={title}
         />
       </Layout>
-      {!mobile && <Cursor ref={cursor} />}
+      {/* {!mobile && <Cursor ref={cursor} />} */}
     </>
   );
 }

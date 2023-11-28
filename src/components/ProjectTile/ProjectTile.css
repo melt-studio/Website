@@ -19,8 +19,8 @@
   transform: scale(1.03) translateY(0);
 }
 
-@media (min-width: 800px) {
+/* @media (min-width: 800px) {
   .project__cover-img {
     cursor: none;
   }
-}
+} */

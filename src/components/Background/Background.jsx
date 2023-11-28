@@ -21,19 +21,19 @@ const Background = ({
   const background2 = useRef();
   const backgroundContainer = useRef();
 
-  useEffect(() => {
-    const updateCursorPos = (e) => {
-      if (backgroundContainer && backgroundContainer.current && cursor) {
-        backgroundContainer.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-      }
-    };
+  // useEffect(() => {
+  //   const updateCursorPos = (e) => {
+  //     if (backgroundContainer && backgroundContainer.current && cursor) {
+  //       backgroundContainer.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+  //     }
+  //   };
 
-    document.addEventListener("mousemove", updateCursorPos);
+  //   document.addEventListener("mousemove", updateCursorPos);
 
-    return () => {
-      document.removeEventListener("mousemove", updateCursorPos);
-    };
-  }, [cursor]);
+  //   return () => {
+  //     document.removeEventListener("mousemove", updateCursorPos);
+  //   };
+  // }, [cursor]);
 
   const uniforms = useMemo(() => {
     const uniforms = {

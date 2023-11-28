@@ -18,6 +18,10 @@ a {
   transition: color 0.5s ease;
 }
 
+.about-page .page a {
+  color: #000000;
+}
+
 .page a:hover {
   color: var(--yellow);
 }
@@ -86,12 +90,25 @@ h1,
   letter-spacing: -0.01em;
 }
 
+.about-page .description-text .tag h3,
 .about-page .jumbo-text {
   font-size: 30px;
+  font-weight: 400;
+}
+
+.about-page .description-text .tag-block {
+  margin-bottom: 0;
+}
+
+.about-page .description-text .tag h3 {
+  text-transform: none;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.25em;
 }
 
 .project-text .tag h3 {
-  font-weight: 250;
+  font-weight: 200;
   text-transform: none;
 }
 
@@ -118,7 +135,8 @@ h1,
   text-transform: uppercase;
 }
 
-.page .jumbo-text h3 {
+.page .jumbo-text h3,
+.about-page .description-text .tag-block h1 {
   font-weight: 500;
   margin: 0 0 2em;
   font-size: 13.5px;
@@ -156,9 +174,11 @@ h1,
     line-height: 1;
   }
 
+  .about-page .description-text .tag h3,
   .about-page .jumbo-text {
     /* font-size: min(max(1.5rem, 3vw), 60px); */
     font-size: min(5vw, 80px);
+    letter-spacing: -0.02em;
   }
 
   .page .jumbo-text h1 {
@@ -182,6 +202,7 @@ h1,
     font-size: min(max(1.25rem, 2vw), 42px);
   }
 
+  .about-page .description-text .tag h3,
   .about-page .jumbo-text {
     font-size: 80px;
   }
@@ -195,7 +216,8 @@ h1,
     font-size: 11.5px;
   }
 
-  .page .jumbo-text h3 {
+  .page .jumbo-text h3,
+  .about-page .description-text .tag-block h1 {
     font-size: 16px;
   }
 }

@@ -70,6 +70,11 @@ main {
     max-width: 400px;
   }
 
+  .col-1.sticky {
+    position: sticky;
+    top: 20vh;
+  }
+
   .col.full {
     padding: 0;
   }

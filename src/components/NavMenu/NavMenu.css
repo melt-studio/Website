@@ -35,8 +35,8 @@
 
 .nav-menu__items {
   position: relative;
-  width: 75%;
-  width: fit-content;
+  /* width: fit-content; */
+  width: 100%;
   /* flex-grow: 1; */
   padding: 30px 5%; /* fallback */
   padding: min(max(30px, 10%), 50px) 5%;
@@ -71,6 +71,12 @@
   line-height: 80%;
   margin: 0;
   overflow: hidden;
+}
+
+.nav-menu__links {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
 }
 
 .nav-menu__items a p.selected,
@@ -155,7 +161,7 @@
     order: 1;
   }
 
-  .nav-menu__items {
+  .nav-menu__links {
     order: 2;
   }
 

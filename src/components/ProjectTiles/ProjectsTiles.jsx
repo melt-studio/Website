@@ -4,7 +4,16 @@ import { cursorEvents } from "../Cursor/Cursor";
 import ProjectTile from "../ProjectTile/ProjectTile";
 import "./ProjectsTiles.css";
 
-export default function ProjectTiles({ projects, cursor, setScroll, setBackgroundColor, setLoaded, mobile, viewport }) {
+export default function ProjectTiles({
+  projects,
+  projectsAll,
+  cursor,
+  setScroll,
+  setBackgroundColor,
+  setLoaded,
+  mobile,
+  viewport,
+}) {
   const navigate = useNavigate();
   const [projectData, setProjectData] = useState([]);
 
@@ -107,6 +116,7 @@ export default function ProjectTiles({ projects, cursor, setScroll, setBackgroun
           handleMouseLeave={handleMouseLeave}
           handleClick={handleClick}
           setLoaded={setLoaded}
+          projectsAll={projectsAll}
         />
       ))}
     </div>

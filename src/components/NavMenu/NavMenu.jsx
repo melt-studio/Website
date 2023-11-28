@@ -55,6 +55,25 @@ const keyframesItem = {
   },
 };
 
+const keyframesItem2 = {
+  initial: {
+    y: "-0.6em",
+    opacity: 0,
+  },
+  enter: {
+    y: 0,
+    opacity: 1,
+    // transition: { duration: 1.75, ease: "easeInOut" },
+    transition: { duration: 1.25, ease: "easeInOut" },
+  },
+  exit: {
+    y: "-0.6em",
+    opacity: 0,
+    // transition: { duration: 1, ease: "easeInOut" },
+    transition: { duration: 0.75, ease: "easeInOut" },
+  },
+};
+
 const links = [
   { text: "All Works", href: "/", nav: true },
   { text: "Print", href: "/?filter=print", nav: true, filter: "print" },
@@ -117,7 +136,7 @@ const NavMenuLink = ({ link, closeNavMenu }) => {
         onClick={() => {
           if (selected) return closeNavMenu();
 
-          const links = document.querySelectorAll(".nav-menu__link");
+          const links = document.querySelectorAll("nav-menu__link");
           links.forEach((link) => {
             link.classList.remove("selected");
           });
@@ -142,11 +161,19 @@ const NavMenuLink = ({ link, closeNavMenu }) => {
 };
 
 function NavMenuItems({ closeNavMenu }) {
+  const isPresent = useIsPresent();
+
   return (
     <motion.div className="nav-menu__items" variants={keyframesItems}>
-      {links.map((link) => (
-        <NavMenuLink key={`${link.text}_${link.href}`} link={link} closeNavMenu={closeNavMenu} />
-      ))}
+      <div className="nav-menu__col-2">
+        <NavInfo />
+        <div className="nav-menu__links">
+          {links.map((link) => (
+            <NavMenuLink key={`${link.text}_${link.href}`} link={link} closeNavMenu={closeNavMenu} />
+          ))}
+        </div>
+      </div>
+      <NavMenuClose key={"close"} closeNavMenu={closeNavMenu} present={isPresent} />
     </motion.div>
   );
 }
@@ -163,54 +190,53 @@ const NavInfo = () => {
   const addressTag = [{ text: "Brooklyn, NY" }];
   return (
     <div className="nav-menu__info">
-      {" "}
-      <TagBlock
-        title="Contact Us:"
-        tags={tags}
-        // viewport={{ amount: 0.25 }}
-        // transition={true}
-        // delay={viewport.width < 960 ? 0.5 : 2.5}
-      />
-      <TagBlock
-        title="Address:"
-        tags={addressTag}
-        // link
-        // viewport={{ amount: 0.25 }}
-        // transition={true}
-        // delay={viewport.width < 960 ? 0.5 : 2.5}
-      />
-      <TagBlock
-        title="Follow Us:"
-        tags={followtags}
-        row
-        rowDelimiter=" | "
-        // link
-        // viewport={{ amount: 0.25 }}
-        // transition={true}
-        // delay={viewport.width < 960 ? 0.5 : 2.5}
-      />
-      <div>
+      <motion.div variants={keyframesItem2}>
+        <TagBlock
+          title="Contact Us:"
+          tags={tags}
+          // viewport={{ amount: 0.25 }}
+          // transition={true}
+          // delay={viewport.width < 960 ? 0.5 : 2.5}
+        />
+      </motion.div>
+      <motion.div variants={keyframesItem2}>
+        <TagBlock
+          title="Address:"
+          tags={addressTag}
+          // link
+          // viewport={{ amount: 0.25 }}
+          // transition={true}
+          // delay={viewport.width < 960 ? 0.5 : 2.5}
+        />
+      </motion.div>
+      <motion.div variants={keyframesItem2}>
+        <TagBlock
+          title="Follow Us:"
+          tags={followtags}
+          row
+          rowDelimiter=" | "
+          // link
+          // viewport={{ amount: 0.25 }}
+          // transition={true}
+          // delay={viewport.width < 960 ? 0.5 : 2.5}
+        />
+      </motion.div>
+      <motion.div variants={keyframesItem2}>
         MELT studio is an interdisciplinary creative studio dedicated to designing stunning campaigns that are larger
         than life – and screens.
-      </div>
+      </motion.div>
     </div>
   );
 };
 
 const NavMenu = ({ navMenuOpen, setNavMenuOpen }) => {
-  const isPresent = useIsPresent();
-
   const closeNavMenu = () => {
     setNavMenuOpen(false);
   };
 
   return (
     <FadeInOut isVisible={navMenuOpen} keyframes={keyframesContainer} className="nav-menu">
-      <div className="nav-menu__col-2">
-        <NavInfo />
-        <NavMenuItems closeNavMenu={closeNavMenu} />
-      </div>
-      <NavMenuClose key={"close"} closeNavMenu={closeNavMenu} present={isPresent} />
+      <NavMenuItems closeNavMenu={closeNavMenu} />
     </FadeInOut>
   );
 };

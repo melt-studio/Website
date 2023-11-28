@@ -115,12 +115,17 @@ export default function Home({
         {!mobile && (
           <div className="logo-animation">
             <LogoAnimation serverConfig={config} fade={fadeAnimation} fromProject={fromProject} cursor={cursor} />
+            {/* <div className="intro-text">
+              MELT studio is an interdisciplinary creative studio dedicated to designing stunning campaigns that are
+              larger than life – and screens.
+            </div> */}
           </div>
         )}
         {filteredProjects.length > 0 ? (
           <ProjectTiles
             setLoaded={setLoaded}
             projects={filteredProjects}
+            projectsAll={projects}
             setBackgroundColor={setBackgroundColor}
             cursor={cursor}
             mobile={mobile}

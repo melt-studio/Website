@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
-import ArrowDown from "../../assets/images/MELT__ARROW_DOWN.svg";
+// import ArrowDown from "../../assets/images/MELT__ARROW_DOWN.svg";
 import "./Scroll.css";
 
 const Scroll = ({ scroll = 0, loaded = true }) => {
@@ -36,7 +36,8 @@ const Scroll = ({ scroll = 0, loaded = true }) => {
       onTransitionEnd={() => scrollHelper.current.classList.add("animate")}
     >
       <span className="scroll-helper__icon">
-        <img src={ArrowDown} alt="Scroll down" />
+        {/* <img src={ArrowDown} alt="Scroll down" /> */}
+        Scroll Down
       </span>
     </div>
   );

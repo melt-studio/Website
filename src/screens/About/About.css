@@ -51,10 +51,27 @@
   margin-bottom: 50px;
 }
 
+.col.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px 0;
+  color: #777777;
+}
+
+.col.nav .sections {
+  display: none;
+  flex-direction: column;
+  gap: 2px 0;
+}
+
 @media (min-width: 960px) {
   .about-page .page-container {
     padding-left: 20px;
     padding-right: 20px;
+  }
+
+  .col.nav .sections {
+    display: flex;
   }
 
   .about-page .tag-block {

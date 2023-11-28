@@ -38,17 +38,20 @@
 .nav-bar__logo img,
 .nav-bar__logo svg {
   width: auto;
-  height: 35px;
-  width: 35px;
+  height: 40px;
+  width: 40px;
   transform: scale(1);
   position: relative;
   top: 15px;
-  transition: transform 0.5s ease, fill 0.5s ease;
+  transition: transform 0.5s ease, fill 0.5s ease, stroke 0.5s ease;
   fill: #ffffff;
 }
 
 .about-page .nav-bar__logo svg {
   fill: #000000;
+  stroke: #000000;
+  stroke-width: 0.75;
+  overflow: visible;
 }
 
 .nav-bar__logo img:hover,
@@ -57,6 +60,10 @@
   transition: transform 0.5s ease;
   cursor: pointer;
   fill: var(--yellow);
+}
+
+.about-page .nav-bar__logo svg:hover {
+  stroke: var(--yellow);
 }
 
 .admin-page .nav-bar__items {
