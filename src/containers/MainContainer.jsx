@@ -109,6 +109,7 @@ export default function MainContainer({
               setScroll={setScroll}
               history={history}
               title={title}
+              aboutInfo={aboutInfo}
             />
           }
         />

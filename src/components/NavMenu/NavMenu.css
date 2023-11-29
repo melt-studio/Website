@@ -26,7 +26,8 @@
 }
 
 .nav-menu__info {
-  width: 200px;
+  /* width: 200px; */
+  max-width: 600px;
   /* width: fit-content; */
   display: flex;
   flex-direction: column;
@@ -159,6 +160,7 @@
 
   .nav-menu__info {
     order: 1;
+    width: 200px;
   }
 
   .nav-menu__links {

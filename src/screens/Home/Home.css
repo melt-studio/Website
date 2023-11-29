@@ -18,11 +18,18 @@
   margin-top: 45vw;
 }
 
-/* .intro-text {
+.intro-text.loading {
+  opacity: 0;
+}
+.intro-text {
   text-align: center;
   padding: 0 0%;
-  max-width: 600px;
-} */
+  /* max-width: 600px; */
+  position: fixed;
+  bottom: 25px;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
 
 @media (min-width: 800px) {
   .projects {

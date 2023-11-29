@@ -6,9 +6,10 @@ import IntroAnimation from "../../components/IntroAnimation/IntroAnimation.jsx";
 import ProjectTiles from "../../components/ProjectTiles/ProjectsTiles.jsx";
 import LogoAnimation from "../../components/LogoAnimation/index.js";
 import Page from "../Page";
-import Scroll from "../../components/Scroll/Scroll";
+// import Scroll from "../../components/Scroll/Scroll";
 import "./Home.css";
 import { useSearchParams } from "react-router-dom";
+import Marquee from "react-fast-marquee";
 
 export default function Home({
   initial,
@@ -22,11 +23,13 @@ export default function Home({
   setScroll,
   history,
   title,
+  aboutInfo,
 }) {
   const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [fadeAnimation, setFadeAnimation] = useState(false);
   const [fromProject, setFromProject] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [aboutTextNav, setAboutTextNav] = useState(null);
 
   const { scrollY } = useScroll();
 
@@ -90,6 +93,15 @@ export default function Home({
     }
   });
 
+  useEffect(() => {
+    if (aboutInfo) {
+      if (aboutInfo.length) {
+        const { aboutTextNav } = aboutInfo[0].fields;
+        setAboutTextNav(aboutTextNav);
+      }
+    }
+  }, [aboutInfo]);
+
   const [searchParams] = useSearchParams();
   const filter = searchParams.get("filter");
 
@@ -108,17 +120,18 @@ export default function Home({
 
       {mobile && <IntroAnimation initial={initial} setInitial={setInitial} mobile={mobile} viewport={viewport} />}
 
-      {!mobile && <Scroll scroll={scroll} loaded={loaded} />}
+      {/* {!mobile && <Scroll scroll={scroll} loaded={loaded} />} */}
 
       <Page>
         {!mobile && projects.length > 0 ? <Background backgroundColor={backgroundColor} /> : null}
         {!mobile && (
           <div className="logo-animation">
             <LogoAnimation serverConfig={config} fade={fadeAnimation} fromProject={fromProject} cursor={cursor} />
-            {/* <div className="intro-text">
-              MELT studio is an interdisciplinary creative studio dedicated to designing stunning campaigns that are
-              larger than life – and screens.
-            </div> */}
+            {aboutTextNav && (
+              <div className={`intro-text${loaded ? "" : " loading"}`}>
+                <Marquee speed={60}>{`${aboutTextNav}\u00A0\u00A0\u00A0`}</Marquee>
+              </div>
+            )}
           </div>
         )}
         {filteredProjects.length > 0 ? (
