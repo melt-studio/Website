@@ -74,6 +74,11 @@ h1,
   font-weight: 300;
 }
 
+.about-page .col.nav .tag h3 {
+  font-size: 13.5px;
+  text-transform: none;
+}
+
 .tag-container {
   display: flex;
   flex-direction: column;
@@ -81,6 +86,7 @@ h1,
 }
 
 .project-text .tag h3,
+.project-text .tag-block__tags.tag-row span,
 .page .jumbo-text {
   font-size: 22px;
   /* font-weight: 400; */
@@ -91,16 +97,31 @@ h1,
 }
 
 .about-page .description-text .tag h3,
+.about-page .description-text .tag-block__tags.tag-row span,
 .about-page .jumbo-text {
   font-size: 30px;
   font-weight: 400;
+}
+
+.about-page .description-text .tag-block__tags.tag-row span {
+  font-weight: 200;
+}
+
+.about-page .description-text .tag h3 {
+  color: #999999;
+  transition: color 0.5s ease;
+}
+
+.about-page .description-text .tag h3:hover {
+  color: #000000;
 }
 
 .about-page .description-text .tag-block {
   margin-bottom: 0;
 }
 
-.about-page .description-text .tag h3 {
+.about-page .description-text .tag h3,
+.about-page .description-text .tag-block__tags.tag-row span {
   text-transform: none;
   line-height: 1;
   letter-spacing: -0.01em;
@@ -108,7 +129,7 @@ h1,
 }
 
 .project-text .tag h3 {
-  font-weight: 200;
+  font-weight: 150;
   text-transform: none;
 }
 
@@ -166,7 +187,8 @@ h1,
 
 @media (min-width: 800px) {
   .page .jumbo-text,
-  .project-text .tag h3 {
+  .project-text .tag h3,
+  .project-text .tag-block__tags.tag-row span {
     font-size: 1.5rem; /* fallback */
     /* font-size: min(max(1.5rem, 2.75vw), 38px); */
     font-size: min(max(1.5rem, 2.75vw), 36px);
@@ -175,6 +197,7 @@ h1,
   }
 
   .about-page .description-text .tag h3,
+  .about-page .description-text .tag-block__tags.tag-row span,
   .about-page .jumbo-text {
     /* font-size: min(max(1.5rem, 3vw), 60px); */
     font-size: min(5vw, 80px);
@@ -197,12 +220,14 @@ h1,
 
 @media (min-width: 1920px) {
   .page .jumbo-text,
-  .project-text .tag h3 {
+  .project-text .tag h3,
+  .project-text .tag-block__tags.tag-row span {
     /* font-size: min(max(1.25rem, 2vw), 44px); */
     font-size: min(max(1.25rem, 2vw), 42px);
   }
 
   .about-page .description-text .tag h3,
+  .about-page .description-text .tag-block__tags.tag-row span,
   .about-page .jumbo-text {
     font-size: 80px;
   }

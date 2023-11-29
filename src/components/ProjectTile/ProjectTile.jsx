@@ -11,12 +11,13 @@ const ProjectTile = ({
   handleClick,
   setLoaded,
   projectsAll,
+  filtered = false,
 }) => {
   const width = mobile ? 85 : project.width;
   const { xAxis, yAxis } = projectsAll[i].fields;
   const style = {
     left: mobile ? 0 : `${yAxis}%`,
-    marginTop: mobile ? 0 : `${xAxis}px`,
+    marginTop: mobile ? 0 : `${filtered && width > 30 ? 0 : xAxis}px`,
     width: `${width}vw`,
     height: `${((viewport.width * width) / 100) * (1 / project.cover.aspect)}px`,
   };

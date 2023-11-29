@@ -56,12 +56,26 @@
   flex-direction: column;
   gap: 2px 0;
   color: #777777;
+  opacity: 1;
+  transition: opacity 0.5s ease 1s;
+}
+
+.col.nav.loading {
+  opacity: 0;
 }
 
 .col.nav .sections {
   display: none;
   flex-direction: column;
   gap: 2px 0;
+}
+
+.about-page .tag-block__tags {
+  gap: 3px 0;
+}
+
+.about-page .description-text > .description-text__p:first-of-type h3 {
+  display: none;
 }
 
 @media (min-width: 960px) {

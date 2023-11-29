@@ -49,9 +49,9 @@
 
 .about-page .nav-bar__logo svg {
   fill: #000000;
-  stroke: #000000;
-  stroke-width: 0.75;
-  overflow: visible;
+  /* stroke: #000000; */
+  /* stroke-width: 0.75;
+  overflow: visible; */
 }
 
 .nav-bar__logo img:hover,
@@ -62,9 +62,9 @@
   fill: var(--yellow);
 }
 
-.about-page .nav-bar__logo svg:hover {
+/* .about-page .nav-bar__logo svg:hover {
   stroke: var(--yellow);
-}
+} */
 
 .admin-page .nav-bar__items {
   justify-content: space-between;

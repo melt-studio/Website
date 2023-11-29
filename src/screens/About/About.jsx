@@ -23,24 +23,6 @@ keyframes`
   }
 `;
 
-// const parseLinks = (links) => {
-//   return links
-//     .trim()
-//     .split("\n")
-//     .map((c) => {
-//       const text = c.substring(1, c.indexOf("]"));
-//       let href = c.substring(c.indexOf("]") + 2, c.length - 2);
-//       if (href.includes("tel:")) {
-//         href = href.substring(href.indexOf("tel:"));
-//       }
-
-//       return {
-//         text,
-//         href,
-//       };
-//     });
-// };
-
 export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scrollCutOff }) {
   const [loading, setLoading] = useState(true);
   const [aboutText, setAboutText] = useState(null);
@@ -49,6 +31,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
   // const [gradientColsLoaded, setGradientColsLoaded] = useState(false);
   const [whatWeDoTags, setWhatWeDoTags] = useState([]);
   const [whatWeDontDoTags, setWhatWeDontDoTags] = useState([]);
+  const [sectionTags, setSectionTags] = useState([]);
 
   // console.log(aboutInfo);
 
@@ -89,16 +72,34 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
       // Only needed if doing staggered fadeIn
       setAboutText(aboutText.split("\n").filter((t) => t.length > 0));
 
+      const headers = aboutText
+        .split("\n")
+        .filter((t) => t.startsWith("###") && t.trim().length > 4)
+        .map((t) => t.replace("### ", ""));
+
       if (whatWeDo) {
         setWhatWeDoTags(whatWeDo.map((tag) => ({ text: tag })));
+        headers.push("What We Do");
       }
 
       if (whatWeDontDo) {
         setWhatWeDontDoTags(whatWeDontDo.map((tag) => ({ text: tag })));
+        headers.push("What We Don't Do");
       }
+
+      setSectionTags([
+        ...headers.map((tag) => ({
+          text: tag,
+          // href: `#about-section-${tag.trim().toLowerCase().replaceAll(" ", "").replaceAll("'", "")}`,
+        })),
+        { text: "Back To Work", href: "/" },
+      ]);
 
       // console.log(parseLinks(contact));
       // setContactTags(parseLinks(contact));
+
+      // const sections = aboutText
+      // setAboutNav()
 
       setLoading(false);
     }
@@ -146,39 +147,58 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                   </FadeScroll>
                 )}
 
-                <TagBlock
-                  title="What We Do"
-                  tags={whatWeDoTags}
-                  // viewport={{ amount: 0.25 }}
-                  // transition={true}
-                  // delay={viewport.width < 960 ? 0.5 : 2.5}
-                  row
-                />
-                <TagBlock
-                  title="What We Don't Do"
-                  tags={whatWeDontDoTags}
-                  // viewport={{ amount: 0.25 }}
-                  // transition={true}
-                  // delay={viewport.width < 960 ? 0.5 : 2.5}
-                  row
-                />
+                <section id="about-section-whatwedo">
+                  <TagBlock
+                    title="What We Do"
+                    tags={whatWeDoTags}
+                    // viewport={{ amount: 0.25 }}
+                    transition={false}
+                    // delay={viewport.width < 960 ? 0.5 : 2.5}
+                    delay={0}
+                    row
+                    rowDelimiter=" / "
+                  />
+                </section>
+                <section id="about-section-whatwedontdo">
+                  <TagBlock
+                    title="What We Don't Do"
+                    tags={whatWeDontDoTags}
+                    // viewport={{ amount: 0.25 }}
+                    transition={false}
+                    // delay={viewport.width < 960 ? 0.5 : 2.5}
+                    delay={0}
+                    row
+                    rowDelimiter=" / "
+                  />
+                </section>
               </div>
             </div>
 
             <div className="col-1 sticky">
-              <div className="col nav">
+              <div
+                className={`col nav${loading ? " loading" : ""}`}
+                // onClick={() => {
+                //   document.getElementById("about-section-whatwedo").scrollIntoView({ behavior: "smooth" });
+                // }}
+              >
                 {/* <div className=""> */}
-                <div className="sections">
-                  <div>Who We Are</div>
-                  <div>Our Approach</div>
-                  <div>The Results</div>
-                  <div>What We Do</div>
-                  <div>What We Don&apos;t Do</div>
+                {/* <div className="sections">
+                  {aboutNav.map((a) => (
+                    <div key={a}>{a}</div>
+                  ))}
                 </div>
                 <div>
                   <a href="/">Back To Work</a>
-                </div>
-                {/* <TagBlock
+                </div> */}
+                <TagBlock
+                  tags={sectionTags}
+                  viewport={{ amount: 0.25 }}
+                  transition={true}
+                  delay={viewport.width < 960 ? 0.5 : 2.5}
+                />
+              </div>
+
+              {/* <TagBlock
                     title="What We Do"
                     tags={whatWeDoTags}
                     viewport={{ amount: 0.25 }}
@@ -192,8 +212,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                     transition={true}
                     delay={viewport.width < 960 ? 0.5 : 2.5}
                   /> */}
-                {/* </div> */}
-              </div>
+              {/* </div> */}
 
               {/* <div className="col links">
                   <div className="">

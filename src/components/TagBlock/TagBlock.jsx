@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import Tag from "../Tag/Tag.jsx";
 import FadeIn from "../../components/FadeIn/FadeIn.jsx";
 import { keyframes } from "../../utils/keyframes.js";
@@ -41,7 +42,7 @@ const TagBlock = ({
   const fadeInTag = {
     name: transition ? "customTransitionTag" : "customAnimationTag",
     duration: 1,
-    delay: transition ? delay : 2.5,
+    delay: transition ? delay : delay !== undefined ? delay : 2.5,
     stagger: true,
     damping: links ? 0.15 : 0.1,
   };
@@ -60,15 +61,16 @@ const TagBlock = ({
         </div>
       )}
 
-      <div className="tag-block__tags">
-        <FadeIn {...fadeInTag}>
-          {row ? (
-            <div className="tag">
-              <h3>{tags.map((tag) => tag.text).join(rowDelimiter)}</h3>
-            </div>
-          ) : (
-            tags.map((tag) => <Tag key={tag.text} tag={tag} />)
-          )}
+      <div className={`tag-block__tags${row ? " tag-row" : ""}`}>
+        <FadeIn {...fadeInTag} row={row}>
+          {row
+            ? tags.map((tag, i) => (
+                <span key={tag.text}>
+                  <Tag tag={tag} />
+                  {i < tags.length - 1 && rowDelimiter}
+                </span>
+              ))
+            : tags.map((tag) => <Tag key={tag.text} tag={tag} />)}
         </FadeIn>
       </div>
     </FadeScroll>

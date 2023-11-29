@@ -131,6 +131,7 @@ export default function Home({
             mobile={mobile}
             viewport={viewport}
             setScroll={setScroll}
+            filtered={filteredProjects.length !== projects.length}
           />
         ) : null}
       </Page>

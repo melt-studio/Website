@@ -5,6 +5,8 @@ import FadeInOut from "../FadeInOut/FadeInOut.jsx";
 import { cursorEvents } from "../Cursor/Cursor.jsx";
 import "./NavMenu.css";
 import TagBlock from "../TagBlock/TagBlock.jsx";
+import { parseLinks } from "../../utils/parser.js";
+import Markdown from "../Markdown/Markdown.jsx";
 
 const keyframesContainer = {
   enter: {
@@ -64,13 +66,13 @@ const keyframesItem2 = {
     y: 0,
     opacity: 1,
     // transition: { duration: 1.75, ease: "easeInOut" },
-    transition: { duration: 1.25, ease: "easeInOut" },
+    transition: { duration: 1.25, delay: 1, ease: "easeInOut" },
   },
   exit: {
     y: "-0.6em",
     opacity: 0,
     // transition: { duration: 1, ease: "easeInOut" },
-    transition: { duration: 0.75, ease: "easeInOut" },
+    transition: { duration: 0.75, delay: 0.25, ease: "easeInOut" },
   },
 };
 
@@ -160,13 +162,13 @@ const NavMenuLink = ({ link, closeNavMenu }) => {
   );
 };
 
-function NavMenuItems({ closeNavMenu }) {
+function NavMenuItems({ closeNavMenu, aboutInfo }) {
   const isPresent = useIsPresent();
 
   return (
     <motion.div className="nav-menu__items" variants={keyframesItems}>
       <div className="nav-menu__col-2">
-        <NavInfo />
+        <NavInfo aboutInfo={aboutInfo} />
         <div className="nav-menu__links">
           {links.map((link) => (
             <NavMenuLink key={`${link.text}_${link.href}`} link={link} closeNavMenu={closeNavMenu} />
@@ -178,31 +180,89 @@ function NavMenuItems({ closeNavMenu }) {
   );
 }
 
-const NavInfo = () => {
-  const tags = [
-    { text: "(347) 946.0249", href: "tel:(347) 946.0249" },
-    { text: "hello@melt.works", href: "mailto: hello@melt.works" },
-  ];
-  const followtags = [
-    { text: "Instagram", href: "/" },
-    { text: "LinkedIn", href: "/" },
-  ];
-  const addressTag = [{ text: "Brooklyn, NY" }];
+const NavInfo = ({ aboutInfo }) => {
+  const [aboutText, setAboutText] = useState(null);
+  const [contactTags, setContactTags] = useState([]);
+  const [followTags, setFollowTags] = useState([]);
+  const [addressText, setAddressText] = useState(null);
+
+  // const contactTags = JSON.parse(aboutInfo[0].fields.contact)
+  // const tags = [
+  //   { text: "(347) 946.0249", href: "tel:(347) 946.0249" },
+  //   { text: "hello@melt.works", href: "mailto: hello@melt.works" },
+  // ];
+  // const followtags = [
+  //   { text: "Instagram", href: "/" },
+  //   { text: "LinkedIn", href: "/" },
+  // ];
+  // const addressTag = [{ text: "Brooklyn, NY" }];
+
+  useEffect(() => {
+    if (aboutInfo.length) {
+      const { contact, follow, address, aboutTextNav } = aboutInfo[0].fields;
+
+      // let colors = gradient.split(", ").map((c) => c.trim());
+      // const selectedColors = [];
+      // const n = colors.length < 5 ? colors.length : 5;
+      // for (let i = 0; i < n; i++) {
+      //   const j = Math.floor(Math.random() * colors.length);
+      //   selectedColors.push(colors[j]);
+      //   colors = colors.filter((c, i) => i !== j);
+      // }
+      // setGradientCols(selectedColors);
+      // setGradientColsLoaded(true);
+
+      // ReactMarkdown causes unwanted re-renders when using components prop (and in this case wrapping each p element with the FadeIn component, causing repeated fade ins on viewport change, incl. scrolling on mobile as browser height changes), so instead pre-splitting the text into paragraphs then wrapping each paragraph with FadeIn and ReactMarkdown
+      // Only needed if doing staggered fadeIn
+      // setAboutText(aboutText.split("\n").filter((t) => t.length > 0));
+
+      // if (whatWeDo) {
+      //   setWhatWeDoTags(whatWeDo.map((tag) => ({ text: tag })));
+      // }
+
+      // if (whatWeDontDo) {
+      //   setWhatWeDontDoTags(whatWeDontDo.map((tag) => ({ text: tag })));
+      // }
+
+      // console.log(follow);
+
+      // console.log(parseLinks(contact));
+      setContactTags(parseLinks(contact));
+      setFollowTags(parseLinks(follow));
+      setAddressText(address);
+      setAboutText(aboutTextNav);
+
+      // setLoading(false);
+    }
+  }, [aboutInfo]);
+
+  useEffect(() => {
+    console.log(followTags);
+  }, [followTags]);
+
   return (
     <div className="nav-menu__info">
       <motion.div variants={keyframesItem2}>
-        <TagBlock
+        {/* <TagBlock
           title="Contact Us:"
           tags={tags}
           // viewport={{ amount: 0.25 }}
           // transition={true}
           // delay={viewport.width < 960 ? 0.5 : 2.5}
+        /> */}
+        <TagBlock
+          title="Contact Us:"
+          tags={contactTags}
+          links={true}
+          viewport={{ amount: 0.25 }}
+          transition={true}
+          // delay={viewport.width < 960 ? 1 : 3.5}
         />
       </motion.div>
       <motion.div variants={keyframesItem2}>
         <TagBlock
           title="Address:"
-          tags={addressTag}
+          tags={[{ text: addressText }]}
           // link
           // viewport={{ amount: 0.25 }}
           // transition={true}
@@ -210,7 +270,7 @@ const NavInfo = () => {
         />
       </motion.div>
       <motion.div variants={keyframesItem2}>
-        <TagBlock
+        {/* <TagBlock
           title="Follow Us:"
           tags={followtags}
           row
@@ -219,24 +279,33 @@ const NavInfo = () => {
           // viewport={{ amount: 0.25 }}
           // transition={true}
           // delay={viewport.width < 960 ? 0.5 : 2.5}
+        /> */}
+        <TagBlock
+          title="Follow Us:"
+          tags={followTags}
+          links={true}
+          viewport={{ amount: 0.25 }}
+          transition={true}
+          row
+          rowDelimiter={"\u00A0\u00A0|\u00A0\u00A0"}
+          // delay={viewport.width < 960 ? 1 : 3.5}
         />
       </motion.div>
       <motion.div variants={keyframesItem2}>
-        MELT studio is an interdisciplinary creative studio dedicated to designing stunning campaigns that are larger
-        than life – and screens.
+        <Markdown>{aboutText}</Markdown>
       </motion.div>
     </div>
   );
 };
 
-const NavMenu = ({ navMenuOpen, setNavMenuOpen }) => {
+const NavMenu = ({ navMenuOpen, setNavMenuOpen, aboutInfo }) => {
   const closeNavMenu = () => {
     setNavMenuOpen(false);
   };
 
   return (
     <FadeInOut isVisible={navMenuOpen} keyframes={keyframesContainer} className="nav-menu">
-      <NavMenuItems closeNavMenu={closeNavMenu} />
+      <NavMenuItems closeNavMenu={closeNavMenu} aboutInfo={aboutInfo} />
     </FadeInOut>
   );
 };

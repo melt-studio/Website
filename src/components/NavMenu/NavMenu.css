@@ -26,7 +26,7 @@
 }
 
 .nav-menu__info {
-  width: 300px;
+  width: 200px;
   /* width: fit-content; */
   display: flex;
   flex-direction: column;
@@ -167,6 +167,12 @@
 
   .nav-menu__link {
     font-size: min(min(8vw, 12vh), 10rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  .nav-menu__info {
+    width: 300px;
   }
 }
 

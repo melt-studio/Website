@@ -13,6 +13,7 @@ export default function ProjectTiles({
   setLoaded,
   mobile,
   viewport,
+  filtered,
 }) {
   const navigate = useNavigate();
   const [projectData, setProjectData] = useState([]);
@@ -117,6 +118,7 @@ export default function ProjectTiles({
           handleClick={handleClick}
           setLoaded={setLoaded}
           projectsAll={projectsAll}
+          filtered={filtered}
         />
       ))}
     </div>

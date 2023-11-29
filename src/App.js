@@ -173,6 +173,7 @@ function App() {
         setLoggedIn={setLoggedIn}
         projects={projects}
         pageIsLoading={pageIsLoading}
+        aboutInfo={aboutInfo}
       >
         <MainContainer
           initial={initial}
