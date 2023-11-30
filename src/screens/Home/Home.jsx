@@ -6,10 +6,10 @@ import IntroAnimation from "../../components/IntroAnimation/IntroAnimation.jsx";
 import ProjectTiles from "../../components/ProjectTiles/ProjectsTiles.jsx";
 import LogoAnimation from "../../components/LogoAnimation/index.js";
 import Page from "../Page";
-// import Scroll from "../../components/Scroll/Scroll";
+import Scroll from "../../components/Scroll/Scroll";
 import "./Home.css";
 import { useSearchParams } from "react-router-dom";
-import Marquee from "react-fast-marquee";
+// import Marquee from "react-fast-marquee";
 
 export default function Home({
   initial,
@@ -23,13 +23,13 @@ export default function Home({
   setScroll,
   history,
   title,
-  aboutInfo,
+  projectTags,
 }) {
   const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [fadeAnimation, setFadeAnimation] = useState(false);
   const [fromProject, setFromProject] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [aboutTextNav, setAboutTextNav] = useState(null);
+  // const [aboutTextNav, setAboutTextNav] = useState(null);
 
   const { scrollY } = useScroll();
 
@@ -93,22 +93,22 @@ export default function Home({
     }
   });
 
-  useEffect(() => {
-    if (aboutInfo) {
-      if (aboutInfo.length) {
-        const { aboutTextNav } = aboutInfo[0].fields;
-        setAboutTextNav(aboutTextNav);
-      }
-    }
-  }, [aboutInfo]);
+  // useEffect(() => {
+  //   if (aboutInfo) {
+  //     if (aboutInfo.length) {
+  //       const { aboutTextNav } = aboutInfo[0].fields;
+  //       setAboutTextNav(aboutTextNav);
+  //     }
+  //   }
+  // }, [aboutInfo]);
 
   const [searchParams] = useSearchParams();
   const filter = searchParams.get("filter");
 
   let filteredProjects = projects;
-  if (filter !== null) {
+  if (filter !== null && projectTags.length > 0) {
     const f = filter.toLowerCase().trim();
-    if (["print", "gfx"].includes(f))
+    if (projectTags.map((t) => t.toLowerCase()).includes(f))
       filteredProjects = projects.filter((p) => p.fields.tag !== undefined && p.fields.tag.toLowerCase().trim() === f);
   }
 
@@ -120,18 +120,19 @@ export default function Home({
 
       {mobile && <IntroAnimation initial={initial} setInitial={setInitial} mobile={mobile} viewport={viewport} />}
 
-      {/* {!mobile && <Scroll scroll={scroll} loaded={loaded} />} */}
+      {!mobile && <Scroll scroll={scroll} loaded={loaded} />}
 
       <Page>
         {!mobile && projects.length > 0 ? <Background backgroundColor={backgroundColor} /> : null}
         {!mobile && (
           <div className="logo-animation">
             <LogoAnimation serverConfig={config} fade={fadeAnimation} fromProject={fromProject} cursor={cursor} />
-            {aboutTextNav && (
+            {/* {aboutTextNav && (
               <div className={`intro-text${loaded ? "" : " loading"}`}>
                 <Marquee speed={60}>{`${aboutTextNav}\u00A0\u00A0\u00A0`}</Marquee>
+                {aboutTextNav}
               </div>
-            )}
+            )} */}
           </div>
         )}
         {filteredProjects.length > 0 ? (

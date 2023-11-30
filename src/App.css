@@ -39,9 +39,10 @@ h1,
 .page h1 {
   font-weight: 400;
   margin-top: 0;
-  font-size: 13.5px;
+  /* font-size: 13.5px; */
   font-size: 15px;
   color: #777777;
+  letter-spacing: -0.005em;
   /* text-transform: uppercase; */
 }
 
@@ -68,15 +69,18 @@ h1,
 }
 
 .nav-menu .tag h3,
+.nav-menu .tag span,
+.nav-menu .nav-menu__info p,
 .project-text .subtitle-text {
-  font-size: 16px;
+  font-size: 15px;
   text-transform: none;
   font-weight: 300;
 }
 
 .about-page .col.nav .tag h3 {
-  font-size: 13.5px;
+  font-size: 15px;
   text-transform: none;
+  letter-spacing: -0.005em;
 }
 
 .tag-container {
@@ -85,8 +89,6 @@ h1,
   gap: 3px 0;
 }
 
-.project-text .tag h3,
-.project-text .tag-block__tags.tag-row span,
 .page .jumbo-text {
   font-size: 22px;
   /* font-weight: 400; */
@@ -94,6 +96,14 @@ h1,
   font-weight: 300;
   line-height: 1;
   letter-spacing: -0.01em;
+}
+
+.project-text .tag h3,
+.project-text .tag-block__tags.tag-row span {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  line-height: 1.1;
 }
 
 .about-page .description-text .tag h3,
@@ -104,7 +114,7 @@ h1,
 }
 
 .about-page .description-text .tag-block__tags.tag-row span {
-  font-weight: 200;
+  font-weight: 100;
 }
 
 .about-page .description-text .tag h3 {
@@ -129,7 +139,7 @@ h1,
 }
 
 .project-text .tag h3 {
-  font-weight: 150;
+  font-weight: 300;
   text-transform: none;
 }
 
@@ -158,11 +168,15 @@ h1,
 
 .page .jumbo-text h3,
 .about-page .description-text .tag-block h1 {
-  font-weight: 500;
+  /* font-weight: 500; */
+  font-weight: 400;
   margin: 0 0 2em;
-  font-size: 13.5px;
-  text-transform: uppercase;
+  /* font-size: 13.5px; */
+  font-size: 15px;
+  /* text-transform: uppercase; */
+  text-transform: none;
   letter-spacing: 0;
+  letter-spacing: -0.005em;
 }
 
 .page .jumbo-text a:after {
@@ -186,14 +200,22 @@ h1,
 }
 
 @media (min-width: 800px) {
-  .page .jumbo-text,
-  .project-text .tag h3,
-  .project-text .tag-block__tags.tag-row span {
+  .page .jumbo-text {
+    /* .project-text .tag h3,
+  .project-text .tag-block__tags.tag-row span { */
     font-size: 1.5rem; /* fallback */
     /* font-size: min(max(1.5rem, 2.75vw), 38px); */
     font-size: min(max(1.5rem, 2.75vw), 36px);
     letter-spacing: -0.02em;
     line-height: 1;
+  }
+
+  .project-text .tag h3,
+  .project-text .tag-block__tags.tag-row span {
+    font-size: min(max(18px, 2vw), 24px);
+    /* letter-spacing: -0.02em; */
+    line-height: 1.1;
+    font-weight: 300;
   }
 
   .about-page .description-text .tag h3,
@@ -218,12 +240,22 @@ h1,
   }
 }
 
-@media (min-width: 1920px) {
-  .page .jumbo-text,
+@media (min-width: 1280px) {
   .project-text .tag h3,
   .project-text .tag-block__tags.tag-row span {
+    letter-spacing: -0.02em;
+  }
+}
+
+@media (min-width: 1920px) {
+  .page .jumbo-text {
     /* font-size: min(max(1.25rem, 2vw), 44px); */
     font-size: min(max(1.25rem, 2vw), 42px);
+  }
+
+  .project-text .tag h3,
+  .project-text .tag-block__tags.tag-row span {
+    font-size: min(max(1.25rem, 2vw), 30px);
   }
 
   .about-page .description-text .tag h3,
@@ -232,13 +264,22 @@ h1,
     font-size: 80px;
   }
 
-  .page h1 {
+  .page h1,
+  .nav-menu h1,
+  .nav-menu .tag h3,
+  .nav-menu .tag span,
+  .nav-menu .nav-menu__info p {
     font-size: 16px;
   }
 
   .page h3,
   .tag h3 {
     font-size: 11.5px;
+  }
+
+  .about-page .col.nav .tag h3 {
+    font-size: 16px;
+    /* letter-spacing: -0.005em; */
   }
 
   .page .jumbo-text h3,

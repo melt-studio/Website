@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import Layout from "./layouts/MainLayout.jsx";
 import MainContainer from "./containers/MainContainer.jsx";
-// import Cursor from "./components/Cursor/Cursor.jsx";
+import Cursor from "./components/Cursor/Cursor.jsx";
 import "./App.css";
 
 import configService from "./services/config";
@@ -11,6 +11,7 @@ import aboutService from "./services/about";
 import embedService from "./services/embeds";
 import loginService from "./services/login.js";
 import otherService from "./services/other.js";
+import menuService from "./services/menu.js";
 
 // import favicon from "./favicon.ico";
 
@@ -20,6 +21,7 @@ function App() {
   const [config, setConfig] = useState([]);
   const [projects, setProjects] = useState([]);
   const [aboutInfo, setAboutInfo] = useState([]);
+  const [menuInfo, setMenuInfo] = useState([]);
   const [embeds, setEmbeds] = useState([]);
   const [other, setOther] = useState([]);
   const [viewport, setViewport] = useState({ width: window.innerWidth, height: window.innerHeight });
@@ -31,6 +33,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [pageIsLoading, setPageIsLoading] = useState(false);
   const [title, setTitle] = useState("MELT");
+  const [projectTags, setProjectTags] = useState([]);
 
   const location = useLocation();
 
@@ -132,11 +135,22 @@ function App() {
       }
     };
 
+    const getMenu = async () => {
+      try {
+        const response = await menuService.getMenu();
+        setMenuInfo(response);
+        console.log(response);
+      } catch (error) {
+        console.log("Other", error.response.data.error ? error.response.data.error : "Server error");
+      }
+    };
+
     getProjects();
     getAboutInfo();
     getEmbeds();
     getConfig();
     getOther();
+    getMenu();
   }, []);
 
   useEffect(() => {
@@ -159,6 +173,19 @@ function App() {
     }
   }, [other]);
 
+  useEffect(() => {
+    if (projects.length > 0) {
+      // Get tag options from project data - ignore undefined, blank, non string tags
+      const tags = projects
+        .filter((p) => p.fields.tag !== undefined && typeof p.fields.tag === "string" && p.fields.tag.trim().length > 0)
+        .map((p) => p.fields.tag);
+
+      const tagSet = new Set(tags);
+      // console.log(tagSet);
+      setProjectTags([...tagSet]);
+    }
+  }, [projects]);
+
   return (
     <>
       <Layout
@@ -173,7 +200,8 @@ function App() {
         setLoggedIn={setLoggedIn}
         projects={projects}
         pageIsLoading={pageIsLoading}
-        aboutInfo={aboutInfo}
+        menuInfo={menuInfo}
+        projectTags={projectTags}
       >
         <MainContainer
           initial={initial}
@@ -193,9 +221,10 @@ function App() {
           scrollCutOff={scrollCutOff}
           setPageIsLoading={setPageIsLoading}
           title={title}
+          projectTags={projectTags}
         />
       </Layout>
-      {/* {!mobile && <Cursor ref={cursor} />} */}
+      {!mobile && <Cursor ref={cursor} />}
     </>
   );
 }

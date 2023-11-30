@@ -75,16 +75,6 @@ const keyframesItem2 = {
     transition: { duration: 0.75, delay: 0.25, ease: "easeInOut" },
   },
 };
-
-const links = [
-  { text: "All Works", href: "/", nav: true },
-  { text: "Print", href: "/?filter=print", nav: true, filter: "print" },
-  { text: "GFX", href: "/?filter=gfx", nav: true, filter: "gfx" },
-  { text: "About Us", href: "/about", nav: true },
-  { text: "Say Hello", href: "mailto:hello@melt.works", nav: false },
-  // { text: "Follow", href: "https://www.instagram.com/melt.works/", nav: false },
-];
-
 const NavMenuClose = ({ closeNavMenu, present }) => {
   return (
     <motion.div className="nav-menu__close" variants={keyframesItem}>
@@ -112,7 +102,7 @@ const NavMenuLinkText = ({ text, selected }) => (
   </motion.p>
 );
 
-const NavMenuLink = ({ link, closeNavMenu }) => {
+const NavMenuLink = ({ link, closeNavMenu, projectTags }) => {
   const [selected, setSelected] = useState(false);
 
   const location = useLocation();
@@ -120,7 +110,7 @@ const NavMenuLink = ({ link, closeNavMenu }) => {
   const filter = searchParams.get("filter");
 
   useEffect(() => {
-    if (filter !== null && ["print", "gfx"].includes(filter.toLowerCase().trim())) {
+    if (filter !== null && projectTags.map((t) => t.toLowerCase()).includes(filter.toLowerCase().trim())) {
       if (link.filter !== undefined && link.filter === filter.toLowerCase().trim()) {
         setSelected(true);
       }
@@ -129,7 +119,7 @@ const NavMenuLink = ({ link, closeNavMenu }) => {
         setSelected(true);
       }
     }
-  }, [location, link, filter]);
+  }, [location, link, filter, projectTags]);
 
   if (link.nav) {
     return (
@@ -162,16 +152,36 @@ const NavMenuLink = ({ link, closeNavMenu }) => {
   );
 };
 
-function NavMenuItems({ closeNavMenu, aboutInfo }) {
+function NavMenuItems({ closeNavMenu, menuInfo, projectTags }) {
   const isPresent = useIsPresent();
+
+  const links = [
+    { text: "All Works", href: "/", nav: true },
+    // { text: "Print", href: "/?filter=print", nav: true, filter: "print" },
+    // { text: "GFX", href: "/?filter=gfx", nav: true, filter: "gfx" },
+  ];
+
+  projectTags.forEach((tag) => {
+    links.push({ text: tag, href: `/?filter=${tag.toLowerCase()}`, nav: true, filter: tag.toLowerCase() });
+  });
+
+  links.push(
+    { text: "About Us", href: "/about", nav: true },
+    { text: "Say Hello", href: "mailto:hello@melt.works", nav: false }
+  );
 
   return (
     <motion.div className="nav-menu__items" variants={keyframesItems}>
       <div className="nav-menu__col-2">
-        <NavInfo aboutInfo={aboutInfo} />
+        <NavInfo menuInfo={menuInfo} />
         <div className="nav-menu__links">
           {links.map((link) => (
-            <NavMenuLink key={`${link.text}_${link.href}`} link={link} closeNavMenu={closeNavMenu} />
+            <NavMenuLink
+              key={`${link.text}_${link.href}`}
+              link={link}
+              closeNavMenu={closeNavMenu}
+              projectTags={projectTags}
+            />
           ))}
         </div>
       </div>
@@ -180,11 +190,11 @@ function NavMenuItems({ closeNavMenu, aboutInfo }) {
   );
 }
 
-const NavInfo = ({ aboutInfo }) => {
-  const [aboutText, setAboutText] = useState(null);
+const NavInfo = ({ menuInfo }) => {
   const [contactTags, setContactTags] = useState([]);
-  const [followTags, setFollowTags] = useState([]);
   const [addressText, setAddressText] = useState(null);
+  const [followTags, setFollowTags] = useState([]);
+  const [aboutText, setAboutText] = useState(null);
 
   // const contactTags = JSON.parse(aboutInfo[0].fields.contact)
   // const tags = [
@@ -198,47 +208,14 @@ const NavInfo = ({ aboutInfo }) => {
   // const addressTag = [{ text: "Brooklyn, NY" }];
 
   useEffect(() => {
-    if (aboutInfo.length) {
-      const { contact, follow, address, aboutTextNav } = aboutInfo[0].fields;
-
-      // let colors = gradient.split(", ").map((c) => c.trim());
-      // const selectedColors = [];
-      // const n = colors.length < 5 ? colors.length : 5;
-      // for (let i = 0; i < n; i++) {
-      //   const j = Math.floor(Math.random() * colors.length);
-      //   selectedColors.push(colors[j]);
-      //   colors = colors.filter((c, i) => i !== j);
-      // }
-      // setGradientCols(selectedColors);
-      // setGradientColsLoaded(true);
-
-      // ReactMarkdown causes unwanted re-renders when using components prop (and in this case wrapping each p element with the FadeIn component, causing repeated fade ins on viewport change, incl. scrolling on mobile as browser height changes), so instead pre-splitting the text into paragraphs then wrapping each paragraph with FadeIn and ReactMarkdown
-      // Only needed if doing staggered fadeIn
-      // setAboutText(aboutText.split("\n").filter((t) => t.length > 0));
-
-      // if (whatWeDo) {
-      //   setWhatWeDoTags(whatWeDo.map((tag) => ({ text: tag })));
-      // }
-
-      // if (whatWeDontDo) {
-      //   setWhatWeDontDoTags(whatWeDontDo.map((tag) => ({ text: tag })));
-      // }
-
-      // console.log(follow);
-
-      // console.log(parseLinks(contact));
+    if (menuInfo.length) {
+      const { contact, address, follow, about } = menuInfo[0].fields;
       setContactTags(parseLinks(contact));
-      setFollowTags(parseLinks(follow));
       setAddressText(address);
-      setAboutText(aboutTextNav);
-
-      // setLoading(false);
+      setFollowTags(parseLinks(follow));
+      setAboutText(about);
     }
-  }, [aboutInfo]);
-
-  useEffect(() => {
-    console.log(followTags);
-  }, [followTags]);
+  }, [menuInfo]);
 
   return (
     <div className="nav-menu__info">
@@ -298,14 +275,14 @@ const NavInfo = ({ aboutInfo }) => {
   );
 };
 
-const NavMenu = ({ navMenuOpen, setNavMenuOpen, aboutInfo }) => {
+const NavMenu = ({ navMenuOpen, setNavMenuOpen, menuInfo, projectTags }) => {
   const closeNavMenu = () => {
     setNavMenuOpen(false);
   };
 
   return (
     <FadeInOut isVisible={navMenuOpen} keyframes={keyframesContainer} className="nav-menu">
-      <NavMenuItems closeNavMenu={closeNavMenu} aboutInfo={aboutInfo} />
+      <NavMenuItems closeNavMenu={closeNavMenu} menuInfo={menuInfo} projectTags={projectTags} />
     </FadeInOut>
   );
 };

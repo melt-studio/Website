@@ -30,6 +30,7 @@ export default function MainContainer({
   scrollCutOff,
   setPageIsLoading,
   title,
+  projectTags,
 }) {
   const [adminMessage, setAdminMessage] = useState(null);
 
@@ -70,6 +71,7 @@ export default function MainContainer({
               mobile={mobile}
               viewport={viewport}
               scrollCutOff={scrollCutOff}
+              history={history}
             />
           }
         />
@@ -109,7 +111,8 @@ export default function MainContainer({
               setScroll={setScroll}
               history={history}
               title={title}
-              aboutInfo={aboutInfo}
+              // aboutInfo={aboutInfo}
+              projectTags={projectTags}
             />
           }
         />

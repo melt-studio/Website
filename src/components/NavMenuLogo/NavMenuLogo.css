@@ -27,7 +27,8 @@
 
 .nav-menu-logo__img {
   width: 100%;
-  cursor: pointer;
+  /* cursor: pointer; */
+  cursor: url("../../assets/images/cursor.svg") 5 0, pointer;
 }
 
 @media (min-width: 800px) {

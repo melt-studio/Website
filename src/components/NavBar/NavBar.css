@@ -58,8 +58,13 @@
 .nav-bar__logo svg:hover {
   transform: scale(1.2);
   transition: transform 0.5s ease;
-  cursor: pointer;
+  /* cursor: pointer; */
+  cursor: url("../../assets/images/cursor.svg") 5 0, pointer;
   fill: var(--yellow);
+}
+
+.about-page .nav-bar__logo svg:hover {
+  fill: #000000;
 }
 
 /* .about-page .nav-bar__logo svg:hover {

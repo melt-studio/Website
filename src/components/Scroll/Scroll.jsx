@@ -37,7 +37,7 @@ const Scroll = ({ scroll = 0, loaded = true }) => {
     >
       <span className="scroll-helper__icon">
         {/* <img src={ArrowDown} alt="Scroll down" /> */}
-        Scroll Down
+        Scroll Down To See Our Works
       </span>
     </div>
   );

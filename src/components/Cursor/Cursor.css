@@ -17,7 +17,7 @@
   opacity: 1;
 }
 
-.home-page .cursor.project-click {
+/* .home-page .cursor.project-click {
   opacity: 1;
   background-color: var(--cursor-color);
   transform: translate(-50%, -50%) scale(var(--cursor-scale));
@@ -26,7 +26,7 @@
 .cursor.project {
   opacity: 1;
   transform: translate(-50%, -50%) scale(3.5);
-}
+} */
 
 #cursor-unofficial {
   width: 100px;

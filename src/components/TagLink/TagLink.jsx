@@ -6,14 +6,25 @@ import "./TagLink.css";
 const TagLinkAnchor = ({ nav, tag, children }) => {
   if (tag.onClick) {
     return (
-      <div style={{ cursor: "pointer" }} onClick={tag.onClick}>
+      <div style={{ cursor: "pointer" }} onClick={tag.onClick} id={tag.id}>
         {children}
       </div>
     );
   }
 
   if (nav) {
-    return <Link to={tag.href}>{children}</Link>;
+    // if (tag.id) {
+    //   return (
+    //     <Link to={tag.href} id={tag.id}>
+    //       {children}
+    //     </Link>
+    //   );
+    // }
+    return (
+      <Link to={tag.href} id={tag.id}>
+        {children}
+      </Link>
+    );
   }
 
   return (

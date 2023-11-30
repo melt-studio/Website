@@ -4,6 +4,7 @@
 
 .tag-block__title {
   margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .tag-block__title__underline {
@@ -30,7 +31,8 @@
 }
 
 .tag-links .tag-block__tags {
-  gap: 8px 0;
+  /* gap: 8px 0; */
+  gap: 5px 0;
 }
 
 .tag-block__tags h3 {

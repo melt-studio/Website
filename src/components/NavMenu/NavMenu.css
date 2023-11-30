@@ -19,7 +19,7 @@
 .nav-menu__col-2 {
   display: flex;
   width: 100%;
-  justify-content: center;
+  /* justify-content: center; */
   gap: 40px 0;
   padding: 5% 5% 0;
   flex-direction: column;
@@ -27,11 +27,22 @@
 
 .nav-menu__info {
   /* width: 200px; */
-  max-width: 600px;
+  /* max-width: 600px; */
   /* width: fit-content; */
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   order: 2;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.nav-menu__info > div {
+  width: 50%;
+  /* width: 33%; */
+}
+
+.nav-menu__info > div:last-of-type p {
+  display: none;
 }
 
 .nav-menu__items {
@@ -69,6 +80,7 @@
   /* font-size: min(min(17vw, 17.5vh), 14rem); */
   font-size: min(min(17vw, 17.5vh), 7.5rem);
   font-size: min(min(13vw, 13.5vh), 7.5rem);
+  font-size: min(min(15vw, 13.5vh), 8rem);
   line-height: 80%;
   margin: 0;
   overflow: hidden;
@@ -101,7 +113,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10dvh 0 0;
+  /* margin: 10dvh 0 0; */
+  margin: 5dvh 0 0;
 }
 
 .nav-menu__close-container {
@@ -110,7 +123,8 @@
   width: min(min(12.5vw, 12.5vh), 60px);
   height: min(min(12.5vw, 12.5vh), 60px);
   position: relative;
-  cursor: pointer;
+  /* cursor: pointer; */
+  cursor: url("../../assets/images/cursor.svg") 5 0, pointer;
 }
 
 .nav-menu__close-bar {
@@ -148,6 +162,16 @@
   animation-name: nav-menu__close-bar-right-out;
 }
 
+.nav-menu__info > div:last-of-type p {
+  margin-top: 0;
+}
+
+@media (min-width: 600px) {
+  .nav-menu__info > div {
+    width: 33.33%;
+  }
+}
+
 @media (min-width: 960px) {
   .nav-menu {
     justify-content: center;
@@ -155,12 +179,21 @@
 
   .nav-menu__col-2 {
     flex-direction: row;
-    gap: 0 80px;
+    gap: 0 40px;
   }
 
   .nav-menu__info {
     order: 1;
     width: 200px;
+    flex-direction: column;
+  }
+
+  .nav-menu__info > div {
+    width: fit-content;
+  }
+
+  .nav-menu__info > div:last-of-type p {
+    display: block;
   }
 
   .nav-menu__links {
@@ -168,13 +201,22 @@
   }
 
   .nav-menu__link {
-    font-size: min(min(8vw, 12vh), 10rem);
+    font-size: min(min(10.5vw, 12vh), 10rem);
+  }
+
+  .nav-menu__close {
+    margin: 10dvh 0 0;
   }
 }
 
 @media (min-width: 1280px) {
   .nav-menu__info {
     width: 300px;
+  }
+
+  .nav-menu__col-2 {
+    gap: 0 80px;
+    justify-content: center;
   }
 }
 

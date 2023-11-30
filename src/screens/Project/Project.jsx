@@ -88,7 +88,7 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
 
       updateProject(project);
     }
-  }, [projects, cursor, id, navigate, mobile, setPageIsLoading]);
+  }, [projects, cursor, id, navigate, setPageIsLoading]);
 
   return (
     <Page>
