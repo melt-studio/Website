@@ -63,7 +63,8 @@ const LogoAnimation = ({ serverConfig, controls, effectRef, mobile, fade = false
       {controls && <ToggleControls />}
       <LevaControls controls={controls === undefined ? false : controls} />
       <div
-        className="animation-container"
+        // className="animation-container"
+        className={`animation-container${fade ? " hide" : ""}`}
         ref={container}
         style={{
           width: "100%",

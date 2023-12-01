@@ -16,6 +16,8 @@ export default function Layout({
   projects,
   children,
   pageIsLoading,
+  menuInfo,
+  projectTags,
 }) {
   return (
     <div id="layout">
@@ -38,7 +40,12 @@ export default function Layout({
           pageIsLoading={pageIsLoading}
         />
 
-        <NavMenu navMenuOpen={navMenuOpen} setNavMenuOpen={setNavMenuOpen} />
+        <NavMenu
+          navMenuOpen={navMenuOpen}
+          setNavMenuOpen={setNavMenuOpen}
+          menuInfo={menuInfo}
+          projectTags={projectTags}
+        />
       </nav>
 
       <main>{children}</main>

@@ -9,6 +9,15 @@
   transform: translate(0);
 }
 
+.animation-container {
+  opacity: 1;
+  transition: opacity 1.5s ease-in-out 0s;
+}
+
+.animation-container.hide {
+  opacity: 0;
+}
+
 .controls-toggle {
   position: fixed;
   top: 10px;

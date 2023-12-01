@@ -5,6 +5,10 @@
   margin: 0 0 0.35rem;
 }
 
+.nav-menu .tag-link {
+  margin-bottom: 0;
+}
+
 .nav-bar .tag-link,
 .tag-link-nav {
   margin: 1rem 0 0.3rem;
@@ -19,7 +23,8 @@
 }
 
 .nav-bar .tag-link h3,
-.tag-link-nav h3 {
+.tag-link-nav h3,
+.nav-menu .tag-link h3 {
   text-transform: uppercase;
   color: #ffffff;
   transition: font-variation-settings 0.3s ease, color 0.5s ease;
@@ -27,13 +32,14 @@
 
 .nav-bar .tag-link:hover h3,
 .tag-link-nav:hover h3,
-.about-page .tag-link h3 {
+/* .about-page .tag-link h3, */
+.nav-menu .tag-link:hover h3 {
   color: var(--yellow);
 }
 
-.about-page .tag-link:hover h3 {
+/* .about-page .tag-link:hover h3 {
   color: #ffffff;
-}
+} */
 
 .tag-links .tag-block__tags h3 {
   font-weight: 600;

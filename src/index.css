@@ -27,3 +27,7 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+a:hover {
+  cursor: url("assets/images/cursor.svg") 5 0, pointer;
+}

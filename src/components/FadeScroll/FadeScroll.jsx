@@ -8,6 +8,11 @@ const FadeScroll = ({
   id,
   className,
   style,
+  exit = false,
+  // pageViewport,
+  // ind,
+  // title,
+  // text,
   children,
 }) => {
   const ref = useRef();
@@ -18,16 +23,37 @@ const FadeScroll = ({
         if (!ref.current.classList.contains("show")) {
           ref.current.classList.add("show");
         }
+        if (exit) ref.current.classList.remove("exit");
       }
       onEnter();
     },
     onViewportLeave: () => {
       if (ref.current) {
         ref.current.classList.remove("show");
+        if (exit) ref.current.classList.add("exit");
       }
       onExit();
     },
   };
+
+  // const { scrollYProgress } = useScroll({
+  //   target: ref,
+  //   offset: ["start end", "end start"],
+  // });
+
+  // useMotionValueEvent(scrollYProgress, "change", (latest) => {
+  //   if (pageViewport === undefined) return;
+  //   if (pageViewport.width < 960) return;
+  //   if (title === "Our Approach" && ind === 1) {
+  //     // console.log(text)
+  //     console.log(
+  //       "Page scroll: ",
+  //       viewport.amount,
+  //       latest,
+  //       latest < viewport.amount || latest > 1 - viewport.amount ? "hide" : "show"
+  //     );
+  //   }
+  // });
 
   return (
     <motion.div ref={ref} viewport={viewport} {...handleEntry} id={id} className={className} style={style}>

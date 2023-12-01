@@ -18,6 +18,21 @@
   top: 0;
 }
 
+.about-page #background-container {
+  width: 60px;
+  height: 60px;
+  z-index: 997;
+  border-radius: 50%;
+  overflow: hidden;
+  left: -30px;
+  top: -30px;
+}
+
+#background-container div,
+#background-container canvas {
+  pointer-events: none !important;
+}
+
 .project-page #background-container {
   position: absolute;
 }

@@ -30,12 +30,6 @@ const ProjectText = ({ project, secondary = false }) => {
   return (
     <FadeScroll viewport={{ amount: 0.25 }} className="project-text">
       <div className="row">
-        <div className="col full">
-          {name && <h1 className="title-text">{name}</h1>}
-          {description && <h3 className="subtitle-text">{description}</h3>}
-        </div>
-      </div>
-      <div className="row">
         <div className="col primary">
           {projectCopy && (
             <div className="description-text jumbo-text">
@@ -43,8 +37,21 @@ const ProjectText = ({ project, secondary = false }) => {
             </div>
           )}
         </div>
-        <div className="col">
-          <TagBlock title="Project Scope" tags={scope} underlineColor={colorText} transition={true} />
+      </div>
+      <div className="row">
+        <div className="col primary">
+          <TagBlock title="Project Scope" tags={scope} underlineColor={colorText} transition={true} row />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col primary">
+          {/* <div className="col full">
+          {name && <h1 className="title-text">{name}</h1>}
+          {description && <h3 className="subtitle-text">{description}</h3>}
+        </div> */}
+          {name && description && (
+            <TagBlock title="Client" tags={[{ text: description }]} underlineColor={colorText} transition={true} />
+          )}
         </div>
       </div>
     </FadeScroll>

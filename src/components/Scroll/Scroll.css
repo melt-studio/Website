@@ -6,7 +6,9 @@
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 10px;
+  /* font-size: 12px; */
   font-size: 11px;
+  /* font-size: 12px; */
   align-items: center;
   display: flex;
   justify-content: center;
@@ -23,7 +25,7 @@
 .scroll-helper__icon {
   position: absolute;
   height: 10px;
-  width: 10px;
+  /* width: 10px; */
   /* background: #ffffff; */
   display: block;
   /* border-radius: 50%; */
@@ -32,16 +34,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateY(-40px);
+  /* transform: translateY(-40px); */
+  transform: translateY(-25px);
 }
 
-.animate .scroll-helper__icon {
+/* .animate .scroll-helper__icon {
   animation: scroll-helper 3s ease infinite;
-}
+} */
 
 .scroll-helper__icon img {
-  height: 25px;
-  width: 25px;
+  height: 40px;
+  width: 40px;
 }
 
 @keyframes scroll-helper {

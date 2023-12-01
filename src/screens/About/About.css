@@ -1,5 +1,6 @@
 .about-page .page {
-  margin-top: 100vh;
+  /* margin-top: 100vh; */
+  padding-top: 20vh;
 }
 
 .about-page .page-container {
@@ -7,25 +8,38 @@
 }
 
 .about-page .tag-block,
+.about-page .about-backtowork-text,
 .about-page .description-text__p p,
 .about-page .description-text__p h1,
 .about-page .description-text__p h2,
 .about-page .description-text__p h3 {
   opacity: 0;
-  transform: translate3d(0, 40px, 0);
+  /* transform: translate3d(0, 40px, 0); */
 }
+
+.about-page .about-backtowork-text,
 .about-page .description-text__p p,
 .about-page .description-text__p h1,
 .about-page .description-text__p h2,
 .about-page .description-text__p h3 {
-  transition: opacity 2s ease, transform 2s ease;
-  transition-delay: 1.5s;
+  transition: opacity 2.5s ease, transform 2s ease;
+  transition-delay: 0.75s;
 }
 .about-page .tag-block {
-  transition: opacity 2s ease, transform 2s ease;
+  transition: opacity 2.5s ease, transform 2s ease;
 }
 
+/* .about-page .tag-block.exit,
+.about-page .description-text__p.exit p,
+.about-page .description-text__p.exit h1,
+.about-page .description-text__p.exit h2,
+.about-page .description-text__p.exit h3 {
+  opacity: 0;
+  transform: translate3d(0, -40px, 0);
+} */
+
 .about-page .tag-block.show,
+.about-page .about-backtowork-text.show,
 .about-page .description-text__p.show p,
 .about-page .description-text__p.show h1,
 .about-page .description-text__p.show h2,
@@ -34,20 +48,118 @@
   transform: translate3d(0, 0, 0);
 }
 
-.about-page .tag-block .css-customTransitionTag {
+.about-page .tag-block .css-customTransitionTag,
+.about-page .tag-block .css-customAnimationTag {
   opacity: 0;
   animation: none;
   transform: translate3d(0, 10px, 0);
   transition: opacity 1s ease, transform 1s ease;
 }
-.about-page .tag-block.show .css-customTransitionTag {
+
+.about-page .tag-block.show .css-customTransitionTag,
+.about-page .tag-block.show .css-customAnimationTag {
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }
 
+.col.info .tag #about-link-backtowork h3 {
+  margin-top: 30px;
+}
+
+/* .about-page .description-text__p {
+  transition: opacity 2s ease, transform 2s ease;
+}
+.about-page .description-text__p.exit {
+  opacity: 0;
+  transform: translate3d(0, -40px, 0);
+} */
+
 .about-feature {
   font-size: 240px;
   margin-bottom: 50px;
+}
+
+.col.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px 0;
+  color: #777777;
+  opacity: 1;
+  transition: opacity 0.5s ease 0s;
+}
+
+.col.info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px 0;
+  opacity: 1;
+  transition: opacity 0.5s ease 0s;
+}
+
+.col.info .tag-links span {
+  color: #000000;
+  font-weight: 400;
+}
+
+.col.nav .tag h3,
+.col.nav .tag-link h3,
+.col.info .tag-link h3 {
+  color: #777777;
+  transition: color 0.5s ease;
+}
+
+.col.info h1 {
+  color: #000000;
+}
+
+.col.info .tag-link h3,
+.col.info .tag {
+  color: #777777;
+}
+
+.col.nav .tag:hover h3,
+.col.nav .tag-link a:hover h3,
+.col.info .tag-link a:hover h3 {
+  color: #000000;
+  /* cursor: pointer; */
+  cursor: url("../../assets/images/cursor.svg") 5 0, pointer;
+}
+
+.col.nav .tag a.active h3,
+.col.nav .tag div.active h3 {
+  color: #000000;
+}
+
+.col.nav .tag-link {
+  margin-bottom: 0;
+}
+
+.col.nav.loading,
+.col.info.loading {
+  opacity: 0;
+}
+
+.col.nav .tag-block__tags .tag h3 {
+  display: none;
+}
+.col.nav .tag #about-link-contact h3,
+.col.nav .tag #about-link-backtowork h3 {
+  display: block;
+}
+
+.about-page .tag-block__tags {
+  gap: 3px 0;
+}
+
+.about-page .description-text > section:first-of-type .about-section-title {
+  display: none;
+}
+
+.about-page #about-backtowork-text {
+  color: #777777;
+}
+.about-page #about-backtowork-text:hover {
+  color: #000000;
 }
 
 @media (min-width: 960px) {
@@ -56,7 +168,32 @@
     padding-right: 20px;
   }
 
+  .col.info .tag-block {
+    margin-bottom: 10px;
+  }
+
+  .col.info .tag #about-link-backtowork h3 {
+    margin-top: 25px;
+  }
+
+  /* .about-page .col-1 .tag-block {
+    transform: translate3d(0, 40px, 0);
+  } */
+
+  /* .col.nav .tag-block__tags > div:not(:last-of-type) {
+    display: block;
+  } */
+
+  .col.nav .tag-block__tags .tag h3 {
+    display: block;
+  }
+
+  /* .col.nav .tag #about-link-contact h3 {
+    margin-top: 1em;
+  } */
+
   .about-page .tag-block {
-    transition-delay: 2s;
+    /* transition-delay: 1.5s; */
+    transition-delay: 0s;
   }
 }

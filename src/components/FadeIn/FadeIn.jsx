@@ -12,7 +12,16 @@ const FadeDiv = ({ className, duration, delay, stagger, damping, i = 0, children
   );
 };
 
-const FadeIn = ({ name, duration = 1, delay = 0, easing = "ease", stagger = false, damping = 0, children }) => {
+const FadeIn = ({
+  name,
+  duration = 1,
+  delay = 0,
+  easing = "ease",
+  stagger = false,
+  damping = 0,
+  row = false,
+  children,
+}) => {
   if (children === undefined) return null;
 
   const className = `css-${name}`;
@@ -36,7 +45,7 @@ const FadeIn = ({ name, duration = 1, delay = 0, easing = "ease", stagger = fals
       `;
   }
 
-  if (typeof children === "string" || !children.length) {
+  if (typeof children === "string" || !children.length || row) {
     return <FadeDiv {...settings}>{children}</FadeDiv>;
   }
 

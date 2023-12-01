@@ -4,6 +4,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  flex-direction: column;
 
   opacity: 1;
 
@@ -15,6 +16,26 @@
 
 .projects {
   margin-top: 45vw;
+}
+
+.intro-text.loading {
+  opacity: 0;
+}
+.intro-text {
+  text-align: center;
+  padding: 0 0%;
+  left: 30px;
+  max-width: 600px;
+  position: fixed;
+  top: 25px;
+  opacity: 1;
+  /* max-width: 200px; */
+  transition: opacity 1s ease;
+  padding: 10px;
+  /* border: 1px solid var(--yellow); */
+  border-radius: 4px;
+  font-size: 20px;
+  display: none;
 }
 
 @media (min-width: 800px) {
