@@ -23,7 +23,7 @@
 .about-page .description-text__p h2,
 .about-page .description-text__p h3 {
   transition: opacity 2.5s ease, transform 2s ease;
-  transition-delay: 0.5s;
+  transition-delay: 0.75s;
 }
 .about-page .tag-block {
   transition: opacity 2.5s ease, transform 2s ease;
@@ -48,14 +48,16 @@
   transform: translate3d(0, 0, 0);
 }
 
-.about-page .tag-block .css-customTransitionTag {
+.about-page .tag-block .css-customTransitionTag,
+.about-page .tag-block .css-customAnimationTag {
   opacity: 0;
   animation: none;
   transform: translate3d(0, 10px, 0);
   transition: opacity 1s ease, transform 1s ease;
 }
 
-.about-page .tag-block.show .css-customTransitionTag {
+.about-page .tag-block.show .css-customTransitionTag,
+.about-page .tag-block.show .css-customAnimationTag {
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }

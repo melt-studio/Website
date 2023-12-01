@@ -26,7 +26,7 @@ const TagBlock = ({
   viewport = { amount: 0 },
   transition = false,
   delay,
-  titleDelay = 2,
+  titleDelay,
   row,
   rowDelimiter = ", ",
 }) => {
@@ -37,7 +37,7 @@ const TagBlock = ({
   const fadeInTagTitle = {
     name: "customAnimationTag",
     duration: 1,
-    delay: titleDelay,
+    delay: titleDelay !== undefined ? titleDelay : delay !== undefined ? delay : 2,
     stagger: true,
     damping: 0.25,
   };

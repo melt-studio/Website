@@ -254,7 +254,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                 </div> */}
                 <TagBlock
                   tags={sectionTags}
-                  viewport={{ amount: 0.25, once: viewport.width >= 960 }}
+                  viewport={{ amount: 0 }}
                   transition={true}
                   // delay={viewport.width < 960 ? 0.5 : 2.5}
                   delay={0.5}
@@ -266,27 +266,30 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                   title="Contact Us:"
                   tags={contactTags}
                   links={true}
-                  viewport={{ amount: 0, once: viewport.width >= 960 }}
+                  viewport={{ amount: 0 }}
                   transition={true}
                   delay={0.75}
-                  titleDelay={3}
+                  titleDelay={0.5}
+                  // titleDelay={3}
                 />
                 <TagBlock
                   title="Address:"
                   tags={addressTags}
-                  viewport={{ amount: 0, once: viewport.width >= 960 }}
+                  viewport={{ amount: 0 }}
                   transition={true}
                   delay={0.75}
-                  titleDelay={3}
+                  titleDelay={0.5}
+                  // titleDelay={3}
                 />
                 <TagBlock
                   title="Follow Us:"
                   tags={followTags}
                   links={true}
-                  viewport={{ amount: 0, once: viewport.width >= 960 }}
+                  viewport={{ amount: 0 }}
                   transition={true}
                   delay={0.75}
-                  titleDelay={3}
+                  titleDelay={0.5}
+                  // titleDelay={3}
                   row
                   rowDelimiter={"\u00A0\u00A0|\u00A0\u00A0"}
                 />
@@ -294,10 +297,11 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                 <TagBlock
                   tags={backTag}
                   links={true}
-                  viewport={{ amount: 0, once: viewport.width >= 960 }}
+                  viewport={{ amount: 0 }}
+                  // viewport={{ amount: 0, once: viewport.width >= 960 }}
                   transition={true}
                   delay={0.75}
-                  titleDelay={3}
+                  titleDelay={0.5}
                 />
               </div>
 
