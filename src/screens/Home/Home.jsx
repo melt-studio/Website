@@ -72,12 +72,7 @@ export default function Home({
         }
       }
     }
-    console.log("ok", scroll, initial, history, loaded);
   }, [initial, loaded, scroll, history]);
-
-  useEffect(() => {
-    console.log("home render");
-  }, []);
 
   useEffect(() => {
     if (history && history.length > 1 && history[1].includes("/project/")) {
@@ -92,7 +87,7 @@ export default function Home({
 
     const s = viewport.height / 2.5;
 
-    console.log(latest, s, latest >= s);
+    // console.log(latest, s, latest >= s);
 
     if (latest >= s) {
       setFadeAnimation(true);

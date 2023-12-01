@@ -219,7 +219,7 @@ const NavInfo = ({ menuInfo }) => {
 
   return (
     <div className="nav-menu__info">
-      <motion.div variants={keyframesItemInfo}>
+      <motion.div variants={keyframesItemInfo} className="nav-menu__info__contact">
         {/* <TagBlock
           title="Contact Us:"
           tags={tags}
@@ -236,7 +236,7 @@ const NavInfo = ({ menuInfo }) => {
           // delay={viewport.width < 960 ? 1 : 3.5}
         />
       </motion.div>
-      <motion.div variants={keyframesItemInfo}>
+      <motion.div variants={keyframesItemInfo} className="nav-menu__info__address">
         <TagBlock
           title="Address:"
           tags={[{ text: addressText }]}
@@ -246,7 +246,7 @@ const NavInfo = ({ menuInfo }) => {
           // delay={viewport.width < 960 ? 0.5 : 2.5}
         />
       </motion.div>
-      <motion.div variants={keyframesItemInfo}>
+      <motion.div variants={keyframesItemInfo} className="nav-menu__info__follow">
         {/* <TagBlock
           title="Follow Us:"
           tags={followtags}
@@ -268,7 +268,7 @@ const NavInfo = ({ menuInfo }) => {
           // delay={viewport.width < 960 ? 1 : 3.5}
         />
       </motion.div>
-      <motion.div variants={keyframesItemInfo}>
+      <motion.div variants={keyframesItemInfo} className="nav-menu__info__about">
         <Markdown>{aboutText}</Markdown>
       </motion.div>
     </div>

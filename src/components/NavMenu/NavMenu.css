@@ -41,8 +41,31 @@
   /* width: 33%; */
 }
 
-.nav-menu__info > div:last-of-type p {
+.nav-menu__info .nav-menu__info__contact {
+  order: 1;
+}
+
+.nav-menu__info .nav-menu__info__follow {
+  order: 2;
+}
+
+.nav-menu__info .nav-menu__info__address {
+  order: 3;
+}
+
+.nav-menu__info .nav-menu__info__about {
+  order: 4;
+}
+
+.nav-menu__info .nav-menu__info__follow .tag-block__tags.tag-row span {
+  display: block;
+  margin-bottom: 5px;
+  color: #000000;
+}
+
+.nav-menu__info .nav-menu__info__about p {
   display: none;
+  margin-top: 0;
 }
 
 .nav-menu__items {
@@ -60,6 +83,7 @@
   /* align-items: center; */
   height: fit-content;
   order: 1;
+  height: 100%;
 }
 
 .nav-menu__items a {
@@ -93,7 +117,7 @@
   width: fit-content;
 }
 
-.nav-menu__items a p.selected,
+/* .nav-menu__items a p.selected, */
 .nav-menu__items a:hover p {
   color: var(--yellow);
 }
@@ -163,10 +187,6 @@
   animation-name: nav-menu__close-bar-right-out;
 }
 
-.nav-menu__info > div:last-of-type p {
-  margin-top: 0;
-}
-
 @media (min-width: 600px) {
   .nav-menu__info > div {
     width: 33.33%;
@@ -189,11 +209,25 @@
     flex-direction: column;
   }
 
+  .nav-menu__info .nav-menu__info__follow {
+    order: 3;
+  }
+
+  .nav-menu__info .nav-menu__info__address {
+    order: 2;
+  }
+
+  .nav-menu__info .nav-menu__info__follow .tag-block__tags.tag-row span {
+    display: inline;
+    margin-bottom: 0;
+    color: #777777;
+  }
+
   .nav-menu__info > div {
     width: fit-content;
   }
 
-  .nav-menu__info > div:last-of-type p {
+  .nav-menu__info .nav-menu__info__about p {
     display: block;
   }
 
@@ -211,9 +245,10 @@
 }
 
 @media (min-width: 1280px) {
-  .nav-menu__info {
+  /* .nav-menu__info {
     width: 300px;
-  }
+    width: 240px;
+  } */
 
   .nav-menu__col-2 {
     gap: 0 80px;
@@ -227,9 +262,21 @@
   }
 }
 
+@media (min-width: 1920px) {
+  .nav-menu__info {
+    width: 240px;
+  }
+}
+
 @media (max-height: 600px) {
   .nav-menu {
     justify-content: flex-start;
+  }
+}
+
+@media (max-height: 660px) {
+  .nav-menu__items {
+    height: fit-content;
   }
 }
 

@@ -26,15 +26,18 @@ const TagBlock = ({
   viewport = { amount: 0 },
   transition = false,
   delay,
+  titleDelay = 2,
   row,
   rowDelimiter = ", ",
 }) => {
   if (!tags || tags.length === 0) return null;
 
+  console.log(title, transition);
+
   const fadeInTagTitle = {
     name: "customAnimationTag",
     duration: 1,
-    delay: 2,
+    delay: titleDelay,
     stagger: true,
     damping: 0.25,
   };

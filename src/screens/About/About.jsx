@@ -10,7 +10,7 @@ import FadeScroll from "../../components/FadeScroll/FadeScroll.jsx";
 import "./About.css";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 // import Scroll from "../../components/Scroll/Scroll.jsx";
-// import { parseLinks } from "../../utils/parser.js";
+import { parseLinks } from "../../utils/parser.js";
 // import { keyframesItemInfo } from "../../components/NavMenu/NavMenu.jsx";
 
 keyframes`
@@ -36,9 +36,9 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
   // const [whatWeDontDoTags, setWhatWeDontDoTags] = useState([]);
   const [sectionTags, setSectionTags] = useState([]);
   const [aboutSections, setAboutSections] = useState([]);
-  // const [contactTags, setContactTags] = useState([]);
-  // const [addressText, setAddressText] = useState(null);
-  // const [followTags, setFollowTags] = useState([]);
+  const [contactTags, setContactTags] = useState([]);
+  const [addressTags, setAddressTags] = useState([]);
+  const [followTags, setFollowTags] = useState([]);
 
   // const contactTags = JSON.parse(aboutInfo[0].fields.contact)
   // const tags = [
@@ -144,7 +144,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
       //   headers.push("What We Don't Do");
       // }
 
-      const contact = { text: "Contact Us", href: "mailto:hello@melt.work", id: "about-link-contact" };
+      // const contact = { text: "Contact Us", href: "mailto:hello@melt.work", id: "about-link-contact" };
 
       const back = { text: "Back To Work", nav: true, id: "about-link-backtowork" };
       if (history.length > 1 && history[1].startsWith("/project/")) {
@@ -172,7 +172,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
           },
           id: `about-section-${section.id}-link`,
         })),
-        contact,
+        // contact,
         back,
       ]);
 
@@ -182,16 +182,16 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
       // const sections = aboutText
       // setAboutNav()
 
-      // if (menuInfo.length > 0) {
-      //   const { contact, address, follow } = menuInfo[0].fields;
-      //   setContactTags(parseLinks(contact));
-      //   setAddressText(address);
-      //   setFollowTags(parseLinks(follow));
-      // }
+      if (menuInfo.length > 0) {
+        const { contact, address, follow } = menuInfo[0].fields;
+        setContactTags(parseLinks(contact));
+        setAddressTags([{ text: address }]);
+        setFollowTags(parseLinks(follow));
+      }
 
       setLoading(false);
     }
-  }, [history, aboutInfo]);
+  }, [history, aboutInfo, menuInfo]);
 
   return (
     <Page>
@@ -244,40 +244,43 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                 </div> */}
                 <TagBlock
                   tags={sectionTags}
-                  viewport={{ amount: 0.25 }}
+                  viewport={{ amount: 0.25, once: viewport.width >= 960 }}
                   transition={true}
                   // delay={viewport.width < 960 ? 0.5 : 2.5}
                   delay={0.5}
                 />
               </div>
 
-              {/* <div className={`col info${loading ? " loading" : ""}`}>
+              <div className={`col info${loading ? " loading" : ""}`}>
                 <TagBlock
                   title="Contact Us:"
                   tags={contactTags}
                   links={true}
-                  viewport={{ amount: 0.25 }}
+                  viewport={{ amount: 0, once: viewport.width >= 960 }}
                   transition={true}
-                  delay={viewport.width < 960 ? 0.5 : 2.5}
+                  delay={0.75}
+                  titleDelay={3}
                 />
                 <TagBlock
                   title="Address:"
-                  tags={[{ text: addressText }]}
-                  viewport={{ amount: 0.25 }}
+                  tags={addressTags}
+                  viewport={{ amount: 0, once: viewport.width >= 960 }}
                   transition={true}
-                  delay={viewport.width < 960 ? 0.5 : 2.5}
+                  delay={0.75}
+                  titleDelay={3}
                 />
                 <TagBlock
                   title="Follow Us:"
                   tags={followTags}
                   links={true}
-                  viewport={{ amount: 0.25 }}
+                  viewport={{ amount: 0, once: viewport.width >= 960 }}
                   transition={true}
-                  delay={viewport.width < 960 ? 0.5 : 2.5}
+                  delay={0.75}
+                  titleDelay={3}
                   row
                   rowDelimiter={"\u00A0\u00A0|\u00A0\u00A0"}
                 />
-              </div> */}
+              </div>
 
               {/* <TagBlock
                     title="What We Do"
@@ -343,7 +346,7 @@ const Section = ({ section, viewport }) => {
       // title={section.title}
       tags={section.body}
       // viewport={{ amount: 0.25 }}
-      viewport={{ amount: viewport.width < 960 ? 0.25 : 0.1 }}
+      viewport={{ amount: viewport.width < 960 ? 0.25 : 0.0 }}
       transition={false}
       // delay={viewport.width < 960 ? 0.5 : 2.5}
       delay={0}
@@ -359,7 +362,7 @@ const Section = ({ section, viewport }) => {
           {section.body.map((text, i) => (
             <FadeScroll
               key={`${text}_${i}`}
-              viewport={{ amount: 0.25 }}
+              viewport={{ amount: 0.0 }}
               className="description-text__p"
               exit={true}
               // pageViewport={viewport}
@@ -377,7 +380,7 @@ const Section = ({ section, viewport }) => {
     if (viewport.width < 960) {
       return (
         <>
-          <FadeScroll viewport={{ amount: 0.1 }} className="description-text__p">
+          <FadeScroll viewport={{ amount: 0.0 }} className="description-text__p">
             {section.body.map((text, i) => (
               <Markdown key={`${text}_${i}`}>{text}</Markdown>
             ))}
@@ -390,7 +393,7 @@ const Section = ({ section, viewport }) => {
   return (
     <section ref={sectionRef} id={`about-section-${section.id}`}>
       <FadeScroll
-        viewport={{ amount: viewport.width < 960 ? 0.1 : 0.25 }}
+        viewport={{ amount: viewport.width < 960 ? 0.1 : 0.0 }}
         className="description-text__p about-section-title"
         exit={true}
         // pageViewport={viewport}

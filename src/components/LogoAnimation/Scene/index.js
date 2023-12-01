@@ -39,8 +39,6 @@ const LogoScene = forwardRef(
     const trail = useRef();
     const group = useRef();
 
-    console.log("LOGO", fade);
-
     // const [blurStrength, setBlurStrength] = useState(2)
     // const updateBlurStrength = (value) => setBlurStrength(value)
 
@@ -207,7 +205,6 @@ const LogoScene = forwardRef(
     useEffect(() => {
       if (mesh.current) {
         const stage = fade ? 1 : 0;
-        console.log("fade", fade, mesh.current.material.uniforms.uTransition.value.x);
         if (mesh.current.material.uniforms.uTransition.value.x !== stage) {
           const { uTransition, uTime, uFadeLast } = mesh.current.material.uniforms;
           uFadeLast.value = uTransition.value.y;
