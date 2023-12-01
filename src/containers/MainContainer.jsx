@@ -31,6 +31,8 @@ export default function MainContainer({
   setPageIsLoading,
   title,
   projectTags,
+  other,
+  menuInfo,
 }) {
   const [adminMessage, setAdminMessage] = useState(null);
 
@@ -72,6 +74,7 @@ export default function MainContainer({
               viewport={viewport}
               scrollCutOff={scrollCutOff}
               history={history}
+              menuInfo={menuInfo}
             />
           }
         />
@@ -113,6 +116,7 @@ export default function MainContainer({
               title={title}
               // aboutInfo={aboutInfo}
               projectTags={projectTags}
+              other={other}
             />
           }
         />

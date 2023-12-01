@@ -13,18 +13,28 @@
 .about-page .description-text__p h2,
 .about-page .description-text__p h3 {
   opacity: 0;
-  transform: translate3d(0, 40px, 0);
+  /* transform: translate3d(0, 40px, 0); */
 }
+
 .about-page .description-text__p p,
 .about-page .description-text__p h1,
 .about-page .description-text__p h2,
 .about-page .description-text__p h3 {
   transition: opacity 2s ease, transform 2s ease;
-  transition-delay: 1s;
+  /* transition-delay: 1s; */
 }
 .about-page .tag-block {
   transition: opacity 2s ease, transform 2s ease;
 }
+
+/* .about-page .tag-block.exit,
+.about-page .description-text__p.exit p,
+.about-page .description-text__p.exit h1,
+.about-page .description-text__p.exit h2,
+.about-page .description-text__p.exit h3 {
+  opacity: 0;
+  transform: translate3d(0, -40px, 0);
+} */
 
 .about-page .tag-block.show,
 .about-page .description-text__p.show p,
@@ -41,10 +51,19 @@
   transform: translate3d(0, 10px, 0);
   transition: opacity 1s ease, transform 1s ease;
 }
+
 .about-page .tag-block.show .css-customTransitionTag {
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }
+
+/* .about-page .description-text__p {
+  transition: opacity 2s ease, transform 2s ease;
+}
+.about-page .description-text__p.exit {
+  opacity: 0;
+  transform: translate3d(0, -40px, 0);
+} */
 
 .about-feature {
   font-size: 240px;
@@ -57,11 +76,25 @@
   gap: 2px 0;
   color: #777777;
   opacity: 1;
-  transition: opacity 0.5s ease 1s;
+  transition: opacity 0.5s ease 0s;
+}
+
+.col.info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px 0;
+  opacity: 1;
+  transition: opacity 0.5s ease 0s;
+}
+
+.col.info .tag-links span {
+  color: #777777;
+  font-weight: 400;
 }
 
 .col.nav .tag h3,
-.col.nav .tag-link h3 {
+.col.nav .tag-link h3,
+.col.info h1 {
   color: #777777;
   transition: color 0.5s ease;
 }
@@ -82,12 +115,17 @@
   margin-bottom: 0;
 }
 
-.col.nav.loading {
+.col.nav.loading,
+.col.info.loading {
   opacity: 0;
 }
 
-.col.nav .tag-block__tags > div:not(:last-of-type) {
+.col.nav .tag-block__tags .tag h3 {
   display: none;
+}
+.col.nav .tag #about-link-contact h3,
+.col.nav .tag #about-link-backtowork h3 {
+  display: block;
 }
 
 .about-page .tag-block__tags {
@@ -104,11 +142,20 @@
     padding-right: 20px;
   }
 
-  .col.nav .tag-block__tags > div:not(:last-of-type) {
+  /* .col.nav .tag-block__tags > div:not(:last-of-type) {
+    display: block;
+  } */
+
+  .col.nav .tag-block__tags .tag h3 {
     display: block;
   }
 
+  .col.nav .tag #about-link-contact h3 {
+    margin-top: 1em;
+  }
+
   .about-page .tag-block {
-    transition-delay: 1.5s;
+    /* transition-delay: 1.5s; */
+    transition-delay: 0s;
   }
 }

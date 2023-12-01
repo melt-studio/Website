@@ -57,7 +57,7 @@ const keyframesItem = {
   },
 };
 
-const keyframesItem2 = {
+export const keyframesItemInfo = {
   initial: {
     y: "-0.6em",
     opacity: 0,
@@ -115,7 +115,7 @@ const NavMenuLink = ({ link, closeNavMenu, projectTags }) => {
         setSelected(true);
       }
     } else {
-      if (location.pathname === link.href) {
+      if (link.href !== "/" && location.pathname === link.href) {
         setSelected(true);
       }
     }
@@ -219,7 +219,7 @@ const NavInfo = ({ menuInfo }) => {
 
   return (
     <div className="nav-menu__info">
-      <motion.div variants={keyframesItem2}>
+      <motion.div variants={keyframesItemInfo}>
         {/* <TagBlock
           title="Contact Us:"
           tags={tags}
@@ -236,7 +236,7 @@ const NavInfo = ({ menuInfo }) => {
           // delay={viewport.width < 960 ? 1 : 3.5}
         />
       </motion.div>
-      <motion.div variants={keyframesItem2}>
+      <motion.div variants={keyframesItemInfo}>
         <TagBlock
           title="Address:"
           tags={[{ text: addressText }]}
@@ -246,7 +246,7 @@ const NavInfo = ({ menuInfo }) => {
           // delay={viewport.width < 960 ? 0.5 : 2.5}
         />
       </motion.div>
-      <motion.div variants={keyframesItem2}>
+      <motion.div variants={keyframesItemInfo}>
         {/* <TagBlock
           title="Follow Us:"
           tags={followtags}
@@ -268,7 +268,7 @@ const NavInfo = ({ menuInfo }) => {
           // delay={viewport.width < 960 ? 1 : 3.5}
         />
       </motion.div>
-      <motion.div variants={keyframesItem2}>
+      <motion.div variants={keyframesItemInfo}>
         <Markdown>{aboutText}</Markdown>
       </motion.div>
     </div>

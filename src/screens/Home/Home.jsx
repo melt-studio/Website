@@ -24,6 +24,7 @@ export default function Home({
   history,
   title,
   projectTags,
+  other,
 }) {
   const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [fadeAnimation, setFadeAnimation] = useState(false);
@@ -71,7 +72,12 @@ export default function Home({
         }
       }
     }
+    console.log("ok", scroll, initial, history, loaded);
   }, [initial, loaded, scroll, history]);
+
+  useEffect(() => {
+    console.log("home render");
+  }, []);
 
   useEffect(() => {
     if (history && history.length > 1 && history[1].includes("/project/")) {
@@ -85,6 +91,8 @@ export default function Home({
     if (mobile) return;
 
     const s = viewport.height / 2.5;
+
+    console.log(latest, s, latest >= s);
 
     if (latest >= s) {
       setFadeAnimation(true);
@@ -120,7 +128,7 @@ export default function Home({
 
       {mobile && <IntroAnimation initial={initial} setInitial={setInitial} mobile={mobile} viewport={viewport} />}
 
-      {!mobile && <Scroll scroll={scroll} loaded={loaded} />}
+      {!mobile && <Scroll scroll={scroll} loaded={loaded} other={other} />}
 
       <Page>
         {!mobile && projects.length > 0 ? <Background backgroundColor={backgroundColor} /> : null}

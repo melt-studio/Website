@@ -222,6 +222,8 @@ function App() {
           setPageIsLoading={setPageIsLoading}
           title={title}
           projectTags={projectTags}
+          other={other}
+          menuInfo={menuInfo}
         />
       </Layout>
       {!mobile && <Cursor ref={cursor} />}

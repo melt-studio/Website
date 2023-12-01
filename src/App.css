@@ -26,6 +26,10 @@ a {
   color: var(--yellow);
 }
 
+.about-page a:hover {
+  color: #000000;
+}
+
 .page {
   transition: color 1s ease;
 }
@@ -39,16 +43,16 @@ h1,
 .page h1 {
   font-weight: 400;
   margin-top: 0;
-  /* font-size: 13.5px; */
-  font-size: 15px;
+  font-size: 13.5px;
+  /* font-size: 15px; */
   color: #777777;
   letter-spacing: -0.005em;
   /* text-transform: uppercase; */
 }
 
-.about-page .page h1 {
+/* .about-page .page h1 {
   color: #333333;
-}
+} */
 
 .page h2 {
   font-size: 1.2rem;
@@ -71,16 +75,26 @@ h1,
 .nav-menu .tag h3,
 .nav-menu .tag span,
 .nav-menu .nav-menu__info p,
+.col.info .tag h3,
 .project-text .subtitle-text {
-  font-size: 15px;
+  /* font-size: 15px; */
+  font-size: 13.5px;
   text-transform: none;
   font-weight: 300;
 }
 
-.about-page .col.nav .tag h3 {
-  font-size: 15px;
+.about-page .col.info h1,
+.about-page .col.nav .tag h3,
+.about-page .col.info .tag h3 {
+  font-size: 13.5px;
   text-transform: none;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.0025em;
+  font-weight: 400;
+}
+
+.about-page .col.info h1,
+.about-page .col.info .tag-block__title {
+  margin-bottom: 5px;
 }
 
 .tag-container {
@@ -95,7 +109,7 @@ h1,
   /* font-weight: 350; */
   font-weight: 300;
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.005em;
 }
 
 .project-text .tag h3,
@@ -172,7 +186,8 @@ h1,
   font-weight: 400;
   margin: 0 0 2em;
   /* font-size: 13.5px; */
-  font-size: 15px;
+  /* font-size: 15px; */
+  font-size: 13.5px;
   /* text-transform: uppercase; */
   text-transform: none;
   letter-spacing: 0;
@@ -199,14 +214,19 @@ h1,
   margin-bottom: 5px;
 }
 
+.project-text .title-text {
+  margin-bottom: 1em;
+}
+
 @media (min-width: 800px) {
   .page .jumbo-text {
     /* .project-text .tag h3,
   .project-text .tag-block__tags.tag-row span { */
     font-size: 1.5rem; /* fallback */
     /* font-size: min(max(1.5rem, 2.75vw), 38px); */
-    font-size: min(max(1.5rem, 2.75vw), 36px);
-    letter-spacing: -0.02em;
+    /* font-size: min(max(1.5rem, 2.75vw), 36px); */
+    font-size: min(max(1.5rem, 2.75vw), 32px);
+    letter-spacing: -0.005em;
     line-height: 1;
   }
 
@@ -222,7 +242,8 @@ h1,
   .about-page .description-text .tag-block__tags.tag-row span,
   .about-page .jumbo-text {
     /* font-size: min(max(1.5rem, 3vw), 60px); */
-    font-size: min(5vw, 80px);
+    /* font-size: min(5vw, 80px); */
+    font-size: min(4.25vw, 72px);
     letter-spacing: -0.02em;
   }
 
@@ -243,14 +264,16 @@ h1,
 @media (min-width: 1280px) {
   .project-text .tag h3,
   .project-text .tag-block__tags.tag-row span {
-    letter-spacing: -0.02em;
+    /* letter-spacing: -0.02em; */
+    letter-spacing: -0.0075em;
   }
 }
 
 @media (min-width: 1920px) {
   .page .jumbo-text {
     /* font-size: min(max(1.25rem, 2vw), 44px); */
-    font-size: min(max(1.25rem, 2vw), 42px);
+    /* font-size: min(max(1.25rem, 2vw), 42px); */
+    font-size: min(max(1.25rem, 2vw), 38px);
   }
 
   .project-text .tag h3,
@@ -261,7 +284,8 @@ h1,
   .about-page .description-text .tag h3,
   .about-page .description-text .tag-block__tags.tag-row span,
   .about-page .jumbo-text {
-    font-size: 80px;
+    /* font-size: 80px; */
+    font-size: 72px;
   }
 
   .page h1,

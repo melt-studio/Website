@@ -19,7 +19,7 @@
 .nav-menu__col-2 {
   display: flex;
   width: 100%;
-  /* justify-content: center; */
+  justify-content: center;
   gap: 40px 0;
   padding: 5% 5% 0;
   flex-direction: column;
@@ -81,6 +81,7 @@
   font-size: min(min(17vw, 17.5vh), 7.5rem);
   font-size: min(min(13vw, 13.5vh), 7.5rem);
   font-size: min(min(15vw, 13.5vh), 8rem);
+  font-size: min(min(14vw, 13.5vh), 7.5rem);
   line-height: 80%;
   margin: 0;
   overflow: hidden;
@@ -201,7 +202,7 @@
   }
 
   .nav-menu__link {
-    font-size: min(min(10.5vw, 12vh), 10rem);
+    font-size: min(min(10.5vw, 16vh), 10rem);
   }
 
   .nav-menu__close {

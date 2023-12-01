@@ -28,7 +28,7 @@ const TagLinkAnchor = ({ nav, tag, children }) => {
   }
 
   return (
-    <a target="_blank" rel="noopener noreferrer" href={tag.href}>
+    <a target="_blank" rel="noopener noreferrer" href={tag.href} id={tag.id}>
       {children}
     </a>
   );

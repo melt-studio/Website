@@ -3,7 +3,7 @@ import { useScroll, useMotionValueEvent } from "framer-motion";
 // import ArrowDown from "../../assets/images/MELT__ARROW_DOWN.svg";
 import "./Scroll.css";
 
-const Scroll = ({ scroll = 0, loaded = true }) => {
+const Scroll = ({ scroll = 0, loaded = true, other }) => {
   const scrollHelper = useRef();
 
   const { scrollY } = useScroll();
@@ -29,6 +29,8 @@ const Scroll = ({ scroll = 0, loaded = true }) => {
     }
   });
 
+  if (other.length === 0 || other[0].fields === undefined || other[0].fields.scrollText === undefined) return null;
+
   return (
     <div
       ref={scrollHelper}
@@ -37,7 +39,8 @@ const Scroll = ({ scroll = 0, loaded = true }) => {
     >
       <span className="scroll-helper__icon">
         {/* <img src={ArrowDown} alt="Scroll down" /> */}
-        Scroll Down To See Our Works
+        {/* Scroll Down To See Our Works */}
+        {other[0].fields.scrollText}
       </span>
     </div>
   );
