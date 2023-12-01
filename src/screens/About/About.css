@@ -57,6 +57,10 @@
   transform: translate3d(0, 0, 0);
 }
 
+.col.info .tag #about-link-backtowork h3 {
+  margin-top: 30px;
+}
+
 /* .about-page .description-text__p {
   transition: opacity 2s ease, transform 2s ease;
 }
@@ -146,10 +150,25 @@
   display: none;
 }
 
+.about-page #about-backtowork-text {
+  color: #777777;
+}
+.about-page #about-backtowork-text:hover {
+  color: #000000;
+}
+
 @media (min-width: 960px) {
   .about-page .page-container {
     padding-left: 20px;
     padding-right: 20px;
+  }
+
+  .col.info .tag-block {
+    margin-bottom: 10px;
+  }
+
+  .col.info .tag #about-link-backtowork h3 {
+    margin-top: 25px;
   }
 
   /* .about-page .col-1 .tag-block {

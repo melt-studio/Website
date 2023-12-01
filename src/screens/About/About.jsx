@@ -11,6 +11,7 @@ import "./About.css";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 // import Scroll from "../../components/Scroll/Scroll.jsx";
 import { parseLinks } from "../../utils/parser.js";
+import { Link } from "react-router-dom";
 // import { keyframesItemInfo } from "../../components/NavMenu/NavMenu.jsx";
 
 keyframes`
@@ -39,6 +40,7 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
   const [contactTags, setContactTags] = useState([]);
   const [addressTags, setAddressTags] = useState([]);
   const [followTags, setFollowTags] = useState([]);
+  const [backTag, setBackTag] = useState([]);
 
   // const contactTags = JSON.parse(aboutInfo[0].fields.contact)
   // const tags = [
@@ -173,7 +175,6 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
           id: `about-section-${section.id}-link`,
         })),
         // contact,
-        back,
       ]);
 
       // console.log(parseLinks(contact));
@@ -188,6 +189,8 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
         setAddressTags([{ text: address }]);
         setFollowTags(parseLinks(follow));
       }
+
+      setBackTag([back]);
 
       setLoading(false);
     }
@@ -224,6 +227,9 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                   <Section key={section.title} section={section} viewport={viewport} />
                 ))}
               </div>
+              <Link id="about-backtowork-text" to="/">
+                Back To Work
+              </Link>
             </div>
 
             <div className="col-1 sticky">
@@ -279,6 +285,15 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                   titleDelay={3}
                   row
                   rowDelimiter={"\u00A0\u00A0|\u00A0\u00A0"}
+                />
+
+                <TagBlock
+                  tags={backTag}
+                  links={true}
+                  viewport={{ amount: 0, once: viewport.width >= 960 }}
+                  transition={true}
+                  delay={0.75}
+                  titleDelay={3}
                 />
               </div>
 

@@ -32,7 +32,7 @@ const TagBlock = ({
 }) => {
   if (!tags || tags.length === 0) return null;
 
-  console.log(title, transition);
+  // console.log(title, transition);
 
   const fadeInTagTitle = {
     name: "customAnimationTag",

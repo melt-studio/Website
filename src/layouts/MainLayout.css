@@ -73,6 +73,7 @@ main {
   .col-1.sticky {
     position: sticky;
     top: 20vh;
+    gap: 5px 0;
   }
 
   .col.full {
