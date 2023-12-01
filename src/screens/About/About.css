@@ -8,6 +8,7 @@
 }
 
 .about-page .tag-block,
+.about-page .about-backtowork-text,
 .about-page .description-text__p p,
 .about-page .description-text__p h1,
 .about-page .description-text__p h2,
@@ -16,12 +17,13 @@
   /* transform: translate3d(0, 40px, 0); */
 }
 
+.about-page .about-backtowork-text,
 .about-page .description-text__p p,
 .about-page .description-text__p h1,
 .about-page .description-text__p h2,
 .about-page .description-text__p h3 {
   transition: opacity 2.5s ease, transform 2s ease;
-  transition-delay: 0.75s;
+  transition-delay: 0.5s;
 }
 .about-page .tag-block {
   transition: opacity 2.5s ease, transform 2s ease;
@@ -37,6 +39,7 @@
 } */
 
 .about-page .tag-block.show,
+.about-page .about-backtowork-text.show,
 .about-page .description-text__p.show p,
 .about-page .description-text__p.show h1,
 .about-page .description-text__p.show h2,

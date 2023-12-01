@@ -227,9 +227,13 @@ export default function About({ aboutInfo, embeds, cursor, mobile, viewport, scr
                   <Section key={section.title} section={section} viewport={viewport} />
                 ))}
               </div>
-              <Link id="about-backtowork-text" to="/">
-                Back To Work
-              </Link>
+              {!loading && (
+                <FadeScroll viewport={{ amount: 0 }} className="about-backtowork-text">
+                  <Link id="about-backtowork-text" to="/">
+                    Back To Work
+                  </Link>
+                </FadeScroll>
+              )}
             </div>
 
             <div className="col-1 sticky">
@@ -408,7 +412,7 @@ const Section = ({ section, viewport }) => {
   return (
     <section ref={sectionRef} id={`about-section-${section.id}`}>
       <FadeScroll
-        viewport={{ amount: viewport.width < 960 ? 0.1 : 0.0 }}
+        viewport={{ amount: viewport.width < 960 ? 0.0 : 0.0 }}
         className="description-text__p about-section-title"
         exit={true}
         // pageViewport={viewport}
