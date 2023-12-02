@@ -11,15 +11,11 @@ import Markdown from "../Markdown/Markdown.jsx";
 const keyframesContainer = {
   enter: {
     opacity: [0, 1, 1],
-    // y: 0,
-    // transition: { duration: 1.25, ease: "easeInOut", when: "beforeChildren" },
     transition: { duration: 1, ease: "easeInOut", when: "beforeChildren" },
   },
   exit: {
     opacity: [1, 1, 0],
-    // y: "-100%",
     transition: {
-      // duration: 1.25,
       duration: 1,
       ease: "easeInOut",
       when: "afterChildren",
@@ -29,11 +25,9 @@ const keyframesContainer = {
 
 const keyframesItems = {
   enter: {
-    // transition: { staggerChildren: 0.15, delayChildren: 0, staggerDirection: 1 },
     transition: { staggerChildren: 0.1, delayChildren: 0, staggerDirection: 1 },
   },
   exit: {
-    // transition: { staggerChildren: 0.15, staggerDirection: -1 },
     transition: { staggerChildren: 0.1, staggerDirection: -1 },
   },
 };
@@ -46,13 +40,11 @@ const keyframesItem = {
   enter: {
     y: 0,
     opacity: 1,
-    // transition: { duration: 1.75, ease: "easeInOut" },
     transition: { duration: 1.25, ease: "easeInOut" },
   },
   exit: {
     y: "-0.2em",
     opacity: 0,
-    // transition: { duration: 1, ease: "easeInOut" },
     transition: { duration: 0.75, ease: "easeInOut" },
   },
 };
@@ -65,13 +57,11 @@ export const keyframesItemInfo = {
   enter: {
     y: 0,
     opacity: 1,
-    // transition: { duration: 1.75, ease: "easeInOut" },
     transition: { duration: 1.25, delay: 1, ease: "easeInOut" },
   },
   exit: {
     y: "-0.6em",
     opacity: 0,
-    // transition: { duration: 1, ease: "easeInOut" },
     transition: { duration: 0.75, delay: 0.25, ease: "easeInOut" },
   },
 };
@@ -155,11 +145,14 @@ const NavMenuLink = ({ link, closeNavMenu, projectTags }) => {
 function NavMenuItems({ closeNavMenu, menuInfo, projectTags }) {
   const isPresent = useIsPresent();
 
-  const links = [
-    { text: "All Works", href: "/", nav: true },
-    // { text: "Print", href: "/?filter=print", nav: true, filter: "print" },
-    // { text: "GFX", href: "/?filter=gfx", nav: true, filter: "gfx" },
-  ];
+  useEffect(() => {
+    document.body.classList.add("nav-menu-open");
+    document.body.classList.remove("from-nav");
+
+    return () => document.body.classList.remove("nav-menu-open");
+  }, []);
+
+  const links = [{ text: "All Works", href: "/", nav: true }];
 
   projectTags.forEach((tag) => {
     links.push({ text: tag, href: `/?filter=${tag.toLowerCase()}`, nav: true, filter: tag.toLowerCase() });
@@ -196,17 +189,6 @@ const NavInfo = ({ menuInfo }) => {
   const [followTags, setFollowTags] = useState([]);
   const [aboutText, setAboutText] = useState(null);
 
-  // const contactTags = JSON.parse(aboutInfo[0].fields.contact)
-  // const tags = [
-  //   { text: "(347) 946.0249", href: "tel:(347) 946.0249" },
-  //   { text: "hello@melt.works", href: "mailto: hello@melt.works" },
-  // ];
-  // const followtags = [
-  //   { text: "Instagram", href: "/" },
-  //   { text: "LinkedIn", href: "/" },
-  // ];
-  // const addressTag = [{ text: "Brooklyn, NY" }];
-
   useEffect(() => {
     if (menuInfo.length) {
       const { contact, address, follow, about } = menuInfo[0].fields;
@@ -220,43 +202,12 @@ const NavInfo = ({ menuInfo }) => {
   return (
     <div className="nav-menu__info">
       <motion.div variants={keyframesItemInfo} className="nav-menu__info__contact">
-        {/* <TagBlock
-          title="Contact Us:"
-          tags={tags}
-          // viewport={{ amount: 0.25 }}
-          // transition={true}
-          // delay={viewport.width < 960 ? 0.5 : 2.5}
-        /> */}
-        <TagBlock
-          title="Contact Us:"
-          tags={contactTags}
-          links={true}
-          viewport={{ amount: 0.25 }}
-          transition={true}
-          // delay={viewport.width < 960 ? 1 : 3.5}
-        />
+        <TagBlock title="Contact Us:" tags={contactTags} links={true} viewport={{ amount: 0.25 }} transition={true} />
       </motion.div>
       <motion.div variants={keyframesItemInfo} className="nav-menu__info__address">
-        <TagBlock
-          title="Address:"
-          tags={[{ text: addressText }]}
-          // link
-          // viewport={{ amount: 0.25 }}
-          // transition={true}
-          // delay={viewport.width < 960 ? 0.5 : 2.5}
-        />
+        <TagBlock title="Address:" tags={[{ text: addressText }]} viewport={{ amount: 0.25 }} transition={true} />
       </motion.div>
       <motion.div variants={keyframesItemInfo} className="nav-menu__info__follow">
-        {/* <TagBlock
-          title="Follow Us:"
-          tags={followtags}
-          row
-          rowDelimiter=" | "
-          // link
-          // viewport={{ amount: 0.25 }}
-          // transition={true}
-          // delay={viewport.width < 960 ? 0.5 : 2.5}
-        /> */}
         <TagBlock
           title="Follow Us:"
           tags={followTags}
@@ -265,7 +216,6 @@ const NavInfo = ({ menuInfo }) => {
           transition={true}
           row
           rowDelimiter={"\u00A0\u00A0|\u00A0\u00A0"}
-          // delay={viewport.width < 960 ? 1 : 3.5}
         />
       </motion.div>
       <motion.div variants={keyframesItemInfo} className="nav-menu__info__about">

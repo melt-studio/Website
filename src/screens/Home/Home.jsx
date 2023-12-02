@@ -30,7 +30,6 @@ export default function Home({
   const [fadeAnimation, setFadeAnimation] = useState(false);
   const [fromProject, setFromProject] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  // const [aboutTextNav, setAboutTextNav] = useState(null);
 
   const { scrollY } = useScroll();
 
@@ -87,23 +86,12 @@ export default function Home({
 
     const s = viewport.height / 2.5;
 
-    // console.log(latest, s, latest >= s);
-
     if (latest >= s) {
       setFadeAnimation(true);
     } else {
       setFadeAnimation(false);
     }
   });
-
-  // useEffect(() => {
-  //   if (aboutInfo) {
-  //     if (aboutInfo.length) {
-  //       const { aboutTextNav } = aboutInfo[0].fields;
-  //       setAboutTextNav(aboutTextNav);
-  //     }
-  //   }
-  // }, [aboutInfo]);
 
   const [searchParams] = useSearchParams();
   const filter = searchParams.get("filter");
@@ -130,12 +118,6 @@ export default function Home({
         {!mobile && (
           <div className="logo-animation">
             <LogoAnimation serverConfig={config} fade={fadeAnimation} fromProject={fromProject} cursor={cursor} />
-            {/* {aboutTextNav && (
-              <div className={`intro-text${loaded ? "" : " loading"}`}>
-                <Marquee speed={60}>{`${aboutTextNav}\u00A0\u00A0\u00A0`}</Marquee>
-                {aboutTextNav}
-              </div>
-            )} */}
           </div>
         )}
         {filteredProjects.length > 0 ? (

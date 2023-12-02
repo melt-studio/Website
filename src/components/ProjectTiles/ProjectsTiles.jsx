@@ -23,9 +23,8 @@ export default function ProjectTiles({
       const projectsMapped = projects.map((project) => {
         const { id } = project;
         const {
-          cursorColor,
-          colorText,
-          colorTheme,
+          textColor,
+          // colorTheme,
           backgroundColor,
           name,
           projectUrl,
@@ -56,10 +55,10 @@ export default function ProjectTiles({
         return {
           id,
           color: {
-            cursor: cursorColor,
-            text: colorText,
+            cursor: textColor,
+            text: textColor,
             background: backgroundColor,
-            theme: colorTheme,
+            // theme: colorTheme,
           },
           name,
           projectUrl,

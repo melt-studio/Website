@@ -341,7 +341,8 @@ h1,
   .about-page .col.nav .tag h3,
   .about-page .col.info .tag h3,
   .about-page .col.info .tag-block__title h1,
-  .about-page .col.nav #about-link-backtowork h3 {
+  .about-page .col.nav #about-link-backtowork h3,
+  .about-page .col.info .tag-row span {
     font-size: 16px;
     /* letter-spacing: -0.005em; */
   }

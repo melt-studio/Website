@@ -4,7 +4,7 @@ import Markdown from "../Markdown/Markdown";
 import "./ProjectText.css";
 
 const ProjectText = ({ project, secondary = false }) => {
-  const { name, description, projectCopy, projectScope, projectTitle2, projectCopy2, colorText } = project.fields;
+  const { name, description, projectCopy, projectScope, projectTitle2, projectCopy2, textColor } = project.fields;
 
   const scope = projectScope ? projectScope.map((t) => ({ text: t })) : [];
 
@@ -40,7 +40,7 @@ const ProjectText = ({ project, secondary = false }) => {
       </div>
       <div className="row">
         <div className="col primary">
-          <TagBlock title="Project Scope" tags={scope} underlineColor={colorText} transition={true} row />
+          <TagBlock title="Project Scope" tags={scope} underlineColor={textColor} transition={true} row />
         </div>
       </div>
       <div className="row">
@@ -50,7 +50,7 @@ const ProjectText = ({ project, secondary = false }) => {
           {description && <h3 className="subtitle-text">{description}</h3>}
         </div> */}
           {name && description && (
-            <TagBlock title="Client" tags={[{ text: description }]} underlineColor={colorText} transition={true} />
+            <TagBlock title="Client" tags={[{ text: description }]} underlineColor={textColor} transition={true} />
           )}
         </div>
       </div>

@@ -45,6 +45,10 @@ function App() {
     setHistory((h) => [location.pathname, ...h]);
   }, [location]);
 
+  // useEffect(() => {
+  //   console.log(history);
+  // }, [history]);
+
   const cursor = useRef();
 
   useEffect(() => {

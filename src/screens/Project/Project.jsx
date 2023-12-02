@@ -52,13 +52,13 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
 
       // Update cursor color to current project color
       if (cursor && cursor.current) {
-        cursor.current.style.backgroundColor = project.fields.cursorColor;
-        Array.from(cursor.current.children).forEach((c) => (c.style.fill = project.fields.cursorColor));
+        cursor.current.style.backgroundColor = project.fields.textColor;
+        Array.from(cursor.current.children).forEach((c) => (c.style.fill = project.fields.textColor));
       }
 
       // Update root project-color CSS variable
-      document.documentElement.style.setProperty("--text-color", project.fields.colorText);
-      document.documentElement.style.setProperty("--cursor-color", project.fields.cursorColor);
+      document.documentElement.style.setProperty("--text-color", project.fields.textColor);
+      document.documentElement.style.setProperty("--cursor-color", project.fields.textColor);
 
       // Instead of using order field just take array from airtable (assuming always returns in row order, then can just rearrange in airtable)
       const order = projects.indexOf(project);

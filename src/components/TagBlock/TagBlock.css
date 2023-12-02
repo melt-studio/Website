@@ -65,3 +65,9 @@
     display: none;
   }
 }
+
+@media (min-width: 1920px) {
+  .about-page .tag-block {
+    margin-bottom: 35px;
+  }
+}
