@@ -10,6 +10,7 @@ const Scroll = ({ scroll = 0, loaded = true, other }) => {
 
   const [scrollText, setScrollText] = useState("Scroll Down To View Our Works");
   const [scrollText2, setScrollText2] = useState(null);
+  const [timeoutId, setTimeoutId] = useState(null);
 
   useEffect(() => {
     if (other.length > 0) {
@@ -23,19 +24,34 @@ const Scroll = ({ scroll = 0, loaded = true, other }) => {
   }, [other]);
 
   useEffect(() => {
-    const showHelper = () =>
-      setTimeout(() => {
-        scrollHelper.current.classList.remove("hide");
-        if (scrollText2 !== null) scrollHelper.current.classList.add("animate");
-      }, 1000); // 3000
+    const showHelper = () => {
+      setTimeoutId(
+        setTimeout(() => {
+          scrollHelper.current.classList.remove("hide");
+          setTimeoutId(null);
+        }, 1000)
+      ); // 3000
+    };
 
     if (scrollHelper.current && loaded && scroll < 20) {
       showHelper();
     }
+  }, [scroll, loaded]);
+
+  useEffect(() => {
+    const animateHelper = () => {
+      setTimeout(() => {
+        if (scrollText2 !== null) scrollHelper.current.classList.add("animate");
+      }, 1000);
+    };
+
+    if (scrollHelper.current && loaded) {
+      animateHelper();
+    }
   }, [scroll, loaded, scrollText2]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (scrollHelper.current) {
+    if (scrollHelper.current && loaded && !timeoutId) {
       if (latest > 20) {
         scrollHelper.current.classList.add("hide");
       } else {

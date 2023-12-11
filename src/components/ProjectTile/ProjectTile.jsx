@@ -14,7 +14,8 @@ const ProjectTile = ({
   filtered = false,
 }) => {
   const width = mobile ? 85 : project.width;
-  const { xAxis, yAxis } = projectsAll[i].fields;
+  const { xAxis, yAxis } = project;
+  // const yAxisDefault = project.yAxis;
   const style = {
     left: mobile ? 0 : `${yAxis}%`,
     marginTop: mobile ? 0 : `${filtered && width > 30 ? 0 : xAxis}px`,
