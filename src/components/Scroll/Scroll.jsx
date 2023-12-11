@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 // import ArrowDown from "../../assets/images/MELT__ARROW_DOWN.svg";
 import "./Scroll.css";
@@ -8,16 +8,31 @@ const Scroll = ({ scroll = 0, loaded = true, other }) => {
 
   const { scrollY } = useScroll();
 
+  const [scrollText, setScrollText] = useState("Scroll Down To View Our Works");
+  const [scrollText2, setScrollText2] = useState(null);
+
+  useEffect(() => {
+    if (other.length > 0) {
+      if (other[0].fields.scrollText !== undefined && other[0].fields.scrollText.length > 0) {
+        setScrollText(other[0].fields.scrollText);
+      }
+      if (other[0].fields.scrollText2 !== undefined && other[0].fields.scrollText2.length > 0) {
+        setScrollText2(other[0].fields.scrollText2);
+      }
+    }
+  }, [other]);
+
   useEffect(() => {
     const showHelper = () =>
       setTimeout(() => {
         scrollHelper.current.classList.remove("hide");
+        if (scrollText2 !== null) scrollHelper.current.classList.add("animate");
       }, 1000); // 3000
 
     if (scrollHelper.current && loaded && scroll < 20) {
       showHelper();
     }
-  }, [scroll, loaded]);
+  }, [scroll, loaded, scrollText2]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (scrollHelper.current) {
@@ -29,19 +44,21 @@ const Scroll = ({ scroll = 0, loaded = true, other }) => {
     }
   });
 
-  if (other.length === 0 || other[0].fields === undefined || other[0].fields.scrollText === undefined) return null;
+  // if (other.length === 0 || other[0].fields === undefined || other[0].fields.scrollText === undefined) return null;
 
   return (
     <div
       ref={scrollHelper}
       className="scroll-helper hide"
-      onTransitionEnd={() => scrollHelper.current.classList.add("animate")}
+      // onTransitionEnd={() => {
+      //   if (scrollText2 !== null) scrollHelper.current.classList.add("animate");
+      // }}
     >
-      <span className="scroll-helper__icon">
+      <div className="scroll-helper__text">
         {/* <img src={ArrowDown} alt="Scroll down" /> */}
-        {/* Scroll Down To See Our Works */}
-        {other[0].fields.scrollText}
-      </span>
+        <span className="scroll-helper__text-one">{scrollText}</span>
+        {scrollText2 !== null && <span className="scroll-helper__text-two">{scrollText2}</span>}
+      </div>
     </div>
   );
 };

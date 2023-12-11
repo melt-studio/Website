@@ -149,7 +149,8 @@
   height: min(min(12.5vw, 12.5vh), 60px);
   position: relative;
   /* cursor: pointer; */
-  cursor: url("../../assets/images/cursor.svg") 5 0, pointer;
+  /* cursor: url("../../assets/images/cursor.svg") 5 0, pointer; */
+  cursor: none;
 }
 
 .nav-menu__close-bar {

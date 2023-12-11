@@ -117,6 +117,7 @@ export default function MainContainer({
               // aboutInfo={aboutInfo}
               projectTags={projectTags}
               other={other}
+              setPageIsLoading={setPageIsLoading}
             />
           }
         />

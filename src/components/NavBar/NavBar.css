@@ -59,7 +59,8 @@
   transform: scale(1.2);
   transition: transform 0.5s ease;
   /* cursor: pointer; */
-  cursor: url("../../assets/images/cursor.svg") 5 0, pointer;
+  /* cursor: url("../../assets/images/cursor.svg") 5 0, pointer; */
+  cursor: none;
   fill: var(--yellow);
 }
 

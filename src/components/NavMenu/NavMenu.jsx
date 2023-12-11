@@ -111,10 +111,20 @@ const NavMenuLink = ({ link, closeNavMenu, projectTags }) => {
     }
   }, [location, link, filter, projectTags]);
 
+  const mouseEvents = {
+    onMouseEnter: () => {
+      cursorEvents.onMouseEnter();
+    },
+    onMouseLeave: () => {
+      cursorEvents.onMouseLeave();
+    },
+  };
+
   if (link.nav) {
     return (
       <Link
         to={link.href}
+        {...mouseEvents}
         onClick={() => {
           if (selected) return closeNavMenu();
 

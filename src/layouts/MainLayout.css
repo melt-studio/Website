@@ -6,6 +6,10 @@
   transition: height 1s, background-color 0.5s ease;
 }
 
+.home-page #layout {
+  min-height: 101dvh;
+}
+
 main {
   flex-grow: 1;
   display: flex;

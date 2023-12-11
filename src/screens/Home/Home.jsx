@@ -25,6 +25,7 @@ export default function Home({
   title,
   projectTags,
   other,
+  setPageIsLoading,
 }) {
   const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [fadeAnimation, setFadeAnimation] = useState(false);
@@ -45,6 +46,17 @@ export default function Home({
       document.body.classList.remove("home-page");
     };
   }, []);
+
+  useEffect(() => {
+    setPageIsLoading(true);
+  }, [setPageIsLoading]);
+
+  useEffect(() => {
+    if (loaded) {
+      window.scrollTo(0, 0);
+      setPageIsLoading(false);
+    }
+  }, [loaded, setPageIsLoading]);
 
   useEffect(() => {
     if (cursor.current) {
