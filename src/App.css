@@ -123,7 +123,7 @@ h1,
 .about-page #about-backtowork-text {
   font-size: 16px;
   font-weight: 400;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.0025em;
   line-height: 1.1;
 }
 
@@ -165,8 +165,15 @@ h1,
 
 .project-text .tag h3,
 .about-page #about-backtowork-text {
-  font-weight: 300;
   text-transform: none;
+}
+
+.about-page #about-backtowork-text {
+  font-weight: 300;
+}
+
+.project-text .tag h3 {
+  font-weight: 200;
 }
 
 .page .jumbo-text p {
@@ -248,7 +255,15 @@ h1,
     font-size: min(max(18px, 2vw), 24px);
     /* letter-spacing: -0.02em; */
     line-height: 1.1;
+  }
+
+  .about-page #about-backtowork-text {
     font-weight: 300;
+  }
+
+  .project-text .tag h3,
+  .project-text .tag-block__tags.tag-row span {
+    font-weight: 100;
   }
 
   .about-page #about-backtowork-text {

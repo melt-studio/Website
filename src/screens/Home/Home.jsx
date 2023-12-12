@@ -53,7 +53,7 @@ export default function Home({
 
   useEffect(() => {
     if (loaded) {
-      window.scrollTo(0, 0);
+      // window.scrollTo(0, 0);
       setPageIsLoading(false);
     }
   }, [loaded, setPageIsLoading]);
@@ -111,8 +111,17 @@ export default function Home({
   let filteredProjects = projects;
   if (filter !== null && projectTags.length > 0) {
     const f = filter.toLowerCase().trim();
-    if (projectTags.map((t) => t.toLowerCase()).includes(f))
+    if (projectTags.map((t) => t.toLowerCase()).includes(f)) {
       filteredProjects = projects.filter((p) => p.fields.tag !== undefined && p.fields.tag.toLowerCase().trim() === f);
+      projectTags
+        .map((t) => t.toLowerCase())
+        .forEach((tag) => {
+          document.body.classList.remove(`filter-${tag}`);
+        });
+      document.body.classList.add("filtered", `filter-${f}`);
+    } else {
+      document.body.classList.remove("filtered");
+    }
   }
 
   return (
@@ -139,6 +148,7 @@ export default function Home({
             projectsAll={projects}
             setBackgroundColor={setBackgroundColor}
             cursor={cursor}
+            history={history}
             mobile={mobile}
             viewport={viewport}
             setScroll={setScroll}

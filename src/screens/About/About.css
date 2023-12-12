@@ -147,8 +147,8 @@
 .col.info .tag-link a:hover h3 {
   color: #000000;
   /* cursor: pointer; */
-  /* cursor: url("../../assets/images/cursor.svg") 5 0, pointer; */
-  cursor: none;
+  cursor: url("../../assets/images/cursor.svg") 5 0, pointer;
+  /* cursor: none; */
 }
 
 .col.nav .tag a.active h3,

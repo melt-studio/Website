@@ -96,8 +96,10 @@ function App() {
     const getProjects = async () => {
       try {
         const response = await projectService.getProjects();
-        const sortedProjects = response.map((r) => r).sort((a, b) => a.fields.order - b.fields.order);
-        setProjects(sortedProjects);
+        console.log(response);
+        // const sortedProjects = response.map((r) => r).sort((a, b) => a.fields.order - b.fields.order);
+        // setProjects(sortedProjects);
+        setProjects(response);
       } catch (error) {
         console.log("Projects", error.response.data.error ? error.response.data.error : "Server error");
       }
@@ -143,9 +145,8 @@ function App() {
       try {
         const response = await menuService.getMenu();
         setMenuInfo(response);
-        console.log(response);
       } catch (error) {
-        console.log("Other", error.response.data.error ? error.response.data.error : "Server error");
+        console.log("Menu", error.response.data.error ? error.response.data.error : "Server error");
       }
     };
 

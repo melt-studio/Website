@@ -51,10 +51,10 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
       setProject(project);
 
       // Update cursor color to current project color
-      if (cursor && cursor.current) {
-        cursor.current.style.backgroundColor = project.fields.textColor;
-        Array.from(cursor.current.children).forEach((c) => (c.style.fill = project.fields.textColor));
-      }
+      // if (cursor && cursor.current) {
+      //   cursor.current.style.backgroundColor = project.fields.textColor;
+      //   Array.from(cursor.current.children).forEach((c) => (c.style.fill = project.fields.textColor));
+      // }
 
       // Update root project-color CSS variable
       document.documentElement.style.setProperty("--text-color", project.fields.textColor);
@@ -89,6 +89,19 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
       updateProject(project);
     }
   }, [projects, cursor, id, navigate, setPageIsLoading]);
+
+  // useEffect(() => {
+  //   const updateProject = (project) => {
+  //     // Update root project-color CSS variable
+  //     document.documentElement.style.setProperty("--text-color", project.fields.textColor);
+  //     document.documentElement.style.setProperty("--cursor-color", project.fields.textColor);
+  //   };
+
+  //   if (projects.length > 0) {
+  //     const project = projects.find((project) => project.fields.projectUrl === id);
+  //     if (project) updateProject(project);
+  //   }
+  // }, [projects, cursor, id, mobile]);
 
   return (
     <Page>

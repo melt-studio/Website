@@ -31,7 +31,8 @@ code {
 a {
   cursor: default;
 }
+
 a:hover {
-  /* cursor: url("assets/images/cursor.svg") 5 0, pointer; */
-  cursor: none;
+  cursor: url("assets/images/cursor.svg") 5 0, pointer;
+  /* cursor: none; */
 }

@@ -7,8 +7,10 @@ import "./ProjectCoverMedia.css";
 const ProjectCoverMedia = ({ project, setLoading, cursor, mobile, viewport }) => {
   const [vidPlay, setVidPlay] = useState(false);
   const [size, setSize] = useState(null);
+  const [showThumb, setShowThumb] = useState(true);
 
   const ref = useRef();
+  const thumbnail = useRef();
 
   const toggleVidPlay = () => {
     setVidPlay(!vidPlay);
@@ -18,20 +20,30 @@ const ProjectCoverMedia = ({ project, setLoading, cursor, mobile, viewport }) =>
   };
 
   useEffect(() => {
+    const setTargetSize = (target, aI, aS) => {
+      if (aI > aS) {
+        target.style.width = "100%";
+        target.style.height = "auto";
+      } else {
+        target.style.width = "auto";
+        target.style.height = "100%";
+      }
+    };
+
     const resize = () => {
       // Get aspect ratio of image
-      if (ref && ref.current && size) {
+      if (size) {
         const aS = viewport.width / viewport.height;
         const aI = size.width / size.height;
 
-        let target = ref.current.wrapper ? ref.current.wrapper.children[0] : ref.current;
+        if (ref.current) {
+          let target = ref.current.wrapper ? ref.current.wrapper.children[0] : ref.current;
+          setTargetSize(target, aI, aS);
+        }
 
-        if (aI > aS) {
-          target.style.width = "100%";
-          target.style.height = "auto";
-        } else {
-          target.style.width = "auto";
-          target.style.height = "100%";
+        if (thumbnail.current) {
+          let targetThumb = thumbnail.current;
+          setTargetSize(targetThumb, aI, aS);
         }
       }
     };
@@ -39,7 +51,7 @@ const ProjectCoverMedia = ({ project, setLoading, cursor, mobile, viewport }) =>
     resize();
   }, [viewport, size]);
 
-  const { mainImage, mainVid } = project.fields;
+  const { mainImage, mainVid, mainVidThumb } = project.fields;
 
   const className = "project-cover-full__image";
 
@@ -55,6 +67,10 @@ const ProjectCoverMedia = ({ project, setLoading, cursor, mobile, viewport }) =>
 
         setSize({ width: e.target.naturalWidth, height: e.target.naturalHeight });
       }
+    }
+
+    if (thumbnail.current) {
+      thumbnail.current.classList.add("loaded");
     }
 
     setLoading(false);
@@ -89,14 +105,24 @@ const ProjectCoverMedia = ({ project, setLoading, cursor, mobile, viewport }) =>
           position: "relative",
         }}
       >
+        {showThumb && mainVidThumb !== undefined && mainVidThumb[0].url !== undefined && (
+          <img
+            className={`${className} video-thumbnail`}
+            src={mainVidThumb[0].url}
+            alt={`Thumbnail for ${project.fields.name}`}
+            ref={thumbnail}
+          />
+        )}
         <ReactPlayer
           url={project.fields.mainVid[0].url}
           key={project.fields.mainVid[0].url}
+          onStart={() => setShowThumb(false)}
           width="100%"
           height="auto"
           className={`${className} video`}
           playing={vidPlay}
           onReady={handleLoad}
+          loop={true}
           ref={ref}
         />
         {mobile && !vidPlay && (

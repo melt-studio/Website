@@ -15,4 +15,18 @@
   .projects {
     align-items: normal;
   }
+
+  .projects.filtered {
+    flex-direction: row;
+    gap: 0 min(5%, 80px);
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 0 min(5%, 80px);
+  }
+}
+
+@media (min-width: 1280px) {
+  .projects.filtered {
+    gap: 0 min(5%, 80px);
+  }
 }

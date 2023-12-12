@@ -10,6 +10,10 @@
   min-height: 101dvh;
 }
 
+.home-page.filtered #layout {
+  min-height: 190dvh;
+}
+
 main {
   flex-grow: 1;
   display: flex;
@@ -89,6 +93,10 @@ main {
     padding: 0;
     /* max-width: 1000px; */
     max-width: none;
+  }
+
+  .col.primary.col-tag {
+    width: 50%;
   }
 
   .secondary .col.primary {

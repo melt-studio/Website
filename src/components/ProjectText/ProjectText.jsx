@@ -39,12 +39,12 @@ const ProjectText = ({ project, secondary = false }) => {
         </div>
       </div>
       <div className="row">
-        <div className="col primary">
+        <div className="col primary col-tag">
           <TagBlock title="Project Scope" tags={scope} underlineColor={textColor} transition={true} row />
         </div>
       </div>
       <div className="row">
-        <div className="col primary">
+        <div className="col primary col-tag">
           {/* <div className="col full">
           {name && <h1 className="title-text">{name}</h1>}
           {description && <h3 className="subtitle-text">{description}</h3>}

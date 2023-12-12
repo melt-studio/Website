@@ -11,12 +11,19 @@ export default function ProjectTiles({
   setScroll,
   setBackgroundColor,
   setLoaded,
+  history,
   mobile,
   viewport,
   filtered,
 }) {
   const navigate = useNavigate();
   const [projectData, setProjectData] = useState([]);
+
+  useEffect(() => {
+    if (filtered && history.length > 1) {
+      window.scrollTo(0, window.innerHeight * 0.9);
+    }
+  }, [filtered, history]);
 
   useEffect(() => {
     if (projects.length > 0) {
@@ -28,7 +35,7 @@ export default function ProjectTiles({
           backgroundColor,
           name,
           projectUrl,
-          order,
+          // order,
           coverImg,
           xAxis,
           yAxis,
@@ -62,7 +69,7 @@ export default function ProjectTiles({
           },
           name,
           projectUrl,
-          order,
+          // order,
           cover,
           xAxis,
           yAxis,
@@ -104,7 +111,7 @@ export default function ProjectTiles({
   };
 
   return (
-    <div className="projects" id="projects">
+    <div className={`projects${filtered ? " filtered" : ""}`} id="projects">
       {projectData.map((project, i) => (
         <ProjectTile
           key={project.id}

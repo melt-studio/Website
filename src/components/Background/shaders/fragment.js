@@ -24,14 +24,18 @@ const fragmentShader = /* glsl */ `
 
     float tf = 1. - uMultiple * .5;
 
-    vec2 vUv2 = vUv + sin(vUv.x * 4. + uTime * .25 * tf) - cos(-vUv.y * 3. + vUv.x * 0. - uTime * .333/2.* tf);
-    f = sin(length(vUv2) + uTime * .25 * tf + uC0.r + uC1.g + uC2.b) * .5 + .5;
-    f += sin(-vUv.x * 4.- vUv.y * 2.+ length(vUv) * sin(uTime * .25 * tf) + sin(vUv.y * 4. + uTime * .125 * tf + uC2.r + uC3.g + uC4.b) + uTime * .25 * tf + sin(-vUv.x * vUv.y + uTime * .25 * tf + uC1.g - uC2.r + uC3.g) * 2.) * .5 + .5;
+    float speed = .5;
+    float time = uTime * speed;
+
+    vec2 vUv2 = vUv + sin(vUv.x * 4. + time * .25 * tf) - cos(-vUv.y * 3. + vUv.x * 0. - time * .333/2.* tf);
+    f = sin(length(vUv2) + time * .25 * tf + uC0.r + uC1.g + uC2.b) * .5 + .5;
+    f += sin(-vUv.x * 4.- vUv.y * 2.+ length(vUv) * sin(time * .25 * tf) + sin(vUv.y * 4. + time * .125 * tf + uC2.r + uC3.g + uC4.b) + time * .25 * tf + sin(-vUv.x * vUv.y + time * .25 * tf + uC1.g - uC2.r + uC3.g) * 2.) * .5 + .5;
     f /= 2.;
-    float ff = uMultiple == 1. ? .05 : .1;
+    // float ff = uMultiple == 1. ? .05 : .1;
+    float ff = uMultiple == 1. ? .05 : .333;
     // 27/11/23 reduced blur
     f = mix(
-      smoothstep(.4, .5, f * mix(1., ((1.-ff) + ff * rand(vec2(f))), .1)),
+      smoothstep(.4, .55, f * mix(1., ((1.-ff) + ff * rand(vec2(f))), .1)),
       smoothstep(.15, .85, f * mix(1., (1.-ff) + ff * rand(vec2(f)), .1)),
       uCursor
     );
