@@ -20,8 +20,11 @@ export default function ProjectTiles({
   const [projectData, setProjectData] = useState([]);
   const [count, setCount] = useState(1);
 
+  // console.log(filtered);
+
   useEffect(() => {
     if (!mobile && filtered && history.length > 1 && history[0] !== history[1]) {
+      // console.log("scrolling to", window.innerHeight * 0.9);
       window.scrollTo(0, window.innerHeight * 0.9);
     }
   }, [mobile, filtered, history]);

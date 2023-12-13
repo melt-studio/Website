@@ -35,6 +35,34 @@ export default function Home({
 
   const { scrollY } = useScroll();
 
+  const [searchParams] = useSearchParams();
+  const filter = searchParams.get("filter");
+
+  let filteredProjects = projects;
+  if (filter !== null && projectTags.length > 0) {
+    const f = filter.toLowerCase().trim();
+    if (projectTags.map((t) => t.toLowerCase()).includes(f)) {
+      filteredProjects = projects.filter((p) => p.fields.tag !== undefined && p.fields.tag.toLowerCase().trim() === f);
+      projectTags
+        .map((t) => t.toLowerCase())
+        .forEach((tag) => {
+          document.body.classList.remove(`filter-${tag}`);
+        });
+      document.body.classList.add("filtered", `filter-${f}`);
+    } else {
+      document.body.classList.remove("filtered");
+    }
+  } else {
+    document.body.classList.remove("filtered");
+    projectTags
+      .map((t) => t.toLowerCase())
+      .forEach((tag) => {
+        document.body.classList.remove(`filter-${tag}`);
+      });
+  }
+
+  const filtered = filteredProjects.length !== projects.length;
+
   useEffect(() => {
     document.body.classList.add("home-page");
 
@@ -87,17 +115,34 @@ export default function Home({
 
   useEffect(() => {
     if (initial) {
+      // console.log("scrolling to 0 0");
+      // console.log("scrolling to 0 0 initial");
       window.scrollTo(0, 0);
     } else {
-      if (loaded && scroll > 0) {
+      if (loaded) {
         // Only scroll to project if coming from project page
-        if (history && history.length > 1 && history[1].includes("/project/")) {
-          window.scrollTo(0, scroll);
-          // NB: Chrome retains previous scroll positon using back navigation, however this happens instantly / before project page has faded out, so get "jump" in content
+        // NB: Chrome retains previous scroll positon using back navigation, however this happens instantly / before project page has faded out, so get "jump" in content
+
+        if (!document.body.classList.contains("filtered")) {
+          if (
+            history &&
+            history.length > 1 &&
+            history[1].includes("/project/") &&
+            history[0] === history[2] &&
+            scroll > 0
+          ) {
+            // console.log("scrolling to", scroll);
+            window.scrollTo(0, scroll);
+          }
+        } else {
+          if (!mobile && history && history.length > 1 && history[0] !== history[1]) {
+            // console.log("scrolling to window.innerHeight * 0.9");
+            window.scrollTo(0, window.innerHeight * 0.9);
+          }
         }
       }
     }
-  }, [initial, loaded, scroll, history]);
+  }, [initial, loaded, scroll, history, mobile]);
 
   useEffect(() => {
     if (history && history.length > 1 && history[1].includes("/project/")) {
@@ -118,27 +163,6 @@ export default function Home({
       setFadeAnimation(false);
     }
   });
-
-  const [searchParams] = useSearchParams();
-  const filter = searchParams.get("filter");
-
-  let filteredProjects = projects;
-  if (filter !== null && projectTags.length > 0) {
-    const f = filter.toLowerCase().trim();
-    if (projectTags.map((t) => t.toLowerCase()).includes(f)) {
-      filteredProjects = projects.filter((p) => p.fields.tag !== undefined && p.fields.tag.toLowerCase().trim() === f);
-      projectTags
-        .map((t) => t.toLowerCase())
-        .forEach((tag) => {
-          document.body.classList.remove(`filter-${tag}`);
-        });
-      document.body.classList.add("filtered", `filter-${f}`);
-    } else {
-      document.body.classList.remove("filtered");
-    }
-  }
-
-  const filtered = filteredProjects.length !== projects.length;
 
   return (
     <>
