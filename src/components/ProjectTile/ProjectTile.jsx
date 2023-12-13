@@ -80,6 +80,7 @@ const ProjectTile = ({
 
   if (!(mobile || filtered)) {
     // if (project.width > 30) style.marginTop = 0;
+    // NB: margin values as % are relative to the width of the containing block
     if (i < 2) style.marginTop = `${yOff}%`;
     else if (project.cover.aspect > 1 || projectData[Math.max(i - 1, 0)].cover.aspect > 1)
       style.marginTop = `${yOff + 2.5}%`;
