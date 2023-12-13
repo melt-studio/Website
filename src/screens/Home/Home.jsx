@@ -26,6 +26,7 @@ export default function Home({
   projectTags,
   other,
   setPageIsLoading,
+  navMenuOpen,
 }) {
   const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [fadeAnimation, setFadeAnimation] = useState(false);
@@ -78,7 +79,8 @@ export default function Home({
 
   useEffect(() => {
     // console.log(history);
-    if (history.length > 1 && history[0] !== history[1]) {
+    // if (history.length > 1 && history[0] !== history[1]) {
+    if (history.length > 1) {
       document.body.classList.add("from-nav");
       // if (document.body.classList.contains("nav-menu-open")) setFromNav(true);
     }
@@ -135,7 +137,8 @@ export default function Home({
             window.scrollTo(0, scroll);
           }
         } else {
-          if (!mobile && history && history.length > 1 && history[0] !== history[1]) {
+          // if (!mobile && history && history.length > 1 && history[0] !== history[1]) {
+          if (!mobile && history && history.length > 1) {
             // console.log("scrolling to window.innerHeight * 0.9");
             window.scrollTo(0, window.innerHeight * 0.9);
           }
@@ -193,6 +196,7 @@ export default function Home({
             viewport={viewport}
             setScroll={setScroll}
             filtered={filtered}
+            navMenuOpen={navMenuOpen}
             // key={`projectTiles${filtered ? "-filtered" : ""}-${filtered ? filter : ""}`}
           />
         ) : null}

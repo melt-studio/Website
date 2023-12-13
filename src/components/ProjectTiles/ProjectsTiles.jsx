@@ -15,6 +15,7 @@ export default function ProjectTiles({
   mobile,
   viewport,
   filtered,
+  navMenuOpen,
 }) {
   const navigate = useNavigate();
   const [projectData, setProjectData] = useState([]);
@@ -23,7 +24,8 @@ export default function ProjectTiles({
   // console.log(filtered);
 
   useEffect(() => {
-    if (!mobile && filtered && history.length > 1 && history[0] !== history[1]) {
+    // if (!mobile && filtered && history.length > 1 && history[0] !== history[1]) {
+    if (!mobile && filtered && history.length > 1) {
       // console.log("scrolling to", window.innerHeight * 0.9);
       window.scrollTo(0, window.innerHeight * 0.9);
     }
@@ -176,6 +178,7 @@ export default function ProjectTiles({
           // projectsAll={projectsAll}
           filtered={filtered}
           count={count}
+          navMenuOpen={navMenuOpen}
         />
       ))}
     </div>

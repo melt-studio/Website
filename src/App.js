@@ -239,6 +239,7 @@ function App() {
           projectTags={projectTags}
           other={other}
           menuInfo={menuInfo}
+          navMenuOpen={navMenuOpen}
         />
       </Layout>
       {!mobile && <Cursor ref={cursor} />}
