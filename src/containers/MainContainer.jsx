@@ -33,6 +33,7 @@ export default function MainContainer({
   projectTags,
   other,
   menuInfo,
+  navMenuOpen,
 }) {
   const [adminMessage, setAdminMessage] = useState(null);
 
@@ -118,6 +119,7 @@ export default function MainContainer({
               projectTags={projectTags}
               other={other}
               setPageIsLoading={setPageIsLoading}
+              navMenuOpen={navMenuOpen}
             />
           }
         />

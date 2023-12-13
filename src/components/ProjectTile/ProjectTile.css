@@ -95,7 +95,7 @@
     height: fit-content;
   }
 
-  .from-nav .projects.filtered .project {
+  .from-nav .projects.filtered .project.animate {
     opacity: 0;
     transform: scale(0.8) translateY(40px);
     animation: projectCoverFade 1s ease-in-out 1s 1 forwards;

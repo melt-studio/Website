@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import FadeScroll from "../FadeScroll/FadeScroll";
 import "./ProjectTile.css";
 import { MathUtils } from "three";
@@ -16,9 +16,18 @@ const ProjectTile = ({
   // projectsAll,
   filtered = false,
   count,
+  navMenuOpen,
 }) => {
   const projectContainer = useRef();
   const projectImg = useRef();
+
+  useEffect(() => {
+    if (!navMenuOpen) {
+      if (projectContainer.current && filtered) {
+        projectContainer.current.classList.add("animate");
+      }
+    }
+  }, [navMenuOpen, filtered]);
 
   // const width = mobile ? 85 : project.width;
   let aspect = project.cover.aspect;
@@ -119,7 +128,14 @@ const ProjectTile = ({
 
   return (
     <FadeScroll id={`project_${project.id}`} viewport={{ amount: mobile ? 0.15 : 0.25 }}>
-      <div className="project" ref={projectContainer}>
+      <div
+        className={`project${filtered ? " animate" : ""}`}
+        ref={projectContainer}
+        onAnimationEnd={(e) => {
+          // console.log(e.target);
+          e.target.classList.remove("animate");
+        }}
+      >
         <div className="project-inner" ref={projectImg} style={style}>
           <img
             src={project.cover.url}
