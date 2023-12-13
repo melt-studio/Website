@@ -44,8 +44,8 @@ export default function ProjectTiles({
           projectUrl,
           // order,
           coverImg,
-          xAxis,
-          yAxis,
+          // xAxis,
+          // yAxis,
           width,
           random,
           tag,
@@ -80,8 +80,8 @@ export default function ProjectTiles({
           projectUrl,
           // order,
           cover,
-          xAxis,
-          yAxis,
+          // xAxis,
+          // yAxis,
           width,
           random,
           tag,
@@ -123,29 +123,29 @@ export default function ProjectTiles({
 
   useEffect(() => {
     if (!mobile && filtered && projectData.length > 0) {
-      if (viewport.width >= 1280) {
-        const filter = projectData[0].tag;
-        const f = filter !== undefined && filter.length > 0 ? filter.trim().toLowerCase() : "print";
-        let sw = 0.3;
-        let mw = 400;
-        if (f === "motion") {
-          sw = 0.475;
-          mw = 1000;
-        }
-        const wv = Math.min(3480, viewport.width);
-        const p = Math.min(80, 0.05 * wv);
-        // console.log(p);
-        // const g = p;
-        const wa = wv - 2 * p;
-        const g = Math.min(80, 0.05 * wv);
-        // const g = 0;
-        const wi = Math.min(mw, sw * wa);
-        const n = (wv - 2 * p + g) / (wi + g);
-        // console.log(Math.floor(n));
-        setCount(Math.floor(n));
-      } else {
-        setCount(2);
+      // if (viewport.width >= 1280) {
+      const filter = projectData[0].tag;
+      const f = filter !== undefined && filter.length > 0 ? filter.trim().toLowerCase() : "print";
+      let sw = 0.3;
+      let mw = 400;
+      if (f === "motion") {
+        sw = 0.475;
+        mw = 1000;
       }
+      // const wv = Math.min(3480, viewport.width);
+      const wv = Math.min(3480, document.body.clientWidth);
+      const p = Math.min(80, 0.05 * wv);
+      // const g = p;
+      const wa = wv - 2 * p;
+      const g = Math.min(80, 0.05 * wa);
+      // const g = 0;
+      const wi = Math.min(mw, sw * wa);
+      const n = (wv - 2 * p + g) / (wi + g);
+      // console.log(wv, sw, mw, wi, wa, Math.floor(n), n);
+      setCount(Math.floor(n));
+      // } else {
+      //   setCount(2);
+      // }
     } else {
       setCount(1);
     }
