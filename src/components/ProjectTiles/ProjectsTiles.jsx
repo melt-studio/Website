@@ -21,10 +21,10 @@ export default function ProjectTiles({
   const [count, setCount] = useState(1);
 
   useEffect(() => {
-    if (filtered && history.length > 1) {
+    if (!mobile && filtered && history.length > 1 && history[0] !== history[1]) {
       window.scrollTo(0, window.innerHeight * 0.9);
     }
-  }, [filtered, history]);
+  }, [mobile, filtered, history]);
 
   // useEffect(() => {
   //   console.log("rendering projectTiles");

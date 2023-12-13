@@ -62,7 +62,7 @@ const ProjectTile = ({
     // left: mobile ? 0 : filtered ? 0 : `${l * 100}%`,
     // left: mobile ? 0 : filtered ? 0 : `${yAxis}%`,
     // left: mobile || filtered ? 0 : i === 0 ? `${35 + xOff}%` : `${x + xOff}%`,
-    left: mobile || filtered ? 0 : `${x0}vw`,
+    left: mobile || filtered ? 0 : `${x0}%`,
     marginTop: 0,
     // marginTop: mobile ? 0 : filtered ? 0 : `${width > 30 ? 0 : xAxis}px`,
     // width: `${width}vw`,
@@ -74,15 +74,16 @@ const ProjectTile = ({
   };
 
   if (mobile || !filtered) {
-    style.width = `${width}vw`;
-    styleImg.width = style.width;
+    style.width = `${width}%`;
+    // styleImg.width = style.width;
   }
 
   if (!(mobile || filtered)) {
     // if (project.width > 30) style.marginTop = 0;
-    if (i < 2 || project.cover.aspect > 1 || projectData[Math.max(i - 1, 0)].cover.aspect > 1)
-      style.marginTop = `${yOff}vw`;
-    else style.marginTop = `${MathUtils.mapLinear(project.random, -1, 1, -22.5, 10) + yOff}vw`;
+    if (i < 2) style.marginTop = `${yOff}%`;
+    else if (project.cover.aspect > 1 || projectData[Math.max(i - 1, 0)].cover.aspect > 1)
+      style.marginTop = `${yOff + 2.5}%`;
+    else style.marginTop = `${MathUtils.mapLinear(project.random, -1, 1, -22.5, 10) + yOff}%`;
   }
 
   if (filtered && projectContainer.current) {

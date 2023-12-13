@@ -41,11 +41,11 @@ const Scroll = ({ scroll = 0, loaded = true, other }) => {
   useEffect(() => {
     const animateHelper = () => {
       setTimeout(() => {
-        if (scrollText2 !== null) scrollHelper.current.classList.add("animate");
+        if (scrollText2 !== null && scrollHelper.current) scrollHelper.current.classList.add("animate");
       }, 1000);
     };
 
-    if (scrollHelper.current && loaded) {
+    if (scrollHelper && scrollHelper.current && loaded) {
       animateHelper();
     }
   }, [scroll, loaded, scrollText2]);

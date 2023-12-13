@@ -6,14 +6,6 @@
   transition: height 1s, background-color 0.5s ease;
 }
 
-.home-page #layout {
-  min-height: 101dvh;
-}
-
-.home-page.filtered #layout {
-  min-height: 190dvh;
-}
-
 main {
   flex-grow: 1;
   display: flex;
@@ -57,6 +49,16 @@ main {
   flex-grow: 1;
   flex-direction: column;
   height: fit-content;
+}
+
+@media (min-width: 800px) {
+  .home-page #layout {
+    min-height: 101dvh;
+  }
+
+  .home-page.filtered #layout {
+    min-height: 190dvh;
+  }
 }
 
 @media (min-width: 960px) {
