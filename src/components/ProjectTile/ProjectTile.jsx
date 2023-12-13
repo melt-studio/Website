@@ -71,7 +71,25 @@ const ProjectTile = ({
     //   !mobile && filtered
     //     ? `${(((viewport.width * width) / 100) * (1 / project.cover.aspect)) / 1.15}px`
     //     : `${((viewport.width * width) / 100) * (1 / project.cover.aspect)}px`,
+    height: `${((document.body.clientWidth * width) / 100) * (1 / project.cover.aspect)}px`,
   };
+
+  if (!mobile && filtered) {
+    const filter = project.tag;
+    const f = filter !== undefined && filter.length > 0 ? filter.trim().toLowerCase() : "print";
+    let sw = 0.3;
+    let mw = 400;
+    if (f === "motion") {
+      sw = 0.475;
+      mw = 1000;
+    }
+    const wv = Math.min(3480, document.body.clientWidth);
+    const p = Math.min(80, 0.05 * wv);
+    const wa = wv - 2 * p;
+    const wi = Math.min(mw, sw * wa);
+    const h = wi / project.cover.aspect;
+    style.height = `${h}px`;
+  }
 
   if (mobile || !filtered) {
     style.width = `${width}%`;
