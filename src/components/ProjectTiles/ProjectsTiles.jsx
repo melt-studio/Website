@@ -6,7 +6,7 @@ import "./ProjectsTiles.css";
 
 export default function ProjectTiles({
   projects,
-  projectsAll,
+  // projectsAll,
   cursor,
   setScroll,
   setBackgroundColor,
@@ -46,6 +46,8 @@ export default function ProjectTiles({
           coverImg,
           // xAxis,
           // yAxis,
+          xOff,
+          yOff,
           width,
           random,
           tag,
@@ -82,6 +84,8 @@ export default function ProjectTiles({
           cover,
           // xAxis,
           // yAxis,
+          xOff,
+          yOff,
           width,
           random,
           tag,
@@ -142,8 +146,8 @@ export default function ProjectTiles({
       // const g = 0;
       const wi = Math.min(mw, sw * wa);
       const n = (wv - 2 * p + g) / (wi + g);
-      // console.log(wv, sw, mw, wi, wa, Math.floor(n), n);
-      setCount(Math.floor(n));
+      // console.log(wv, sw, mw, wi, wa, Math.max(3, Math.floor(n)), n);
+      setCount(Math.max(3, Math.floor(n)));
       // } else {
       //   setCount(2);
       // }
@@ -165,7 +169,8 @@ export default function ProjectTiles({
           handleMouseLeave={handleMouseLeave}
           handleClick={handleClick}
           setLoaded={setLoaded}
-          projectsAll={projectsAll}
+          projectData={projectData}
+          // projectsAll={projectsAll}
           filtered={filtered}
           count={count}
         />

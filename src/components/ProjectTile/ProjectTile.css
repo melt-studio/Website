@@ -2,12 +2,6 @@
   margin-bottom: min(5vw, 80px);
 }
 
-.from-nav .projects .project {
-  opacity: 0;
-  transform: scale(0.8) translateY(40px);
-  animation: projectCoverFade 1s ease-in-out 1s 1 forwards;
-}
-
 .project-inner {
   transform: scale(0.8) translateY(40px);
   position: relative;
@@ -87,6 +81,12 @@
   .projects.filtered .project__cover-img {
     max-width: 100%;
     height: fit-content;
+  }
+
+  .from-nav .projects.filtered .project {
+    opacity: 0;
+    transform: scale(0.8) translateY(40px);
+    animation: projectCoverFade 1s ease-in-out 1s 1 forwards;
   }
 }
 
