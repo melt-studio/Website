@@ -148,6 +148,7 @@
   color: #000000;
   /* cursor: pointer; */
   cursor: url("../../assets/images/cursor.svg") 5 0, pointer;
+  /* cursor: none; */
 }
 
 .col.nav .tag a.active h3,
@@ -185,6 +186,10 @@
 }
 .about-page #about-backtowork-text:hover {
   color: #000000;
+}
+
+.about-page a#about-backtowork-text {
+  width: fit-content;
 }
 
 @media (min-width: 960px) {

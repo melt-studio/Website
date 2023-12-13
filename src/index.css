@@ -28,6 +28,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+a {
+  cursor: default;
+}
+
 a:hover {
   cursor: url("assets/images/cursor.svg") 5 0, pointer;
+  /* cursor: none; */
 }

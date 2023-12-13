@@ -25,11 +25,13 @@ export default function Home({
   title,
   projectTags,
   other,
+  setPageIsLoading,
 }) {
   const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [fadeAnimation, setFadeAnimation] = useState(false);
   const [fromProject, setFromProject] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  // const [fromNav, setFromNav] = useState(false);
 
   const { scrollY } = useScroll();
 
@@ -45,6 +47,30 @@ export default function Home({
       document.body.classList.remove("home-page");
     };
   }, []);
+
+  useEffect(() => {
+    // console.log(history);
+    if (history.length > 1 && history[0] !== history[1]) {
+      document.body.classList.add("from-nav");
+      // if (document.body.classList.contains("nav-menu-open")) setFromNav(true);
+    }
+
+    return () => {
+      document.body.classList.remove("from-nav");
+      // setFromNav(false);
+    };
+  }, [history]);
+
+  useEffect(() => {
+    setPageIsLoading(true);
+  }, [setPageIsLoading]);
+
+  useEffect(() => {
+    if (loaded) {
+      // window.scrollTo(0, 0);
+      setPageIsLoading(false);
+    }
+  }, [loaded, setPageIsLoading]);
 
   useEffect(() => {
     if (cursor.current) {
@@ -99,9 +125,20 @@ export default function Home({
   let filteredProjects = projects;
   if (filter !== null && projectTags.length > 0) {
     const f = filter.toLowerCase().trim();
-    if (projectTags.map((t) => t.toLowerCase()).includes(f))
+    if (projectTags.map((t) => t.toLowerCase()).includes(f)) {
       filteredProjects = projects.filter((p) => p.fields.tag !== undefined && p.fields.tag.toLowerCase().trim() === f);
+      projectTags
+        .map((t) => t.toLowerCase())
+        .forEach((tag) => {
+          document.body.classList.remove(`filter-${tag}`);
+        });
+      document.body.classList.add("filtered", `filter-${f}`);
+    } else {
+      document.body.classList.remove("filtered");
+    }
   }
+
+  const filtered = filteredProjects.length !== projects.length;
 
   return (
     <>
@@ -127,10 +164,12 @@ export default function Home({
             projectsAll={projects}
             setBackgroundColor={setBackgroundColor}
             cursor={cursor}
+            history={history}
             mobile={mobile}
             viewport={viewport}
             setScroll={setScroll}
-            filtered={filteredProjects.length !== projects.length}
+            filtered={filtered}
+            // key={`projectTiles${filtered ? "-filtered" : ""}-${filtered ? filter : ""}`}
           />
         ) : null}
       </Page>

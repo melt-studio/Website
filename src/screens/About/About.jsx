@@ -10,6 +10,7 @@ import FadeScroll from "../../components/FadeScroll/FadeScroll.jsx";
 
 import { parseLinks } from "../../utils/parser.js";
 import { keyframes } from "../../utils/keyframes.js";
+import { cursorEvents } from "../../components/Cursor/Cursor.jsx";
 
 import "./About.css";
 
@@ -145,6 +146,15 @@ export default function About({ aboutInfo, cursor, viewport, history, menuInfo }
     titleDelay: fromNav ? 1.5 : 0.5,
   };
 
+  const mouseEvents = {
+    onMouseEnter: () => {
+      cursorEvents.onMouseEnter();
+    },
+    onMouseLeave: () => {
+      cursorEvents.onMouseLeave();
+    },
+  };
+
   return (
     <Page>
       <Helmet>
@@ -163,7 +173,7 @@ export default function About({ aboutInfo, cursor, viewport, history, menuInfo }
               </div>
               {!loading && (
                 <FadeScroll viewport={{ amount: 0 }} className="about-backtowork-text">
-                  <Link id="about-backtowork-text" to="/">
+                  <Link id="about-backtowork-text" to="/" {...mouseEvents}>
                     Back To Work
                   </Link>
                 </FadeScroll>

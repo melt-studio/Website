@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useLocation } from "react-router-dom";
+import { createNoise2D } from "simplex-noise";
+import alea from "alea";
 import Layout from "./layouts/MainLayout.jsx";
 import MainContainer from "./containers/MainContainer.jsx";
 import Cursor from "./components/Cursor/Cursor.jsx";
@@ -42,7 +44,10 @@ function App() {
   }, [viewport]);
 
   useEffect(() => {
-    setHistory((h) => [location.pathname, ...h]);
+    // console.log(location);
+    let path = location.pathname;
+    if (location.search.length > 0) path = path.concat(location.search);
+    setHistory((h) => [path, ...h]);
   }, [location]);
 
   // useEffect(() => {
@@ -96,8 +101,15 @@ function App() {
     const getProjects = async () => {
       try {
         const response = await projectService.getProjects();
-        const sortedProjects = response.map((r) => r).sort((a, b) => a.fields.order - b.fields.order);
-        setProjects(sortedProjects);
+        // const sortedProjects = response.map((r) => r).sort((a, b) => a.fields.order - b.fields.order);
+        // setProjects(sortedProjects);
+        const prng = alea("seed");
+        const noise2D = createNoise2D(prng);
+        response.forEach((r, i) => {
+          r.fields.random = noise2D(i, r.fields.name.length);
+        });
+        // console.log(response);
+        setProjects(response);
       } catch (error) {
         console.log("Projects", error.response.data.error ? error.response.data.error : "Server error");
       }
@@ -143,9 +155,8 @@ function App() {
       try {
         const response = await menuService.getMenu();
         setMenuInfo(response);
-        console.log(response);
       } catch (error) {
-        console.log("Other", error.response.data.error ? error.response.data.error : "Server error");
+        console.log("Menu", error.response.data.error ? error.response.data.error : "Server error");
       }
     };
 

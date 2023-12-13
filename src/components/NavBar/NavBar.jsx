@@ -52,7 +52,13 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
     if (pageIsLoading) return setIsVisible(false);
 
     const sMax = document.body.scrollHeight - viewport.height;
-    const s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
+    let s = scrollCutOff > sMax ? sMax / 2 : scrollCutOff;
+
+    // // Added after setting default homepage page height to 101dvh
+    // if (location.pathname === "/" && sMax < 50) {
+    //   // 50px for up to 5000px height (1%)
+    //   s = scrollCutOff;
+    // }
 
     if (!isVisible && latest > s) {
       setIsVisible(true);

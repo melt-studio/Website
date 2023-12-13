@@ -29,6 +29,7 @@
   width: 100%;
   /* cursor: pointer; */
   cursor: url("../../assets/images/cursor.svg") 5 0, pointer;
+  /* cursor: none; */
 }
 
 @media (min-width: 800px) {

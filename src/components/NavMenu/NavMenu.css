@@ -66,6 +66,7 @@
 .nav-menu__info .nav-menu__info__about p {
   display: none;
   margin-top: 0;
+  letter-spacing: 0.015em;
 }
 
 .nav-menu__items {
@@ -150,6 +151,7 @@
   position: relative;
   /* cursor: pointer; */
   cursor: url("../../assets/images/cursor.svg") 5 0, pointer;
+  /* cursor: none; */
 }
 
 .nav-menu__close-bar {
