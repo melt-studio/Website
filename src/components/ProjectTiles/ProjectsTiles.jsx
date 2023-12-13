@@ -104,20 +104,21 @@ export default function ProjectTiles({
 
   const handleMouseEnter = (project) => {
     cursorEvents.onMouseEnter(project.unofficials ? ["project", "unofficial"] : ["project"]);
-    if (cursor && cursor.current) {
-      cursor.current.style.backgroundColor = project.color.cursor;
-      Array.from(cursor.current.children).forEach((c) => (c.style.fill = project.color.cursor));
-    }
+    // if (cursor && cursor.current) {
+    //   cursor.current.style.backgroundColor = project.color.cursor;
+    //   Array.from(cursor.current.children).forEach((c) => (c.style.fill = project.color.cursor));
+    // }
 
     setBackgroundColor(project.color.background);
   };
 
   const handleMouseLeave = (project) => {
     cursorEvents.onMouseLeave(project.unofficials ? ["project", "unofficial"] : ["project"]);
-    if (cursor && cursor.current) {
-      cursor.current.style.removeProperty("background-color");
-      Array.from(cursor.current.children).forEach((c) => (c.style.fill = "transparent"));
-    }
+    // if (cursor && cursor.current) {
+    //   cursor.current.style.removeProperty("background-color");
+    //   Array.from(cursor.current.children).forEach((c) => (c.style.fill = "transparent"));
+    // }
+
     setBackgroundColor("#000000");
   };
 

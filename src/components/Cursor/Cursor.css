@@ -15,7 +15,7 @@
   border-radius: 50%;
   background-color: transparent;
   opacity: 1;
-  background-color: var(--cursor-color);
+  /* background-color: var(--cursor-color); */
 }
 
 /* .home-page .cursor.link {
