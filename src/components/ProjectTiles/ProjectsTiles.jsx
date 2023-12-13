@@ -6,7 +6,7 @@ import "./ProjectsTiles.css";
 
 export default function ProjectTiles({
   projects,
-  projectsAll,
+  // projectsAll,
   cursor,
   setScroll,
   setBackgroundColor,
@@ -21,10 +21,10 @@ export default function ProjectTiles({
   const [count, setCount] = useState(1);
 
   useEffect(() => {
-    if (filtered && history.length > 1) {
+    if (!mobile && filtered && history.length > 1 && history[0] !== history[1]) {
       window.scrollTo(0, window.innerHeight * 0.9);
     }
-  }, [filtered, history]);
+  }, [mobile, filtered, history]);
 
   // useEffect(() => {
   //   console.log("rendering projectTiles");
@@ -46,7 +46,9 @@ export default function ProjectTiles({
           coverImg,
           // xAxis,
           // yAxis,
-          width,
+          xOff,
+          yOff,
+          // width,
           random,
           tag,
           unofficials,
@@ -82,7 +84,9 @@ export default function ProjectTiles({
           cover,
           // xAxis,
           // yAxis,
-          width,
+          xOff,
+          yOff,
+          // width,
           random,
           tag,
           unofficials: unofficials ? true : false,
@@ -142,8 +146,8 @@ export default function ProjectTiles({
       // const g = 0;
       const wi = Math.min(mw, sw * wa);
       const n = (wv - 2 * p + g) / (wi + g);
-      // console.log(wv, sw, mw, wi, wa, Math.floor(n), n);
-      setCount(Math.floor(n));
+      // console.log(wv, sw, mw, wi, wa, Math.max(3, Math.floor(n)), n);
+      setCount(Math.max(3, Math.floor(n)));
       // } else {
       //   setCount(2);
       // }
@@ -165,7 +169,8 @@ export default function ProjectTiles({
           handleMouseLeave={handleMouseLeave}
           handleClick={handleClick}
           setLoaded={setLoaded}
-          projectsAll={projectsAll}
+          projectData={projectData}
+          // projectsAll={projectsAll}
           filtered={filtered}
           count={count}
         />

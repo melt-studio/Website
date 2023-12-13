@@ -1,11 +1,12 @@
-.projects .project {
-  margin-bottom: min(5vw, 80px);
+.projects > div {
+  width: 100%;
 }
 
-.from-nav .projects .project {
-  opacity: 0;
-  transform: scale(0.8) translateY(40px);
-  animation: projectCoverFade 1s ease-in-out 1s 1 forwards;
+.projects .project {
+  margin-bottom: min(5vw, 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .project-inner {
@@ -24,6 +25,7 @@
 .project__cover-img {
   position: relative;
   opacity: 1;
+  width: 100%;
   /* transform: scale(0.8) translateY(0); */
   transform: scale(1) translateY(0);
   transition: opacity 1s ease-in-out, transform 1s ease;
@@ -76,6 +78,10 @@
     width: 47.5%;
   }
 
+  .projects .project {
+    display: block;
+  }
+
   .projects.filtered .project {
     /* max-width: 400px; */
     width: 100%;
@@ -87,6 +93,12 @@
   .projects.filtered .project__cover-img {
     max-width: 100%;
     height: fit-content;
+  }
+
+  .from-nav .projects.filtered .project {
+    opacity: 0;
+    transform: scale(0.8) translateY(40px);
+    animation: projectCoverFade 1s ease-in-out 1s 1 forwards;
   }
 }
 
