@@ -31,6 +31,7 @@ export default function Home({
   const [fadeAnimation, setFadeAnimation] = useState(false);
   const [fromProject, setFromProject] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  // const [fromNav, setFromNav] = useState(false);
 
   const { scrollY } = useScroll();
 
@@ -46,6 +47,19 @@ export default function Home({
       document.body.classList.remove("home-page");
     };
   }, []);
+
+  useEffect(() => {
+    // console.log(history);
+    if (history.length > 1 && history[0] !== history[1]) {
+      document.body.classList.add("from-nav");
+      // if (document.body.classList.contains("nav-menu-open")) setFromNav(true);
+    }
+
+    return () => {
+      document.body.classList.remove("from-nav");
+      // setFromNav(false);
+    };
+  }, [history]);
 
   useEffect(() => {
     setPageIsLoading(true);
@@ -124,6 +138,8 @@ export default function Home({
     }
   }
 
+  const filtered = filteredProjects.length !== projects.length;
+
   return (
     <>
       <Helmet>
@@ -152,7 +168,8 @@ export default function Home({
             mobile={mobile}
             viewport={viewport}
             setScroll={setScroll}
-            filtered={filteredProjects.length !== projects.length}
+            filtered={filtered}
+            // key={`projectTiles${filtered ? "-filtered" : ""}-${filtered ? filter : ""}`}
           />
         ) : null}
       </Page>

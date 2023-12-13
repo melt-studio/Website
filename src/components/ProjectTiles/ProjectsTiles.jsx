@@ -18,12 +18,19 @@ export default function ProjectTiles({
 }) {
   const navigate = useNavigate();
   const [projectData, setProjectData] = useState([]);
+  const [count, setCount] = useState(1);
 
   useEffect(() => {
     if (filtered && history.length > 1) {
       window.scrollTo(0, window.innerHeight * 0.9);
     }
   }, [filtered, history]);
+
+  // useEffect(() => {
+  //   console.log("rendering projectTiles");
+
+  //   return () => console.log("unmount projectTiles");
+  // }, []);
 
   useEffect(() => {
     if (projects.length > 0) {
@@ -40,6 +47,8 @@ export default function ProjectTiles({
           xAxis,
           yAxis,
           width,
+          random,
+          tag,
           unofficials,
         } = project.fields;
 
@@ -74,6 +83,8 @@ export default function ProjectTiles({
           xAxis,
           yAxis,
           width,
+          random,
+          tag,
           unofficials: unofficials ? true : false,
         };
       });
@@ -110,6 +121,36 @@ export default function ProjectTiles({
     setBackgroundColor("#000000");
   };
 
+  useEffect(() => {
+    if (!mobile && filtered && projectData.length > 0) {
+      if (viewport.width >= 1280) {
+        const filter = projectData[0].tag;
+        const f = filter !== undefined && filter.length > 0 ? filter.trim().toLowerCase() : "print";
+        let sw = 0.3;
+        let mw = 400;
+        if (f === "motion") {
+          sw = 0.475;
+          mw = 1000;
+        }
+        const wv = Math.min(3480, viewport.width);
+        const p = Math.min(80, 0.05 * wv);
+        // console.log(p);
+        // const g = p;
+        const wa = wv - 2 * p;
+        const g = Math.min(80, 0.05 * wv);
+        // const g = 0;
+        const wi = Math.min(mw, sw * wa);
+        const n = (wv - 2 * p + g) / (wi + g);
+        // console.log(Math.floor(n));
+        setCount(Math.floor(n));
+      } else {
+        setCount(2);
+      }
+    } else {
+      setCount(1);
+    }
+  }, [viewport, mobile, filtered, projectData]);
+
   return (
     <div className={`projects${filtered ? " filtered" : ""}`} id="projects">
       {projectData.map((project, i) => (
@@ -125,6 +166,7 @@ export default function ProjectTiles({
           setLoaded={setLoaded}
           projectsAll={projectsAll}
           filtered={filtered}
+          count={count}
         />
       ))}
     </div>
