@@ -36,6 +36,7 @@ function App() {
   const [pageIsLoading, setPageIsLoading] = useState(false);
   const [title, setTitle] = useState("MELT");
   const [projectTags, setProjectTags] = useState([]);
+  const [filter, setFilter] = useState(null);
 
   const location = useLocation();
 
@@ -217,6 +218,7 @@ function App() {
         pageIsLoading={pageIsLoading}
         menuInfo={menuInfo}
         projectTags={projectTags}
+        setFilter={setFilter}
       >
         <MainContainer
           initial={initial}
@@ -240,6 +242,7 @@ function App() {
           other={other}
           menuInfo={menuInfo}
           navMenuOpen={navMenuOpen}
+          filter={filter}
         />
       </Layout>
       {!mobile && <Cursor ref={cursor} />}

@@ -34,6 +34,7 @@ export default function MainContainer({
   other,
   menuInfo,
   navMenuOpen,
+  filter,
 }) {
   const [adminMessage, setAdminMessage] = useState(null);
 
@@ -76,6 +77,7 @@ export default function MainContainer({
               scrollCutOff={scrollCutOff}
               history={history}
               menuInfo={menuInfo}
+              filter={filter}
             />
           }
         />
@@ -89,6 +91,7 @@ export default function MainContainer({
               mobile={mobile}
               viewport={viewport}
               setPageIsLoading={setPageIsLoading}
+              filter={filter}
             />
           }
         />

@@ -92,7 +92,7 @@ const NavMenuLinkText = ({ text, selected }) => (
   </motion.p>
 );
 
-const NavMenuLink = ({ link, closeNavMenu, projectTags }) => {
+const NavMenuLink = ({ link, closeNavMenu, projectTags, setFilter }) => {
   const [selected, setSelected] = useState(false);
 
   const location = useLocation();
@@ -133,6 +133,10 @@ const NavMenuLink = ({ link, closeNavMenu, projectTags }) => {
             link.classList.remove("selected");
           });
 
+          if (link.filter !== undefined) {
+            setFilter(link.filter);
+          }
+
           setSelected(true);
           if (link.href === "/" && location.pathname === "/") {
             window.scrollTo(0, 0);
@@ -152,7 +156,7 @@ const NavMenuLink = ({ link, closeNavMenu, projectTags }) => {
   );
 };
 
-function NavMenuItems({ closeNavMenu, menuInfo, projectTags }) {
+function NavMenuItems({ closeNavMenu, menuInfo, projectTags, setFilter }) {
   const isPresent = useIsPresent();
 
   useEffect(() => {
@@ -162,7 +166,7 @@ function NavMenuItems({ closeNavMenu, menuInfo, projectTags }) {
     return () => document.body.classList.remove("nav-menu-open");
   }, []);
 
-  const links = [{ text: "All Works", href: "/", nav: true }];
+  const links = [{ text: "All Works", href: "/", nav: true, filter: null }];
 
   projectTags.forEach((tag) => {
     links.push({ text: tag, href: `/?filter=${tag.toLowerCase()}`, nav: true, filter: tag.toLowerCase() });
@@ -184,6 +188,7 @@ function NavMenuItems({ closeNavMenu, menuInfo, projectTags }) {
               link={link}
               closeNavMenu={closeNavMenu}
               projectTags={projectTags}
+              setFilter={setFilter}
             />
           ))}
         </div>
@@ -235,14 +240,14 @@ const NavInfo = ({ menuInfo }) => {
   );
 };
 
-const NavMenu = ({ navMenuOpen, setNavMenuOpen, menuInfo, projectTags }) => {
+const NavMenu = ({ navMenuOpen, setNavMenuOpen, menuInfo, projectTags, setFilter }) => {
   const closeNavMenu = () => {
     setNavMenuOpen(false);
   };
 
   return (
     <FadeInOut isVisible={navMenuOpen} keyframes={keyframesContainer} className="nav-menu">
-      <NavMenuItems closeNavMenu={closeNavMenu} menuInfo={menuInfo} projectTags={projectTags} />
+      <NavMenuItems closeNavMenu={closeNavMenu} menuInfo={menuInfo} projectTags={projectTags} setFilter={setFilter} />
     </FadeInOut>
   );
 };

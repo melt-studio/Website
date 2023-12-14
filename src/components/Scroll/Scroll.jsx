@@ -50,6 +50,14 @@ const Scroll = ({ scroll = 0, loaded = true, other }) => {
     }
   }, [scroll, loaded, scrollText2]);
 
+  useEffect(() => {
+    if (scrollHelper.current && loaded && !timeoutId) {
+      if (window.scrollY > 20) {
+        scrollHelper.current.classList.add("hide");
+      }
+    }
+  }, [loaded, timeoutId]);
+
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (scrollHelper.current && loaded && !timeoutId) {
       if (latest > 20) {
