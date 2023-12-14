@@ -18,6 +18,7 @@ export default function Layout({
   pageIsLoading,
   menuInfo,
   projectTags,
+  setFilter,
 }) {
   return (
     <div id="layout">
@@ -45,6 +46,7 @@ export default function Layout({
           setNavMenuOpen={setNavMenuOpen}
           menuInfo={menuInfo}
           projectTags={projectTags}
+          setFilter={setFilter}
         />
       </nav>
 

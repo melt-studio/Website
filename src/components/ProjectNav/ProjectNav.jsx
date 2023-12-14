@@ -2,7 +2,7 @@ import TagLink from "../TagLink/TagLink.jsx";
 import FadeScroll from "../FadeScroll/FadeScroll.jsx";
 import "./ProjectNav.css";
 
-export default function ProjectNav({ prev, next }) {
+export default function ProjectNav({ prev, next, filter }) {
   return (
     <FadeScroll viewport={{ amount: 0 }} className="project-nav">
       <div className="project-nav__links">
@@ -11,7 +11,7 @@ export default function ProjectNav({ prev, next }) {
         </div>
 
         <div className="project-nav__link close">
-          <TagLink tag={{ text: "Close", href: "/" }} nav />
+          <TagLink tag={{ text: "Close", href: filter ? `/?filter=${filter}` : "/" }} nav />
         </div>
 
         <div className="project-nav__link next">

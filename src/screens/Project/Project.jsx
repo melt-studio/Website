@@ -8,7 +8,7 @@ import ProjectNav from "../../components/ProjectNav/ProjectNav.jsx";
 import Page from "../Page.jsx";
 import "./Project.css";
 
-const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading }) => {
+const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading, filter }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -134,7 +134,7 @@ const Project = ({ projects, cursor, mobile, viewport, history, setPageIsLoading
                   viewport={viewport}
                   secondary={true}
                 />
-                <ProjectNav prev={prev} next={next} />
+                <ProjectNav prev={prev} next={next} filter={filter} />
               </>
             )}
           </>

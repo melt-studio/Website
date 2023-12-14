@@ -27,7 +27,7 @@ keyframes`
   }
 `;
 
-export default function About({ aboutInfo, cursor, viewport, history, menuInfo }) {
+export default function About({ aboutInfo, cursor, viewport, history, menuInfo, filter }) {
   const [loading, setLoading] = useState(true);
   const [sectionTags, setSectionTags] = useState([]);
   const [aboutSections, setAboutSections] = useState([]);
@@ -105,7 +105,7 @@ export default function About({ aboutInfo, cursor, viewport, history, menuInfo }
       if (history.length > 1 && history[1].startsWith("/project/")) {
         back.href = history[1];
       } else {
-        back.href = "/";
+        back.href = filter ? `/?filter=${filter}` : "/";
       }
 
       setSectionTags([
@@ -137,7 +137,7 @@ export default function About({ aboutInfo, cursor, viewport, history, menuInfo }
 
       setLoading(false);
     }
-  }, [history, aboutInfo, menuInfo]);
+  }, [history, aboutInfo, menuInfo, filter]);
 
   const tagBlockSettings = {
     viewport: { amount: 0 },
@@ -173,7 +173,7 @@ export default function About({ aboutInfo, cursor, viewport, history, menuInfo }
               </div>
               {!loading && (
                 <FadeScroll viewport={{ amount: 0 }} className="about-backtowork-text">
-                  <Link id="about-backtowork-text" to="/" {...mouseEvents}>
+                  <Link id="about-backtowork-text" to={filter ? `/?filter=${filter}` : "/"} {...mouseEvents}>
                     Back To Work
                   </Link>
                 </FadeScroll>
