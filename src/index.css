@@ -2,13 +2,12 @@
 
 @font-face {
   font-family: "Helvetica Neue";
-  src: url("./src/assets/fonts/HelveticaNeue-Regular.otf") format("opentype");
+  src: url("/src/assets/fonts/HelveticaNeue-Regular.otf") format("opentype");
   font-weight: 400;
 }
 
 @theme {
-  --font-mono: "ballinger-mono", ui-monospace, SFMono-Regular, Menlo,
-    "Roboto Mono", monospace;
+  --font-mono: "ballinger-mono", ui-monospace, SFMono-Regular, Menlo, "Roboto Mono", monospace;
   --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
