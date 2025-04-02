@@ -1,38 +1,37 @@
-* {
-  box-sizing: border-box;
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("./src/assets/fonts/HelveticaNeue-Regular.otf") format("opentype");
+  font-weight: 400;
 }
 
-html {
-  background: #000000;
-
-  --yellow: #bcfc45;
-  --text-color: #ffffff;
-  --transition-fadescroll: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
-  --screen: 800px;
-  --font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  --cursor-scale: 1; /* of 80px */
+@theme {
+  --font-mono: "ballinger-mono", ui-monospace, SFMono-Regular, Menlo,
+    "Roboto Mono", monospace;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-body {
-  margin: 0;
-  font-family: var(--font-family);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: transparent;
-  transition: background-color 1s ease;
-  color: #ffffff;
-}
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply box-border;
+  }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
+  html {
+    @apply w-full h-dvh bg-black fixed overflow-hidden;
+  }
 
-a {
-  cursor: default;
-}
+  body {
+    @apply w-full h-full m-0 p-0 text-white bg-black;
+  }
 
-a:hover {
-  cursor: url("assets/images/cursor.svg") 5 0, pointer;
-  /* cursor: none; */
+  a {
+    text-decoration: none;
+  }
+
+  .control {
+    @apply uppercase font-mono tracking-tight flex items-center gap-2 h-10 w-60 rounded-full transition-colors duration-500 justify-center text-white/80;
+  }
 }
