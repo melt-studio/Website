@@ -44,7 +44,7 @@ const Text = ({ ready, overlay, intro }: { ready: boolean; overlay?: boolean; in
   return (
     <div
       className={`flex flex-col gap-12 items-center justify-center fixed top-1/2 left-1/2 px-5 -translate-1/2 text-center [transition:opacity_2s_2s,color_0.5s_0s] w-full tracking-tight mt-16 md:mt-0 ${
-        intro ? "animate-[fade_3s_ease-in-out_0.5s_forwards]" : ""
+        intro ? "animate-[fade_4s_ease-in-out_0.5s_forwards]" : ""
       } ${ready ? "" : "opacity-0"} ${overlay || intro ? "" : "mix-blend-overlay"}`}
     >
       <div className="uppercase flex flex-col items-center justify-center font-regular leading-[1] gap-[calc(0.25vw+1.25rem)] text-xl md:text-[calc(0.15vw+1.3rem)]">

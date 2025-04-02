@@ -94,12 +94,12 @@ export const fragmentShader = /* glsl */ `
       uResolution.x > uResolution.y ? 1. : uResolution.y / uResolution.x 
     );
 
-    float time = uTime * .3333;
+    float time = uTime * .2;
 
-    float delay = 1.;
+    float delay = 1.5;
     float t0 = 0.;
     float ts0 = delay;
-    float ld0 = 2.5;
+    float ld0 = 3.;
     float te0 = ts0 + ld0;
     if (uTime < ts0) t0 = 0.;
     else if (uTime < te0) t0 = map(uTime, ts0, te0, 0., 1.);
