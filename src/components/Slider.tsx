@@ -9,14 +9,7 @@ type SliderProps = {
   step?: number;
 };
 
-const Slider = ({
-  label,
-  value,
-  onChange,
-  step = 0.01,
-  min = 0,
-  max = 1,
-}: SliderProps) => {
+const Slider = ({ label, value, onChange, step = 0.01, min = 0, max = 1 }: SliderProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(Number(e.target.value));
   };
@@ -34,7 +27,7 @@ const Slider = ({
               transform: "translateX(-50%)",
             }}
           >
-            <div className="w-3 h-3 bg-white rounded-full"></div>
+            <div className="w-2 h-2 bg-white rounded-full"></div>
           </div>
         </div>
         <input

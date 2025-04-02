@@ -96,10 +96,10 @@ export const fragmentShader = /* glsl */ `
 
     float time = uTime * .3333;
 
-    float delay = 0.;
+    float delay = 1.;
     float t0 = 0.;
     float ts0 = delay;
-    float ld0 = 2.;
+    float ld0 = 2.5;
     float te0 = ts0 + ld0;
     if (uTime < ts0) t0 = 0.;
     else if (uTime < te0) t0 = map(uTime, ts0, te0, 0., 1.);
@@ -108,8 +108,8 @@ export const fragmentShader = /* glsl */ `
     float ld = 2.;
 
     float distort = uDistortion;
-    distort *= smoothstep(0., 1., mix(1. - pow(vUv.y, 2.), 1., uDistortion));
-    distort = smoothstep(0., 1., distort); 
+    distort *= mix(smoothstep(0., 1., 1.-vUv.y), 1., smoothstep(.5, 1., distort));
+    distort = smoothstep(0., .5, distort);
 
     vec2 uv = vUv;
 
@@ -126,12 +126,18 @@ export const fragmentShader = /* glsl */ `
     for (float i = 0.0; i < 8.; i++) {
       p.x += sin(p.y + i + time * .5);
       p *= mat2(6, -8, 8, 6) / 8.;
+      vec2 q = vec2(time, -time / 2.);
+      q *= 8. / mat2(6, -8, 8, 6);
+      p -= q * .5;
     }
 
     vec2 p2 = vUv * 5.;
     for (float i = 0.0; i < 8.; i++) {
       p2.x += sin(p2.y + i + time * .5 + 0.2);
       p2 *= mat2(6, -8, 8, 6) / 8.;
+      vec2 q = vec2(time, -time / 2.);
+      q *= 8. / mat2(6, -8, 8, 6);
+      p2 -= q * .5;
     }
 
     vec3 colx = (sin(vec4(p.y, p2.x, p2.xy) * .6) * .5 + .5).xyz;
@@ -147,7 +153,8 @@ export const fragmentShader = /* glsl */ `
     float d2 = length(vUv - .5)  + .75;
     d = smin(d, d2, .2);
     
-    d += rand(vUv + d) * .05 * (.5 + .5 * smoothstep(.9, 1., 1. - uColors));
+    // d += rand(vUv + d) * .006 * (.5 + .5 * smoothstep(.9, 1., 1. - uColors));
+    d += rand(vUv + d) * .006 * uDistortion;
     float t = mod(time - d, ld) / ld;
     t = mix(t, xx, distort);
 
@@ -182,6 +189,9 @@ export const fragmentShader = /* glsl */ `
     col = mix(col, colorA, smoothstep(.6666, 1., uColors));
 
     col *= t0;
+
+
+    col += rand(vUv + time*0.) * .05;
 
     gl_FragColor = vec4(col, 1.);
   }

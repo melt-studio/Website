@@ -9,6 +9,21 @@
 @theme {
   --font-mono: "ballinger-mono", ui-monospace, SFMono-Regular, Menlo, "Roboto Mono", monospace;
   --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    35% {
+      opacity: 0.8;
+    }
+    60% {
+      opacity: 0.8;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
 }
 
 @layer base {
@@ -31,6 +46,6 @@
   }
 
   .control {
-    @apply uppercase font-mono tracking-tight flex items-center gap-2 h-10 w-60 rounded-full transition-colors duration-500 justify-center text-white/80;
+    @apply uppercase font-mono tracking-tight flex items-center gap-2 h-10 md:h-8 w-60 md:w-fit rounded-full transition-colors duration-500 justify-center text-white/80;
   }
 }
