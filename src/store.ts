@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { BackgroundMesh } from "./types";
+import { BackgroundMesh, Doc } from "./types";
 import config from "./config.json";
 
 type State = {
@@ -11,6 +11,8 @@ type State = {
     waves: number;
     distortion: number;
   };
+  documents: Doc[];
+  document: Doc | null;
 };
 
 type Actions = {
@@ -24,6 +26,8 @@ const initialState = {
   controls: {
     ...config.controls,
   },
+  documents: [],
+  document: null,
 };
 
 type Store = State & Actions;
