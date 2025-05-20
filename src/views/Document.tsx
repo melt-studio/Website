@@ -6,7 +6,7 @@ import Logo from "../components/Logo";
 
 const Document = () => {
   return (
-    <div className="w-screen h-screen p-10">
+    <div className="w-screen h-screen pt-10">
       <div className="w-full h-full flex flex-col gap-10 animate-[fadeIn_1s_ease-in-out] items-center">
         <div className="flex items-center gap-4">
           <a href="/">
