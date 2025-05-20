@@ -109,7 +109,7 @@ const unlockDocument = async (id: string | undefined, userPassword: string | und
     if (!response.data) return pass({ error: "Document not found" }, 404);
 
     if (response.data.fields.password !== userPassword) {
-      return pass({ error: "Incorred Password" }, 401);
+      return pass({ error: "Incorrect Password" }, 401);
     }
 
     return formatDocument(response.data, true);

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "/.netlify/functions/documents";
+const baseUrl = "/.netlify/functions/document";
 
 const getDocument = async (pageUrl: string) => {
   const response = await axios.put(baseUrl, { pageUrl });

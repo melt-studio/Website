@@ -1,6 +1,6 @@
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router";
-import documentService from "../services/documents";
+import documentService from "../services/document";
 import { Doc, DocMedia } from "../types";
 import Logo from "../components/Logo";
 
