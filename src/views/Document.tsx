@@ -10,9 +10,9 @@ const Document = () => {
       <div className="w-full h-full flex flex-col animate-[fadeIn_1s_ease-in-out] items-center">
         <div className="flex items-center gap-4 grow w-full h-fit p-4 justify-center relative z-2 h-15">
           <a href="/">
-            <LogoFull height={28} />
+            <LogoFull height={25} />
           </a>
-          <a className="uppercase px-4 text-sm absolute right-4" href="mailto:hello@melt.works">
+          <a className="uppercase px-4 text-sm absolute right-4 font-mono" href="mailto:hello@melt.works">
             Say Hi
           </a>
         </div>
@@ -170,7 +170,7 @@ const DocumentContent = () => {
       <div className="w-full h-full relative">
         <div
           className={
-            embedUrl.includes("figma.com/proto") ? "absolute -left-12 -top-15 -right-12 -bottom-15" : "w-full h-full"
+            embedUrl.includes("figma.com/proto") ? "absolute -left-12 -top-15 -right-12 -bottom-4" : "w-full h-full"
           }
         >
           <iframe src={embedUrl} allowFullScreen className="w-full h-full animate-[fadeIn_1s_ease-in-out] z-1" />
@@ -181,8 +181,14 @@ const DocumentContent = () => {
 
   if (media && media.length > 0) {
     return (
-      <div className="w-full h-full flex items-center justify-center">
-        <Media media={media[0]} />
+      <div className="w-full h-full relative flex items-center justify-center">
+        <div
+          className={`${
+            media[0].type === "application/pdf" ? "w-full h-full" : "absolute top-0 left-0 right-0 bottom-9"
+          } flex items-center justify-center`}
+        >
+          <Media media={media[0]} />
+        </div>
       </div>
     );
   }
