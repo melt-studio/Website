@@ -2,15 +2,18 @@ import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router";
 import documentService from "../services/document";
 import { Doc, DocMedia } from "../types";
-import Logo from "../components/Logo";
+import LogoFull from "../components/LogoFull";
 
 const Document = () => {
   return (
-    <div className="w-screen h-screen pt-10">
-      <div className="w-full h-full flex flex-col gap-10 animate-[fadeIn_1s_ease-in-out] items-center">
-        <div className="flex items-center gap-4">
+    <div className="w-screen h-screen">
+      <div className="w-full h-full flex flex-col animate-[fadeIn_1s_ease-in-out] items-center">
+        <div className="flex items-center gap-4 grow w-full h-fit p-4 justify-center relative z-2 h-15">
           <a href="/">
-            <Logo fill="#ffffff" width={40} />
+            <LogoFull height={25} />
+          </a>
+          <a className="uppercase px-4 text-sm absolute right-4 font-mono" href="mailto:hello@melt.works">
+            Say Hi
           </a>
         </div>
         <DocumentContent />
@@ -60,6 +63,9 @@ const DocumentContent = () => {
     try {
       const response = await documentService.unlockDocument(doc.id, password);
       setDoc(response);
+      setPassword("");
+      setInvalid(null);
+      setChecking(false);
     } catch {
       // console.log(error);
       setInvalid("Incorrect Password");
@@ -84,7 +90,7 @@ const DocumentContent = () => {
 
   if (locked) {
     return (
-      <div className="flex flex-col gap-10 items-center justify-center w-full h-full pb-10 animate-[fadeIn_1s_ease-in-out]">
+      <div className="flex flex-col gap-10 items-center justify-center w-full h-full p-10 animate-[fadeIn_1s_ease-in-out]">
         <form className="flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -160,13 +166,29 @@ const DocumentContent = () => {
   }
 
   if (embedUrl) {
-    return <iframe src={embedUrl} allowFullScreen className="w-full h-full animate-[fadeIn_1s_ease-in-out]" />;
+    return (
+      <div className="w-full h-full relative">
+        <div
+          className={
+            embedUrl.includes("figma.com/proto") ? "absolute -left-12 -top-15 -right-12 -bottom-4" : "w-full h-full"
+          }
+        >
+          <iframe src={embedUrl} allowFullScreen className="w-full h-full animate-[fadeIn_1s_ease-in-out] z-1" />
+        </div>
+      </div>
+    );
   }
 
   if (media && media.length > 0) {
     return (
-      <div className="w-full h-full flex items-center justify-center">
-        <Media media={media[0]} />
+      <div className="w-full h-full relative flex items-center justify-center">
+        <div
+          className={`${
+            media[0].type === "application/pdf" ? "w-full h-full" : "absolute top-0 left-0 right-0 bottom-9"
+          } flex items-center justify-center`}
+        >
+          <Media media={media[0]} />
+        </div>
       </div>
     );
   }
@@ -176,11 +198,11 @@ const Media = ({ media }: { media: DocMedia }) => {
   const { url, type } = media;
 
   if (type === "video/mp4") {
-    return <video src={url} controls />;
+    return <video src={url} controls className="object-contain max-w-full max-h-full" />;
   } else if (type === "application/pdf") {
     return <embed src={url} className="w-full h-full" />;
   } else if (["image/png", "image/jpeg", "image/gif"].includes(type)) {
-    return <img src={url} />;
+    return <img src={url} className="object-contain max-w-full max-h-full" />;
   } else {
     console.log("Unknown media type");
     return <Navigate to="/" />;
