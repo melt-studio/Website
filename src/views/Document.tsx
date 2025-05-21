@@ -12,9 +12,12 @@ const Document = () => {
           <a href="/">
             <LogoFull height={25} />
           </a>
-          <a className="uppercase px-4 text-sm absolute right-4 font-mono" href="mailto:hello@melt.works">
-            Say Hi
-          </a>
+          <div className="px-4 absolute right-4">
+            <a className="uppercase text-sm font-mono font-light group relative" href="mailto:hello@melt.works">
+              <span>Say Hi</span>
+              <span className="h-px w-full bg-transparent absolute -bottom-1 left-0 group-hover:bg-white transition-colors"></span>
+            </a>
+          </div>
         </div>
         <DocumentContent />
       </div>

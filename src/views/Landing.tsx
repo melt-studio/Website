@@ -49,7 +49,9 @@ const Text = ({ ready, overlay, intro }: { ready: boolean; overlay?: boolean; in
     >
       <div className="uppercase flex flex-col items-center justify-center font-regular leading-[1] gap-[calc(0.25vw+1.25rem)] text-xl md:text-[calc(0.15vw+1.3rem)]">
         <div className={`pointer-events-none ${overlay ? "invisible" : ""}`}>
-          <p>MELT IS A CREATIVE STUDIO</p>
+          <p>
+            MELT IS A CREATIVE STUDIO <span className="relative -top-0.5">—</span>
+          </p>
           <p>OUR NEW SITE DROPS SOON</p>
         </div>
         <div>
