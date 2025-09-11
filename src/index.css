@@ -3,14 +3,14 @@
 }
 
 html {
-  background: #000000;
+  background: #c1c1c1;
 
   --yellow: #bcfc45;
-  --text-color: #ffffff;
+  --text-color: #1b1b1b;
   --transition-fadescroll: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
   --screen: 800px;
-  --font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --font-family: "ballinger-mono", "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   --cursor-scale: 1; /* of 80px */
 }
 
@@ -21,7 +21,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: transparent;
   transition: background-color 1s ease;
-  color: #ffffff;
+  color: #1b1b1b;
 }
 
 code {

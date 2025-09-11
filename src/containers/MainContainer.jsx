@@ -3,12 +3,13 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import About from "../screens/About/About.jsx";
 import Home from "../screens/Home/Home.jsx";
 import Project from "../screens/Project/Project.jsx";
-import Other from "../screens/Other/Other.jsx";
+// import Other from "../screens/Other/Other.jsx";
 import Admin from "../screens/Admin/Admin.jsx";
 import AdminConfig from "../screens/Admin/AdminConfig.jsx";
 import TempLandingPage from "../screens/TempLandingPage/TempLandingPage.jsx";
 import NotFound from "../screens/NotFound/NotFound.jsx";
 import { AnimatePresence } from "framer-motion";
+import Document from "../screens/Document/Document.jsx";
 
 export default function MainContainer({
   initial,
@@ -96,10 +97,12 @@ export default function MainContainer({
           }
         />
 
-        <Route
+        <Route path="/docs/:path" element={<Document />} />
+
+        {/* <Route
           path="/:type/:id"
           element={<Other embeds={embeds} config={config} cursor={cursor} mobile={mobile} viewport={viewport} />}
-        />
+        /> */}
 
         <Route
           path="/"

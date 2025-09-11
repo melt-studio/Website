@@ -8,6 +8,7 @@ import { cursorEvents } from "../Cursor/Cursor";
 import "./NavBar.css";
 
 import DrippyLogo from "./DrippyLogo.jsx";
+import LogoFull from "../LogoFull.jsx";
 // import DrippyLogoStroke from "./DrippyLogoStroke.jsx";
 
 const keyframes = {
@@ -94,7 +95,8 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
               onMouseLeave={() => cursorEvents.onMouseLeave()}
             >
               {/* {location.pathname.includes("/about") ? <DrippyLogoStroke /> : <DrippyLogo />} */}
-              <DrippyLogo />
+              {/* <DrippyLogo /> */}
+              <LogoFull height={20} />
               {/* <span className="drippylogo"></span> */}
               {/* <img src={DrippyIcon} alt="MELT logo" /> */}
             </div>

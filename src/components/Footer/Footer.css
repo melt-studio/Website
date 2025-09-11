@@ -2,7 +2,7 @@
   display: flex;
   padding: 30px 5% 30px;
   justify-content: space-between;
-  color: #ffffff;
+  color: #1b1b1b;
   opacity: 0;
   transform: translate(0, -15px);
   transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
