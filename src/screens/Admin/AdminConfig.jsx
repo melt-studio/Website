@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import WaterfallAnimation from "../../components/WaterfallAnimation/index.js";
-import LogoAnimation from "../../components/LogoAnimation/index.js";
+import WaterfallAnimation from "../../components/WaterfallAnimation/index.jsx";
+import LogoAnimation from "../../components/LogoAnimation/index.jsx";
 import Page from "../Page.jsx";
 import "./Admin.css";
 

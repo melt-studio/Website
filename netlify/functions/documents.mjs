@@ -1,9 +1,8 @@
-/* eslint-disable indent */
 import axios from "axios";
 
-const KEY = process.env.REACT_APP_AIRTABLE_KEY;
-const APP = process.env.REACT_APP_AIRTABLE_APP;
-const TABLE = process.env.REACT_APP_AIRTABLE_TABLE_DOCUMENTS;
+const KEY = Netlify.env.get("REACT_APP_AIRTABLE_KEY");
+const APP = Netlify.env.get("REACT_APP_AIRTABLE_APP");
+const TABLE = Netlify.env.get("REACT_APP_AIRTABLE_TABLE_DOCUMENTS");
 const URL = `${APP}/${TABLE}`;
 
 const headers = { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" };

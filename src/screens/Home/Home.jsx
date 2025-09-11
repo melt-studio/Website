@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 import Background from "../../components/Background/Background";
 import IntroAnimation from "../../components/IntroAnimation/IntroAnimation.jsx";
 import ProjectTiles from "../../components/ProjectTiles/ProjectsTiles.jsx";
-import LogoAnimation from "../../components/LogoAnimation/index.js";
+import LogoAnimation from "../../components/LogoAnimation/index.jsx";
 import Page from "../Page";
 import Scroll from "../../components/Scroll/Scroll";
 import "./Home.css";
