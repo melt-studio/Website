@@ -4,5 +4,11 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
+  assetsInclude: ["**/*.obj"],
+  server: {
+    proxy: {
+      "/.netlify/functions/": "http://localhost:9999/",
+    },
+  },
   plugins: [react(), tailwindcss()],
 });
