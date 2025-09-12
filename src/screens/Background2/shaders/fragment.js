@@ -187,9 +187,11 @@ export const fragmentShader = /* glsl */ `
     }
     col = mix(col, colorA, smoothstep(.6666, 1., uColors));
 
-    col = mix(vec3(193.)/255., col, t0);
 
     col += rand(vUv) * .05;
+
+    col = mix(vec3(193.)/255., col, t0);
+
 
     gl_FragColor = vec4(col, 1.);
   }
