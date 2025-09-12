@@ -3,6 +3,7 @@
   height: fit-content;
   position: relative;
   margin: 0 0 0.35rem;
+  text-transform: uppercase;
 }
 
 .nav-menu .tag-link {
@@ -26,8 +27,12 @@
 .tag-link-nav h3,
 .nav-menu .tag-link h3 {
   text-transform: uppercase;
-  color: #ffffff;
+  color: #1b1b1b;
   transition: font-variation-settings 0.3s ease, color 0.5s ease;
+}
+
+.dissolve-page .nav-bar .tag-link h3 {
+  color: #ecece9;
 }
 
 .nav-bar .tag-link:hover h3,
@@ -69,7 +74,7 @@
 
 .nav-bar .tag-link .tag-link-underline hr,
 .tag-link-nav .tag-link-underline hr {
-  background: #ffffff;
+  background: #1b1b1b;
 }
 
 .about-page .nav-bar .tag-link .tag-link-underline hr,

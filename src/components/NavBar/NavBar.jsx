@@ -9,6 +9,7 @@ import "./NavBar.css";
 
 import DrippyLogo from "./DrippyLogo.jsx";
 import LogoFull from "../LogoFull.jsx";
+import Controls from "../../screens/Background2/Controls.jsx";
 // import DrippyLogoStroke from "./DrippyLogoStroke.jsx";
 
 const keyframes = {
@@ -78,10 +79,10 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
   };
 
   return (
-    <FadeInOut
-      isVisible={isVisible}
-      transition={{ duration: 1, delay: location.pathname === "/about" ? 0.5 : 0, ease: "easeInOut" }}
-      keyframes={keyframes}
+    <div
+      // isVisible={isVisible}
+      // transition={{ duration: 1, delay: location.pathname === "/about" ? 0.5 : 0, ease: "easeInOut" }}
+      // keyframes={keyframes}
       className="nav-bar"
     >
       <div className="nav-bar__items">
@@ -96,11 +97,42 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
             >
               {/* {location.pathname.includes("/about") ? <DrippyLogoStroke /> : <DrippyLogo />} */}
               {/* <DrippyLogo /> */}
-              <LogoFull height={20} />
+              <LogoFull height={28} />
               {/* <span className="drippylogo"></span> */}
               {/* <img src={DrippyIcon} alt="MELT logo" /> */}
             </div>
           </div>
+        )}
+
+        {location.pathname.includes("/dissolve") ? (
+          <>
+            <Controls />
+            <div className="nav-bar__logo nav-bar__item">
+              <div className="nav-bar__item">
+                <TagLink tag={{ text: "Home", href: "/" }} nav />
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="nav-bar__logo nav-bar__item">
+              <div className="nav-bar__item">
+                <TagLink tag={{ text: "Work", href: "/" }} nav />
+              </div>
+            </div>
+
+            <div className="nav-bar__logo nav-bar__item">
+              <div className="nav-bar__item">
+                <TagLink tag={{ text: "About Us", href: "/about" }} nav />
+              </div>
+            </div>
+
+            <div className="nav-bar__logo nav-bar__item">
+              <div className="nav-bar__item">
+                <TagLink tag={{ text: "Dissolve", href: "/dissolve" }} nav />
+              </div>
+            </div>
+          </>
         )}
 
         {location.pathname.includes("/admin") && loggedIn && (
@@ -123,7 +155,7 @@ const NavBar = ({ mobile, viewport, scrollCutOff, loggedIn, setLoggedIn, setNavM
           </>
         )}
       </div>
-    </FadeInOut>
+    </div>
   );
 };
 

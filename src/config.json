@@ -1,0 +1,36 @@
+{
+  "id": "092d3c73-157f-4d95-896b-ba227ae2ec8a",
+  "gradient": [
+    {
+      "hex": "#000000",
+      "stop": 0,
+      "id": "color0"
+    },
+    { "hex": "#8077E9", "stop": 0.35, "id": "color1" },
+    { "hex": "#77F80F", "stop": 0.52, "id": "color2" },
+    { "hex": "#07AB96", "stop": 0.8, "id": "color3" },
+    { "hex": "#77F80F", "stop": 0.92, "id": "color4" }
+  ],
+  "gradients": [
+    {
+      "id": "gradient1",
+      "fixed": true,
+      "colors": [
+        {
+          "hex": "#000000",
+          "stop": 0,
+          "id": "color0"
+        },
+        { "hex": "#8077E9", "stop": 0.35, "id": "color1" },
+        { "hex": "#77F80F", "stop": 0.52, "id": "color2" },
+        { "hex": "#07AB96", "stop": 0.8, "id": "color3" },
+        { "hex": "#77F80F", "stop": 0.92, "id": "color4" }
+      ]
+    }
+  ],
+  "controls": {
+    "colors": 0,
+    "waves": 0,
+    "distortion": 0
+  }
+}

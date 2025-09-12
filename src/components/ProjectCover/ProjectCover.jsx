@@ -29,7 +29,7 @@ const ProjectCover = ({ project, overlay, loading, setLoading, mobile, viewport,
     .map((c) => c.trim())
     .slice(0, 2);
   if (background.length === 0)
-    background[0] = "#000000"; // fallback bacground if not set in airtable (validate data in services)
+    background[0] = "#C1C1C1"; // fallback bacground if not set in airtable (validate data in services)
   else if (background.length === 1) background.push(background[0]);
 
   const style = {

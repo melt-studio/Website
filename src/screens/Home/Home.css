@@ -40,7 +40,8 @@
 
 @media (min-width: 800px) {
   .projects {
-    margin-top: 100vh;
-    margin-top: 100dvh;
+    /* margin-top: 100vh;
+    margin-top: 100dvh; */
+    margin-top: 0;
   }
 }

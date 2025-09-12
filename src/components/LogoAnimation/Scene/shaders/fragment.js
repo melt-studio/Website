@@ -151,7 +151,10 @@ const fragment = /* glsl */ `
     color.r += texture2D(uLogo, newUv + off + cOff * sin(uTime * 2.) + cOff2 * sin(uTime * 2.)).r;
     color.g += texture2D(uLogo, newUv + off).g;
     color.b += texture2D(uLogo, newUv + off - cOff * sin(uTime + newUv.x * 1.) - cOff2 * sin(uTime * 2.)).b;
+
     color.a = 1.;
+
+    // color.rgb = 1. - color.rgb;
 
     // Hide image overflow
     if (newUv.x + off.x < 0. || newUv.x + off.x >= 1. || newUv.y + off.y < 0. || newUv.y + off.y >= 1.) color.rgb *= 0.; 
@@ -175,8 +178,12 @@ const fragment = /* glsl */ `
     // a *= mix(1., .0, ft);
     color.a = mix(a, 1., uControls);
 
+    color.rgb = mix(color.rgb, 1.-color.rgb, 1.);
+
     color += c * float(uShowMouse);
     color += vec4(normal, 1.) * float(uNormal);
+
+    // color = vec4(1., 0., 0., 1.);
 
     gl_FragColor = color;
   }

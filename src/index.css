@@ -1,38 +1,81 @@
-* {
-  box-sizing: border-box;
+@import "tailwindcss";
+
+@theme {
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    35% {
+      opacity: 0.8;
+    }
+    60% {
+      opacity: 0.8;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opaicty: 1;
+    }
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 }
 
-html {
-  background: #c1c1c1;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
 
-  --yellow: #bcfc45;
-  --text-color: #1b1b1b;
-  --transition-fadescroll: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
-  --screen: 800px;
-  --font-family: "ballinger-mono", "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  --cursor-scale: 1; /* of 80px */
-}
+  html {
+    background: #c1c1c1;
 
-body {
-  margin: 0;
-  font-family: var(--font-family);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: transparent;
-  transition: background-color 1s ease;
-  color: #1b1b1b;
-}
+    --yellow: #bcfc45;
+    --text-color: #1b1b1b;
+    --transition-fadescroll: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+    --screen: 800px;
+    --font-family: "ballinger-mono", "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    --cursor-scale: 1; /* of 80px */
+  }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
+  body {
+    margin: 0;
+    font-family: var(--font-family);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: transparent;
+    transition: background-color 1s ease;
+    color: #1b1b1b;
+  }
 
-a {
-  cursor: default;
-}
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  }
 
-a:hover {
-  cursor: url("assets/images/cursor.svg") 5 0, pointer;
-  /* cursor: none; */
+  a {
+    cursor: default;
+  }
+
+  a:hover {
+    cursor: url("assets/images/cursor.svg") 5 0, pointer;
+    /* cursor: none; */
+  }
+
+  .control {
+    @apply uppercase font-mono tracking-tight flex items-center gap-2 h-10 md:h-8 w-60 md:w-fit rounded-full transition-colors duration-500 justify-center text-white/80;
+  }
 }

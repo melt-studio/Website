@@ -14,12 +14,12 @@ a {
 }
 
 .page a {
-  color: #ffffff;
+  color: #1b1b1b;
   transition: color 0.5s ease;
 }
 
 .about-page .page a {
-  color: #000000;
+  color: #1b1b1b;
 }
 
 .page a:hover {
@@ -35,7 +35,7 @@ a {
 }
 
 .about-page .page {
-  background: #ffffff;
+  background: #ecece9;
   color: #000000;
 }
 
@@ -78,7 +78,7 @@ h1,
 .project-text .subtitle-text {
   /* font-size: 15px; */
   font-size: 13.5px;
-  text-transform: none;
+  /* text-transform: none; */
   font-weight: 300;
 }
 

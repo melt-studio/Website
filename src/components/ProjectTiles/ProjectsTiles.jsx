@@ -128,7 +128,7 @@ export default function ProjectTiles({
     //   Array.from(cursor.current.children).forEach((c) => (c.style.fill = "transparent"));
     // }
 
-    setBackgroundColor("#000000");
+    setBackgroundColor("#c1c1c1");
   };
 
   useEffect(() => {

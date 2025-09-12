@@ -11,7 +11,7 @@ import fragmentShader from "./shaders/fragment";
 const Background = ({
   backgroundColor,
   multiple = false,
-  multiColors = [0x000000, 0x333333],
+  multiColors = [0xc1c1c1, 0xc1c1c1],
   multiLoaded = false,
   viewport,
   cursor = false,
@@ -37,16 +37,16 @@ const Background = ({
 
   const uniforms = useMemo(() => {
     const uniforms = {
-      uColor1: { value: new Color(0x000000) },
-      uColor2: { value: new Color(0x000000) },
+      uColor1: { value: new Color(0xc1c1c1) },
+      uColor2: { value: new Color(0xc1c1c1) },
       uTime: { value: 0 },
       uCount: { value: 2 },
       uMultiple: { value: 0 },
-      uC0: { value: new Color() },
-      uC1: { value: new Color() },
-      uC2: { value: new Color() },
-      uC3: { value: new Color() },
-      uC4: { value: new Color() },
+      uC0: { value: new Color(0xc1c1c1) },
+      uC1: { value: new Color(0xc1c1c1) },
+      uC2: { value: new Color(0xc1c1c1) },
+      uC3: { value: new Color(0xc1c1c1) },
+      uC4: { value: new Color(0xc1c1c1) },
       uScroll: { value: 0 },
       uMultiLoaded: { value: new Vector2(0, 0) },
       uCursor: { value: cursor },
@@ -66,7 +66,7 @@ const Background = ({
       if (c[0]) {
         background1.current.style.backgroundColor = c[0];
       } else {
-        background1.current.style.backgroundColor = "#000000";
+        background1.current.style.backgroundColor = "#C1C1C1";
       }
     }
 
@@ -110,8 +110,8 @@ const Mesh = ({ background, background1, background2, uniforms, multiColors, mul
   const [styles1, styles2, color1, color2] = useMemo(() => {
     const styles1 = background1 && background1.current ? window.getComputedStyle(background1.current) : null;
     const styles2 = background2 && background2.current ? window.getComputedStyle(background2.current) : null;
-    const color1 = new Color();
-    const color2 = new Color();
+    const color1 = new Color(0xc1c1c1);
+    const color2 = new Color(0xc1c1c1);
     return [styles1, styles2, color1, color2];
   }, [background1, background2]);
 

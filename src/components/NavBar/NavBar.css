@@ -9,10 +9,11 @@
 .nav-bar__items {
   display: flex;
   align-items: center;
-  justify-content: center;
   position: relative;
-  padding: 0 20px;
-  height: 40px;
+  padding: 0 30px;
+  height: 80px;
+  justify-content: space-between;
+  text-transform: uppercase;
 }
 
 .nav-bar__item-holder {
@@ -25,6 +26,7 @@
 .nav-bar .tag-link h3 {
   font-size: 17px;
   font-weight: 300;
+  text-transform: uppercase;
 }
 
 .nav-bar__item {
@@ -38,30 +40,34 @@
 .nav-bar__logo img,
 .nav-bar__logo svg {
   width: auto;
-  height: 40px;
-  width: 40px;
+  height: 28px;
+  /* width: 40px; */
   transform: scale(1);
   position: relative;
-  top: 15px;
+  /* top: 15px; */
   transition: transform 0.5s ease, fill 0.5s ease, stroke 0.5s ease;
-  fill: #ffffff;
+  fill: #1b1b1b;
 }
 
 .about-page .nav-bar__logo svg {
-  fill: #000000;
+  /* fill: #000000; */
   /* stroke: #000000; */
   /* stroke-width: 0.75;
   overflow: visible; */
 }
 
+.dissolve-page .nav-bar__logo svg {
+  fill: #ecece9;
+}
+
 .nav-bar__logo img:hover,
 .nav-bar__logo svg:hover {
-  transform: scale(1.2);
+  /* transform: scale(1.2); */
   transition: transform 0.5s ease;
   /* cursor: pointer; */
   cursor: url("../../assets/images/cursor.svg") 5 0, pointer;
   /* cursor: none; */
-  fill: var(--yellow);
+  /* fill: var(--yellow); */
 }
 
 .about-page .nav-bar__logo svg:hover {

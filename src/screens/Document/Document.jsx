@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import documentService from "../../services/documents";
 import LogoFull from "../../components/LogoFull";
-import "../../output.css";
 
 const Document = () => {
   return (

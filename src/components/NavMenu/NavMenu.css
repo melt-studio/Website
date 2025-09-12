@@ -5,7 +5,7 @@
   height: 100dvh;
   overflow-y: auto;
   z-index: 998;
-  background-color: #000000;
+  background-color: #ecece9;
   display: flex;
   transition: height 0.75s;
   display: flex;
@@ -29,6 +29,7 @@
   /* width: 200px; */
   /* max-width: 600px; */
   /* width: fit-content; */
+  text-transform: uppercase;
   display: flex;
   /* flex-direction: column; */
   order: 2;
@@ -94,7 +95,7 @@
 
 .nav-menu__link {
   width: fit-content;
-  color: white;
+  color: #1b1b1b;
   font-weight: 250;
   letter-spacing: -0.0125em;
   word-spacing: 0.2rem;

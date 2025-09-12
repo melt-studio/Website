@@ -28,7 +28,7 @@ export default function Home({
   setPageIsLoading,
   navMenuOpen,
 }) {
-  const [backgroundColor, setBackgroundColor] = useState("#000000");
+  const [backgroundColor, setBackgroundColor] = useState("#C1C1C1");
   const [fadeAnimation, setFadeAnimation] = useState(false);
   const [fromProject, setFromProject] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -184,6 +184,11 @@ export default function Home({
             <LogoAnimation serverConfig={config} fade={fadeAnimation} fromProject={fromProject} cursor={cursor} />
           </div>
         )}
+        <div className="mt-[100dvh] h-screen w-full text-center flex items-center justify-center">
+          <div className="font-serif text-[100px]/25 w-5/6">
+            MELT is a creative studio focused on branding & entertainment. We make ideas that stick.
+          </div>
+        </div>
         {filteredProjects.length > 0 ? (
           <ProjectTiles
             setLoaded={setLoaded}

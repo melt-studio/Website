@@ -10,8 +10,8 @@ import Trail from "./Trail";
 import vertexPass from "./shaders/vertex";
 import fragmentPass from "./shaders/fragment";
 
-import meltLogo from "../assets/textures/melt_logo.png";
-import meltLogoFade from "../assets/textures/melt_logo_fade.png";
+import meltLogo from "../assets/textures/melt_logo2.png";
+import meltLogoFade from "../assets/textures/melt_logo_fade2.png";
 import refractionGeometry from "../assets/models/refraction_geometry.obj";
 import { blur } from "../../helpers/blurTexture";
 

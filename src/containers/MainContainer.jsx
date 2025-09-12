@@ -10,6 +10,7 @@ import TempLandingPage from "../screens/TempLandingPage/TempLandingPage.jsx";
 import NotFound from "../screens/NotFound/NotFound.jsx";
 import { AnimatePresence } from "framer-motion";
 import Document from "../screens/Document/Document.jsx";
+import Background2 from "../screens/Background2/Background2.jsx";
 
 export default function MainContainer({
   initial,
@@ -103,6 +104,8 @@ export default function MainContainer({
           path="/:type/:id"
           element={<Other embeds={embeds} config={config} cursor={cursor} mobile={mobile} viewport={viewport} />}
         /> */}
+
+        <Route path="/dissolve" element={<Background2 />} />
 
         <Route
           path="/"

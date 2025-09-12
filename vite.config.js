@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwind from "@tailwindcss/vite";
 
 export default defineConfig({
   assetsInclude: ["**/*.obj"],
@@ -8,5 +9,5 @@ export default defineConfig({
       "/.netlify/functions/": "http://localhost:9999/",
     },
   },
-  plugins: [react()],
+  plugins: [react(), tailwind()],
 });
