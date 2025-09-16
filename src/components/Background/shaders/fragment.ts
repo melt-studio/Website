@@ -6,6 +6,10 @@ export const fragmentShader = /* glsl */ `
   uniform float PI;
   uniform float uColors;
   uniform float uWaves;
+  uniform vec3 uMode;
+  uniform vec2 uMouse;
+  uniform sampler2D uLogo;
+  uniform float uScroll;
   uniform float uDistortion;
 
   float rand(vec2 co){
@@ -96,7 +100,26 @@ export const fragmentShader = /* glsl */ `
 
     float time = uTime * .2;
 
-    float delay = 1.5;
+
+    vec2 imgUv = vUv;
+    vec2 uvF = vec2(
+      1. / uResolution.x,
+      1. / uResolution.y
+    );
+    imgUv /= uvF;
+    float uImgFitWidth = 1.;
+    float offSide = uImgFitWidth == 1. ? uResolution.x / 1. : uResolution.y / 1.;
+
+    vec2 uvOff = vec2(
+      (uResolution.x - 1. * offSide),
+      (uResolution.y - 1. * offSide)
+    );
+    uvOff *= .5;
+    imgUv -= uvOff;
+    imgUv *= uImgFitWidth == 1.? 1. / uResolution.x : 1. / uResolution.y;
+    // imgUv /= imgScale;
+
+    float delay = 0.;
     float t0 = 0.;
     float ts0 = delay;
     float ld0 = 3.;
@@ -110,6 +133,11 @@ export const fragmentShader = /* glsl */ `
     float distort = uDistortion;
     distort *= mix(smoothstep(0., 1., 1.-vUv.y), 1., smoothstep(.5, 1., distort));
     distort = smoothstep(0., .5, distort);
+
+
+    float distorts = .5;
+    distorts *= mix(smoothstep(0., 1., 1.-imgUv.y), 1., smoothstep(.5, 1., distorts));
+    distorts = smoothstep(0., .5, distorts);
 
     vec2 uv = vUv;
 
@@ -146,21 +174,60 @@ export const fragmentShader = /* glsl */ `
     
     float d = (((pow(1. - uv.y * 2. + 1., .5))) - (sin(uv.x * PI * 1.5 - PI * .25)));
     float d_ = (((pow(1. - uv.y * 2. + 1., .5))) - (sin(uv.x * PI * 1.)) + sin(uv.x * 3.5 * PI) * .5 + sin(uv.x * 8. * PI) * .25 + sin(uv.x * 15. * PI) * .125);
-    d = mix(d, d_, uWaves);
-    
-    d = mix(d, xx, distort);
 
+    float ds = mix(d, d_, 1.);
+    ds = mix(ds, xx, distorts);
+    float ds2 = length(imgUv - .5)  + .75;
+    ds2 = smin(ds, ds2, .2);
+    ds += rand(imgUv + ds) * .006 * 0.5;
+    float ts = mod(time - ds, ld) / ld;
+    ts = mix(ts, xx, distorts);
+    float wavs = ts * mix(290., 100., d3) + mix(400., 500., d3);
+    vec3 cols = zuc(wavs, 0.);
+    cols = mix(cols, zuc(wavs, 1.), smoothstep(0., .3333, uColors));
+    cols = mix(cols, zuc(wavs, 2.), smoothstep(.3333, .6666, uColors));
+
+    d = mix(d, d_, uWaves);
+    d = mix(d, xx, distort);
     float d2 = length(vUv - .5)  + .75;
     d = smin(d, d2, .2);
-    
     d += rand(vUv + d) * .006 * uDistortion;
     float t = mod(time - d, ld) / ld;
     t = mix(t, xx, distort);
-
     float wav = t * mix(290., 100., d3) + mix(400., 500., d3);
     vec3 col = zuc(wav, 0.);
     col = mix(col, zuc(wav, 1.), smoothstep(0., .3333, uColors));
     col = mix(col, zuc(wav, 2.), smoothstep(.3333, .6666, uColors));
+
+
+
+    // float sx = sin(uTime + vUv.x * 4.)*.5+.5;
+    // sx *= smoothstep(0.6, 1., 1.-vUv.y);
+
+    // // sx +=  (sin(uTime + vUv.x * 8.)*.5+.5) * smoothstep(0.7, 1., 1.-vUv.y);
+    // sx +=  (sin(uTime + vUv.x * 8.)*.5+.5) * smoothstep(0.7, 1., 1.-vUv.y);
+
+    // float sx2 = sin(uTime + vUv.x * 4.)*.5+.5;
+    // sx2 *= smoothstep(0.6, 1., 1.-vUv.y);
+
+    float delay1 = 1.;
+    float t1 = 0.;
+    float ts1 = delay1;
+    float ld1 = 6.;
+    float te1 = ts1 + ld1;
+    if (uTime < ts1) t1 = 0.;
+    else if (uTime < te1) t1 = map(uTime, ts1, te1, 0., 1.);
+    else t1 = 1.;
+    t1 = smoothstep(0., 1., t1);
+    vec2 sx = vec2(
+      cols.r * smoothstep(mix(.6, .6, uScroll), 1., 1. - vUv.y) * sin(time + vUv.x * 2.), 
+      // cols.r * smoothstep(.55, 1., 1. - vUv.y) * uMouse.x, 
+      // cols.r * smoothstep(mix(.6, .4, abs(vUv.x * 2. - 1.)), 1., 1.-vUv.y)
+      cols.r * smoothstep(mix(.55, .55, uScroll), 1., 1.-vUv.y) + uScroll * 1.5
+    ) * t1;
+    vec2 vUv_ = imgUv;
+    // vUv_.x = mix(vUv_.x, (vUv_.x - .5) * mix(1.,.25,smoothstep(.5, .75, 1.-vUv.y)) + .5, uScroll);
+    vec4 logo = texture2D(uLogo, vUv_ + sx);
 
     float b = sin(t * PI + d3);
     vec3 yellow = vec3(0.8588, 0.9882, 0.3216);
@@ -187,10 +254,31 @@ export const fragmentShader = /* glsl */ `
     }
     col = mix(col, colorA, smoothstep(.6666, 1., uColors));
 
-    col *= t0;
+    // col += rand(vUv) * .05;
 
-    col += rand(vUv) * .05;
+    col = mix(vec3(193.)/255., col, t0);
 
-    gl_FragColor = vec4(col, 1.);
+
+    float ldm = 1.;
+    float tm = uMode.x;
+    if (uTime < uMode.z) tm = uMode.x;
+    else if (uTime < uMode.z + ldm) tm = map(uTime, uMode.z, uMode.z + ldm, uMode.x, uMode.y);
+    else tm = uMode.y;
+    tm = smoothstep(0., 1., tm);
+
+    if (uMode.z == 0.) tm = uMode.y;
+
+
+    vec3 bg = vec3(193.)/255.;
+    vec3 colLogo = mix(bg, vec3(27.)/255., logo.r);
+
+    vec3 col_ = mix(colLogo, bg, smoothstep(.0, .75, tm));
+    col_ = mix(col_, col, smoothstep(.25, 1. ,tm));
+
+
+    // float r = length(vUv - (uMouse*.5+.5));
+    // col_ = mix(col_, vec3(0.), 1.-smoothstep(0.09, .1, r));
+
+    gl_FragColor = vec4(col_, 1.);
   }
 `;

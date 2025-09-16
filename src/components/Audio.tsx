@@ -18,12 +18,10 @@ const Audio = () => {
       <button
         onClick={handlePlayback}
         className={`control cursor-pointer px-6 ${
-          paused
-            ? "bg-white/10 hover:bg-white/40"
-            : "bg-white/30 hover:bg-white/40"
+          paused ? "bg-white/10 hover:bg-white/40" : "bg-white/30 hover:bg-white/40"
         }`}
       >
-        Meditate
+        {paused ? "Meditate / Off" : "Meditate / On"}
       </button>
 
       <audio ref={audioRef} src={track} hidden loop />

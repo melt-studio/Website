@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { BackgroundMesh, Doc } from "./types";
+import { AboutAirtable, BackgroundMesh, Doc, ProjectAirtable, TeamAirtable } from "./types";
 import config from "./config.json";
 
 type State = {
@@ -13,6 +13,9 @@ type State = {
   };
   documents: Doc[];
   document: Doc | null;
+  projects: ProjectAirtable[];
+  about: AboutAirtable[];
+  team: TeamAirtable[];
 };
 
 type Actions = {
@@ -28,6 +31,9 @@ const initialState = {
   },
   documents: [],
   document: null,
+  projects: [],
+  about: [],
+  team: [],
 };
 
 type Store = State & Actions;

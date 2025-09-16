@@ -1,9 +1,9 @@
-// import Audio from "../components/Audio";
+import Audio from "../components/Audio";
 import Slider from "../components/Slider";
 import { useStore } from "../store";
 
 const Controls = () => {
-  const ready = useStore((state) => state.ready);
+  // const ready = useStore((state) => state.ready);
   const background = useStore((state) => state.background);
   const setValue = useStore((state) => state.setValue);
   const { colors, waves, distortion } = useStore((state) => state.controls);
@@ -45,9 +45,12 @@ const Controls = () => {
 
   return (
     <div
-      className={`fixed top-0 left-4 right-4 h-fit gap-2 justify-center flex flex-col md:flex-row flex-wrap items-center font-light text-xs pt-4 md:pt-8 transition-transform duration-2000 delay-2000 md:gap-4 ${
-        ready ? "" : "-translate-y-full"
-      }`}
+      // className={`fixed top-0 left-4 right-4 h-fit gap-2 justify-center flex flex-col md:flex-row flex-wrap items-center font-light text-xs pt-4 md:pt-8 transition-transform duration-2000 delay-2000 md:gap-4 ${
+      //   ready ? "" : "-translate-y-full"
+      // }`}
+      className={
+        "h-fit gap-2 justify-center flex flex-col md:flex-row flex-wrap items-center font-light text-xs md:gap-4"
+      }
     >
       <div className={controlStyle}>
         <Slider {...sliderColors} />
@@ -58,7 +61,7 @@ const Controls = () => {
       <div className={controlStyle}>
         <Slider {...sliderDistortion} />
       </div>
-      {/* <Audio /> */}
+      <Audio />
     </div>
   );
 };
