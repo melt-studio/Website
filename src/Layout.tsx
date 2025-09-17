@@ -3,7 +3,7 @@ import Footer from "./components/Footer";
 // import Page from "./components/Page";
 import { Outlet } from "react-router";
 import SubNav from "./components/SubNav";
-import Scene from "./components/background/Scene";
+import Scene from "./components/GL/Scene";
 
 const Layout = () => {
   return (

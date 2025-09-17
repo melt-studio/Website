@@ -4,7 +4,7 @@ import Link from "./Link";
 // import { useStore } from "../store";
 import useProject from "../helpers/useProject";
 import clsx from "clsx";
-import Controls from "./background/Controls";
+import Controls from "./GL/Controls";
 
 const Nav = () => {
   const location = useLocation();
