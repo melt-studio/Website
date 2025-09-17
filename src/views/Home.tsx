@@ -8,6 +8,7 @@ const Home = () => {
   const reelRef = useRef<HTMLVideoElement>(null);
   // const [showReel, setShowReel] = useState(false);
   const showReel = useStore((state) => state.showReel);
+  const reel = useStore((state) => state.reel);
   const setValue = useStore((state) => state.setValue);
 
   useEffect(() => {
@@ -49,31 +50,33 @@ const Home = () => {
 
       <ProjectTiles />
 
-      <div
-        className={clsx(
-          "fixed w-full h-screen top-0 left-0 rounded-[1.5vw] overflow-hidden flex items-center justify-center z-4 transition-opacity duration-2000",
-          {
-            "opacity-100 pointer-events-all": showReel,
-            "opacity-0 pointer-events-none": !showReel,
-          }
-        )}
-        onClick={(e) => {
-          if (e.target === reelRef.current) return;
+      {reel && (
+        <div
+          className={clsx(
+            "fixed w-full h-screen top-0 left-0 rounded-[1.5vw] overflow-hidden flex items-center justify-center z-4 transition-opacity duration-2000",
+            {
+              "opacity-100 pointer-events-all": showReel,
+              "opacity-0 pointer-events-none": !showReel,
+            }
+          )}
+          onClick={(e) => {
+            if (e.target === reelRef.current) return;
 
-          setValue("showReel", false);
-          if (reelRef.current) {
-            reelRef.current.pause();
-            // reelRef.current.currentTime = 0;
-          }
-        }}
-      >
-        <video
-          ref={reelRef}
-          src="https://v5.airtableusercontent.com/v3/u/45/45/1758132000000/SROs0QOM3nMVvp83ploMcQ/X2p5hbYgzCXUhtabS7ICFh7YvbjwywZwfdwNJsIQKmAOjxvVtsniMpd28O3CdiELU48fCazlqaeVg1mAC6wVW54V9wbFJP-klvVgHX0jdh2qL4CQIaVtDo1npiHsUzqrCG7qO5PtfQd-Ma3bhpwa2JYcbKW5UomVCxdlXm6GNANWtqqmJBBSxlL2AY7l4bft/IUdA2DzwQ5BnjQmbAKVz_EqTF4CWKdkVkfYDax9pf_k"
-          controls
-          // className="absolute w-full h-auto p-sm md:p-md"
-        />
-      </div>
+            setValue("showReel", false);
+            if (reelRef.current) {
+              reelRef.current.pause();
+              // reelRef.current.currentTime = 0;
+            }
+          }}
+        >
+          <video
+            ref={reelRef}
+            src={reel?.url}
+            controls
+            // className="absolute w-full h-auto p-sm md:p-md"
+          />
+        </div>
+      )}
     </div>
   );
 };

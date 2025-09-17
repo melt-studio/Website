@@ -1,10 +1,10 @@
 import { useLocation } from "react-router";
 import Link from "./Link";
 // import LogoText from "./LogoText";
-import Controls from "./background/Controls";
 // import { useStore } from "../store";
 import useProject from "../helpers/useProject";
 import clsx from "clsx";
+import Controls from "./background/Controls";
 
 const Nav = () => {
   const location = useLocation();

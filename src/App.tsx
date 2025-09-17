@@ -7,10 +7,11 @@ import Dissolve from "./views/Dissolve";
 import Layout from "./Layout";
 import { useEffect } from "react";
 import projectsService from "./services/projects";
-import { AboutAirtable, ProjectAirtable, TeamAirtable } from "./types";
+import { AboutAirtable, DocumentAirtableUnlocked, ProjectAirtable, TeamAirtable, VideoAirtable } from "./types";
 import { useStore } from "./stores/store";
 import aboutService from "./services/about";
 import teamService from "./services/team";
+import documentService from "./services/document";
 
 const App = () => {
   const setValue = useStore((state) => state.setValue);
@@ -34,7 +35,14 @@ const App = () => {
       // console.log(team);
     };
 
-    const getData = async () => await Promise.all([getProjects(), getAbout(), getTeam()]);
+    const getReel = async () => {
+      const reel: DocumentAirtableUnlocked = await documentService.getDocument("melt-2025-reel");
+      if (reel && reel.fields.media) {
+        setValue("reel", reel.fields.media[0] as VideoAirtable);
+      }
+    };
+
+    const getData = async () => await Promise.all([getProjects(), getAbout(), getTeam(), getReel()]);
 
     getData();
   }, [setValue]);

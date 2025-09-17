@@ -1,9 +1,9 @@
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 // import Page from "./components/Page";
-import Scene from "./components/background/Scene";
 import { Outlet } from "react-router";
 import SubNav from "./components/SubNav";
+import Scene from "./components/background/Scene";
 
 const Layout = () => {
   return (

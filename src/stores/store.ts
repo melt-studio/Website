@@ -1,11 +1,12 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { AboutAirtable, BackgroundMesh, ProjectAirtable, TeamAirtable } from "../types";
+import { AboutAirtable, BackgroundMesh, ProjectAirtable, TeamAirtable, VideoAirtable } from "../types";
 import config from "../config.json";
 
 type State = {
   background: BackgroundMesh | null;
   ready: boolean;
+  reel: VideoAirtable | null;
   showReel: boolean;
   viewport: { width: number; height: number };
   controls: {
@@ -25,6 +26,7 @@ type Actions = {
 const initialState = {
   config,
   background: null,
+  reel: null,
   showReel: false,
   ready: false,
   viewport: {
