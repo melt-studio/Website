@@ -8,36 +8,35 @@ import Layout from "./Layout";
 import { useEffect } from "react";
 import projectsService from "./services/projects";
 import { AboutAirtable, ProjectAirtable, TeamAirtable } from "./types";
-import { useStore } from "./store";
+import { useStore } from "./stores/store";
 import aboutService from "./services/about";
 import teamService from "./services/team";
 
 const App = () => {
   const setValue = useStore((state) => state.setValue);
 
-  console.log("APP");
-
   useEffect(() => {
-    console.log("APP IUSEEFFECT");
     const getProjects = async () => {
       const projects: ProjectAirtable[] = await projectsService.getProjects();
       setValue("projects", projects);
+      // console.log(projects);
     };
 
     const getAbout = async () => {
-      console.log("getAbout");
       const about: AboutAirtable[] = await aboutService.getAbout();
       setValue("about", about);
+      // console.log("about", about);
     };
 
     const getTeam = async () => {
       const team: TeamAirtable[] = await teamService.getTeam();
       setValue("team", team);
+      // console.log(team);
     };
 
-    getProjects();
-    getAbout();
-    getTeam();
+    const getData = async () => await Promise.all([getProjects(), getAbout(), getTeam()]);
+
+    getData();
   }, [setValue]);
 
   return (

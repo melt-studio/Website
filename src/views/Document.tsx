@@ -1,7 +1,10 @@
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router";
 import documentService from "../services/document";
-import { Doc, DocMedia } from "../types";
+import { DocumentAirtableLocked, DocumentAirtableUnlocked, ImageAirtable, Media } from "../types";
+import clsx from "clsx";
+import Video from "../components/Video";
+import Image from "../components/Image";
 // import LogoText from "../components/LogoText";
 
 const Document = () => {
@@ -23,7 +26,7 @@ const DocumentContent = () => {
   const { path } = useParams();
   const navigate = useNavigate();
 
-  const [doc, setDoc] = useState<Doc | null>(null);
+  const [doc, setDoc] = useState<DocumentAirtableUnlocked | DocumentAirtableLocked | null>(null);
   const [password, setPassword] = useState("");
   const [checking, setChecking] = useState(false);
   const [invalid, setInvalid] = useState<string | null>(null);
@@ -33,9 +36,9 @@ const DocumentContent = () => {
   useEffect(() => {
     const getDocument = async (path: string) => {
       try {
-        const response: Doc = await documentService.getDocument(path);
+        const response: DocumentAirtableUnlocked | DocumentAirtableLocked = await documentService.getDocument(path);
         setDoc(response);
-        if (response.fields.title) document.title = `MELT – ${response.fields.title}`;
+        // if (response.fields.title) document.title = `MELT – ${response.fields.title}`;
       } catch {
         // console.log(error);
         navigate("/");
@@ -81,9 +84,7 @@ const DocumentContent = () => {
       <div className="flex flex-col gap-10 items-center justify-center w-full h-full pb-10 text-mid">Loading...</div>
     );
 
-  const { locked, embedUrl, media } = doc.fields;
-
-  if (locked) {
+  if (doc.locked) {
     return (
       <div className="flex flex-col gap-10 items-center justify-center w-full h-full p-10 animate-[fadeIn_1s_ease-in-out]">
         <form className="flex items-center gap-2">
@@ -104,9 +105,13 @@ const DocumentContent = () => {
 
           <div className="relative flex flex-col gap-1 uppercase">
             <input
-              className={`border text-dark outline-0 p-3 rounded-md bg-light h-10 min-w-80 pr-10 transition-colors ${
-                invalid ? "border-red-500 focus:border-red-500" : "border-light focus:border-light"
-              }`}
+              className={clsx(
+                "border text-dark outline-0 p-3 rounded-md bg-light h-10 min-w-80 pr-10 transition-colors",
+                {
+                  "border-red-500 focus:border-red-500": invalid,
+                  "border-light focus:border-light": !invalid,
+                }
+              )}
               type="text"
               placeholder="Password"
               value={password}
@@ -156,6 +161,8 @@ const DocumentContent = () => {
     );
   }
 
+  const { embedUrl, media } = (doc as DocumentAirtableUnlocked).fields;
+
   if (embedUrl === undefined && media === undefined) {
     return <Navigate to="/" />;
   }
@@ -175,29 +182,36 @@ const DocumentContent = () => {
   }
 
   if (media && media.length > 0) {
+    const pdf = media[0].type === "application/pdf";
+
     return (
       <div className="w-full h-full relative flex items-center justify-center">
         <div
-          className={`${
-            media[0].type === "application/pdf" ? "w-full h-full" : "absolute top-0 left-0 right-0 bottom-9"
-          } flex items-center justify-center`}
+          className={clsx("flex items-center justify-center", {
+            "w-full h-full": pdf,
+            "absolute top-0 left-0 right-0 bottom-9": !pdf,
+          })}
         >
-          <Media media={media[0]} />
+          <DocumentMedia media={media[0]} />
         </div>
       </div>
     );
   }
+
+  return null;
 };
 
-const Media = ({ media }: { media: DocMedia }) => {
+const DocumentMedia = ({ media }: { media: Media }) => {
   const { url, type } = media;
 
-  if (type === "video/mp4") {
-    return <video src={url} controls className="object-contain max-w-full max-h-full" />;
+  if (type.includes("video")) {
+    return <Video src={url} controls className="object-contain max-w-full max-h-full" />;
   } else if (type === "application/pdf") {
     return <embed src={url} className="w-full h-full" />;
-  } else if (["image/png", "image/jpeg", "image/gif"].includes(type)) {
-    return <img src={url} className="object-contain max-w-full max-h-full" />;
+    // } else if (["image/png", "image/jpeg", "image/gif"].includes(type)) {
+  } else if (type.includes("image")) {
+    const { width, height } = media as ImageAirtable;
+    return <Image src={url} width={width} height={height} className="object-contain max-w-full max-h-full" />;
   } else {
     console.log("Unknown media type");
     return <Navigate to="/" />;

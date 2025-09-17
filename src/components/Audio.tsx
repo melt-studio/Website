@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import track from "../assets/audio/meditation.mp3";
+import track from "../assets/meditation.mp3";
 
 const Audio = () => {
   const audioRef = useRef<HTMLAudioElement>(null);

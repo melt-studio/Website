@@ -1,18 +1,18 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { AboutAirtable, BackgroundMesh, Doc, ProjectAirtable, TeamAirtable } from "./types";
-import config from "./config.json";
+import { AboutAirtable, BackgroundMesh, ProjectAirtable, TeamAirtable } from "../types";
+import config from "../config.json";
 
 type State = {
   background: BackgroundMesh | null;
   ready: boolean;
+  showReel: boolean;
+  viewport: { width: number; height: number };
   controls: {
     colors: number;
     waves: number;
     distortion: number;
   };
-  documents: Doc[];
-  document: Doc | null;
   projects: ProjectAirtable[];
   about: AboutAirtable[];
   team: TeamAirtable[];
@@ -25,12 +25,15 @@ type Actions = {
 const initialState = {
   config,
   background: null,
+  showReel: false,
   ready: false,
+  viewport: {
+    width: window.innerWidth,
+    height: window.innerHeight,
+  },
   controls: {
     ...config.controls,
   },
-  documents: [],
-  document: null,
   projects: [],
   about: [],
   team: [],

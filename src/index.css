@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: "TriestDT";
-  src: url("/src/assets/fonts/TriestDT-Roman.otf") format("opentype");
+  src: url("/src/assets/TriestDT-Roman.otf") format("opentype");
   font-weight: 400;
 }
 
@@ -49,6 +49,7 @@
   --color-mid: #c1c1c1;
   --color-light: #ecece9;
 
+  --spacing-sm: 15px;
   --spacing-md: 25px;
 
   @keyframes fade {
@@ -69,9 +70,26 @@
   @keyframes fadeIn {
     0% {
       opacity: 0;
+      /* transform: translateY(100%); */
     }
     100% {
       opaicty: 1;
+      /* transform: translateY(0); */
+    }
+  }
+
+  @keyframes fadeIn2 {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opaicty: 1;
+    }
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
     }
   }
 
@@ -97,7 +115,7 @@
   }
 
   body {
-    @apply w-full h-full m-0 p-0 bg-mid text-dark fill-dark font-mono text-sm tracking-tight transition-colors duration-500 docs:bg-dark antialiased;
+    @apply w-full h-full m-0 p-0 bg-mid text-dark fill-dark font-mono text-sm tracking-tight transition-colors duration-500 antialiased in-[.page-docs]:bg-dark;
   }
 
   /* body.page-docs {
@@ -117,10 +135,18 @@
   }
 
   .feature {
-    @apply font-serif leading-[0.9] max-w-4/6 tracking-[-0.04em] text-[5vw] text-center;
+    @apply font-serif leading-[0.9] md:max-w-4/6 tracking-[-0.04em] text-[8vw] md:text-[5vw] text-center;
   }
 
   .control {
-    @apply uppercase font-mono tracking-tight flex items-center gap-2 h-10 md:h-8 w-60 md:w-fit rounded-full transition-colors duration-500 justify-center text-white/80;
+    @apply uppercase font-mono tracking-tight flex items-center gap-2 h-10 md:h-8 w-60 lg:w-fit rounded-full transition-colors duration-500 justify-center text-white/80;
+  }
+
+  .content {
+    @apply flex flex-col bg-mid gap-15 md:gap-60 pt-10 pb-20 md:pb-70 relative z-3;
+  }
+
+  .column {
+    @apply grid grid-rows-1 gap-4 md:grid-cols-[1fr_2fr];
   }
 }

@@ -1,107 +1,35 @@
-import clsx from "clsx";
-import { useStore } from "../store";
-import Markdown from "react-markdown";
+import { useStore } from "../stores/store";
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
-
-function Team() {
-  const team = useStore((state) => state.team);
-
-  if (!team) return null;
-
-  return (
-    <div className="flex flex-col gap-4 w-full overflow-x-hidden relative">
-      <div className="uppercase px-md">Our Team</div>
-      <div className="overflow-x-scroll">
-        <div className="flex gap-4 w-[150%] pb-5 px-4">
-          {team.map((member) => {
-            const thumbnail = member.fields.photo[0].thumbnails.large;
-            return (
-              <div key={member.id} className="relative w-1/3 rounded-2xl flex grow overflow-hidden">
-                <img
-                  src={thumbnail.url}
-                  width={thumbnail.width}
-                  height={thumbnail.height}
-                  alt={`${member.fields.name} | ${member.fields.jobTitle}`}
-                  className="w-full h-auto"
-                />
-                <div className="flex flex-col absolute bottom-0 left-0 text-light p-md uppercase">
-                  <div>{member.fields.name}</div>
-                  <div>{member.fields.jobTitle}</div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-type SectionProps = {
-  title?: string;
-  content: string | string[];
-  type: "column" | "feature" | "team";
-};
-
-function Section({ section }: { section: SectionProps }) {
-  const formatContent = () => {
-    if (typeof section.content === "string") {
-      return (
-        <div
-          className={clsx("flex flex-col gap-4", {
-            feature: section.type === "feature",
-          })}
-        >
-          <Markdown>{section.content}</Markdown>
-        </div>
-      );
-    } else if (Array.isArray(section.content)) {
-      return (
-        <div className="flex flex-col uppercase">
-          {section.content.map((c) => (
-            <div key={c}>{c}</div>
-          ))}
-        </div>
-      );
-    }
-    return null;
-  };
-
-  return (
-    <div
-      key={section.title}
-      className={clsx("", {
-        "grid grid-cols-[1fr_2fr]": section.type === "column",
-        "flex w-full items-center justify-center grow": section.type === "feature",
-      })}
-    >
-      {section.type !== "feature" ? <div className="uppercase">{section.title}</div> : null}
-      {formatContent()}
-    </div>
-  );
-}
+import Cover from "../components/Cover";
+import Section from "../components/Section";
+import Gallery from "../components/Gallery";
+import List from "../components/List";
+import Copy from "../components/Copy";
 
 const About = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    document.title = "MELT – About Us";
+
+    return () => {
+      document.title = "MELT";
+    };
   }, []);
 
   const aboutInfo = useStore((state) => state.about);
+  const team = useStore((state) => state.team);
 
   console.log(aboutInfo);
 
-  const navigate = useNavigate();
+  if (!aboutInfo[0]) return null;
 
-  if (!aboutInfo[0]) {
-    navigate("/");
-    return null;
-  }
+  const info = aboutInfo[0];
 
   const sections: {
     title?: string;
     content: string | string[];
-    type: "column" | "feature" | "team";
+    type?: "column" | "feature";
+    // column?: boolean;
   }[] = [
     {
       title: "Who We Are",
@@ -123,36 +51,35 @@ const About = () => {
       content: aboutInfo[0].fields.clients,
       type: "column",
     },
-    // {
-    //   title: "Headline 2",
-    //   field: "headline2",
-    //   type: "feature",
-    // },
   ];
 
-  const section: {
-    title?: string;
-    content: string | string[];
-    type: "column" | "feature" | "team";
-  } = {
-    title: "Headline 2",
-    content: aboutInfo[0].fields.headline2,
-    type: "feature",
+  const gallery = {
+    images: team.map((member) => ({
+      ...member.fields.photo[0],
+      caption: [member.fields.name, member.fields.jobTitle],
+    })),
+    title: "Our Team",
   };
 
   return (
     <div className="flex flex-col">
-      <div className="w-full h-screen flex items-center justify-center"></div>
-      <div className="flex flex-col bg-mid gap-60 pb-70">
-        <div className="flex flex-col p-md pt-20 gap-60">
-          {sections.map((section) => (
-            <Section key={section.title} section={section} />
-          ))}
-        </div>
+      <Cover media={aboutInfo[0].fields.coverImage} />
+      <div className="content">
+        {sections.map((section) => (
+          <Section key={section.title} title={section.title} type={section.type}>
+            {Array.isArray(section.content) ? (
+              <List items={section.content} />
+            ) : (
+              <Copy copy={section.content} feature={section.type === "feature"} />
+            )}
+          </Section>
+        ))}
 
-        <Team />
+        <Gallery {...gallery} />
 
-        <Section section={section} />
+        <Section title="Headline 2" type="feature">
+          <Copy copy={info.fields.headline2} feature />
+        </Section>
       </div>
     </div>
   );

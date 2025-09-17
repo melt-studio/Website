@@ -6,6 +6,11 @@ export const fragmentShader = /* glsl */ `
   uniform float PI;
   uniform float uColors;
   uniform float uWaves;
+  uniform vec3 uTheme;
+  uniform vec3 uTheme0;
+  uniform vec3 uTheme1;
+  uniform vec3 uTheme2;
+  uniform vec3 uTheme3;
   uniform vec3 uMode;
   uniform vec2 uMouse;
   uniform sampler2D uLogo;
@@ -91,6 +96,14 @@ export const fragmentShader = /* glsl */ `
 
     return color.rgb;
   }
+
+  float getTime(float ld, float delay) {
+    float time = 0.;
+    if (uTime < delay) time = 0.; 
+    else if (uTime < delay + ld) time = map(uTime, delay, delay + ld, 0., 1.);
+    else time = 1.;
+    return time;
+  }
   
   void main() {
     vec2 aspectS = vec2(
@@ -107,6 +120,7 @@ export const fragmentShader = /* glsl */ `
       1. / uResolution.y
     );
     imgUv /= uvF;
+    // float uImgFitWidth = uResolution.y > uResolution.x ? 1. : 0.;
     float uImgFitWidth = 1.;
     float offSide = uImgFitWidth == 1. ? uResolution.x / 1. : uResolution.y / 1.;
 
@@ -210,6 +224,16 @@ export const fragmentShader = /* glsl */ `
     // float sx2 = sin(uTime + vUv.x * 4.)*.5+.5;
     // sx2 *= smoothstep(0.6, 1., 1.-vUv.y);
 
+
+    float t0_ = 0.;
+    float ts0_ = cols.r * 0.;
+    float ld0_ = 5.;
+    float te0_ = ts0_ + ld0_;
+    if (uTime < ts0_) t0_ = 0.;
+    else if (uTime < te0_) t0_ = map(uTime, ts0_, te0_, 0., 1.);
+    else t0_ = 1.;
+    t0_ = smoothstep(0., 1., t0_);
+
     float delay1 = 1.;
     float t1 = 0.;
     float ts1 = delay1;
@@ -223,11 +247,12 @@ export const fragmentShader = /* glsl */ `
       cols.r * smoothstep(mix(.6, .6, uScroll), 1., 1. - vUv.y) * sin(time + vUv.x * 2.), 
       // cols.r * smoothstep(.55, 1., 1. - vUv.y) * uMouse.x, 
       // cols.r * smoothstep(mix(.6, .4, abs(vUv.x * 2. - 1.)), 1., 1.-vUv.y)
-      cols.r * smoothstep(mix(.55, .55, uScroll), 1., 1.-vUv.y) + uScroll * 1.5
+      cols.r * smoothstep(mix(.55, .55, uScroll), 1., 1.-vUv.y) + uScroll * max(uResolution.x/uResolution.y, uResolution.y/uResolution.x)
     ) * t1;
     vec2 vUv_ = imgUv;
     // vUv_.x = mix(vUv_.x, (vUv_.x - .5) * mix(1.,.25,smoothstep(.5, .75, 1.-vUv.y)) + .5, uScroll);
-    vec4 logo = texture2D(uLogo, vUv_ + sx);
+    vec4 logo = texture2D(uLogo, vUv_ + sx + vec2(0., 1.-t0_)*0.);
+    // logo.rgb = smoothstep(mix(0.,.45,t0_), mix(0.,.55,t0_), logo.rgb);
 
     float b = sin(t * PI + d3);
     vec3 yellow = vec3(0.8588, 0.9882, 0.3216);
@@ -254,6 +279,21 @@ export const fragmentShader = /* glsl */ `
     }
     col = mix(col, colorA, smoothstep(.6666, 1., uColors));
 
+    // if (uTheme.x == 1.) {
+      float tt = getTime(2., uTheme.z);
+      tt = smoothstep(0., 1., tt);
+      vec3 colt0 = mix(uTheme2, uTheme3, clamp(col.g, 0., 1.));
+      vec3 colt1 = mix(uTheme0, uTheme1, clamp(col.g, 0., 1.));
+      vec3 colt = mix(colt0, colt1, tt);
+      float ft = mix(uTheme.y, uTheme.x, tt);
+      col = mix(col, colt, ft);
+    // }
+
+      // if (uTheme.x == 1. || uTheme.y == 1.) {
+      // col = mix(col, colt, uTheme.x != uTheme.y ? tt : 0.);
+      // }
+    // }
+
     // col += rand(vUv) * .05;
 
     col = mix(vec3(193.)/255., col, t0);
@@ -270,10 +310,14 @@ export const fragmentShader = /* glsl */ `
 
 
     vec3 bg = vec3(193.)/255.;
-    vec3 colLogo = mix(bg, vec3(27.)/255., logo.r);
+
+    t0_ = 1.;
+
+    vec3 colLogo = mix(bg, mix(bg, vec3(27.)/255., logo.r), t0_);
 
     vec3 col_ = mix(colLogo, bg, smoothstep(.0, .75, tm));
     col_ = mix(col_, col, smoothstep(.25, 1. ,tm));
+    
 
 
     // float r = length(vUv - (uMouse*.5+.5));

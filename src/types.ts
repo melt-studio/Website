@@ -5,24 +5,9 @@ export type BackgroundMesh = Mesh<PlaneGeometry, ShaderMaterial>;
 
 export type BackgroundMeshRef = RefObject<BackgroundMesh | undefined>;
 
-export type DocMedia = {
-  filename: string;
-  id: string;
-  size: number;
-  type: string;
-  url: string;
-};
-
-export type Doc = {
+type AirtableRecords = {
   id: string;
   createdTime: string;
-  fields: {
-    title: string;
-    pageUrl: string;
-    embedUrl?: string;
-    media?: DocMedia[];
-    locked?: boolean;
-  };
 };
 
 type Thumbnail = {
@@ -31,14 +16,17 @@ type Thumbnail = {
   height: number;
 };
 
-type Image = {
+type File = {
   id: string;
-  width: number;
-  height: number;
-  url: string;
   filename: string;
+  url: string;
   size: number;
   type: string;
+};
+
+export type ImageAirtable = File & {
+  height: number;
+  width: number;
   thumbnails: {
     small: Thumbnail;
     large: Thumbnail;
@@ -46,52 +34,83 @@ type Image = {
   };
 };
 
+export type VideoAirtable = File & {};
+
+export type PDFAirtable = File & {
+  thumbnails: {
+    small: Thumbnail;
+    large: Thumbnail;
+  };
+};
+
+export type Media = ImageAirtable | VideoAirtable | PDFAirtable;
+
 type ProjectFields = {
-  backgroundColor: string;
-  coverImg: Image[];
-  description: string;
-  images: Image[];
-  mainImage: Image[];
-  mainVid: Image[];
-  mobileImages: Image[];
   name: string;
-  projectCopy: string;
-  projectCopy2: string;
-  projectScope: string[];
   projectUrl: string;
+  client: string;
+  scope: string[];
+  copy: string;
   tag: string;
+  tileImage: ImageAirtable[];
+  coverImage: Media[];
+  coverThumb: Media[];
+  featureImages: Media[];
+  galleryImages: Media[];
+  approachCopy: string;
+  approachMedia: Media[];
+  backgroundColor: string;
   textColor: string;
 };
 
-export type ProjectAirtable = {
-  id: string;
-  createTime: string;
+export type ProjectAirtable = AirtableRecords & {
   fields: ProjectFields;
 };
 
 type AboutFields = {
   page: string;
-  clients: string[];
-  services: string[];
-  headline1: string;
-  headline2: string;
-  copy1: string;
+  coverImage: Media[];
   whoWeAre: string;
+  headline1: string;
+  services: string[];
+  clients: string[];
+  headline2: string;
 };
 
-export type AboutAirtable = {
-  id: string;
-  createTime: string;
+export type AboutAirtable = AirtableRecords & {
   fields: AboutFields;
 };
 
 export type TeamFields = {
   name: string;
   jobTitle: string;
-  photo: Image[];
+  photo: ImageAirtable[];
 };
 
-export type TeamAirtable = {
-  id: string;
+export type TeamAirtable = AirtableRecords & {
   fields: TeamFields;
+};
+
+type DocumentFields = {
+  title: string;
+  pageUrl: string;
+  embedUrl?: string;
+  media?: Media[];
+  password?: string;
+};
+
+type DocumentFieldsLocked = Omit<DocumentFields, "embedUrl" | "media" | "password">;
+
+type DocumentFieldsUnlocked = Omit<DocumentFields, "password">;
+
+export type DocumentAirtableLocked = {
+  id: string;
+  locked: boolean;
+  fields: DocumentFieldsLocked;
+};
+
+export type DocumentAirtableUnlocked = {
+  id: string;
+  locked: boolean;
+  fields: DocumentFieldsUnlocked;
 };

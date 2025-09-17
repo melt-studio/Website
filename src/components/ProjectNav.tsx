@@ -7,24 +7,29 @@ const ProjectNav = () => {
   if (!project) return null;
 
   return (
-    <div className={`footer bg-light flex flex-col p-md uppercase gap-70 z-2 pt-30`}>
-      <div className="grid grid-cols-[repeat(3,_1fr)]">
+    <div className="footer bg-light flex flex-col p-sm md:p-md uppercase gap-4 pt-10 md:pt-30 relative z-5">
+      <div className="grid grid-cols-2 md:grid-cols-[1fr_2fr] gap-4">
         {project.prev && (
-          <Link to={`/project/${project.prev.fields.projectUrl.toLowerCase()}`} fixUnderline>
+          <Link to={`/project/${project.prev.fields.projectUrl.toLowerCase()}`} invertUnderline>
             {`< Previous Project`}
           </Link>
         )}
-        <Link to="/" fixUnderline>
-          Close
-        </Link>
-        {project.next && (
-          <div className="ml-auto">
-            <Link to={`/project/${project.next.fields.projectUrl.toLowerCase()}`} fixUnderline>
-              {`Next Project >`}
-            </Link>
-          </div>
-        )}
+        <div className="flex justify-between items-center w-full">
+          <Link to="/" invertUnderline className="hidden md:block">
+            Close
+          </Link>
+          {project.next && (
+            <div className="ml-auto">
+              <Link to={`/project/${project.next.fields.projectUrl.toLowerCase()}`} invertUnderline>
+                {`Next Project >`}
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
+      <Link to="/" invertUnderline className="block md:hidden">
+        Close
+      </Link>
     </div>
   );
 };

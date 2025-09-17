@@ -7,9 +7,20 @@
 // // import LogoDrippy from "../components/LogoDrippy";
 // import { useEffect } from "react";
 
+import { useEffect } from "react";
+
 // const debug = process.env.NODE_ENV === "debug";
 
 const Dissolve = () => {
+  useEffect(() => {
+    // window.scrollTo({ top: 0, behavior: "smooth" });
+    document.title = "MELT – Dissolve";
+
+    return () => {
+      document.title = "MELT";
+    };
+  }, []);
+
   // useEffect(() => {
   //   document.documentElement.classList.add("page-dissolve");
   //   return () => document.documentElement.classList.remove("page-dissolve");

@@ -1,5 +1,5 @@
 import { useLocation, useParams } from "react-router";
-import { useStore } from "../store";
+import { useStore } from "../stores/store";
 import { Color } from "three";
 
 const getBrightness = (color: Color) => {
@@ -51,7 +51,12 @@ const useProject = () => {
   // .filter((c) => c.contrast > 4.5)
   // .sort((a, b) => a.diffAbs - b.diffAbs)[0];
 
-  console.log(text);
+  // console.log(text);
+
+  let theme = null;
+  if (project) {
+    theme = project.fields.backgroundColor.split(",").map((c) => c.trim());
+  }
 
   if (!projectPage) return null;
 
@@ -62,6 +67,7 @@ const useProject = () => {
     next,
     prev,
     contrast: text,
+    theme,
   };
 };
 
