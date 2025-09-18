@@ -46,6 +46,7 @@ export const formatProjects = (projects: ProjectAirtable[]): ProjectFormatted[] 
         : contrast.sort((a, b) => a.diffAbs - b.diffAbs)[0];
 
     const theme = project.fields.backgroundColor.split(",").map((c) => c.trim());
+    const theme2: [string, string] = [theme[0], theme[1] ? theme[1] : theme[0]];
 
     return {
       ...project,
@@ -53,7 +54,7 @@ export const formatProjects = (projects: ProjectAirtable[]): ProjectFormatted[] 
       next,
       prev,
       contrast: text,
-      theme,
+      theme: theme2,
     };
   });
 
