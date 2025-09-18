@@ -21,11 +21,10 @@ const Footer = () => {
     >
       <div className="flex flex-col gap-15 md:gap-30">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4">
-          <div className="">Contact</div>
+          <div className="">Melt Studio</div>
           <div className="flex gap-4 justify-between">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col">
-                <div>Melt Studio</div>
                 <div>Brooklyn, NY - Los Angeles</div>
                 <div>917.768.2955</div>
               </div>

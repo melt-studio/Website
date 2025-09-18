@@ -2,8 +2,8 @@
 // import ReactPlayer from "react-player";
 // import FadeScroll from "./FadeScroll";
 // import "./ProjectImages.css";
-// import useProject from "../helpers/useProject";
 import { Media } from "../types";
+import FadeScroll from "./FadeScroll";
 // import Image from "./Image";
 import ProjectImage from "./ProjectImage";
 // import Video from "./Video";
@@ -85,7 +85,9 @@ const ProjectImages = ({ images }: { images: Media[] }) => {
   return (
     <div className="px-sm md:px-md flex flex-col gap-10">
       {images.map((image) => (
-        <ProjectImage key={image.id} image={image} />
+        <FadeScroll key={image.id}>
+          <ProjectImage image={image} />
+        </FadeScroll>
       ))}
     </div>
   );

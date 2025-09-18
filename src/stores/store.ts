@@ -1,12 +1,15 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { AboutAirtable, BackgroundMesh, ProjectAirtable, TeamAirtable, VideoAirtable } from "../types";
+import { AboutAirtable, BackgroundMesh, ProjectFormatted, TeamAirtable, VideoAirtable } from "../types";
 import config from "../config.json";
 
 type State = {
   background: BackgroundMesh | null;
+  gradient: HTMLDivElement | null;
   ready: boolean;
   reel: VideoAirtable | null;
+  video: HTMLVideoElement | null;
+  videoPlaying: boolean;
   showReel: boolean;
   viewport: { width: number; height: number };
   controls: {
@@ -14,7 +17,8 @@ type State = {
     waves: number;
     distortion: number;
   };
-  projects: ProjectAirtable[];
+  activeProject: ProjectFormatted | null;
+  projects: ProjectFormatted[];
   about: AboutAirtable[];
   team: TeamAirtable[];
 };
@@ -26,6 +30,9 @@ type Actions = {
 const initialState = {
   config,
   background: null,
+  gradient: null,
+  video: null,
+  videoPlaying: false,
   reel: null,
   showReel: false,
   ready: false,
@@ -37,6 +44,7 @@ const initialState = {
     ...config.controls,
   },
   projects: [],
+  activeProject: null,
   about: [],
   team: [],
 };

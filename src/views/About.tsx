@@ -1,5 +1,5 @@
 import { useStore } from "../stores/store";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import Cover from "../components/Cover";
 import Section from "../components/Section";
 import Gallery from "../components/Gallery";
@@ -7,14 +7,17 @@ import List from "../components/List";
 import Copy from "../components/Copy";
 
 const About = () => {
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    document.title = "MELT – About Us";
+  // useEffect(() => {
+  //   // window.scrollTo({
+  //   //   top: 0,
+  //   //   // behavior: "smooth"
+  //   // });
+  //   document.title = "MELT – About Us";
 
-    return () => {
-      document.title = "MELT";
-    };
-  }, []);
+  //   return () => {
+  //     document.title = "MELT";
+  //   };
+  // }, []);
 
   const aboutInfo = useStore((state) => state.about);
   const team = useStore((state) => state.team);
@@ -62,26 +65,33 @@ const About = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <Cover media={aboutInfo[0].fields.coverImage} />
-      <div className="content">
-        {sections.map((section) => (
-          <Section key={section.title} title={section.title} type={section.type}>
-            {Array.isArray(section.content) ? (
-              <List items={section.content} />
-            ) : (
-              <Copy copy={section.content} feature={section.type === "feature"} />
-            )}
+    <>
+      <title>MELT – About Us</title>
+      <div className="flex flex-col">
+        <Cover media={info.fields.coverImage}>
+          <div className="absolute w-full h-full top-0 left-0 flex items-center justify-center">
+            <Copy copy={info.fields.coverText} feature className="text-light" />
+          </div>
+        </Cover>
+        <div className="content">
+          {sections.map((section) => (
+            <Section key={section.title} title={section.title} type={section.type}>
+              {Array.isArray(section.content) ? (
+                <List items={section.content} />
+              ) : (
+                <Copy copy={section.content} feature={section.type === "feature"} />
+              )}
+            </Section>
+          ))}
+
+          <Gallery {...gallery} />
+
+          <Section title="Headline 2" type="feature">
+            <Copy copy={info.fields.headline2} feature />
           </Section>
-        ))}
-
-        <Gallery {...gallery} />
-
-        <Section title="Headline 2" type="feature">
-          <Copy copy={info.fields.headline2} feature />
-        </Section>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

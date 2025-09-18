@@ -12,6 +12,8 @@ import { useStore } from "./stores/store";
 import aboutService from "./services/about";
 import teamService from "./services/team";
 import documentService from "./services/document";
+import { formatProjects } from "./helpers/utils";
+// import { AnimatePresence } from "motion/react";
 
 const App = () => {
   const setValue = useStore((state) => state.setValue);
@@ -19,8 +21,9 @@ const App = () => {
   useEffect(() => {
     const getProjects = async () => {
       const projects: ProjectAirtable[] = await projectsService.getProjects();
-      setValue("projects", projects);
-      // console.log(projects);
+      const formattedProjects = formatProjects(projects);
+      setValue("projects", formattedProjects);
+      console.log(formattedProjects);
     };
 
     const getAbout = async () => {
@@ -49,16 +52,18 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      {/* <AnimatePresence onExitComplete={() => console.log("EXIT COMPLETE")} mode="wait" initial={true}> */}
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/dissolve" element={<Dissolve />} />
-          <Route path="/project/:name" element={<Project />} />
+          <Route path="/work/:name" element={<Project />} />
           <Route path="/docs/:path" element={<Document />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
+      {/* </AnimatePresence> */}
     </BrowserRouter>
   );
 };

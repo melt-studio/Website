@@ -1,47 +1,50 @@
 import { ReactNode, useRef } from "react";
-import { motion, MotionStyle } from "motion/react";
+import { motion } from "motion/react";
+import clsx from "clsx";
 
 type FadeScrollProps = {
-  viewport?: { amount: number };
-  onEnter?: () => void;
-  onExit?: () => void;
-  id?: string;
+  // viewport?: { amount: number };
+  // onEnter?: () => void;
+  // onExit?: () => void;
+  // id?: string;
   className?: string;
-  style?: MotionStyle;
-  exit?: boolean;
+  // style?: MotionStyle;
+  // exit?: boolean;
   children: ReactNode;
 };
 
 const FadeScroll = ({
-  viewport = { amount: 0.5 },
-  onEnter = () => {},
-  onExit = () => {},
-  id,
+  // viewport = { amount: 0.5 },
+  // onEnter = () => {},
+  // onExit = () => {},
+  // id,
   className,
-  style,
-  exit = false,
+  // style,
+  // exit = false,
   children,
 }: FadeScrollProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  const handleEntry = {
-    onViewportEnter: () => {
-      if (ref.current) {
-        if (!ref.current.classList.contains("show")) {
-          ref.current.classList.add("show");
-        }
-        if (exit) ref.current.classList.remove("exit");
-      }
-      onEnter();
-    },
-    onViewportLeave: () => {
-      if (ref.current) {
-        ref.current.classList.remove("show");
-        if (exit) ref.current.classList.add("exit");
-      }
-      onExit();
-    },
-  };
+  // const [show, setShow] = useState(false)
+
+  // const handleEntry = {
+  //   onViewportEnter: () => {
+  //     if (ref.current) {
+  //       if (!ref.current.classList.contains("show")) {
+  //         ref.current.classList.add("show");
+  //       }
+  //       if (exit) ref.current.classList.remove("exit");
+  //     }
+  //     onEnter();
+  //   },
+  //   onViewportLeave: () => {
+  //     if (ref.current) {
+  //       ref.current.classList.remove("show");
+  //       if (exit) ref.current.classList.add("exit");
+  //     }
+  //     onExit();
+  //   },
+  // };
 
   // const { scrollYProgress } = useScroll({
   //   target: ref,
@@ -63,7 +66,15 @@ const FadeScroll = ({
   // });
 
   return (
-    <motion.div ref={ref} viewport={viewport} {...handleEntry} id={id} className={className} style={style}>
+    <motion.div
+      ref={ref}
+      viewport={{ amount: 0.5, once: true }}
+      transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
+      initial={{ opacity: 0, transform: "translateY(40px)" }}
+      // exit={{ opacity: 0, transform: "translateY(-40px)" }}
+      whileInView={{ opacity: 1, transform: "translateY(0px)" }}
+      className={clsx("w-full h-fit relative", {}, className)}
+    >
       {children}
     </motion.div>
   );

@@ -70,6 +70,7 @@ export type ProjectAirtable = AirtableRecords & {
 type AboutFields = {
   page: string;
   coverImage: Media[];
+  coverText: string;
   whoWeAre: string;
   headline1: string;
   services: string[];
@@ -113,4 +114,18 @@ export type DocumentAirtableUnlocked = {
   id: string;
   locked: boolean;
   fields: DocumentFieldsUnlocked;
+};
+
+export type ProjectFormatted = ProjectAirtable & {
+  theme: [string, string];
+  index: number;
+  next: string | null;
+  prev: string | null;
+  contrast: {
+    hex: number;
+    diff: number;
+    diffAbs: number;
+    contrast: number;
+    label: string;
+  };
 };

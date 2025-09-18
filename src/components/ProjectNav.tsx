@@ -1,16 +1,16 @@
 import Link from "./Link";
-import useProject from "../helpers/useProject";
+import { useStore } from "../stores/store";
 
 const ProjectNav = () => {
-  const project = useProject();
+  const activeProject = useStore((state) => state.activeProject);
 
-  if (!project) return null;
+  if (!activeProject) return null;
 
   return (
     <div className="footer bg-light flex flex-col p-sm md:p-md uppercase gap-4 pt-10 md:pt-30 relative z-5">
       <div className="grid grid-cols-2 md:grid-cols-[1fr_2fr] gap-4">
-        {project.prev && (
-          <Link to={`/project/${project.prev.fields.projectUrl.toLowerCase()}`} invertUnderline>
+        {activeProject.prev && (
+          <Link to={`/work/${activeProject.prev}`} invertUnderline>
             {`< Previous Project`}
           </Link>
         )}
@@ -18,9 +18,9 @@ const ProjectNav = () => {
           <Link to="/" invertUnderline className="hidden md:block">
             Close
           </Link>
-          {project.next && (
+          {activeProject.next && (
             <div className="ml-auto">
-              <Link to={`/project/${project.next.fields.projectUrl.toLowerCase()}`} invertUnderline>
+              <Link to={`/work/${activeProject.next}`} invertUnderline>
                 {`Next Project >`}
               </Link>
             </div>

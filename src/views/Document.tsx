@@ -167,9 +167,12 @@ const DocumentContent = () => {
     return <Navigate to="/" />;
   }
 
+  const title = doc.fields.title ? <title>{`MELT – ${doc.fields.title}`}</title> : null;
+
   if (embedUrl) {
     return (
       <div className="w-full h-full relative">
+        {title}
         <div
           className={
             embedUrl.includes("figma.com/proto") ? "absolute -left-12 -top-15 -right-12 -bottom-4" : "w-full h-full"
@@ -186,6 +189,7 @@ const DocumentContent = () => {
 
     return (
       <div className="w-full h-full relative flex items-center justify-center">
+        {title}
         <div
           className={clsx("flex items-center justify-center", {
             "w-full h-full": pdf,

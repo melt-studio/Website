@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { ReactNode } from "react";
+import FadeScroll from "./FadeScroll";
 
 // type SectionProps = {
 //   title?: string;
@@ -26,18 +27,20 @@ function Section({ title, type, children }: SectionProps) {
   // };
 
   return (
-    <div
-      // key={title}
-      className={clsx("px-sm md:px-md", {
-        column: type === "column",
-        "flex w-full items-center justify-center grow": type === "feature",
-      })}
-    >
-      {title && type !== "feature" && <div className="uppercase">{title}</div>}
-      {/* {type !== "feature" ? <div className="uppercase">{title}</div> : null}
+    <FadeScroll>
+      <div
+        // key={title}
+        className={clsx("px-sm md:px-md", {
+          column: type === "column",
+          "flex w-full items-center justify-center grow": type === "feature",
+        })}
+      >
+        {title && type !== "feature" && <div className="uppercase">{title}</div>}
+        {/* {type !== "feature" ? <div className="uppercase">{title}</div> : null}
       {formatContent()} */}
-      {children}
-    </div>
+        {children}
+      </div>
+    </FadeScroll>
   );
 }
 

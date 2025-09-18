@@ -12,7 +12,7 @@ const Gallery = ({ images, title }: GalleryProps) => {
     <div className="flex flex-col gap-4 w-full overflow-x-hidden relative">
       {title && <div className="uppercase px-sm md:px-md">{title}</div>}
       <div className="overflow-x-scroll">
-        <div className="flex gap-2 md:gap-4 pb-5 px-2 md:px-4 w-fit items-start">
+        <div className="flex gap-2 pb-5 px-2 md:px-4 w-fit items-start">
           {images.map((image, i) => {
             if (image.type.includes("video/")) {
               const { id } = image as VideoAirtable & { caption?: string[] };

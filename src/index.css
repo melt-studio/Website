@@ -101,6 +101,24 @@
       transform: rotate(360deg);
     }
   }
+
+  @keyframes inOut {
+    0% {
+      transform: translateY(100%);
+    }
+    25% {
+      transform: translateY(0%);
+    }
+    75% {
+      transform: translateY(0%);
+    }
+    /* 30% {
+      transform: translateY(-100%);
+    } */
+    100% {
+      transform: translateY(-100%);
+    }
+  }
 }
 
 @layer base {
