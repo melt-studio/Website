@@ -41,7 +41,7 @@ const AnimatedOutlet = (): React.JSX.Element => {
         {/* {element && cloneElement(element, { key: location.pathname })} */}
         {element}
         {/* </AnimatedLayout> */}
-        <Footer />
+        {/* <Footer /> */}
       </motion.div>
     </AnimatePresence>
   );
@@ -57,7 +57,8 @@ const Layout = () => {
       {/* </AnimatePresence> */}
       {/* <Page /> */}
       <SubNav />
-      <Scene />
+      {/* <Scene /> */}
+      <Footer />
     </div>
   );
 };

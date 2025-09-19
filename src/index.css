@@ -153,7 +153,7 @@
   }
 
   .feature {
-    @apply font-serif leading-[0.9] md:max-w-4/6 tracking-[-0.04em] text-[8vw] md:text-[5vw] text-center;
+    @apply font-serif leading-[1] tracking-[-0.04em] text-[8vw] md:text-[7vw] text-center [&>p]:justify-center;
   }
 
   .control {

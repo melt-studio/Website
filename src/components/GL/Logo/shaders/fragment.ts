@@ -151,24 +151,26 @@ vec2 getTexUv(vec2 screenRes, vec2 texRes, float fitWidth) {
     float time = uTime * .2;
 
 
-    vec2 imgUv = vUv;
-    vec2 uvF = vec2(
-      1. / uResolution.x,
-      1. / uResolution.y
-    );
-    imgUv /= uvF;
-    // float uImgFitWidth = uResolution.y > uResolution.x ? 1. : 0.;
-    float uImgFitWidth = 1.;
-    float offSide = uImgFitWidth == 1. ? uResolution.x / 1. : uResolution.y / 1.;
+    // vec2 imgUv = vUv;
+    // vec2 uvF = vec2(
+    //   1. / uResolution.x,
+    //   1. / uResolution.y
+    // );
+    // imgUv /= uvF;
+    // // float uImgFitWidth = uResolution.y > uResolution.x ? 1. : 0.;
+    // float uImgFitWidth = 1.;
+    // float offSide = uImgFitWidth == 1. ? uResolution.x / 1. : uResolution.y / 1.;
 
-    vec2 uvOff = vec2(
-      (uResolution.x - 1. * offSide),
-      (uResolution.y - 1. * offSide)
-    );
-    uvOff *= .5;
-    imgUv -= uvOff;
-    imgUv *= uImgFitWidth == 1.? 1. / uResolution.x : 1. / uResolution.y;
+    // vec2 uvOff = vec2(
+    //   (uResolution.x - 1. * offSide),
+    //   (uResolution.y - 1. * offSide)
+    // );
+    // uvOff *= .5;
+    // imgUv -= uvOff;
+    // imgUv *= uImgFitWidth == 1.? 1. / uResolution.x : 1. / uResolution.y;
     // imgUv /= imgScale;
+
+    vec2 imgUv = getTexUv(uResolution.xy, vec2(1.), 1.);
 
     float delay = 0.;
     float t0 = 0.;
@@ -237,9 +239,9 @@ vec2 getTexUv(vec2 screenRes, vec2 texRes, float fitWidth) {
 
     float ds = mix(d, d_, 1.);
     ds = mix(ds, xx, distorts);
-    float ds2 = length(imgUv - .5)  + .75;
+    float ds2 = length(imgUv.xy - .5)  + .75;
     ds2 = smin(ds, ds2, .2);
-    ds += rand(imgUv + ds) * .006 * 0.5;
+    ds += rand(imgUv.xy + ds) * .006 * 0.5;
     float ts = mod(time - ds, ld) / ld;
     ts = mix(ts, xx, distorts);
     float wavs = ts * mix(290., 100., d3) + mix(400., 500., d3);
@@ -270,7 +272,7 @@ vec2 getTexUv(vec2 screenRes, vec2 texRes, float fitWidth) {
     // float sx2 = sin(uTime + vUv.x * 4.)*.5+.5;
     // sx2 *= smoothstep(0.6, 1., 1.-vUv.y);
 
-    vec3 bg = vec3(193.)/255.;
+    vec3 bg = vec3(236., 236., 233.)/255.;
 
     float t0_ = 0.;
     float ts0_ = cols.r * 0.;
@@ -281,66 +283,67 @@ vec2 getTexUv(vec2 screenRes, vec2 texRes, float fitWidth) {
     else t0_ = 1.;
     t0_ = smoothstep(0., 1., t0_);
 
-    // float delay1 = 1.;
-    // float t1 = 0.;
-    // float ts1 = delay1;
-    // float ld1 = 6.;
-    // float te1 = ts1 + ld1;
-    // if (uTime < ts1) t1 = 0.;
-    // else if (uTime < te1) t1 = map(uTime, ts1, te1, 0., 1.);
-    // else t1 = 1.;
-    // t1 = smoothstep(0., 1., t1);
-    // float scroll = clamp(uScroll, 0., 1.);
-    // vec2 vUv_ = imgUv;
-    // vec2 sx = vec2(
-    //   cols.r * smoothstep(mix(.6, .6, scroll), 1., mix(1. - vUv_.y, 1., scroll)) * sin(time + vUv_.x * 2.), 
-    //   // cols.r * smoothstep(.55, 1., 1. - vUv_.y) * uMouse.x, 
-    //   // cols.r * smoothstep(mix(.6, .4, abs(vUv_.x * 2. - 1.)), 1., 1.-vUv_.y)
-    //   cols.r * smoothstep(mix(.55, .55, scroll), 1., mix(1.-vUv_.y, 1., scroll)) + scroll * max(uResolution.x/uResolution.y, uResolution.y/uResolution.x)
-    // ) * t1 * (1.-d3);
-    // sx.y += scroll;
-    // // vUv_.x = mix(vUv_.x, (vUv_.x - .5) * mix(1.,.25,smoothstep(.5, .75, 1.-vUv.y)) + .5, uScroll);
-    // // vUv_ = (vUv_ - .5) * mix(1., 5., smoothstep(0., 1., uScroll)) + .5;
-    // // vUv_ -= length(vUv_ * 2. - 1.) * uScroll;
-    // vec4 logo = texture2D(uLogo, vUv_ + sx + vec2(0., 1.-t0_)*0.);
+    float delay1 = 1.;
+    float t1 = 0.;
+    float ts1 = delay1;
+    float ld1 = 6.;
+    float te1 = ts1 + ld1;
+    if (uTime < ts1) t1 = 0.;
+    else if (uTime < te1) t1 = map(uTime, ts1, te1, 0., 1.);
+    else t1 = 1.;
+    t1 = smoothstep(0., 1., t1);
+    float scroll = clamp(uScroll, 0., 1.) * 0.;
+    vec2 vUv_ = imgUv.xy;
+    vec2 sx = vec2(
+      cols.r * smoothstep(mix(.6, .6, scroll), 1., mix(1. - vUv_.y, 1., scroll)) * sin(time + vUv_.x * 2.), 
+      // cols.r * smoothstep(.55, 1., 1. - vUv_.y) * uMouse.x, 
+      // cols.r * smoothstep(mix(.6, .4, abs(vUv_.x * 2. - 1.)), 1., 1.-vUv_.y)
+      cols.r * smoothstep(mix(.55, .55, scroll), 1., mix(1.-vUv_.y, 1., scroll)) + scroll * max(uResolution.x/uResolution.y, uResolution.y/uResolution.x)
+    ) * t1 * (1.-d3);
+    sx.y += scroll;
+    // vUv_.x = mix(vUv_.x, (vUv_.x - .5) * mix(1.,.25,smoothstep(.5, .75, 1.-vUv.y)) + .5, uScroll);
+    // vUv_ = (vUv_ - .5) * mix(1., 5., smoothstep(0., 1., uScroll)) + .5;
+    // vUv_ -= length(vUv_ * 2. - 1.) * uScroll;
+    vec4 logo = texture2D(uLogo, vUv_ + sx + vec2(0., 1.-t0_)*0.);
 
     // vec3 colLogo = mix(bg, vec3(27.)/255., logo.r * (1.-smoothstep(.66, .75, uScroll)));
+    vec3 colLogo = mix(bg, vec3(27.)/255., logo.r);
 
-    // colLogo = mix(logo.rgb, bg, smoothstep(.75, .8, uScroll));
-    // vec4 logo2 = texture2D(uLogo2, vUv_ + sx + vec2(0., 1.-t0_)*0.);
+    // // colLogo = mix(logo.rgb, bg, smoothstep(.75, .8, uScroll));
+    // // vec4 logo2 = texture2D(uLogo2, vUv_ + sx + vec2(0., 1.-t0_)*0.);
 
-    // logo.rgb = smoothstep(.0, .1, logo2.rgb);
-    // logo.rgb = mix(logo.rgb, bg)
-    // vec4 logo2 = texture2D(uLogo2, vUv_ + sx + vec2(0., 1.-t0_)*0.);
-    // logo.rgb = mix(logo.rgb, smoothstep(.0, 1., logo2.rgb), smoothstep(.5, 1., 1.-vUv.y));
-    // logo.rgb = smoothstep(mix(0.,.45,t0_), mix(0.,.55,t0_), logo.rgb);
+    // // logo.rgb = smoothstep(.0, .1, logo2.rgb);
+    // // logo.rgb = mix(logo.rgb, bg)
+    // // vec4 logo2 = texture2D(uLogo2, vUv_ + sx + vec2(0., 1.-t0_)*0.);
+    // // logo.rgb = mix(logo.rgb, smoothstep(.0, 1., logo2.rgb), smoothstep(.5, 1., 1.-vUv.y));
+    // // logo.rgb = smoothstep(mix(0.,.45,t0_), mix(0.,.55,t0_), logo.rgb);
 
-    float b = sin(t * PI + d3);
-    vec3 yellow = vec3(0.8588, 0.9882, 0.3216);
-    vec3 gray = vec3(0.7569);
-    vec4 uColor0 = vec4(vec3(0.15), 0.);
-    vec4 uColor1 = vec4(gray, .6);
-    vec4 uColor2 = vec4(yellow, .75);
-    vec4 uColor3 = vec4(clamp(yellow * 1.1, 0., 1.), .85);
-    vec4 uColor4 = vec4(gray, .9);
-    vec4 uColor5 = vec4(yellow, 1.);
-    vec3 colorA = uColor0.rgb;
-    float stopA = uColor0.a;
-    for (float i = 1.; i < 6.; i++) {
-      vec4 cB = uColor1;
-      if (i == 2.) cB = uColor2;
-      if (i == 3.) cB = uColor3;
-      if (i == 4.) cB = uColor4;
-      if (i == 5.) cB = uColor5;
-      vec3 colorB = cB.rgb;
-      float stopB = cB.a;
-      float fc = smoothstep(stopA, stopB, b);
-      colorA = mix(colorA, colorB, fc);
-      stopA = cB.a;
-    }
-    col = mix(col, colorA, smoothstep(.6666, 1., uColors));
+    // float b = sin(t * PI + d3);
+    // vec3 yellow = vec3(0.8588, 0.9882, 0.3216);
+    // vec3 gray = vec3(0.7569);
+    // vec4 uColor0 = vec4(vec3(0.15), 0.);
+    // vec4 uColor1 = vec4(gray, .6);
+    // vec4 uColor2 = vec4(yellow, .75);
+    // vec4 uColor3 = vec4(clamp(yellow * 1.1, 0., 1.), .85);
+    // vec4 uColor4 = vec4(gray, .9);
+    // vec4 uColor5 = vec4(yellow, 1.);
+    // vec3 colorA = uColor0.rgb;
+    // float stopA = uColor0.a;
+    // for (float i = 1.; i < 6.; i++) {
+    //   vec4 cB = uColor1;
+    //   if (i == 2.) cB = uColor2;
+    //   if (i == 3.) cB = uColor3;
+    //   if (i == 4.) cB = uColor4;
+    //   if (i == 5.) cB = uColor5;
+    //   vec3 colorB = cB.rgb;
+    //   float stopB = cB.a;
+    //   float fc = smoothstep(stopA, stopB, b);
+    //   colorA = mix(colorA, colorB, fc);
+    //   stopA = cB.a;
+    // }
+    // col = mix(col, colorA, smoothstep(.6666, 1., uColors));
 
-    vec3 colGradientBase = col;
+    // vec3 colGradientBase = col;
 
     // // if (uTheme.x == 1.) {
     //   float tt = getTime(2., uTheme.z);
@@ -352,11 +355,11 @@ vec2 getTexUv(vec2 screenRes, vec2 texRes, float fitWidth) {
     //   col = mix(col, colt, mix(ft, 1., uMode.w));
 
 
-      vec3 colProject = mix(uTheme0, uTheme1, clamp(b, 0., 1.));
+      // vec3 colProject = mix(uTheme0, uTheme1, clamp(b, 0., 1.));
 
-      // col = mix(col, colProject, mix(uTheme.y, 1., uTheme.x));
-      vec3 colGradient = mix(colGradientBase, colProject, uTheme.z);
-      col = mix(bg, colGradient, mix(uTheme.x, 1., uTheme.y));
+      // // col = mix(col, colProject, mix(uTheme.y, 1., uTheme.x));
+      // vec3 colGradient = mix(colGradientBase, colProject, uTheme.z);
+      // col = mix(colLogo, colGradient, mix(uTheme.x, 1., uTheme.y));
 
       
     // }
@@ -368,7 +371,7 @@ vec2 getTexUv(vec2 screenRes, vec2 texRes, float fitWidth) {
 
     // col += rand(vUv) * .05;
 
-    col = mix(vec3(193.)/255., col, t0);
+    // col = mix(vec3(193.)/255., col, t0);
 
 
     // float ldm = 1.;
@@ -406,67 +409,71 @@ uvm = uvm * 2. - 1.;
 uvm *= vec2(uResolution.x/uResolution.y, 1.);
 
 
-    float rd = atan(uvm.y/uvm.x);
+//     float rd = atan(uvm.y/uvm.x);
 
-// uvm -=
+// // uvm -=
 
-    float tv2 = getTime(1., uVideoPlaying.y);
-    tv2 = smoothstep(.0, 1., tv2);
-    if (uVideoPlaying.x == 0.) tv2 = 1. - tv2;
+//     float tv2 = getTime(1., uVideoPlaying.y);
+//     tv2 = smoothstep(.0, 1., tv2);
+//     if (uVideoPlaying.x == 0.) tv2 = 1. - tv2;
 
-  // vec2 vidUv = vUv;
-  //   vec2 viduvF = vec2(
-  //     uVideoResolution.x / uResolution.x,
-  //     uVideoResolution.y / uResolution.y
-  //   );
-  //   vidUv /= viduvF;
+//   // vec2 vidUv = vUv;
+//   //   vec2 viduvF = vec2(
+//   //     uVideoResolution.x / uResolution.x,
+//   //     uVideoResolution.y / uResolution.y
+//   //   );
+//   //   vidUv /= viduvF;
 
-  //   // float vsf = sin(uTime)*.5+.5;
-  //   // float uImgFitWidth = uResolution.y > uResolution.x ? 1. : 0.;
-  //   // float fitVidWidth = 1.;
-  //   // float vidoffSide = fitVidWidth == 1. ? uResolution.x / uVideoResolution.x : uResolution.y / uVideoResolution.y;
-  //   float vidoffSide = mix(uResolution.x / uVideoResolution.x, uResolution.y / uVideoResolution.y, 1.-tv2);
+//   //   // float vsf = sin(uTime)*.5+.5;
+//   //   // float uImgFitWidth = uResolution.y > uResolution.x ? 1. : 0.;
+//   //   // float fitVidWidth = 1.;
+//   //   // float vidoffSide = fitVidWidth == 1. ? uResolution.x / uVideoResolution.x : uResolution.y / uVideoResolution.y;
+//   //   float vidoffSide = mix(uResolution.x / uVideoResolution.x, uResolution.y / uVideoResolution.y, 1.-tv2);
 
-  //   vec2 viduvOff = vec2(
-  //     (uResolution.x - uVideoResolution.x * vidoffSide),
-  //     (uResolution.y - uVideoResolution.y * vidoffSide)
-  //   );
-  //   viduvOff *= .5;
-  //   viduvOff /= uVideoResolution.xy;
-  //   vidUv -= viduvOff;
-  //   // vidUv *= fitVidWidth == 1.? uVideoResolution.x / uResolution.x : uVideoResolution.y / uResolution.y;
-  //   vidUv *= mix(uVideoResolution.x/uResolution.x, uVideoResolution.y/uResolution.y, 1.-tv2);
+//   //   vec2 viduvOff = vec2(
+//   //     (uResolution.x - uVideoResolution.x * vidoffSide),
+//   //     (uResolution.y - uVideoResolution.y * vidoffSide)
+//   //   );
+//   //   viduvOff *= .5;
+//   //   viduvOff /= uVideoResolution.xy;
+//   //   vidUv -= viduvOff;
+//   //   // vidUv *= fitVidWidth == 1.? uVideoResolution.x / uResolution.x : uVideoResolution.y / uResolution.y;
+//   //   vidUv *= mix(uVideoResolution.x/uResolution.x, uVideoResolution.y/uResolution.y, 1.-tv2);
 
-  vec2 vidUv = mix(
-    getTexUv(uResolution.xy, uVideoResolution.xy, 1.),
-    getTexUv(uResolution.xy, uVideoResolution.xy, 0.), 
-    1.-tv2);
-  float outside = 0.;
-  if (vidUv.x < 0. || vidUv.x > 1. || vidUv.y < 0. || vidUv.y > 1.) outside = 1.; 
+//   vec2 vidUv = mix(
+//     getTexUv(uResolution.xy, uVideoResolution.xy, 1.),
+//     getTexUv(uResolution.xy, uVideoResolution.xy, 0.), 
+//     1.-tv2);
+//   float outside = 0.;
+//   if (vidUv.x < 0. || vidUv.x > 1. || vidUv.y < 0. || vidUv.y > 1.) outside = 1.; 
 
   
 
-vec4 video = texture2D(uVideo, vidUv.xy);
+// vec4 video = texture2D(uVideo, vidUv.xy);
 
 
-    float r = length(uvm - mouse + (sin(atan2(uvm.y, uvm.x + 10.) * PI * 40. + b * 0. + uTime))*.15);
+    // float r = length(uvm - mouse + (sin(atan2(uvm.y, uvm.x + 10.) * PI * 40. + b * 0. + uTime))*.15);
+    // r = mix(r, mix(b, d3, tv2), tv2);
+
+
     // col_ = mix(col_, video.rgb, 1.-smoothstep(0.19, .2, r));
     // float tv = getTime(2., uVideoResolution.w);
-    r = mix(r, mix(b, d3, tv2), tv2);
     // tv *= smoothstep(.333, .4, uScroll);
     // float vidf = 1.-smoothstep(mix(0., 0.19, tv), mix(0.,.2, tv), r);
-    // float vidf = 1.-smoothstep(.19,.2, r);
-    float vf = tv2;
-    float vidf = 1.-smoothstep(mix(.49, 0.99, vf),mix(.5, 1., vf), r);
-    // vidf = 1.;
+    // // float vidf = 1.-smoothstep(.19,.2, r);
+    // float vf = tv2;
+    // float vidf = 1.-smoothstep(mix(.49, 0.99, vf),mix(.5, 1., vf), r);
+    // // vidf = 1.;
 
   
 
-    // vidf = mix(vidf, max(vidf, 1.-smoothstep(.9, 1., d3)), tv2 * uVideoPlaying.x);
-    // vidf *= tv;
-    // vidf *= (1.-outside);
-    video.rgb = mix(video.rgb, bg, mix(outside, 1., 1.-uVideoResolution.z));
-    col_ = mix(col_, video.rgb, vidf);
+    // // vidf = mix(vidf, max(vidf, 1.-smoothstep(.9, 1., d3)), tv2 * uVideoPlaying.x);
+    // // vidf *= tv;
+    // // vidf *= (1.-outside);
+    // video.rgb = mix(video.rgb, bg, mix(outside, 1., 1.-uVideoResolution.z));
+    // col_ = mix(col_, video.rgb, vidf);
+
+    col_ = colLogo.rgb;
 
     gl_FragColor = vec4(col_, 1.);
   }

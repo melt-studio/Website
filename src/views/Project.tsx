@@ -47,14 +47,13 @@ const Project = () => {
   //   type: "feature",
   // };
 
-  const { coverImage, scope, copy, featureImages, tag, approachCopy, approachMedia, galleryImages } =
-    activeProject.fields;
+  const { projectThumbnail, scope, copy, projectImages, copy2title, copy2, galleryImages } = activeProject.fields;
 
   return (
     <>
       <title>{`MELT – ${activeProject.fields.name}`}</title>
       <div className="flex flex-col" key={activeProject.id}>
-        <Cover media={coverImage} />
+        <Cover media={projectThumbnail} />
         <div className="content">
           {/* <FadeScroll viewport={{ amount: 1 }}> */}
 
@@ -77,29 +76,29 @@ const Project = () => {
         </div> */}
           {/* </FadeScroll> */}
 
-          {(featureImages || galleryImages) && (
+          {(projectImages || galleryImages) && (
             <div className="flex flex-col gap-10">
-              {featureImages && featureImages.length > 0 && (
-                <ProjectImages images={featureImages.slice(0, Math.floor(featureImages.length / 2) + 1)} />
+              {projectImages && projectImages.length > 0 && (
+                <ProjectImages images={projectImages.slice(0, Math.floor(projectImages.length / 2) + 1)} />
               )}
 
               {galleryImages && galleryImages.length > 0 && <Gallery images={galleryImages} />}
 
-              {featureImages && featureImages.length > 1 && (
+              {projectImages && projectImages.length > 1 && (
                 <ProjectImages
-                  images={featureImages.slice(Math.floor(featureImages.length / 2) + 1, featureImages.length)}
+                  images={projectImages.slice(Math.floor(projectImages.length / 2) + 1, projectImages.length)}
                 />
               )}
             </div>
           )}
 
-          {approachCopy && (
-            <Section type="column" title={`Our Approach${tag && ` | ${tag}`}`}>
-              <Copy copy={approachCopy} />
+          {copy2 && (
+            <Section type="column" title={copy2title}>
+              <Copy copy={copy2} />
             </Section>
           )}
 
-          <ProjectImages images={approachMedia} />
+          {/* <ProjectImages images={approachMedia} /> */}
         </div>
 
         <div

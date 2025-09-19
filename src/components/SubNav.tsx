@@ -19,7 +19,7 @@ const SubNav = () => {
     <motion.nav
       initial={{ opacity: 0, transform: "translateY(100%)" }}
       exit={{ opacity: 0, transform: "translateY(100%)" }}
-      animate={{ opacity: 1, transform: "translateY(0)" }}
+      animate={docs ? { opacity: 0, transform: "translateY(100%)" } : { opacity: 1, transform: "translateY(0)" }}
       transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
       className={clsx(
         "nav bottom-0 left-0 w-full h-fit fixed items-center justify-between p-sm md:p-md uppercase animate-[fadeIn2_2s_ease_1]",

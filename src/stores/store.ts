@@ -6,6 +6,7 @@ import config from "../config.json";
 type State = {
   background: BackgroundMesh | null;
   gradient: HTMLDivElement | null;
+  firstProject: HTMLDivElement | null;
   ready: boolean;
   reel: VideoAirtable | null;
   video: HTMLVideoElement | null;
@@ -33,6 +34,7 @@ const initialState = {
   gradient: null,
   video: null,
   videoPlaying: false,
+  firstProject: null,
   reel: null,
   showReel: false,
   ready: false,

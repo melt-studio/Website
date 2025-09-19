@@ -2,6 +2,10 @@ import clsx from "clsx";
 import { useStore } from "../stores/store";
 import Link from "./Link";
 import { useLocation } from "react-router";
+// import { Canvas } from "@react-three/fiber";
+// import Scene from "./GL/Scene";
+// import { OrthographicCamera } from "@react-three/drei";
+import CanvasLogo from "./GL/Logo/Wrapper";
 
 const Footer = () => {
   const location = useLocation();
@@ -12,14 +16,17 @@ const Footer = () => {
   return (
     <footer
       className={clsx(
-        "footer bg-light flex flex-col p-sm pb-md md:p-md uppercase gap-70 z-10 pt-30 md:pt-50 transition-opacity duration-2000",
+        "footer bg-light flex flex-col uppercase transition-opacity duration-2000 h-screen min-h-screen relative z-5",
         {
           "opacity-0": showReel,
           "opacity-100": !showReel,
         }
       )}
     >
-      <div className="flex flex-col gap-15 md:gap-30">
+      <div className="flex grow w-full flex-col">
+        <CanvasLogo />
+      </div>
+      <div className="flex flex-col gap-15 gap-30 p-sm pb-md md:p-md z-10 pt-30 md:pt-50">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4">
           <div className="">Melt Studio</div>
           <div className="flex gap-4 justify-between">
@@ -30,7 +37,7 @@ const Footer = () => {
               </div>
               <Link to="mailto:hello@melt.works">hello@melt.works</Link>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col items-end">
               <Link to="https://www.instagram.com/melt.works/" target="_blank">
                 Instagram
               </Link>

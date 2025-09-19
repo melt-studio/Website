@@ -51,16 +51,18 @@ type ProjectFields = {
   client: string;
   scope: string[];
   copy: string;
-  tag: string;
-  tileImage: ImageAirtable[];
-  coverImage: Media[];
-  coverThumb: Media[];
-  featureImages: Media[];
+  copy2title: string;
+  copy2: string;
+  // tag: string;
+  projectThumbnail: ImageAirtable[];
+  splashImage: Media[];
+  // coverThumb: Media[];
+  projectImages: Media[];
   galleryImages: Media[];
-  approachCopy: string;
-  approachMedia: Media[];
+  // approachCopy: string;
+  // approachMedia: Media[];
   backgroundColor: string;
-  textColor: string;
+  // textColor: string;
 };
 
 export type ProjectAirtable = AirtableRecords & {
@@ -69,8 +71,8 @@ export type ProjectAirtable = AirtableRecords & {
 
 type AboutFields = {
   page: string;
-  coverImage: Media[];
-  coverText: string;
+  splashImage: Media[];
+  splashText: string;
   whoWeAre: string;
   headline1: string;
   services: string[];

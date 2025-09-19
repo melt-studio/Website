@@ -83,7 +83,7 @@ const ProjectImages = ({ images }: { images: Media[] }) => {
   if (!images) return null;
 
   return (
-    <div className="px-sm md:px-md flex flex-col gap-10">
+    <div className="px-2.5 flex flex-col gap-10">
       {images.map((image) => (
         <FadeScroll key={image.id}>
           <ProjectImage image={image} />

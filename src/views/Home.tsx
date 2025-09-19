@@ -4,6 +4,7 @@ import ProjectTiles from "../components/ProjectTiles";
 import clsx from "clsx";
 import { useStore } from "../stores/store";
 import { useMotionValueEvent, useScroll } from "motion/react";
+import { WordsPullUp } from "../components/WordAnimation";
 // import AnimatedLayout from "../components/AnimatedLayout";
 
 const Home = () => {
@@ -36,7 +37,7 @@ const Home = () => {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     // console.log("Page scroll: ", latest);
-    const fold = 0.333;
+    const fold = 0.0;
     const height = 1;
 
     if (latest / viewport.height < fold) {
@@ -60,9 +61,9 @@ const Home = () => {
           className={clsx(
             "w-full h-screen flex fixed top-0 left-0 items-center justify-center p-sm md:p-md z-2 transition-all duration-2000",
             {
-              "opacity-0 translate-y-20": showFeature === "below",
-              "opacity-100 translate-y-0": showFeature === "show",
-              "opacity-0 -translate-y-20": showFeature === "above",
+              // "opacity-0 translate-y-20": showFeature === "below",
+              // "opacity-100 translate-y-0": showFeature === "show",
+              // "opacity-0 -translate-y-20": showFeature === "above",
             }
           )}
           onClick={() => {
@@ -82,20 +83,15 @@ const Home = () => {
           }}
           // onMouseOver={(e) => console.log(e.screenX / viewport.width, e.screenY / viewport.height)}
         >
-          <div className="feature relative z-3">
-            <span>MELT is a creative studio focused on branding & entertainment. We make ideas that stick.</span>
-
-            {/* <span>MELT is a creative studio focused on branding & entertainment.</span>
-            <span className="relative w-[10vw] inline-block">
-              <span className="opacity-0 mx-[1vw]">.</span>
-              <span
-                className="bg-light absolute -top-[.5vw] left-0 h-[6vw] w-[9vw] mx-[.5vw] rounded-[.75vw] cursor-pointer"
-                onClick={() => setValue("showReel", true)}
-              ></span>
-            </span>
-            <span>We make ideas that stick.</span> */}
+          <div className="feature">
+            <WordsPullUp
+              text="MELT is a creative studio focused on branding & entertainment. We make ideas that stick."
+              fixed
+            />
           </div>
         </div>
+
+        {/* <WordsPullUp text="MELT is a creative studio focused on branding & entertainment. We make ideas that stick." /> */}
 
         <ProjectTiles />
 

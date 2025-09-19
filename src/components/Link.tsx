@@ -8,6 +8,7 @@ type LinkProps = {
   target?: string;
   underline?: boolean;
   className?: string;
+  onClick?: () => void;
   invertUnderline?: boolean;
   hideSelected?: boolean;
   viewTransition?: boolean;
@@ -20,6 +21,7 @@ const Link = ({
   underline = true,
   className,
   invertUnderline = false,
+  onClick,
   hideSelected = false,
   viewTransition = false,
   children,
@@ -35,7 +37,13 @@ const Link = ({
   const mid = activeProject?.contrast.label === "mid" || docs;
 
   return (
-    <LinkRouter to={to} target={target} className={clsx(className, {}, "w-fit")} viewTransition={viewTransition}>
+    <LinkRouter
+      to={to}
+      target={target}
+      className={clsx(className, {}, "w-fit")}
+      viewTransition={viewTransition}
+      onClick={onClick}
+    >
       <div className="group relative w-fit">
         {children}
         {underline && (

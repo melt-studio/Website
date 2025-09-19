@@ -2,6 +2,7 @@ import { ProjectFormatted } from "../types";
 import Link from "./Link";
 import Image from "./Image";
 import { useStore } from "../stores/store";
+import { useEffect } from "react";
 
 type ProjectTileProps = {
   project: ProjectFormatted;
@@ -31,10 +32,11 @@ export function ImageSkeleton({ width, height }: { width: number; height: number
 const ProjectTile = ({ project }: ProjectTileProps) => {
   const background = useStore((state) => state.background);
   const gradient = useStore((state) => state.gradient);
+  const setValue = useStore((state) => state.setValue);
 
-  if (!project.fields.tileImage) return null;
+  if (!project.fields.projectThumbnail) return null;
 
-  const thumb = project.fields.tileImage[0].thumbnails.large;
+  const thumb = project.fields.projectThumbnail[0].thumbnails.large;
 
   const handleMouseEnter = () => {
     if (!background || !gradient || location.pathname !== "/") return null;
@@ -89,20 +91,25 @@ const ProjectTile = ({ project }: ProjectTileProps) => {
 
   return (
     <div
-      className="cursor-pointer overflow-hidden rounded-[1.5vw] relative flex items-center justify-center scale-100 hover:scale-110 transition-transform duration-500 w-full h-auto"
+      className="cursor-pointer overflow-hidden relative flex items-center justify-center scale-100 hover:scale-110 transition-transform duration-500 w-full h-auto"
       // style={{ width: thumb.width, height: thumb.height }}
       style={{ aspectRatio: thumb.width / thumb.height }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      ref={(el) => {
+        if (el && project.index === 0) {
+          setValue("firstProject", el);
+        }
+      }}
     >
-      <div className={`bg-mid/75 absolute top-0 left-0 bottom-0 right-0 animate-[fadeIn_2s_ease_1]`}></div>
+      {/* <div className={`bg-mid/75 absolute top-0 left-0 bottom-0 right-0 animate-[fadeIn_2s_ease_1]`}></div> */}
       <Link to={`/work/${project.fields.projectUrl.toLowerCase()}`} underline={false}>
         <Image
           src={thumb.url}
           alt={project.fields.name}
           width={thumb.width}
           height={thumb.height}
-          className="rounded-[1.5vw]"
+          // className="rounded-[1.5vw]"
         />
       </Link>
       {/* <div className="absolute bottom-0 left-0 p-md uppercase">{project.fields.name}</div> */}

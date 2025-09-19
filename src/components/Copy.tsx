@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import Markdown from "react-markdown";
+import { WordsPullUp } from "./WordAnimation";
 
 export default function Copy({
   copy,
@@ -21,7 +22,8 @@ export default function Copy({
         className
       )}
     >
-      <Markdown>{copy}</Markdown>
+      <WordsPullUp text={copy} className={feature ? "justify-center" : ""} />
+      {/* <Markdown>{copy}</Markdown> */}
     </div>
   );
 }

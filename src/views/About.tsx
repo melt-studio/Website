@@ -22,8 +22,6 @@ const About = () => {
   const aboutInfo = useStore((state) => state.about);
   const team = useStore((state) => state.team);
 
-  console.log(aboutInfo);
-
   if (!aboutInfo[0]) return null;
 
   const info = aboutInfo[0];
@@ -68,9 +66,9 @@ const About = () => {
     <>
       <title>MELT – About Us</title>
       <div className="flex flex-col">
-        <Cover media={info.fields.coverImage}>
+        <Cover media={info.fields.splashImage}>
           <div className="absolute w-full h-full top-0 left-0 flex items-center justify-center">
-            <Copy copy={info.fields.coverText} feature className="text-light" />
+            <Copy copy={info.fields.splashText} feature className="text-light" />
           </div>
         </Cover>
         <div className="content">
