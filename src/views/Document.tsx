@@ -2,13 +2,13 @@ import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router";
 import documentService from "../services/document";
 import { Doc, DocMedia } from "../types";
-import LogoFull from "../components/LogoFull";
+// import LogoFull from "../components/LogoFull";
 
 const Document = () => {
   return (
     <div className="w-screen h-screen">
       <div className="w-full h-full flex flex-col animate-[fadeIn_1s_ease-in-out] items-center">
-        <div className="flex items-center gap-4 grow w-full h-fit p-4 justify-center relative z-2 h-15">
+        {/* <div className="flex items-center gap-4 grow w-full h-fit p-4 justify-center relative z-2 h-15">
           <a href="/">
             <LogoFull height={25} />
           </a>
@@ -18,7 +18,7 @@ const Document = () => {
               <span className="h-px w-full bg-transparent absolute -bottom-1 left-0 group-hover:bg-white transition-colors"></span>
             </a>
           </div>
-        </div>
+        </div> */}
         <DocumentContent />
       </div>
     </div>

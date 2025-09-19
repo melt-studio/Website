@@ -28,7 +28,7 @@ type Document = DocumentMetadata & {
 
 const KEY = Netlify.env.get("REACT_APP_AIRTABLE_KEY");
 const APP = Netlify.env.get("REACT_APP_AIRTABLE_APP");
-const TABLE = Netlify.env.get("REACT_APP_AIRTABLE_TABLE_EMBEDS");
+const TABLE = Netlify.env.get("REACT_APP_AIRTABLE_TABLE_DOCUMENTS");
 const URL = `${APP}/${TABLE}`;
 
 const headers = { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" };
@@ -75,6 +75,7 @@ const formatDocument = (document: DocumentAirtable, full: boolean = false): Resp
 };
 
 const getDocument = async (pageUrl: any) => {
+  console.log(pageUrl);
   if (typeof pageUrl !== "string") return pass({ error: "Invalid document url" }, 400);
 
   try {
