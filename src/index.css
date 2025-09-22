@@ -109,7 +109,7 @@
   }
 
   .feature {
-    @apply font-serif leading-[1] tracking-[-0.04em] text-[8vw] md:text-[7vw] text-center [&>p]:justify-center;
+    @apply font-serif leading-[1] tracking-[-0.04em] text-[8vw] md:text-[min(7vw,_120px)] text-center [&>p]:justify-center max-w-[1920px];
   }
 
   .control {
@@ -122,5 +122,9 @@
 
   .column {
     @apply grid grid-rows-1 gap-4 md:grid-cols-[1fr_2fr];
+  }
+
+  .hide-scroll {
+    @apply [&::-webkit-scrollbar]:hidden;
   }
 }

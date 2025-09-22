@@ -70,9 +70,9 @@ const About = () => {
 
           <Gallery {...gallery} />
 
-          <Section title="Headline 2" type="feature">
+          {/* <Section title="Headline 2" type="feature">
             <Copy copy={info.fields.headline2} feature />
-          </Section>
+          </Section> */}
         </div>
       </div>
     </>

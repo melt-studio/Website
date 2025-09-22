@@ -5,9 +5,12 @@ type VideoProps = {
   src: string;
   controls?: boolean;
   className?: string;
+  muted?: boolean;
+  autoplay?: boolean;
+  loop?: boolean;
 };
 
-const Video = ({ src, controls = true, className }: VideoProps) => {
+const Video = ({ src, controls = true, className, muted = false, autoplay = false, loop = false }: VideoProps) => {
   const [videoSize, setVideoSize] = useState<{ width: number; height: number } | null>(null);
 
   return (
@@ -26,6 +29,9 @@ const Video = ({ src, controls = true, className }: VideoProps) => {
         },
         className
       )}
+      muted={muted || autoplay}
+      autoPlay={autoplay}
+      loop={loop}
     />
   );
 };

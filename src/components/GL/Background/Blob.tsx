@@ -31,7 +31,6 @@ const Blob = () => {
   const mouse = useMemo(() => new Vector2(), []);
 
   useEffect(() => {
-    console.log("adding listener");
     const listener = (e: MouseEvent) => {
       const { width, height } = useStore.getState().viewport;
       const x = (e.clientX / width) * 2 - 1;
