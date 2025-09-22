@@ -1,20 +1,48 @@
 import clsx from "clsx";
 import { useMotionValueEvent, useScroll } from "motion/react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import ProjectTiles from "../components/ProjectTiles";
 import { WordsPullUp } from "../components/WordAnimation";
 import { useStore } from "../stores/store";
+import { useLocation } from "react-router";
 
 const Home = () => {
   const video = useStore((state) => state.video);
   const blob = useStore((state) => state.blob);
+  const location = useLocation();
   // const setValue = useStore((state) => state.setValue);
   const viewport = useStore((state) => state.viewport);
 
   const [, setShowFeature] = useState<"below" | "show" | "above">("below");
 
   const { scrollY } = useScroll();
+
+  const [expanded, setExpanded] = useState(false);
+
+  const expandVideo = () => {
+    if (!video || !blob) return;
+    blob.material.uniforms.uVideoPlaying.value.set(
+      1,
+      blob.material.uniforms.uTime.value,
+      blob.material.uniforms.uVideoPlaying.value.z,
+      blob.material.uniforms.uVideoPlaying.value.w
+    );
+    video.muted = false;
+    setExpanded(true);
+  };
+
+  const hideVideo = useCallback(() => {
+    if (!video || !blob) return;
+    blob.material.uniforms.uVideoPlaying.value.set(
+      0,
+      blob.material.uniforms.uTime.value,
+      blob.material.uniforms.uVideoPlaying.value.z,
+      blob.material.uniforms.uVideoPlaying.value.w
+    );
+    video.muted = true;
+    setExpanded(false);
+  }, [video, blob]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     // console.log("Page scroll: ", latest);
@@ -34,31 +62,11 @@ const Home = () => {
     }
   });
 
-  const [expanded, setExpanded] = useState(false);
-
-  const expandVideo = () => {
-    if (!video || !blob) return;
-    blob.material.uniforms.uVideoPlaying.value.set(
-      1,
-      blob.material.uniforms.uTime.value,
-      blob.material.uniforms.uVideoPlaying.value.z,
-      blob.material.uniforms.uVideoPlaying.value.w
-    );
-    video.muted = false;
-    setExpanded(true);
-  };
-
-  const hideVideo = () => {
-    if (!video || !blob) return;
-    blob.material.uniforms.uVideoPlaying.value.set(
-      0,
-      blob.material.uniforms.uTime.value,
-      blob.material.uniforms.uVideoPlaying.value.z,
-      blob.material.uniforms.uVideoPlaying.value.w
-    );
-    video.muted = true;
-    setExpanded(false);
-  };
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      hideVideo();
+    }
+  }, [location.pathname, hideVideo]);
 
   return (
     <>
