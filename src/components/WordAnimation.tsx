@@ -8,13 +8,23 @@ type ObserverOptions = {
   once?: boolean;
 };
 
+type State = {
+  current: Position;
+  last: Position;
+};
+
+// --staggered-delay: 0.15;
+// --staggered-opacity-duration: 0.9;
+// --staggered-translate-y: 30px;
+// --staggered-translate-y-duration: 0.7;
+
 const useObserver = ({ amount = 0.5, once = false }: ObserverOptions = {}): [
   RefObject<HTMLParagraphElement | null>,
-  Position
+  state: State
 ] => {
   const ref = useRef<HTMLParagraphElement>(null);
   const [initialized, setInitialized] = useState(false);
-  const [position, setPosition] = useState<Position>("below");
+  const [position, setPosition] = useState<State>({ current: "below", last: "below" });
 
   const callback = useCallback(
     (entries: IntersectionObserverEntry[]) => {
@@ -22,10 +32,10 @@ const useObserver = ({ amount = 0.5, once = false }: ObserverOptions = {}): [
 
       const [entry] = entries;
       if (entry.isIntersecting) {
-        setPosition("show");
+        setPosition((pos) => ({ current: "show", last: pos.current }));
         setInitialized(true);
       } else {
-        setPosition(entry.boundingClientRect.y < 0 ? "above" : "below");
+        setPosition((pos) => ({ current: entry.boundingClientRect.y < 0 ? "above" : "below", last: pos.current }));
       }
     },
     [once, initialized]
@@ -81,7 +91,7 @@ export function WordsPullUp({
 }: AnimateWordsProps) {
   const { height } = useStore((state) => state.viewport);
   const { scrollY } = useScroll();
-  const [show, setShow] = useState<Position>("below");
+  const [state, setState] = useState<State>({ current: "below", last: "below" });
   const splittedText = text.split(" ");
 
   const updateShow = useCallback(
@@ -92,7 +102,7 @@ export function WordsPullUp({
       else if (s < max) position = "show";
       else position = "above";
 
-      setShow(position as Position);
+      setState((s) => ({ current: position as Position, last: s.current }));
     },
     [height, min, max]
   );
@@ -122,7 +132,9 @@ export function WordsPullUp({
     above: mode === "fade" ? 0 : 1,
   };
 
-  const state = fixed ? show : position;
+  // const state = fixed ? show : position;
+
+  const show = fixed ? state : position;
 
   const variants = {
     initial: {
@@ -130,21 +142,29 @@ export function WordsPullUp({
       opacity: opacity.below,
     },
     animate: (i: number) => ({
-      transform: transform[state],
-      opacity: opacity[state],
+      transform: transform[show.current],
+      opacity: opacity[show.current],
       transition: {
         duration,
-        delay: (state === "below" ? i : splittedText.length - i) * unitDelay + delay,
+        // delay: (state !== "above" ? i : splittedText.length - i) * unitDelay + delay,
+        delay: (show.last === "above" ? splittedText.length - i : i) * unitDelay + delay,
         ease: easing,
       },
     }),
+    // exit: {
+    //   transform: transform.above,
+    //   opacity: opacity.above,
+    // },
   };
+
+  // console.log(state);
 
   const motionProps = {
     variants,
     initial: "initial",
     animate: "animate",
     className: "relative will-change-transform inline-block",
+    // exit: "exit",
   };
 
   return (

@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import Markdown from "react-markdown";
+// import Markdown from "react-markdown";
 import { WordsPullUp } from "./WordAnimation";
 
 export default function Copy({

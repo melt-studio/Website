@@ -1,37 +1,18 @@
-import { useEffect, useState } from "react";
-// import LogoText from "../components/LogoText";
-import ProjectTiles from "../components/ProjectTiles";
 import clsx from "clsx";
-import { useStore } from "../stores/store";
 import { useMotionValueEvent, useScroll } from "motion/react";
+import { useState } from "react";
+
+import ProjectTiles from "../components/ProjectTiles";
 import { WordsPullUp } from "../components/WordAnimation";
-// import AnimatedLayout from "../components/AnimatedLayout";
+import { useStore } from "../stores/store";
 
 const Home = () => {
-  // const reelRef = useRef<HTMLVideoElement>(null);
-  // const [showReel, setShowReel] = useState(false);
-  // const showReel = useStore((state) => state.showReel);
-  // const reel = useStore((state) => state.reel);
   const video = useStore((state) => state.video);
-  // const videoPlaying = useStore((state) => state.videoPlaying);
-  const background = useStore((state) => state.background);
-  const setValue = useStore((state) => state.setValue);
+  const blob = useStore((state) => state.blob);
+  // const setValue = useStore((state) => state.setValue);
   const viewport = useStore((state) => state.viewport);
 
-  const [showFeature, setShowFeature] = useState<"below" | "show" | "above">("below");
-
-  useEffect(() => {
-    // window.scrollTo({
-    //   top: 0,
-    //   // behavior: "smooth"
-    // });
-    document.title = "MELT – Work";
-
-    return () => {
-      document.title = "MELT";
-      setValue("showReel", false);
-    };
-  }, [setValue]);
+  const [, setShowFeature] = useState<"below" | "show" | "above">("below");
 
   const { scrollY } = useScroll();
 
@@ -50,16 +31,12 @@ const Home = () => {
   });
 
   return (
-    // <AnimatedLayout>
     <>
       <title>MELT</title>
-      <div className="flex flex-col mt-[200dvh]">
-        {/* <div className="w-full h-screen flex items-center justify-center p-md">
-        <LogoText className="w-full h-auto" />
-      </div> */}
+      <div className="flex flex-col mt-[175dvh]">
         <div
           className={clsx(
-            "w-full h-screen flex fixed top-0 left-0 items-center justify-center p-sm md:p-md z-2 transition-all duration-2000",
+            "w-full h-screen flex fixed top-0 left-0 items-center justify-center p-sm md:p-md z-1 transition-all duration-2000 cursor-default",
             {
               // "opacity-0 translate-y-20": showFeature === "below",
               // "opacity-100 translate-y-0": showFeature === "show",
@@ -67,23 +44,28 @@ const Home = () => {
             }
           )}
           onClick={() => {
-            if (!video || !background) return;
+            if (!video || !blob) return;
 
-            if (background.material.uniforms.uVideoPlaying.value.x === 0) {
-              // video.play();
-              // setValue("videoPlaying", true);
-              background.material.uniforms.uVideoPlaying.value.set(1, background.material.uniforms.uTime.value);
+            if (blob.material.uniforms.uVideoPlaying.value.x === 0) {
+              blob.material.uniforms.uVideoPlaying.value.set(
+                1,
+                blob.material.uniforms.uTime.value,
+                blob.material.uniforms.uVideoPlaying.value.z,
+                blob.material.uniforms.uVideoPlaying.value.w
+              );
               video.muted = false;
             } else {
-              // video.pause();
-              // setValue("videoPlaying", false);
-              background.material.uniforms.uVideoPlaying.value.set(0, background.material.uniforms.uTime.value);
+              blob.material.uniforms.uVideoPlaying.value.set(
+                0,
+                blob.material.uniforms.uTime.value,
+                blob.material.uniforms.uVideoPlaying.value.z,
+                blob.material.uniforms.uVideoPlaying.value.w
+              );
               video.muted = true;
             }
           }}
-          // onMouseOver={(e) => console.log(e.screenX / viewport.width, e.screenY / viewport.height)}
         >
-          <div className="feature">
+          <div className="feature text-red-500/50 hidden">
             <WordsPullUp
               text="MELT is a creative studio focused on branding & entertainment. We make ideas that stick."
               fixed
@@ -91,40 +73,9 @@ const Home = () => {
           </div>
         </div>
 
-        {/* <WordsPullUp text="MELT is a creative studio focused on branding & entertainment. We make ideas that stick." /> */}
-
         <ProjectTiles />
-
-        {/* {reel && (
-          <div
-            className={clsx(
-              "fixed w-full h-screen top-0 left-0 rounded-[1.5vw] overflow-hidden flex items-center justify-center z-4 transition-opacity duration-2000",
-              {
-                "opacity-100 pointer-events-all": showReel,
-                "opacity-0 pointer-events-none": !showReel,
-              }
-            )}
-            onClick={(e) => {
-              if (e.target === reelRef.current) return;
-
-              setValue("showReel", false);
-              if (reelRef.current) {
-                reelRef.current.pause();
-                // reelRef.current.currentTime = 0;
-              }
-            }}
-          >
-            <video
-              ref={reelRef}
-              src={reel?.url}
-              controls
-              // className="absolute w-full h-auto p-sm md:p-md"
-            />
-          </div>
-        )} */}
       </div>
     </>
-    // </AnimatedLayout>
   );
 };
 

@@ -1,5 +1,4 @@
 import { useStore } from "../stores/store";
-// import { useEffect } from "react";
 import Cover from "../components/Cover";
 import Section from "../components/Section";
 import Gallery from "../components/Gallery";
@@ -7,18 +6,6 @@ import List from "../components/List";
 import Copy from "../components/Copy";
 
 const About = () => {
-  // useEffect(() => {
-  //   // window.scrollTo({
-  //   //   top: 0,
-  //   //   // behavior: "smooth"
-  //   // });
-  //   document.title = "MELT – About Us";
-
-  //   return () => {
-  //     document.title = "MELT";
-  //   };
-  // }, []);
-
   const aboutInfo = useStore((state) => state.about);
   const team = useStore((state) => state.team);
 
@@ -30,7 +17,6 @@ const About = () => {
     title?: string;
     content: string | string[];
     type?: "column" | "feature";
-    // column?: boolean;
   }[] = [
     {
       title: "Who We Are",
@@ -66,7 +52,7 @@ const About = () => {
     <>
       <title>MELT – About Us</title>
       <div className="flex flex-col">
-        <Cover media={info.fields.splashImage}>
+        <Cover media={info.fields.splashImage} className="w-full h-full">
           <div className="absolute w-full h-full top-0 left-0 flex items-center justify-center">
             <Copy copy={info.fields.splashText} feature className="text-light" />
           </div>

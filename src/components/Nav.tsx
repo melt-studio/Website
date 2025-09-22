@@ -1,41 +1,20 @@
-import { useLocation } from "react-router";
-import Link from "./Link";
-// import LogoText from "./LogoText";
-// import { useStore } from "../store";
 import clsx from "clsx";
-import Controls from "./GL/Controls";
-// import LetterAnimation from "./LetterAnimation";
+import { useLocation } from "react-router";
 import { motion } from "motion/react";
 import { useStore } from "../stores/store";
-import LetterAnimation from "./LetterAnimation";
-// import { useMemo } from "react";
-// import { Vector2 } from "three";
+import Link from "./Link";
+import Controls from "./GL/Background/Controls";
 
 const Nav = () => {
   const location = useLocation();
   const activeProject = useStore((state) => state.activeProject);
-  // const projects = useStore((state) => state.projects);
-  const firstProject = useStore((state) => state.firstProject);
+  const projectTiles = useStore((state) => state.projectTiles);
 
   const dissolve = location.pathname.includes("/dissolve");
   const docs = location.pathname.includes("/docs/");
 
   const light = dissolve || activeProject?.contrast.label === "light";
   const mid = activeProject?.contrast.label === "mid" || docs;
-
-  // // Get first project url
-  // let projectUrl = null;
-  // if (projects && projects.length > 0) {
-  //   projectUrl = projects[0].fields.projectUrl.toLowerCase();
-  // }
-
-  //   const scroll = useMemo(() => new Vector2(), []);
-
-  // const { scrollY } = useScroll();
-
-  // useMotionValueEvent(scrollY, "change", (latest) => {
-  //   scroll.x = MathUtils.clamp(latest, 0, window.innerHeight / 2);
-  // });
 
   return (
     <motion.nav
@@ -58,21 +37,12 @@ const Nav = () => {
       >
         <div className="flex w-full">
           <Link to="/" underline={false}>
-            Melt
+            Melt is a Creative Studio
           </Link>
-          {"\u00A0"}
-          <LetterAnimation text={["is a Creative Studio", "is a text goes here", "is another one"]} />
         </div>
       </div>
       {dissolve ? (
-        // <div className="flex grow items-center justify-between animate-[fadeIn_2s_ease_1_alternate_forwards]">
-        <div
-          className="flex grow items-start justify-between"
-          // className={clsx("flex grow items-center justify-between transition-opacity duration-2000", {
-          //   "opacity-100": dissolve,
-          //   "opacity-0": !dissolve,
-          // })}
-        >
+        <div className="flex grow items-start justify-between">
           <Controls />
           <div className="flex w-1/4 justify-end">
             <Link to="/">Home</Link>
@@ -80,14 +50,12 @@ const Nav = () => {
         </div>
       ) : (
         <div className="w-full md:w-2/3 flex items-center justify-between">
-          {/* <Link to={projectUrl ? `/work/${projectUrl}` : "/"} hideSelected={projectUrl === null}>
-            Work
-          </Link> */}
           <Link
             to="/"
             onClick={() => {
-              if (location.pathname === "/" && firstProject) firstProject.scrollIntoView({ behavior: "smooth" });
+              if (location.pathname === "/" && projectTiles) projectTiles.scrollIntoView({ behavior: "smooth" });
             }}
+            // underline={false}
           >
             Work
           </Link>

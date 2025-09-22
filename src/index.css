@@ -8,35 +8,6 @@
 
 @custom-variant docs (&:where(.page-docs *));
 @custom-variant dissolve (&:where(.page-dissolve *));
-@custom-variant project-light (&:where(.project-light *));
-@custom-variant project-mid (&:where(.project-mid *));
-
-@utility text-fill {
-  color: var(--color-dark);
-  fill: var(--color-dark);
-
-  &:where(.project-light *, .page-dissolve *) {
-    color: var(--color-light);
-    fill: var(--color-light);
-  }
-
-  &:where(.project-mid *, .page-docs *) {
-    color: var(--color-mid);
-    fill: var(--color-mid);
-  }
-}
-
-@utility bg-underline {
-  background: var(--color-dark);
-
-  &:where(.project-light *, .page-dissolve *) {
-    background: var(--color-light);
-  }
-
-  &:where(.project-mid *, .page-docs *) {
-    background: var(--color-mid);
-  }
-}
 
 @theme {
   --font-mono: ballinger-mono, ui-monospace, SFMono-Regular, Menlo, "Roboto Mono", monospace;
@@ -112,9 +83,6 @@
     75% {
       transform: translateY(0%);
     }
-    /* 30% {
-      transform: translateY(-100%);
-    } */
     100% {
       transform: translateY(-100%);
     }
@@ -135,18 +103,6 @@
   body {
     @apply w-full h-full m-0 p-0 bg-mid text-dark fill-dark font-mono text-sm tracking-tight transition-colors duration-500 antialiased in-[.page-docs]:bg-dark;
   }
-
-  /* body.page-docs {
-    @apply fill-mid text-mid bg-dark;
-  }
-
-  body.page-about {
-    @apply bg-light page-about;
-  }
-
-  body.page-dissolve {
-    @apply fill-light text-light page-dissolve;
-  } */
 
   a {
     text-decoration: none;

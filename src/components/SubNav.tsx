@@ -22,7 +22,7 @@ const SubNav = () => {
       animate={docs ? { opacity: 0, transform: "translateY(100%)" } : { opacity: 1, transform: "translateY(0)" }}
       transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
       className={clsx(
-        "nav bottom-0 left-0 w-full h-fit fixed items-center justify-between p-sm md:p-md uppercase animate-[fadeIn2_2s_ease_1]",
+        "nav bottom-0 left-0 w-full h-fit fixed items-center justify-between p-sm md:p-md uppercase animate-[fadeIn2_2s_ease_1] pointer-events-none",
         {
           flex: !dissolve,
           "text-light fill-light hidden": dissolve,
@@ -33,13 +33,6 @@ const SubNav = () => {
         }
       )}
     >
-      {/* {project.active && (
-        <motion.div exit={{ opacity: 0 }}>
-          {`${project.active.project.fields.name}${
-            project.active.project.fields.client && ` | ${project.active.project.fields.client}`
-          }`}
-        </motion.div>
-      )} */}
       <div className="ml-auto">
         <LogoDrippy />
       </div>

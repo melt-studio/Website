@@ -1,11 +1,11 @@
+import clsx from "clsx";
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router";
+
+import Image from "../components/Image";
+import Video from "../components/Video";
 import documentService from "../services/document";
 import { DocumentAirtableLocked, DocumentAirtableUnlocked, ImageAirtable, Media } from "../types";
-import clsx from "clsx";
-import Video from "../components/Video";
-import Image from "../components/Image";
-// import LogoText from "../components/LogoText";
 
 const Document = () => {
   useEffect(() => {
@@ -38,9 +38,7 @@ const DocumentContent = () => {
       try {
         const response: DocumentAirtableUnlocked | DocumentAirtableLocked = await documentService.getDocument(path);
         setDoc(response);
-        // if (response.fields.title) document.title = `MELT – ${response.fields.title}`;
       } catch {
-        // console.log(error);
         navigate("/");
       }
     };
@@ -48,7 +46,7 @@ const DocumentContent = () => {
     if (path !== undefined) getDocument(path);
   }, [path, navigate]);
 
-  const handlePasswordSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
+  const handlePasswordSubmit = async (e: MouseEvent) => {
     e.preventDefault();
 
     if (!doc) return navigate("/");
@@ -67,7 +65,6 @@ const DocumentContent = () => {
       setInvalid(null);
       setChecking(false);
     } catch {
-      // console.log(error);
       setInvalid("Incorrect Password");
     }
 
@@ -81,7 +78,7 @@ const DocumentContent = () => {
 
   if (!doc)
     return (
-      <div className="flex flex-col gap-10 items-center justify-center w-full h-full pb-10 text-mid">Loading...</div>
+      <div className="flex flex-col gap-10 items-center justify-center w-full h-full pb-0 text-mid">Loading...</div>
     );
 
   if (doc.locked) {
@@ -175,7 +172,10 @@ const DocumentContent = () => {
         {title}
         <div
           className={
-            embedUrl.includes("figma.com/proto") ? "absolute -left-12 -top-15 -right-12 -bottom-4" : "w-full h-full"
+            embedUrl.includes("figma.com/proto")
+              ? // "absolute -left-12 -top-15 -right-12 -bottom-4" :
+                "absolute -left-12 -top-15 -right-12 -bottom-15"
+              : "w-full h-full"
           }
         >
           <iframe src={embedUrl} allowFullScreen className="w-full h-full animate-[fadeIn_1s_ease-in-out] z-1" />
@@ -193,7 +193,7 @@ const DocumentContent = () => {
         <div
           className={clsx("flex items-center justify-center", {
             "w-full h-full": pdf,
-            "absolute top-0 left-0 right-0 bottom-9": !pdf,
+            "absolute top-0 left-0 right-0 bottom-0": !pdf,
           })}
         >
           <DocumentMedia media={media[0]} />

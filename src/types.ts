@@ -1,9 +1,10 @@
 import { RefObject } from "react";
 import { Mesh, PlaneGeometry, ShaderMaterial } from "three";
 
-export type BackgroundMesh = Mesh<PlaneGeometry, ShaderMaterial>;
+export type ShaderMesh = Mesh<PlaneGeometry, ShaderMaterial>;
 
-export type BackgroundMeshRef = RefObject<BackgroundMesh | undefined>;
+export type BackgroundMeshRef = RefObject<ShaderMesh | undefined>;
+export type BlobMeshRef = RefObject<ShaderMesh | undefined>;
 
 type AirtableRecords = {
   id: string;
@@ -130,4 +131,5 @@ export type ProjectFormatted = ProjectAirtable & {
     contrast: number;
     label: string;
   };
+  thumbnailAspectRatio: number;
 };

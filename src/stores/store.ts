@@ -1,12 +1,14 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { AboutAirtable, BackgroundMesh, ProjectFormatted, TeamAirtable, VideoAirtable } from "../types";
+import { AboutAirtable, ProjectFormatted, ShaderMesh, TeamAirtable, VideoAirtable } from "../types";
 import config from "../config.json";
 
 type State = {
-  background: BackgroundMesh | null;
+  background: ShaderMesh | null;
+  blob: ShaderMesh | null;
   gradient: HTMLDivElement | null;
-  firstProject: HTMLDivElement | null;
+  scroll: HTMLDivElement | null;
+  projectTiles: HTMLDivElement | null;
   ready: boolean;
   reel: VideoAirtable | null;
   video: HTMLVideoElement | null;
@@ -31,10 +33,12 @@ type Actions = {
 const initialState = {
   config,
   background: null,
+  blob: null,
   gradient: null,
+  scroll: null,
   video: null,
   videoPlaying: false,
-  firstProject: null,
+  projectTiles: null,
   reel: null,
   showReel: false,
   ready: false,

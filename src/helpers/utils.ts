@@ -55,6 +55,7 @@ export const formatProjects = (projects: ProjectAirtable[]): ProjectFormatted[] 
       prev,
       contrast: text,
       theme: theme2,
+      thumbnailAspectRatio: project.fields.projectThumbnail[0].width / project.fields.projectThumbnail[0].height,
     };
   });
 

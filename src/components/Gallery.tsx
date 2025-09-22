@@ -16,20 +16,13 @@ const Gallery = ({ images, title }: GalleryProps) => {
           {images.map((image, i) => {
             if (image.type.includes("video/")) {
               const { id } = image as VideoAirtable & { caption?: string[] };
-              return (
-                // <div key={`${id}_${i}`} className="relative w-fit h-fit rounded-[1.5vw]">
-                <Video key={`${id}_${i}`} src={image.url} />
-                // </div>
-              );
+              return <Video key={`${id}_${i}`} src={image.url} />;
             }
 
             if (image.type.includes("image/")) {
               const { id, thumbnails, caption } = image as ImageAirtable & { caption?: string[] };
               return (
-                <div
-                  key={`${id}_${i}`}
-                  className="relative w-[50dvw] md:w-[33dvw] max-w-[400px] h-fit rounded-[1.5vw] flex grow overflow-hidden"
-                >
+                <div key={`${id}_${i}`} className="relative w-[50dvw] md:w-[33dvw] max-w-[400px] h-fit flex grow">
                   <Image
                     src={thumbnails.large.url}
                     width={thumbnails.large.width}

@@ -7,7 +7,7 @@ const ProjectNav = () => {
   if (!activeProject) return null;
 
   return (
-    <div className="footer bg-light flex flex-col p-sm md:p-md uppercase gap-4 pt-10 md:pt-30 relative z-5">
+    <div className="footer bg-light flex flex-col p-sm md:p-md uppercase gap-4 pt-10 md:pt-10 relative z-5">
       <div className="grid grid-cols-2 md:grid-cols-[1fr_2fr] gap-4">
         {activeProject.prev && (
           <Link to={`/work/${activeProject.prev}`} invertUnderline>

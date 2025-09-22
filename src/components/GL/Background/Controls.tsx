@@ -1,19 +1,11 @@
-import Audio from "../Audio";
-import Slider from "../Slider";
-import { useStore } from "../../stores/store";
-// import { useEffect, useState } from "react";
-// import clsx from "clsx";
+import Audio from "../../Audio";
+import Slider from "../../Slider";
+import { useStore } from "../../../stores/store";
 
 const Controls = () => {
-  // const ready = useStore((state) => state.ready);
-  // const [show, setShow] = useState(false);
   const background = useStore((state) => state.background);
   const setValue = useStore((state) => state.setValue);
   const { colors, waves, distortion } = useStore((state) => state.controls);
-
-  // useEffect(() => {
-  //   setShow(true);
-  // }, []);
 
   const sliderColors = {
     label: "Color",
@@ -52,9 +44,6 @@ const Controls = () => {
 
   return (
     <div
-      // className={`fixed top-0 left-4 right-4 h-fit gap-2 justify-center flex flex-col md:flex-row flex-wrap items-center font-light text-xs pt-4 md:pt-8 transition-transform duration-2000 delay-2000 md:gap-4 ${
-      //   ready ? "" : "-translate-y-full"
-      // }`}
       className={
         "h-fit gap-2 justify-center flex flex-col grow lg:flex-row flex-wrap md:items-center font-light text-xs md:gap-4 relative md:-top-1.5"
       }

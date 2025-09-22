@@ -8,7 +8,7 @@ import { fragmentShader } from "./shaders/fragment";
 import config from "../../../config.json";
 
 import { useStore } from "../../../stores/store";
-import { BackgroundMesh } from "../../../types";
+import { ShaderMesh } from "../../../types";
 import { useLocation } from "react-router";
 import { useTexture } from "@react-three/drei";
 
@@ -16,19 +16,10 @@ import logoImage from "../../../assets/logo.png";
 import logoImage2 from "../../../assets/logo2.png";
 useTexture.preload([logoImage, logoImage2]);
 
-// type BackgroundProps = {
-//   bg1: RefObject<HTMLDivElement | null>;
-//   bg2: RefObject<HTMLDivElement | null>;
-// };
-
 const Scene = () => {
   const location = useLocation();
   const setValue = useStore((state) => state.setValue);
-  // const activeProject = useStore((state) => state.activeProject);
-  // const gradient = useStore((state) => state.gradient);
-  // const video = useStore((state) => state.video);
-  // const ready = useStore((state) => state.ready);
-  const ref = useRef<BackgroundMesh>(null);
+  const ref = useRef<ShaderMesh>(null);
 
   useEffect(() => {
     if (ref.current) setValue("background", ref.current);
@@ -43,25 +34,16 @@ const Scene = () => {
   useEffect(() => {
     console.log("adding listener");
     const listener = (e: MouseEvent) => {
-      // console.log(e.screenX, e.screenY);
       const { width, height } = useStore.getState().viewport;
       const x = (e.clientX / width) * 2 - 1;
       const y = (1 - e.clientY / height) * 2 - 1;
-      // console.log(x, y);
-      // if (ref.current) {
-      //   ref.current.material.uniforms.uMouse.value.x += (x - ref.current.material.uniforms.uMouse.value.x) * 0.05;
-      //   ref.current.material.uniforms.uMouse.value.y += (y - ref.current.material.uniforms.uMouse.value.y) * 0.05;
-      // }
+
       mouse.set(x, y);
     };
     window.addEventListener("mousemove", listener);
 
     return () => window.removeEventListener("mousemove", listener);
   }, [mouse]);
-
-  // const progress = useProgress();
-
-  // console.log(progress);
 
   const [uniforms] = useMemo(() => {
     const uniforms = {
@@ -124,9 +106,7 @@ const Scene = () => {
       ref.current.material.uniforms.uTime.value += delta;
 
       if (location.pathname === "/") {
-        // const s = Math.max(0, Math.min(window.scrollY / size.height, 1));
         const s = window.scrollY / size.height;
-        // console.log(s);
         ref.current.material.uniforms.uScroll.value += (s - ref.current.material.uniforms.uScroll.value) * 0.05;
 
         ref.current.material.uniforms.uMouse.value.x += (mouse.x - ref.current.material.uniforms.uMouse.value.x) * 0.15;
