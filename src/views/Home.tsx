@@ -28,7 +28,37 @@ const Home = () => {
     } else {
       setShowFeature("above");
     }
+
+    if (latest / viewport.height >= fold + height && expanded) {
+      hideVideo();
+    }
   });
+
+  const [expanded, setExpanded] = useState(false);
+
+  const expandVideo = () => {
+    if (!video || !blob) return;
+    blob.material.uniforms.uVideoPlaying.value.set(
+      1,
+      blob.material.uniforms.uTime.value,
+      blob.material.uniforms.uVideoPlaying.value.z,
+      blob.material.uniforms.uVideoPlaying.value.w
+    );
+    video.muted = false;
+    setExpanded(true);
+  };
+
+  const hideVideo = () => {
+    if (!video || !blob) return;
+    blob.material.uniforms.uVideoPlaying.value.set(
+      0,
+      blob.material.uniforms.uTime.value,
+      blob.material.uniforms.uVideoPlaying.value.z,
+      blob.material.uniforms.uVideoPlaying.value.w
+    );
+    video.muted = true;
+    setExpanded(false);
+  };
 
   return (
     <>
@@ -44,25 +74,8 @@ const Home = () => {
             }
           )}
           onClick={() => {
-            if (!video || !blob) return;
-
-            if (blob.material.uniforms.uVideoPlaying.value.x === 0) {
-              blob.material.uniforms.uVideoPlaying.value.set(
-                1,
-                blob.material.uniforms.uTime.value,
-                blob.material.uniforms.uVideoPlaying.value.z,
-                blob.material.uniforms.uVideoPlaying.value.w
-              );
-              video.muted = false;
-            } else {
-              blob.material.uniforms.uVideoPlaying.value.set(
-                0,
-                blob.material.uniforms.uTime.value,
-                blob.material.uniforms.uVideoPlaying.value.z,
-                blob.material.uniforms.uVideoPlaying.value.w
-              );
-              video.muted = true;
-            }
+            if (expanded) hideVideo();
+            else expandVideo();
           }}
         >
           <div className="feature text-red-500/50 hidden">
