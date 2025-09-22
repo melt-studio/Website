@@ -80,7 +80,7 @@ const ProjectTiles = () => {
 
   return (
     <div className={clsx("flex md:gap-10 pt-40 pb-40 w-full justify-around relative z-2 px-sm")} ref={projectTiles}>
-      <div className="grid grid-cols-[repeat(40,_1fr)] w-full h-auto items-start gap-y-[2rem] max-w-[2560px]">
+      <div className="grid grid-cols-[repeat(40,_1fr)] w-full h-auto items-start gap-y-[2rem] max-w-[1920px]">
         {projects.map((project, i) => (
           <ProjectTile key={project.id} project={project} layout={layout[i]} active={active} setActive={setActive} />
         ))}

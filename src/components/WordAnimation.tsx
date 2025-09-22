@@ -78,7 +78,7 @@ export function WordsPullUp({
   text,
   className = "",
   mode = "overflow",
-  duration = 1,
+  duration = 2,
   delay = 0,
   unitDelay = 0.025,
   transformOffset = "110%",

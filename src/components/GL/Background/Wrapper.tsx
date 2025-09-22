@@ -24,7 +24,7 @@ const Gradient = () => {
     <div className="fixed -top-px -left-px -z-999 w-0 h-0 pointer-events-none">
       <div
         ref={gradient}
-        className="bg-mid [transition:background-color_2s_ease_0s,opacity_2s_ease_0s,border-color_2s_ease_0s,scale_2s_ease_0s] w-full h-full scale-100 opacity-0"
+        className="bg-mid [transition:background-color_3s_ease_0s,opacity_3s_ease_0s,border-color_3s_ease_0s,scale_3s_ease_0s] w-full h-full scale-100 opacity-0"
       ></div>
     </div>
   );

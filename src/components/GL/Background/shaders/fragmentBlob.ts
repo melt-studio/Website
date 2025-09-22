@@ -62,7 +62,22 @@ export const fragmentShaderBlob = /* glsl */ `
 
     // Mouse coords
     vec2 mouse = uMouse;
+    vec2 mouse2 = uMouse;
+    float time = uTime * .0333 + 4.;
+    // mouse += vec2(sin(time + sin(time * .5 + cos(time * .25))), cos(time + cos(time * .5 + sin(time * .5)))) * .5;
+    // mouse = vec2(sin(time), cos(time)) * .5;
+    // mouse += vec2(sin(time * 2.), cos(time * 2.)) * .25;
+    // mouse -= vec2(sin(time * 3.), cos(time * 3.)) * .125;
+
+    float x = sin(time * 5.) * .5;
+    float y = sin(time * 4.) * .5;
+    x += sin(time * 6.) * .25;
+    y += sin(time * 5.) * .25;
+    x += sin(time * 10.) * .25;
+    y += sin(time * 8.) * .25;
+    mouse = vec2(x, y);
     mouse *= vec2(uResolution.x/uResolution.y, 1.);
+    mouse2 *= vec2(uResolution.x/uResolution.y, 1.);
 
     vec2 uv = vUv * 2. - 1.;
     uv *= vec2(uResolution.x/uResolution.y, 1.);
@@ -71,11 +86,11 @@ export const fragmentShaderBlob = /* glsl */ `
     float sf = uScroll.y;
 
     // Video load transition time
-    float t0 = getTime(uTime, 1., uVideoPlaying.w);
+    float t0 = getTime(uTime, 1.5, uVideoPlaying.w);
     t0 = easeInOutCubic(t0);
 
     // Video expand transition time
-    float t1 = getTime(uTime, 1., uVideoPlaying.y);
+    float t1 = getTime(uTime, 1.5, uVideoPlaying.y);
     float t2 = t1; // play/stop button scale time
     t1 = easeInOutCubic(t1);
     if (uVideoPlaying.x == 0.) t1 = 1. - t1;
@@ -97,9 +112,9 @@ export const fragmentShaderBlob = /* glsl */ `
 
     // Blob shape 
     vec2 pb = uv - mouse;
-    float pbf = (sin(atan2(uv.y, uv.x + 10.) * PI * 40. + uTime))*.05;
+    float pbf = (sin(atan2(uv.y, uv.x + 10.) * PI * 40. + uTime * .666))*.05;
     float angle = atan(pb.y, pb.x);
-    float pbf2 = mix(1., .6666, (sin(angle * 4. + uTime + uMouse.x * PI))*.5 + (sin(angle * 7. - uTime * .5 + uMouse.y * PI * 1.))*.5);
+    float pbf2 = mix(1., .6666, (sin(angle * 4. + uTime * .666 + mouse.x * PI))*.5 + (sin(angle * 7. - uTime * .5 * .6666 + mouse.y * PI * 1.))*.5);
     pb *= pbf2;
     pb += pbf;
 
@@ -114,7 +129,8 @@ export const fragmentShaderBlob = /* glsl */ `
     r = mix(1., r, smoothstep(0., .5, t0));
 
     // Icon coords
-    vec2 puv = uv - mouse;
+    vec2 m = mix(mouse, mouse2, t1);
+    vec2 puv = uv - m;
     puv *= mix(1., 1.25, sin(smoothstep(0., .2, t2) * PI));
 
     // Icon border
@@ -149,7 +165,7 @@ export const fragmentShaderBlob = /* glsl */ `
     float control = smoothUnionSDF(mix(controlPlay, controlStop, t4), mix(controlPlay, controlStop, t4), .005); 
     control = mix(control, null, sf);
     control = 1. - smoothstep(0., .002, control);
-    if (mouse.y > 1.-90./uResolution.y) control = 0.; // hide control if pointer around top nav
+    if (m.y > 1.-90./uResolution.y) control = 0.; // hide control if pointer around top nav
 
     // Output color ----------------------------- //
 
