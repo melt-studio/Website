@@ -105,9 +105,11 @@ export const fragmentShaderBlob = /* glsl */ `
     // Video texture
     float margin = 10.;
     Tex vidUv0 = getTexUv(uResolution.xy, uVideoResolution.xy, false, margin);
-    Tex vidUv1 = getTexUv(uResolution.xy, uVideoResolution.xy, true, margin);
+    // Tex vidUv1 = getTexUv(uResolution.xy, uVideoResolution.xy, false, margin);
     vec2 vidUv = mix(vidUv0.uv, vidUv1.uv, 1.-t1);
-    vec2 vidSize = mix(vidUv0.size, vidUv1.size, 1.-t1);
+    vec2 vidUv = vidUv0.uv;
+    // vec2 vidSize = mix(vidUv0.size, vidUv1.size, 1.-t1);
+    vec2 vidSize = vidUv0.size;
     float outside = 0.;
     if (vidUv.x < 0. || vidUv.x > 1. || vidUv.y < 0. || vidUv.y > 1.) outside = 1.; 
     vec3 colVideo = texture2D(uVideo, vidUv.xy).rgb;
