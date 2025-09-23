@@ -72,8 +72,8 @@ const Gradient = () => {
         ref.current.material.uniforms.uTheme.value.x = 0;
         ref.current.material.uniforms.uMode.value.x = 0;
         gradient.style.opacity = "0%";
-        gradient.style.backgroundColor = "#c1c1c1";
-        gradient.style.borderColor = "#c1c1c1";
+        gradient.style.backgroundColor = "#ecece9";
+        gradient.style.borderColor = "#ecece9";
       } else {
         ref.current.material.uniforms.uTheme.value.x = 1;
         ref.current.material.uniforms.uMode.value.x = 1;

@@ -92,7 +92,16 @@ export function WordsPullUp({
   const { height } = useStore((state) => state.viewport);
   const { scrollY } = useScroll();
   const [state, setState] = useState<State>({ current: "below", last: "below" });
-  const splittedText = text.split(" ");
+
+  let index = 0;
+  const splittedText = text
+    .split("\n")
+    .map((t) => t.split(" "))
+    .map((t) => {
+      const out = t.map((w, i) => ({ text: w, index: index + i }));
+      index += t.length;
+      return out;
+    });
 
   const updateShow = useCallback(
     (scroll: number) => {
@@ -168,20 +177,28 @@ export function WordsPullUp({
   };
 
   return (
-    <p className={clsx("flex flex-wrap", {}, className)} ref={ref}>
-      {splittedText.map((current, i) => (
-        <span
-          key={i}
-          className={clsx("relative", {
-            "overflow-hidden": mode === "overflow",
-          })}
-        >
-          <motion.span custom={i} {...motionProps}>
-            {current}
-          </motion.span>
-          <span>{"\u00A0"}</span>
-        </span>
-      ))}
-    </p>
+    <div className={clsx("flex flex-col", {}, className)} ref={ref}>
+      {splittedText.map((line, i) => {
+        return (
+          <p key={`${i}_${line.join(" ")}`} className="flex flex-wrap justify-center">
+            {line.map((current, j) => {
+              return (
+                <span
+                  key={`${current.index}_${current.text}`}
+                  className={clsx("relative", {
+                    "overflow-hidden": mode === "overflow",
+                  })}
+                >
+                  <motion.span custom={current.index} {...motionProps}>
+                    {current.text}
+                  </motion.span>
+                  {j < line.length - 1 && <span>{"\u00A0"}</span>}
+                </span>
+              );
+            })}
+          </p>
+        );
+      })}
+    </div>
   );
 }

@@ -10,6 +10,7 @@ import {
   sdEquilateralTriangle,
   sdRoundedBox,
   smoothDifferenceSDF,
+  smoothIntersectSDF,
   smoothUnionSDF,
 } from "./utils";
 
@@ -43,9 +44,11 @@ export const fragmentShaderBlob = /* glsl */ `
   ${atan2}
   ${smoothDifferenceSDF}
   ${smoothUnionSDF}
+  ${smoothIntersectSDF}
   ${rotate2d}
 
   void main() {
+    vec3 bgDark = vec3(27.)/255.;
     vec3 bgMid = vec3(193.)/255.;
     vec3 bgLight = vec3(236., 236., 233.)/255.;
 
@@ -63,7 +66,7 @@ export const fragmentShaderBlob = /* glsl */ `
     // Mouse coords
     vec2 mouse = uMouse;
     vec2 mouse2 = uMouse;
-    float time = uTime * .0333 + 4.;
+    float time = uTime * .02 + 4.;
     // mouse += vec2(sin(time + sin(time * .5 + cos(time * .25))), cos(time + cos(time * .5 + sin(time * .5)))) * .5;
     // mouse = vec2(sin(time), cos(time)) * .5;
     // mouse += vec2(sin(time * 2.), cos(time * 2.)) * .25;
@@ -75,7 +78,7 @@ export const fragmentShaderBlob = /* glsl */ `
     y += sin(time * 5.) * .25;
     x += sin(time * 10.) * .25;
     y += sin(time * 8.) * .25;
-    mouse = vec2(x, y);
+    mouse = vec2(x, y) * .666;
     mouse *= vec2(uResolution.x/uResolution.y, 1.);
     mouse2 *= vec2(uResolution.x/uResolution.y, 1.);
 
@@ -112,18 +115,23 @@ export const fragmentShaderBlob = /* glsl */ `
 
     // Blob shape 
     vec2 pb = uv - mouse;
-    float pbf = (sin(atan2(uv.y, uv.x + 10.) * PI * 40. + uTime * .666))*.05;
+    float pbf = (sin(atan2(uv.y, uv.x + 10.) * PI * 40. - uTime * .666))*.075;
     float angle = atan(pb.y, pb.x);
-    float pbf2 = mix(1., .6666, (sin(angle * 4. + uTime * .666 + mouse.x * PI))*.5 + (sin(angle * 7. - uTime * .5 * .6666 + mouse.y * PI * 1.))*.5);
+    float pfm = smoothstep(0., 1., length(uv - mouse2));
+    float pbf2 = mix(1., .6666, (sin(angle * 4. + uTime * .666 + mouse.x * PI * 4.)));
+    float pbf3 = mix(1., .6666, (sin(angle * 5. + uTime * .666 + mouse2.y * PI * 1.)));
     pb *= pbf2;
+    pb *= mix(pbf3, 1., pfm);
     pb += pbf;
 
     // Empty shape
     float null = sdBox((vUv * 2. - 1.) + pbf, vec2(.0));
 
+    float edge = sdRoundedBox(uv, (1.-margin*2./uResolution.xy)*vec2(uResolution.x/uResolution.y,1.), vec4(.1));
     float r = sdCircle(pb, mix(.35, 1., t1) * t0);
     r = smoothUnionSDF(mix(r, mix(v, box, t1), t1), mix(r, mix(v, box, t1), t1), .1);
     r = smoothUnionSDF(mix(r, null, sf), mix(r, null, sf), .1);
+    // r = mix(smoothIntersectSDF(r, edge, .1), r, t1);
     r = smoothstep(0., mix(.01, .02, t1), r);
     r = mix(1., r, uVideoPlaying.z);
     r = mix(1., r, smoothstep(0., .5, t0));
@@ -198,10 +206,10 @@ export const fragmentShaderBlob = /* glsl */ `
     // alpha = mix(0., alpha, t5);
 
     // colVideo = mix(colVideo, bgMid, mix(0., 1., 1.-uVideoResolution.z));
-    vec3 col = bgMid;
+    vec3 col = bgLight;
     // col = mix(col, colGradient, alphaGradient);
     col = mix(col, colVideo, (1.-r) * (1.-sf));
-    col = mix(col, bgLight, control * (1.-sf));
+    col = mix(col, mix(bgLight, bgMid, r), control * (1.-sf));
 
     gl_FragColor = vec4(col, alphaBlob);
   // }

@@ -55,6 +55,7 @@ const Wrapper = () => {
   const setValue = useStore((state) => state.setValue);
   const ready = useStore((state) => state.ready);
   const blob = useStore((state) => state.blob);
+  const viewport = useStore((state) => state.viewport);
 
   const glSettings = {
     antialias: false,
@@ -94,6 +95,14 @@ const Wrapper = () => {
     }
   }, [video, setValue]);
 
+  let featureText = `MELT is a creative studio focused on branding & entertainment. We make ideas that stick.`;
+
+  if (viewport.width >= 1920) {
+    featureText = `MELT is a creative\nstudio focused on branding & entertainment. We make ideas that stick.`;
+  } else if (viewport.width >= 1024) {
+    featureText = `MELT is a\ncreative studio\nfocused on branding & entertainment. We make ideas\nthat stick.`;
+  }
+
   return (
     <>
       <Gradient />
@@ -122,7 +131,7 @@ const Wrapper = () => {
 
       <div
         className={clsx(
-          "justify-center items-center h-dvh w-full text-white fixed top-0 left-0 z-0 transition-opacity duration-2000  pointer-events-none",
+          "justify-center items-center h-dvh w-full text-white fixed top-0 left-0 z-0 transition-opacity duration-2000 pointer-events-none",
           {
             "opacity-100": ready,
             "opacity-0": !ready,
@@ -134,18 +143,16 @@ const Wrapper = () => {
       >
         <div
           className={clsx(
-            "feature text-dark w-full h-full fixed top-0 left-0 flex items-center justify-center z-0 p-sm md:p-md transition-opacity duration-2000",
+            "w-full h-full fixed top-0 left-0 flex items-center justify-center z-0 p-sm md:p-md transition-opacity duration-2000",
             {
               "opacity-0": location.pathname !== "/",
               "opacity-100": location.pathname === "/",
             }
           )}
-          key={location.pathname}
         >
-          <WordsPullUp
-            text="MELT is a creative studio focused on branding & entertainment. We make ideas that stick."
-            fixed
-          />
+          <div className="feature text-dark" key={location.pathname}>
+            <WordsPullUp text={featureText} fixed />
+          </div>
         </div>
 
         <Canvas dpr={[1, 2]} gl={glSettings} onCreated={created}>

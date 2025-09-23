@@ -3,7 +3,7 @@ import { useMotionValueEvent, useScroll } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 
 import ProjectTiles from "../components/ProjectTiles";
-import { WordsPullUp } from "../components/WordAnimation";
+// import { WordsPullUp } from "../components/WordAnimation";
 import { useStore } from "../stores/store";
 import { useLocation } from "react-router";
 
@@ -86,12 +86,12 @@ const Home = () => {
             else expandVideo();
           }}
         >
-          <div className="feature text-red-500/50 hidden">
+          {/* <div className="feature text-red-500/50 hidden">
             <WordsPullUp
               text="MELT is a creative studio focused on branding & entertainment. We make ideas that stick."
               fixed
             />
-          </div>
+          </div> */}
         </div>
 
         <ProjectTiles />

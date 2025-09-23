@@ -94,8 +94,8 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
 
     if (!background || !gradient || location.pathname !== "/") return null;
 
-    gradient.style.backgroundColor = "#c1c1c1";
-    gradient.style.borderColor = "#c1c1c1";
+    gradient.style.backgroundColor = "#ecece9";
+    gradient.style.borderColor = "#ecece9";
     gradient.style.opacity = "0%";
   };
 

@@ -23,6 +23,8 @@
   --spacing-sm: 15px;
   --spacing-md: 25px;
 
+  --breakpoint-3xl: 120rem;
+
   @keyframes fade {
     0% {
       opacity: 0;
@@ -97,11 +99,11 @@
   }
 
   html {
-    @apply w-full h-dvh bg-mid text-dark;
+    @apply w-full h-dvh bg-light text-dark;
   }
 
   body {
-    @apply w-full h-full m-0 p-0 bg-mid text-dark fill-dark font-mono text-sm tracking-tight transition-colors duration-500 antialiased in-[.page-docs]:bg-dark;
+    @apply w-full h-full m-0 p-0 bg-light text-dark fill-dark font-mono text-sm tracking-tight transition-colors duration-500 antialiased in-[.page-docs]:bg-dark;
   }
 
   a {
@@ -109,7 +111,15 @@
   }
 
   .feature {
-    @apply font-serif leading-[1] tracking-[-0.04em] text-[8vw] md:text-[min(7vw,_120px)] text-center [&>p]:justify-center max-w-[1920px];
+    @apply font-serif leading-[1] tracking-[-0.04em] text-center 
+    text-[14vw] 
+    md:text-[100px] 
+    xl:text-[125px] 
+    3xl:text-[135px]
+    md:max-w-[700px]
+    lg:max-w-[800px] 
+    xl:max-w-[1000px]  
+    3xl:max-w-[1520px];
   }
 
   .control {
@@ -117,7 +127,7 @@
   }
 
   .content {
-    @apply flex flex-col bg-mid gap-15 md:gap-60 pt-10 pb-20 md:pb-70 relative z-3;
+    @apply flex flex-col bg-light gap-15 md:gap-60 pt-10 pb-20 md:pb-70 relative z-3;
   }
 
   .column {

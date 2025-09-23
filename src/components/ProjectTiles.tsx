@@ -34,9 +34,9 @@ const ProjectTiles = () => {
     return projects.reduce((layout, project, i) => {
       const row = Math.floor(project.index / 2);
       const col = project.index % 2;
-      const cols = 40;
-      const gap = getRandomInt(1, 4, row);
-      const offLeft = getRandomInt(0, 4, row + 4);
+      const cols = 36;
+      const gap = getRandomInt(2, 5, row);
+      const offLeft = getRandomInt(0, 4, row + 4) + 2;
       const offRight = getRandomInt(0, 4, row + 8);
       const available = cols - gap - offLeft;
       let ratio = (seededRandom(row + 9) * 1) / 6 + 0.5;

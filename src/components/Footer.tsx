@@ -39,7 +39,7 @@ const Footer = () => {
     <footer
       // ref={footer}
       className={clsx(
-        "footer bg-light flex flex-col uppercase transition-opacity duration-2000 h-fit relative z-5"
+        "footer bg-mid flex flex-col uppercase transition-opacity duration-2000 h-fit relative z-5"
         // {
         //   "opacity-0": showReel,
         //   "opacity-100": !showReel,
