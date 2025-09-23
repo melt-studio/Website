@@ -13,7 +13,7 @@ const Wrapper = () => {
   };
 
   const created = ({ gl }: { gl: WebGLRenderer }) => {
-    gl.setClearColor(0xc1c1c1, 1);
+    gl.setClearColor(0xc1c1c1, 0);
   };
 
   return (

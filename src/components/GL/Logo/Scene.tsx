@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-import { Color, Vector2, Vector3, Vector4 } from "three";
+import { Vector4 } from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 
 import { vertexShader } from "./shaders/vertex";
@@ -13,8 +13,7 @@ import { useLocation } from "react-router";
 import { useTexture } from "@react-three/drei";
 
 import logoImage from "../../../assets/logo.png";
-import logoImage2 from "../../../assets/logo2.png";
-useTexture.preload([logoImage, logoImage2]);
+// useTexture.preload([logoImage]);
 
 const Scene = () => {
   const location = useLocation();
@@ -25,52 +24,23 @@ const Scene = () => {
     if (ref.current) setValue("background", ref.current);
   }, [ref, setValue]);
 
-  const [logo, logo2] = useTexture([logoImage, logoImage2]);
+  const [logo] = useTexture([logoImage]);
 
   const { size } = useThree();
-
-  const mouse = useMemo(() => new Vector2(), []);
-
-  useEffect(() => {
-    console.log("adding listener");
-    const listener = (e: MouseEvent) => {
-      const { width, height } = useStore.getState().viewport;
-      const x = (e.clientX / width) * 2 - 1;
-      const y = (1 - e.clientY / height) * 2 - 1;
-
-      mouse.set(x, y);
-    };
-    window.addEventListener("mousemove", listener);
-
-    return () => window.removeEventListener("mousemove", listener);
-  }, [mouse]);
 
   const [uniforms] = useMemo(() => {
     const uniforms = {
       uTime: { value: 0 },
       uColors: { value: config.controls.colors },
-      uTheme: { value: new Vector3() },
-      uTheme0: { value: new Color() },
-      uTheme1: { value: new Color() },
       uWaves: { value: config.controls.waves },
       uDistortion: { value: config.controls.distortion },
       uResolution: {
-        value: new Vector4(0, 0, 1024, 1024),
+        value: new Vector4(0, 0, 2048, 2048),
       },
       PI: { value: Math.PI },
       uLogo: { value: null },
-      uLogo2: { value: null },
-      uVideo: { value: null },
-      uVideoPlaying: { value: new Vector2() },
-      uVideoResolution: { value: new Vector4() },
       uMode: {
         value: new Vector4(),
-      },
-      uMouse: {
-        value: new Vector2(),
-      },
-      uScroll: {
-        value: 0,
       },
     };
 
@@ -80,14 +50,10 @@ const Scene = () => {
   useEffect(() => {
     if (logo && ref.current) {
       ref.current.material.uniforms.uLogo.value = logo;
+      ref.current.material.uniforms.uResolution.value.z = logo.width;
+      ref.current.material.uniforms.uResolution.value.w = logo.height;
     }
   }, [logo, ref]);
-
-  useEffect(() => {
-    if (logo2 && ref.current) {
-      ref.current.material.uniforms.uLogo2.value = logo2;
-    }
-  }, [logo2, ref]);
 
   useEffect(() => {
     if (ref.current && ref.current.material) {
@@ -99,21 +65,18 @@ const Scene = () => {
   useFrame((_state, delta) => {
     if (ref.current && ref.current.material) {
       ref.current.material.uniforms.uTime.value += delta;
-
-      if (location.pathname === "/") {
-        const s = window.scrollY / size.height;
-        ref.current.material.uniforms.uScroll.value += (s - ref.current.material.uniforms.uScroll.value) * 0.05;
-
-        ref.current.material.uniforms.uMouse.value.x += (mouse.x - ref.current.material.uniforms.uMouse.value.x) * 0.15;
-        ref.current.material.uniforms.uMouse.value.y += (mouse.y - ref.current.material.uniforms.uMouse.value.y) * 0.15;
-      }
     }
   });
 
   return (
     <mesh ref={ref} visible={!location.pathname.includes("/docs/")}>
       <planeGeometry args={[1, 1]} />
-      <shaderMaterial vertexShader={vertexShader} fragmentShader={fragmentShader} uniforms={uniforms} />
+      <shaderMaterial
+        vertexShader={vertexShader}
+        fragmentShader={fragmentShader}
+        uniforms={uniforms}
+        transparent={true}
+      />
     </mesh>
   );
 };

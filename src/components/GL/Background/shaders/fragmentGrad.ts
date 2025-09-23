@@ -5,8 +5,6 @@ export const fragmentShaderGrad = /* glsl */ `
 
   uniform float PI;
   uniform float uTime;
-  uniform vec2 uMouse;
-  uniform vec2 uScroll;
   uniform vec4 uResolution;
   uniform float uColors;
   uniform float uDistortion;
@@ -15,9 +13,6 @@ export const fragmentShaderGrad = /* glsl */ `
   uniform vec3 uTheme0;
   uniform vec3 uTheme1;
   uniform vec4 uMode;
-  uniform sampler2D uVideo;
-  uniform vec4 uVideoPlaying;
-  uniform vec4 uVideoResolution;
 
   ${getTexUv}
   ${map}

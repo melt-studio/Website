@@ -22,13 +22,6 @@ export const fragmentShaderBlob = /* glsl */ `
   uniform vec2 uMouse;
   uniform vec2 uScroll;
   uniform vec4 uResolution;
-  uniform float uColors;
-  uniform float uDistortion;
-  uniform float uWaves;
-  uniform vec3 uTheme;
-  uniform vec3 uTheme0;
-  uniform vec3 uTheme1;
-  uniform vec4 uMode;
   uniform sampler2D uVideo;
   uniform vec4 uVideoPlaying;
   uniform vec4 uVideoResolution;
@@ -106,7 +99,7 @@ export const fragmentShaderBlob = /* glsl */ `
     float margin = 10.;
     Tex vidUv0 = getTexUv(uResolution.xy, uVideoResolution.xy, false, margin);
     // Tex vidUv1 = getTexUv(uResolution.xy, uVideoResolution.xy, false, margin);
-    vec2 vidUv = mix(vidUv0.uv, vidUv1.uv, 1.-t1);
+    // vec2 vidUv = mix(vidUv0.uv, vidUv1.uv, 1.-t1);
     vec2 vidUv = vidUv0.uv;
     // vec2 vidSize = mix(vidUv0.size, vidUv1.size, 1.-t1);
     vec2 vidSize = vidUv0.size;
@@ -178,6 +171,7 @@ export const fragmentShaderBlob = /* glsl */ `
 
     float control = smoothUnionSDF(mix(controlPlay, controlStop, t4), mix(controlPlay, controlStop, t4), .005); 
     control = mix(control, null, sf);
+    control = mix(1., control, uVideoPlaying.z);
     control = 1. - smoothstep(0., .002, control);
     if (m.y > 1.-90./uResolution.y) control = 0.; // hide control if pointer around top nav
 

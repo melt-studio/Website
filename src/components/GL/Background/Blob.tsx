@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-import { MirroredRepeatWrapping, Vector2, Vector4, VideoTexture } from "three";
+import { RepeatWrapping, Vector2, Vector4, VideoTexture } from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 
 import { vertexShader } from "./shaders/vertex";
@@ -45,8 +45,8 @@ const Blob = () => {
   const tex = useMemo(() => {
     if (video) {
       const tex = new VideoTexture(video);
-      tex.wrapS = MirroredRepeatWrapping;
-      tex.wrapT = MirroredRepeatWrapping;
+      tex.wrapS = RepeatWrapping;
+      tex.wrapT = RepeatWrapping;
       return tex;
     }
     return null;
@@ -68,9 +68,6 @@ const Blob = () => {
       uVideo: { value: null },
       uVideoPlaying: { value: new Vector4() },
       uVideoResolution: { value: new Vector4() },
-      uMode: {
-        value: new Vector4(),
-      },
       uMouse: {
         value: new Vector2(),
       },

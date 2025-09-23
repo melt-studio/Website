@@ -205,3 +205,38 @@ export const getTexUv = /* glsl */ `
     return Tex(uv, vec2(w, h));
   }
 `;
+
+export const getTexUv2 = /* glsl */ `
+  struct Tex {
+    vec2 uv;
+    vec2 size;
+  };
+
+  Tex getTexUv(vec2 screenRes, vec2 texRes, bool cover, float margin) {
+    vec2 screen = screenRes;
+
+    float screenAspect = screenRes.x/screenRes.y;
+    float texAspect = texRes.x/texRes.y;
+    bool fitWidth2 = screenAspect < texAspect;
+
+    float scale = 1. - margin * 2. / (fitWidth2 ? screen.x : screen.y);
+    if (cover) scale = texAspect/screenAspect;
+  
+    vec2 uv = vUv;
+    vec2 uvF = vec2(
+      texRes.x / screen.x,
+      texRes.y / screen.y
+    );
+    uv /= uvF;
+
+    uv *= fitWidth2 ? texRes.x / screen.x : texRes.y / screen.y;
+    uv /= scale;
+
+    uv.y -= fitWidth2 ? uResolution.y/uResolution.x - 1. : 0.;
+
+    float w = fitWidth2 ? scale * screenAspect : scale * texAspect;
+    float h = fitWidth2 ? w / texAspect : scale;
+
+    return Tex(uv, vec2(w, h));
+  }
+`;

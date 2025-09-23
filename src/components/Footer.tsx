@@ -5,7 +5,7 @@ import Link from "./Link";
 // import { useMotionValueEvent, useScroll } from "motion/react";
 // import { useRef } from "react";
 // import { mapLinear, smoothstep } from "three/src/math/MathUtils.js";
-// import CanvasLogo from "./GL/Logo/Wrapper";
+import CanvasLogo from "./GL/Logo/Wrapper";
 import { Easing, motion, stagger } from "motion/react";
 
 const Footer = () => {
@@ -70,15 +70,19 @@ const Footer = () => {
       variants={parentVariants}
       // ref={footer}
       className={clsx(
-        "footer bg-mid flex flex-col uppercase transition-opacity duration-2000 h-fit relative z-5"
+        "footer bg-mid flex flex-col uppercase transition-opacity duration-2000 h-screen relative z-5"
         // {
         //   "opacity-0": showReel,
         //   "opacity-100": !showReel,
         // }
       )}
     >
-      <div className="flex grow w-full flex-col bg-red-500/0">{/* <CanvasLogo /> */}</div>
-      <div className="flex flex-col gap-15 gap-30 p-sm pb-md md:p-md z-10 pt-30 md:pt-50">
+      <motion.div variants={childVariants} className="flex grow w-full flex-col overflow-hidden pt-15">
+        {/* <div className="flex grow"> */}
+        <CanvasLogo />
+        {/* </div> */}
+      </motion.div>
+      <div className="flex flex-col gap-15 gap-30 p-sm pb-md md:p-md z-10 pt-20 md:pt-20">
         <motion.div variants={childVariants} className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4">
           <div className="">Melt Studio</div>
           <div className="flex gap-4 justify-between">
