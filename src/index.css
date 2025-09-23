@@ -111,7 +111,7 @@
   }
 
   .feature {
-    @apply font-serif leading-[1] tracking-[-0.04em] text-center 
+    @apply font-serif leading-[.85] tracking-[-0.04em] text-center
     text-[14vw] 
     md:text-[100px] 
     xl:text-[125px] 

@@ -74,10 +74,10 @@ type AnimateWordsProps = {
 
 type Position = "below" | "show" | "above";
 
-export function WordsPullUp({
+export function WordAnimation({
   text,
   className = "",
-  mode = "overflow",
+  mode = "fade",
   duration = 2,
   delay = 0,
   unitDelay = 0.025,
@@ -177,10 +177,10 @@ export function WordsPullUp({
   };
 
   return (
-    <div className={clsx("flex flex-col", {}, className)} ref={ref}>
+    <div className="flex flex-col" ref={ref}>
       {splittedText.map((line, i) => {
         return (
-          <p key={`${i}_${line.join(" ")}`} className="flex flex-wrap justify-center">
+          <p key={`${i}_${line.join(" ")}`} className={clsx("flex flex-wrap justify-center", {}, className)}>
             {line.map((current, j) => {
               return (
                 <span
@@ -190,7 +190,7 @@ export function WordsPullUp({
                   })}
                 >
                   <motion.span custom={current.index} {...motionProps}>
-                    {current.text}
+                    <span className="overflow-visible">{current.text}</span>
                   </motion.span>
                   {j < line.length - 1 && <span>{"\u00A0"}</span>}
                 </span>

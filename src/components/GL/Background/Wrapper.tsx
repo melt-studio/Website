@@ -8,7 +8,8 @@ import { useLocation } from "react-router";
 import reel from "../../../assets/reel.mp4";
 import { useStore } from "../../../stores/store";
 import Scene from "./Scene";
-import { WordsPullUp } from "../../WordAnimation";
+// import { WordsPullUp } from "../../WordAnimation";
+import IntroText from "./IntroText";
 
 const debug = process.env.NODE_ENV === "debug";
 
@@ -55,7 +56,7 @@ const Wrapper = () => {
   const setValue = useStore((state) => state.setValue);
   const ready = useStore((state) => state.ready);
   const blob = useStore((state) => state.blob);
-  const viewport = useStore((state) => state.viewport);
+  // const viewport = useStore((state) => state.viewport);
 
   const glSettings = {
     antialias: false,
@@ -79,12 +80,12 @@ const Wrapper = () => {
   useEffect(() => {
     if (blob && canPlay && vidSize) {
       blob.material.uniforms.uVideoPlaying.value.z = 1;
-      blob.material.uniforms.uVideoPlaying.value.w = blob.material.uniforms.uTime.value;
+      blob.material.uniforms.uVideoPlaying.value.w = blob.material.uniforms.uTime.value.x;
       blob.material.uniforms.uVideoResolution.value.set(
         vidSize.width,
         vidSize.height,
         1,
-        blob.material.uniforms.uTime.value
+        blob.material.uniforms.uTime.value.x
       );
     }
   }, [blob, canPlay, vidSize]);
@@ -94,14 +95,6 @@ const Wrapper = () => {
       setValue("video", video.current);
     }
   }, [video, setValue]);
-
-  let featureText = `MELT is a creative studio focused on branding & entertainment. We make ideas that stick.`;
-
-  if (viewport.width >= 1920) {
-    featureText = `MELT is a creative\nstudio focused on branding & entertainment. We make ideas that stick.`;
-  } else if (viewport.width >= 1024) {
-    featureText = `MELT is a\ncreative studio\nfocused on branding & entertainment. We make ideas\nthat stick.`;
-  }
 
   return (
     <>
@@ -141,19 +134,7 @@ const Wrapper = () => {
         )}
         ref={canvasContainer}
       >
-        <div
-          className={clsx(
-            "w-full h-full fixed top-0 left-0 flex items-center justify-center z-0 p-sm md:p-md transition-opacity duration-2000",
-            {
-              "opacity-0": location.pathname !== "/",
-              "opacity-100": location.pathname === "/",
-            }
-          )}
-        >
-          <div className="feature text-dark" key={location.pathname}>
-            <WordsPullUp text={featureText} fixed />
-          </div>
-        </div>
+        <IntroText />
 
         <Canvas dpr={[1, 2]} gl={glSettings} onCreated={created}>
           {debug && <Perf position="bottom-right" />}

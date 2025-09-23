@@ -14,7 +14,7 @@ type State = {
   video: HTMLVideoElement | null;
   videoPlaying: boolean;
   showReel: boolean;
-  viewport: { width: number; height: number };
+  viewport: { width: number; height: number; aspect: number };
   controls: {
     colors: number;
     waves: number;
@@ -45,6 +45,7 @@ const initialState = {
   viewport: {
     width: window.innerWidth,
     height: window.innerHeight,
+    aspect: window.innerWidth / window.innerHeight,
   },
   controls: {
     ...config.controls,

@@ -60,7 +60,7 @@ const Blob = () => {
 
   const [uniformsBlob] = useMemo(() => {
     const uniformsBlob = {
-      uTime: { value: 0 },
+      uTime: { value: new Vector2() },
       uResolution: {
         value: new Vector4(0, 0, 1024, 1024),
       },
@@ -91,16 +91,18 @@ const Blob = () => {
       blob.current.material.uniforms.uResolution.value.x = size.width;
       blob.current.material.uniforms.uResolution.value.y = size.height;
     }
+  }, [size]);
 
-    setValue("viewport", {
-      width: size.width,
-      height: size.height,
-    });
-  }, [size, setValue]);
+  useEffect(() => {
+    if (location.pathname === "/" && blob.current) {
+      blob.current.material.uniforms.uTime.value.y = 0;
+    }
+  }, [location.pathname]);
 
   useFrame((_state, delta) => {
     if (blob.current) {
-      blob.current.material.uniforms.uTime.value += delta;
+      blob.current.material.uniforms.uTime.value.x += delta;
+      blob.current.material.uniforms.uTime.value.y += delta;
 
       if (location.pathname === "/") {
         const s = window.scrollY / size.height;

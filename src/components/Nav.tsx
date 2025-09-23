@@ -20,7 +20,7 @@ const Nav = () => {
     <motion.nav
       initial={{ opacity: 0, transform: "translateY(-100%)" }}
       animate={docs ? { opacity: 0, transform: "translateY(-100%)" } : { opacity: 1, transform: "translateY(0)" }}
-      transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
+      transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
       className={clsx(
         "nav flex top-0 left-0 w-full h-fit md:h-22 fixed items-start justify-between p-sm md:p-md uppercase z-99 transition-colors duration-2000 gap-4",
         {
@@ -41,15 +41,28 @@ const Nav = () => {
           </Link>
         </div>
       </div>
-      {dissolve ? (
-        <div className="flex grow items-start justify-between">
+      {dissolve && (
+        <motion.div
+          transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          // exit={{ opacity: 0 }}
+          className="flex grow items-start justify-between"
+        >
           <Controls />
           <div className="flex w-1/4 justify-end">
             <Link to="/">Home</Link>
           </div>
-        </div>
-      ) : (
-        <div className="w-full md:w-2/3 flex items-center justify-between">
+        </motion.div>
+      )}
+      {!dissolve && (
+        <motion.div
+          // exit={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
+          transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
+          className="w-full md:w-2/3 flex items-center justify-between"
+        >
           <Link
             to="/"
             onClick={() => {
@@ -62,7 +75,7 @@ const Nav = () => {
           <Link to="/about">About Us</Link>
           <Link to="mailto:hello@melt.works">Contact</Link>
           <Link to="/dissolve">Dissolve</Link>
-        </div>
+        </motion.div>
       )}
     </motion.nav>
   );

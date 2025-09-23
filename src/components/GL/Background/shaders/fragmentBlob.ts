@@ -18,7 +18,7 @@ export const fragmentShaderBlob = /* glsl */ `
   varying vec2 vUv;
 
   uniform float PI;
-  uniform float uTime;
+  uniform vec2 uTime;
   uniform vec2 uMouse;
   uniform vec2 uScroll;
   uniform vec4 uResolution;
@@ -66,7 +66,7 @@ export const fragmentShaderBlob = /* glsl */ `
     // Mouse coords
     vec2 mouse = uMouse;
     vec2 mouse2 = uMouse;
-    float time = uTime * .02 + 4.;
+    float time = uTime.x * .02 + 4.;
     // mouse += vec2(sin(time + sin(time * .5 + cos(time * .25))), cos(time + cos(time * .5 + sin(time * .5)))) * .5;
     // mouse = vec2(sin(time), cos(time)) * .5;
     // mouse += vec2(sin(time * 2.), cos(time * 2.)) * .25;
@@ -88,12 +88,16 @@ export const fragmentShaderBlob = /* glsl */ `
     // Scroll factor
     float sf = uScroll.y;
 
+    // Page load transition time
+    float t_ = getTime(uTime.y, 1.5, 0.);
+    t_ = easeInOutCubic(t_);
+
     // Video load transition time
-    float t0 = getTime(uTime, 1.5, uVideoPlaying.w);
+    float t0 = getTime(uTime.x, 1.5, uVideoPlaying.w);
     t0 = easeInOutCubic(t0);
 
     // Video expand transition time
-    float t1 = getTime(uTime, 1.5, uVideoPlaying.y);
+    float t1 = getTime(uTime.x, 1.5, uVideoPlaying.y);
     float t2 = t1; // play/stop button scale time
     t1 = easeInOutCubic(t1);
     if (uVideoPlaying.x == 0.) t1 = 1. - t1;
@@ -115,11 +119,11 @@ export const fragmentShaderBlob = /* glsl */ `
 
     // Blob shape 
     vec2 pb = uv - mouse;
-    float pbf = (sin(atan2(uv.y, uv.x + 10.) * PI * 40. - uTime * .666))*.075;
+    float pbf = (sin(atan2(uv.y, uv.x + 10.) * PI * 40. - uTime.x * .666))*.075;
     float angle = atan(pb.y, pb.x);
     float pfm = smoothstep(0., 1., length(uv - mouse2));
-    float pbf2 = mix(1., .6666, (sin(angle * 4. + uTime * .666 + mouse.x * PI * 4.)));
-    float pbf3 = mix(1., .6666, (sin(angle * 5. + uTime * .666 + mouse2.y * PI * 1.)));
+    float pbf2 = mix(1., .6666, (sin(angle * 4. + uTime.x * .666 + mouse.x * PI * 4.)));
+    float pbf3 = mix(1., .6666, (sin(angle * 5. + uTime.x * .666 + mouse2.y * PI * 1.)));
     pb *= pbf2;
     pb *= mix(pbf3, 1., pfm);
     pb += pbf;
@@ -131,7 +135,7 @@ export const fragmentShaderBlob = /* glsl */ `
     float r = sdCircle(pb, mix(.35, 1., t1) * t0);
     r = smoothUnionSDF(mix(r, mix(v, box, t1), t1), mix(r, mix(v, box, t1), t1), .1);
     r = smoothUnionSDF(mix(r, null, sf), mix(r, null, sf), .1);
-    // r = mix(smoothIntersectSDF(r, edge, .1), r, t1);
+    r = mix(smoothIntersectSDF(r, edge, .1), r, t1);
     r = smoothstep(0., mix(.01, .02, t1), r);
     r = mix(1., r, uVideoPlaying.z);
     r = mix(1., r, smoothstep(0., .5, t0));
@@ -153,7 +157,7 @@ export const fragmentShaderBlob = /* glsl */ `
     // Play/cancel icon transition time
     float off = controlBorder * 4.;
     if (uVideoPlaying.x == 0.) off *= -1.;
-    float t4 = getTime(uTime, .75, uVideoPlaying.y + off);
+    float t4 = getTime(uTime.x, .75, uVideoPlaying.y + off);
     t4 = easeInOutCubic(t4);
     if (uVideoPlaying.x == 0.) t4 = 1. - t4;
 
@@ -201,6 +205,7 @@ export const fragmentShaderBlob = /* glsl */ `
     // Alpha
     float alphaBlob = max(1.-r, control);
     alphaBlob *= 1. - smoothstep(.9, 1., sf);
+    alphaBlob *= t_;
     // float alphaGradient = mix(uTheme.x, 1., uTheme.y);
     // float alpha = max(alphaBlob, alphaGradient);
     // alpha = mix(0., alpha, t5);

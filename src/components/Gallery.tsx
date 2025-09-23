@@ -4,6 +4,7 @@ import Image from "./Image";
 import Video from "./Video";
 import { useStore } from "../stores/store";
 import clsx from "clsx";
+import { motion, Easing, stagger } from "motion/react";
 
 type GalleryProps = {
   images: (Media & { caption?: string[] })[];
@@ -81,10 +82,67 @@ const Gallery = ({ images, title }: GalleryProps) => {
     }
   };
 
+  // const variants = {
+  //   initial: {
+  //     opacity: 0,
+  //     transform: "translate3d(50px, 0px, 0px)",
+  //   },
+  //   animate: (i: number) => ({
+  //     opacity: 1,
+  //     transform: "translate3d(0px, 0px, 0px)",
+  //     transition: {
+  //       duration: 1,
+  //       delay: 1 + i * 0.25,
+  //       ease: "easeInOut" as Easing,
+  //     },
+  //   }),
+  // };
+
+  // const motionProps = {
+  //   variants,
+  //   initial: "initial",
+  //   animate: "animate",
+  // };
+
+  const parentVariants = {
+    hidden: { opacity: 0, transform: "translateY(40px)" },
+    visible: {
+      opacity: 1,
+      transform: "translateY(0px)",
+      transition: {
+        duration: 1,
+        delayChildren: stagger(0.25, { startDelay: 0 }),
+        ease: "easeInOut" as Easing,
+      },
+    },
+  };
+
+  const childVariants = {
+    hidden: { opacity: 0, transform: "translateY(20px)" },
+    visible: {
+      opacity: 1,
+      transform: "translateY(0px)",
+      transition: {
+        duration: 1,
+        ease: "easeInOut" as Easing,
+      },
+    },
+  };
+
   if (!images) return null;
 
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <motion.div
+      viewport={{ amount: 0.5, once: true }}
+      // transition={{ duration: 2, delay: 0, ease: "easeInOut", when: "beforeChildren" }}
+      // initial={{ opacity: 0, transform: "translateY(40px)" }}
+      initial="hidden"
+      whileInView="visible"
+      className="flex flex-col gap-4 w-full"
+      variants={parentVariants}
+      // initial="hidden"
+      // animate="visible"
+    >
       {title && <div className="uppercase px-sm md:px-md">{title}</div>}
       <div className="flex flex-col gap-0 w-full overflow-x-hidden relative">
         <div className="overflow-x-scroll hide-scroll" ref={container}>
@@ -93,9 +151,16 @@ const Gallery = ({ images, title }: GalleryProps) => {
               if (image.type.includes("video/")) {
                 const { id } = image as VideoAirtable & { caption?: string[] };
                 return (
-                  <div key={`${id}_${i}`} className="w-[calc(100dvw_-_20px)] h-fit flex grow flex-col gap-2">
+                  <motion.div
+                    // custom={i}
+                    // {...motionProps}
+
+                    variants={childVariants}
+                    key={`${id}_${i}`}
+                    className="w-[calc(100dvw_-_20px)] h-fit flex grow flex-col gap-2"
+                  >
                     <Video src={image.url} autoplay loop muted controls={false} />
-                  </div>
+                  </motion.div>
                 );
               }
 
@@ -103,7 +168,10 @@ const Gallery = ({ images, title }: GalleryProps) => {
                 const { id, thumbnails, caption } = image as ImageAirtable & { caption?: string[] };
                 const aspect = thumbnails.large.width / thumbnails.large.height;
                 return (
-                  <div
+                  <motion.div
+                    // custom={i}
+                    // {...motionProps}
+                    variants={childVariants}
                     key={`${id}_${i}`}
                     className={clsx("relative flex grow flex-col gap-2", {
                       "w-[50dvw] md:w-[33dvw] max-w-[400px] h-fit": aspect < 1,
@@ -124,7 +192,7 @@ const Gallery = ({ images, title }: GalleryProps) => {
                         ))}
                       </div>
                     )}
-                  </div>
+                  </motion.div>
                 );
               }
 
@@ -177,7 +245,7 @@ const Gallery = ({ images, title }: GalleryProps) => {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -94,12 +94,7 @@ const Scene = () => {
       ref.current.material.uniforms.uResolution.value.x = size.width;
       ref.current.material.uniforms.uResolution.value.y = size.height;
     }
-
-    setValue("viewport", {
-      width: size.width,
-      height: size.height,
-    });
-  }, [size, setValue]);
+  }, [size]);
 
   useFrame((_state, delta) => {
     if (ref.current && ref.current.material) {

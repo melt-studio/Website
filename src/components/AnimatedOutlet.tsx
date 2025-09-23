@@ -10,7 +10,7 @@ const AnimatedOutlet = () => {
     <AnimatePresence
       mode="wait"
       onExitComplete={() => {
-        console.log("EXIT");
+        // console.log("EXIT");
         window.scrollTo({ top: 0 });
       }}
       // propagate

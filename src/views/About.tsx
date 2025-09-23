@@ -4,6 +4,7 @@ import Section from "../components/Section";
 import Gallery from "../components/Gallery";
 import List from "../components/List";
 import Copy from "../components/Copy";
+import { WordAnimation } from "../components/WordAnimation";
 
 const About = () => {
   const aboutInfo = useStore((state) => state.about);
@@ -52,9 +53,10 @@ const About = () => {
     <>
       <title>MELT – About Us</title>
       <div className="flex flex-col">
-        <Cover media={info.fields.splashImage} className="w-full h-full">
+        <Cover media={info.fields.splashImage}>
           <div className="absolute w-full h-full top-0 left-0 flex items-center justify-center">
-            <Copy copy={info.fields.splashText} feature className="text-light" />
+            {/* <Copy copy={info.fields.splashText} feature className="text-light" /> */}
+            <WordAnimation text={info.fields.splashText} className="feature text-light" />
           </div>
         </Cover>
         <div className="content">
@@ -62,8 +64,10 @@ const About = () => {
             <Section key={section.title} title={section.title} type={section.type}>
               {Array.isArray(section.content) ? (
                 <List items={section.content} />
+              ) : section.type === "feature" ? (
+                <WordAnimation text={section.content} className="feature" />
               ) : (
-                <Copy copy={section.content} feature={section.type === "feature"} />
+                <Copy copy={section.content} />
               )}
             </Section>
           ))}

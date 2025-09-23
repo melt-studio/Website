@@ -59,12 +59,7 @@ const Gradient = () => {
       ref.current.material.uniforms.uResolution.value.x = size.width;
       ref.current.material.uniforms.uResolution.value.y = size.height;
     }
-
-    setValue("viewport", {
-      width: size.width,
-      height: size.height,
-    });
-  }, [size, setValue]);
+  }, [size]);
 
   useEffect(() => {
     if (ref.current && gradient) {

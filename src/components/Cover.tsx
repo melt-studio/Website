@@ -2,7 +2,6 @@ import { ImageAirtable, Media } from "../types";
 import Video from "./Video";
 import Image from "./Image";
 import { ReactNode } from "react";
-// import FadeScroll from "./FadeScroll";
 import clsx from "clsx";
 
 type CoverProps = {
@@ -18,19 +17,31 @@ const Cover = ({ media, className, children }: CoverProps) => {
     const { type, url } = media[0];
 
     if (type.includes("video/")) {
-      return <Video src={url} />;
+      return <Video src={url} className="object-cover w-full h-full" muted autoplay loop controls={false} />;
     }
 
     if (type.includes("image/")) {
       const { width, height } = media[0] as ImageAirtable;
-      return <Image src={url} width={width} height={height} className={clsx("object-cover", className)} />;
+      return (
+        <Image
+          src={url}
+          width={width}
+          height={height}
+          className={clsx(
+            "object-cover",
+            {
+              "w-full h-full": width / height > 1,
+            },
+            className
+          )}
+        />
+      );
     }
 
     return null;
   };
 
   return (
-    // <FadeScroll className="z-2">
     <div
       className="flex items-center justify-center w-full h-fit md:h-screen relative z-2 pt-12 md:pt-0 relative"
       key={media[0].url}
@@ -38,7 +49,6 @@ const Cover = ({ media, className, children }: CoverProps) => {
       {getMedia()}
       {children}
     </div>
-    // </FadeScroll>
   );
 };
 

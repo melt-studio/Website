@@ -112,7 +112,7 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
   return (
     <div
       className={clsx(
-        "cursor-pointer overflow-hidden relative flex items-center justify-center scale-100 hover:scale-110 hover:z-99 [transition:scale_1s,opacity_1s] w-full h-auto",
+        "cursor-pointer overflow-hidden relative flex items-center justify-center scale-100 hover:scale-110 hover:z-99 [transition:scale_1s_ease_0.1s,opacity_1s_ease_0.1s] w-full h-auto",
         {
           "opacity-15": active && active !== project.id,
         },

@@ -12,7 +12,7 @@ const Home = () => {
   const blob = useStore((state) => state.blob);
   const location = useLocation();
   // const setValue = useStore((state) => state.setValue);
-  const viewport = useStore((state) => state.viewport);
+  // const viewport = useStore((state) => state.viewport);
 
   const [, setShowFeature] = useState<"below" | "show" | "above">("below");
 
@@ -24,7 +24,7 @@ const Home = () => {
     if (!video || !blob) return;
     blob.material.uniforms.uVideoPlaying.value.set(
       1,
-      blob.material.uniforms.uTime.value,
+      blob.material.uniforms.uTime.value.x,
       blob.material.uniforms.uVideoPlaying.value.z,
       blob.material.uniforms.uVideoPlaying.value.w
     );
@@ -36,7 +36,7 @@ const Home = () => {
     if (!video || !blob) return;
     blob.material.uniforms.uVideoPlaying.value.set(
       0,
-      blob.material.uniforms.uTime.value,
+      blob.material.uniforms.uTime.value.x,
       blob.material.uniforms.uVideoPlaying.value.z,
       blob.material.uniforms.uVideoPlaying.value.w
     );
@@ -48,6 +48,8 @@ const Home = () => {
     // console.log("Page scroll: ", latest);
     const fold = 0.0;
     const height = 1;
+
+    const viewport = useStore.getState().viewport;
 
     if (latest / viewport.height < fold) {
       setShowFeature("below");

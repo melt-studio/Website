@@ -50,15 +50,15 @@ const ProjectTiles = () => {
         colSpan = Math.floor(available * ratio) + 1;
         colStart = 1 + offLeft;
         colEnd = colStart + colSpan;
-        marginTop = -getRandomInt(0, 15, project.index + row + col + 3);
-        marginLeft = getRandomInt(0, 15, project.index + row + col + 2);
+        marginTop = -getRandomInt(0, 10, project.index + row + col + 3);
+        marginLeft = getRandomInt(0, 10, project.index + row + col + 2);
       } else {
         const prev = layout[i - 1];
         colSpan = available - prev.colSpan - offRight;
         colStart = prev.colEnd + gap + 0;
         colEnd = colStart + colSpan;
-        marginTop = getRandomInt(0, 15, project.index + row + col - 2);
-        marginLeft = -getRandomInt(0, 15, project.index + row + col - 1);
+        marginTop = getRandomInt(0, 10, project.index + row + col - 2);
+        marginLeft = -getRandomInt(0, 10, project.index + row + col - 1);
       }
       return layout.concat({
         row,

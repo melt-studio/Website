@@ -1,6 +1,6 @@
 import clsx from "clsx";
-// import Markdown from "react-markdown";
-import { WordsPullUp } from "./WordAnimation";
+import Markdown from "react-markdown";
+// import { WordAnimation } from "./WordAnimation";
 
 export default function Copy({
   copy,
@@ -17,13 +17,13 @@ export default function Copy({
         "flex flex-col gap-4",
         {
           feature: feature,
-          "max-w-[50em]": !feature,
+          "max-w-[42em]": !feature,
         },
         className
       )}
     >
-      <WordsPullUp text={copy} className={feature ? "justify-center" : ""} />
-      {/* <Markdown>{copy}</Markdown> */}
+      {/* <WordAnimation text={copy} className={feature ? "justify-center" : ""} /> */}
+      <Markdown>{copy}</Markdown>
     </div>
   );
 }
