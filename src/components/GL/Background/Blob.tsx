@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-import { RepeatWrapping, Vector2, Vector4, VideoTexture } from "three";
+import { MirroredRepeatWrapping, Vector2, Vector4, VideoTexture } from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 
 import { vertexShader } from "./shaders/vertex";
@@ -17,6 +17,7 @@ useTexture.preload(reel);
 const Blob = () => {
   const location = useLocation();
   const setValue = useStore((state) => state.setValue);
+  const pathname = useStore((state) => state.pathname);
   const scroll = useStore((state) => state.scroll);
   const video = useStore((state) => state.video);
   // const ready = useStore((state) => state.ready);
@@ -45,8 +46,8 @@ const Blob = () => {
   const tex = useMemo(() => {
     if (video) {
       const tex = new VideoTexture(video);
-      tex.wrapS = RepeatWrapping;
-      tex.wrapT = RepeatWrapping;
+      tex.wrapS = MirroredRepeatWrapping;
+      tex.wrapT = MirroredRepeatWrapping;
       return tex;
     }
     return null;
@@ -64,6 +65,7 @@ const Blob = () => {
       uResolution: {
         value: new Vector4(0, 0, 1024, 1024),
       },
+      uMode: { value: 0 },
       PI: { value: Math.PI },
       uVideo: { value: null },
       uVideoPlaying: { value: new Vector4() },
@@ -90,16 +92,38 @@ const Blob = () => {
     }
   }, [size]);
 
+  // useEffect(() => {
+  //   if (!blob.current) return;
+
+  //   console.log(pathname);
+
+  //   if (pathname === "/") {
+  //     blob.current.material.uniforms.uTime.value.y = blob.current.material.uniforms.uTime.value.x;
+  //     blob.current.material.uniforms.uMode.value = 1;
+  //     console.log(blob.current.material.uniforms.uTime.value.y);
+  //   }
+  // }, [pathname]);
+
   useEffect(() => {
-    if (location.pathname === "/" && blob.current) {
-      blob.current.material.uniforms.uTime.value.y = 0;
+    if (!blob.current) return;
+
+    // console.log(location.pathname);
+
+    if (location.pathname !== "/") {
+      blob.current.material.uniforms.uTime.value.y = blob.current.material.uniforms.uTime.value.x;
+      blob.current.material.uniforms.uMode.value = 0;
+      // console.log(blob.current.material.uniforms.uTime.value.y);
+    } else {
+      blob.current.material.uniforms.uTime.value.y = blob.current.material.uniforms.uTime.value.x;
+      blob.current.material.uniforms.uMode.value = 1;
+      // console.log(blob.current.material.uniforms.uTime.value.y);
     }
   }, [location.pathname]);
 
   useFrame((_state, delta) => {
     if (blob.current) {
       blob.current.material.uniforms.uTime.value.x += delta;
-      blob.current.material.uniforms.uTime.value.y += delta;
+      // blob.current.material.uniforms.uTime.value.y += delta;
 
       if (location.pathname === "/") {
         const s = window.scrollY / size.height;
@@ -113,7 +137,7 @@ const Blob = () => {
     }
 
     if (styleScroll && scroll) {
-      const max = 1;
+      const max = 0.25;
       const s = window.scrollY / size.height;
       if (s < max) scroll.style.opacity = "0";
       else scroll.style.opacity = "1";
@@ -123,7 +147,8 @@ const Blob = () => {
   });
 
   return (
-    <mesh ref={blob} visible={location.pathname === "/"}>
+    <mesh ref={blob} visible={pathname === "/" || location.pathname === "/"}>
+      {/* // <mesh ref={blob} visible={true}> */}
       <planeGeometry args={[viewport.width, viewport.height]} />
       <shaderMaterial
         vertexShader={vertexShader}

@@ -1,6 +1,7 @@
 import Audio from "../../Audio";
 import Slider from "../../Slider";
 import { useStore } from "../../../stores/store";
+import { motion } from "motion/react";
 
 const Controls = () => {
   const background = useStore((state) => state.background);
@@ -43,9 +44,12 @@ const Controls = () => {
   const controlStyle = "control pl-6 md:pl-4.5 pr-1 md:pr-0 bg-white/10 hover:bg-white/40";
 
   return (
-    <div
+    <motion.div
+      initial={{ transform: "translate3d(0px, -100%, 0px)", opacity: 0 }}
+      animate={{ transform: "translate3d(0px, 0%, 0px)", opacity: 1 }}
+      transition={{ duration: 2, delay: 2 }}
       className={
-        "h-fit gap-2 justify-center flex flex-col grow lg:flex-row flex-wrap md:items-center font-light text-xs md:gap-4 relative md:-top-1.5"
+        "h-fit gap-2 justify-center flex flex-col grow 2xl:flex-row md:items-center font-light text-xs 2xl:gap-4 relative md:-top-1.5"
       }
     >
       <div className={controlStyle}>
@@ -58,7 +62,7 @@ const Controls = () => {
         <Slider {...sliderDistortion} />
       </div>
       <Audio />
-    </div>
+    </motion.div>
   );
 };
 

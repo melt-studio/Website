@@ -12,6 +12,25 @@ const Home = () => {
 
   const [, setShowFeature] = useState<"below" | "show" | "above">("below");
 
+  // const isPageInView = usePageInView();
+
+  // const isPresent = useIsPresent();
+
+  // useEffect(() => {
+  //   console.log(isPageInView, isPresent);
+  //   if (isPageInView) {
+  //     // window.scrollTo({ top: 0 });
+  //   }
+  // }, [isPageInView]);
+
+  // const [isPresent, safeToRemove] = usePresence();
+
+  // useEffect(() => {
+  //   // Remove from DOM 1000ms after being removed from React
+  //   // !isPresent && setTimeout(safeToRemove, 1000)
+  //   console.log(isPresent);
+  // }, [isPresent]);
+
   const { scrollY } = useScroll();
 
   const [expanded, setExpanded] = useState(false);
@@ -30,6 +49,7 @@ const Home = () => {
 
   const hideVideo = useCallback(() => {
     if (!video || !blob) return;
+
     blob.material.uniforms.uVideoPlaying.value.set(
       0,
       blob.material.uniforms.uTime.value.x,
@@ -61,10 +81,10 @@ const Home = () => {
   });
 
   useEffect(() => {
-    if (location.pathname !== "/") {
+    if (location.pathname !== "/" && expanded) {
       hideVideo();
     }
-  }, [location.pathname, hideVideo]);
+  }, [location.pathname, hideVideo, expanded]);
 
   return (
     <>
@@ -73,6 +93,7 @@ const Home = () => {
         <div
           className="w-full h-screen flex fixed top-0 left-0 items-center justify-center p-sm md:p-md z-1 transition-all duration-2000 cursor-default"
           onClick={() => {
+            console.log("CLICK");
             if (expanded) hideVideo();
             else expandVideo();
           }}

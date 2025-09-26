@@ -27,7 +27,7 @@ function Section({ title, type, children }: SectionProps) {
       viewport={{ amount: 0.5, once: true }}
       initial="hidden"
       whileInView="visible"
-      className="w-full h-fit relative"
+      className="w-full h-fit relative max-w-[2560px] mx-auto"
       variants={parentVariants}
     >
       <div

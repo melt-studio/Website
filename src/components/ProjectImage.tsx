@@ -3,27 +3,49 @@ import { ImageAirtable, Media } from "../types";
 import Image from "./Image";
 import Video from "./Video";
 import { motion } from "motion/react";
+import { useStore } from "../stores/store";
 
 const ProjectImage = ({ image }: { image: Media }) => {
+  const viewport = useStore((state) => state.viewport);
+
   if (!image.type.includes("image/") && !image.type.includes("video/")) return null;
 
   const size = image.filename.match(/(\[|^)(medium)(\]|$)/g);
-  const sz = size && size[size.length - 1];
+  const sz = viewport.width >= 768 && size && size[size.length - 1];
   const position = image.filename.match(/(\[|^)(left|center|right)(\]|$)/g);
   const pos = position && position[position.length - 1];
 
   const getMedia = () => {
     if (image.type.includes("video/")) {
-      return <Video src={image.url} />;
+      return <Video src={image.url} className="w-full h-auto" />;
     }
 
     if (image.type.includes("image/")) {
       const { width, height } = image as ImageAirtable;
-      return <Image src={image.url} width={width} height={height} />;
+      const landscape = width / height > 1;
+      return (
+        <Image
+          src={image.url}
+          width={width}
+          height={height}
+          className={clsx("max-h-[90dvh]", {
+            "w-2/3": sz === "[medium]" && landscape,
+            "w-full": !sz && landscape,
+            "w-auto h-[90dvh]": !sz && !landscape,
+            "mr-auto": pos === "[left]",
+            "ml-auto": pos === "[right]",
+            "mx-auto": pos === "[center]",
+          })}
+        />
+      );
     }
 
     return null;
   };
+
+  // const aspect = image.type.includes("image/")
+  //   ? (image as ImageAirtable).width / (image as ImageAirtable).height
+  //   : null;
 
   return (
     <motion.div
@@ -32,12 +54,12 @@ const ProjectImage = ({ image }: { image: Media }) => {
       transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
       initial={{ opacity: 0, transform: "translateY(40px)" }}
       whileInView={{ opacity: 1, transform: "translateY(0px)" }}
-      className={clsx("h-fit relative", {
-        "w-2/3": sz === "[medium]",
-        "w-full": !sz,
-        "mr-auto": sz && pos === "[left]",
-        "ml-auto": sz && pos === "[right]",
-        "mx-auto": (sz && !pos) || pos === "[center]",
+      className={clsx("h-fit relative px-2.5 w-full", {
+        // "w-2/3": sz === "[medium]",
+        // "w-full": !sz,
+        // "mr-auto": pos === "[left]",
+        // "ml-auto": pos === "[right]",
+        // "mx-auto": pos === "[center]",
       })}
     >
       {getMedia()}

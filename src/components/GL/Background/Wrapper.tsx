@@ -16,6 +16,7 @@ const debug = process.env.NODE_ENV === "debug";
 const Gradient = () => {
   const setValue = useStore((state) => state.setValue);
   const gradient = useRef<HTMLDivElement>(null);
+  const location = useLocation();
 
   useEffect(() => {
     if (gradient.current) setValue("gradient", gradient.current);
@@ -25,55 +26,22 @@ const Gradient = () => {
     <div className="fixed -top-px -left-px -z-999 w-0 h-0 pointer-events-none">
       <div
         ref={gradient}
-        className="bg-mid [transition:background-color_3s_ease_0s,opacity_3s_ease_0s,border-color_3s_ease_0s,scale_3s_ease_0s] w-full h-full scale-100 opacity-0"
+        data-name="gradient"
+        className={clsx("bg-mid w-full h-full scale-100 opacity-0", {
+          "[transition:background-color_2s_ease_1s,opacity_2s_ease_1s,border-color_2s_ease_1s,scale_2s_ease_1s]":
+            location.pathname === "/dissolve",
+          "[transition:background-color_2s_ease_0s,opacity_2s_ease_0s,border-color_2s_ease_0s,scale_2s_ease_0s]":
+            location.pathname !== "/dissolve",
+        })}
       ></div>
     </div>
   );
 };
 
-const Scroll = () => {
+const Video = () => {
   const setValue = useStore((state) => state.setValue);
-  const scroll = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (scroll.current) setValue("scroll", scroll.current);
-  }, [scroll, setValue]);
-
-  return (
-    <div className="fixed -top-px -left-px -z-999 w-0 h-0 pointer-events-none">
-      <div ref={scroll} className="bg-mid [transition:opacity_3s_ease_0s] w-full h-full"></div>
-    </div>
-  );
-};
-
-const Wrapper = () => {
   const video = useRef<HTMLVideoElement | null>(null);
-  const canvasContainer = useRef<HTMLDivElement | null>(null);
-  const location = useLocation();
-
-  const docs = location.pathname.includes("/docs/");
-
-  const setValue = useStore((state) => state.setValue);
-  const ready = useStore((state) => state.ready);
   const blob = useStore((state) => state.blob);
-  // const viewport = useStore((state) => state.viewport);
-
-  const glSettings = {
-    antialias: false,
-    preserveDrawingBuffer: false,
-  };
-
-  const created = (state: RootState) => {
-    state.gl.setClearColor(0xc1c1c1, 0);
-    setValue("ready", true);
-
-    state.gl.domElement.style.zIndex = "1";
-
-    if (canvasContainer.current) {
-      canvasContainer.current.childNodes.forEach((node) => ((node as HTMLDivElement).style.pointerEvents = "none"));
-    }
-  };
-
   const [canPlay, setCanPlay] = useState(false);
   const [vidSize, setVidSize] = useState<{ width: number; height: number } | null>(null);
 
@@ -97,30 +65,77 @@ const Wrapper = () => {
   }, [video, setValue]);
 
   return (
+    <div className="opacity-0 fixed right-px bottom-px w-px h-px -z-1 pointer-events-none overflow-hidden">
+      <video
+        ref={video}
+        src={reel}
+        controls
+        className="w-px h-px left-0 top-0 pointer-events-none"
+        muted
+        autoPlay
+        playsInline
+        loop
+        preload="metadata"
+        onLoadedMetadata={(e) => {
+          setVidSize({
+            width: (e.target as HTMLVideoElement).videoWidth,
+            height: (e.target as HTMLVideoElement).videoHeight,
+          });
+        }}
+        onCanPlay={() => {
+          if (!canPlay) setCanPlay(true);
+        }}
+      />
+    </div>
+  );
+};
+
+const Scroll = () => {
+  const setValue = useStore((state) => state.setValue);
+  const scroll = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scroll.current) setValue("scroll", scroll.current);
+  }, [scroll, setValue]);
+
+  return (
+    <div className="fixed -top-px -left-px -z-999 w-0 h-0 pointer-events-none">
+      <div ref={scroll} className="bg-mid [transition:opacity_3s_ease_0s] w-full h-full"></div>
+    </div>
+  );
+};
+
+const Wrapper = () => {
+  const canvasContainer = useRef<HTMLDivElement | null>(null);
+  const location = useLocation();
+
+  const docs = location.pathname.includes("/docs/");
+
+  const setValue = useStore((state) => state.setValue);
+  const ready = useStore((state) => state.ready);
+  // const viewport = useStore((state) => state.viewport);
+
+  const glSettings = {
+    antialias: false,
+    preserveDrawingBuffer: false,
+  };
+
+  const created = (state: RootState) => {
+    state.gl.setClearColor(0xc1c1c1, 0);
+    setValue("ready", true);
+
+    state.gl.domElement.style.zIndex = "1";
+
+    if (canvasContainer.current) {
+      canvasContainer.current.childNodes.forEach((node) => ((node as HTMLDivElement).style.pointerEvents = "none"));
+    }
+  };
+
+  return (
     <>
       <Gradient />
       <Scroll />
-      <div className="opacity-0 fixed left-0 top-0 w-px h-px -z-1 pointer-events-none overflow-hidden">
-        <video
-          ref={video}
-          src={reel}
-          controls
-          className="w-px h-px left-0 top-0"
-          muted
-          autoPlay
-          loop
-          preload="metadata"
-          onLoadedMetadata={(e) => {
-            setVidSize({
-              width: (e.target as HTMLVideoElement).videoWidth,
-              height: (e.target as HTMLVideoElement).videoHeight,
-            });
-          }}
-          onCanPlay={() => {
-            if (!canPlay) setCanPlay(true);
-          }}
-        />
-      </div>
+      <Video />
 
       <div
         className={clsx(

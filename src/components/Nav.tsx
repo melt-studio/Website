@@ -46,7 +46,6 @@ const Nav = () => {
           transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          // exit={{ opacity: 0 }}
           className="flex grow items-start justify-between"
         >
           <Controls />
@@ -73,7 +72,9 @@ const Nav = () => {
             Work
           </Link>
           <Link to="/about">About Us</Link>
-          <Link to="mailto:hello@melt.works">Contact</Link>
+          <Link to="mailto:hello@melt.works" target="_blank">
+            Contact
+          </Link>
           <Link to="/dissolve">Dissolve</Link>
         </motion.div>
       )}

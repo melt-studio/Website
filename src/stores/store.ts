@@ -24,6 +24,7 @@ type State = {
   projects: ProjectFormatted[];
   about: AboutAirtable[];
   team: TeamAirtable[];
+  pathname: string | undefined;
 };
 
 type Actions = {
@@ -54,6 +55,7 @@ const initialState = {
   activeProject: null,
   about: [],
   team: [],
+  pathname: undefined,
 };
 
 type Store = State & Actions;

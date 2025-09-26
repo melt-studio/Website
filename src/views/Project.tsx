@@ -9,10 +9,18 @@ import Section from "../components/Section";
 import useProject from "../helpers/useProject";
 import { useStore } from "../stores/store";
 import { motion } from "motion/react";
+import { useEffect } from "react";
 
 const Project = () => {
   useProject();
   const activeProject = useStore((state) => state.activeProject);
+  const setValue = useStore((state) => state.setValue);
+
+  useEffect(() => {
+    return () => {
+      setValue("activeProject", null);
+    };
+  }, [setValue]);
 
   if (!activeProject) return null;
 
@@ -25,7 +33,7 @@ const Project = () => {
         <Cover media={splashImage} />
         <div className="content">
           <Section type="column">
-            <div className="order-1 md:order-0 mt-4 md:mt-0">
+            <div className="my-4 md:my-0">
               <List items={scope} />
             </div>
             <Copy copy={copy} />

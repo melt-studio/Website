@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { Easing, motion, useMotionValueEvent, useScroll } from "motion/react";
-import { RefObject, useCallback, useEffect, useRef, useState } from "react";
-import { useStore } from "../stores/store";
+import { RefObject, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
+// import { useStore } from "../stores/store";
 
 type ObserverOptions = {
   amount?: number;
@@ -17,6 +17,10 @@ type State = {
 // --staggered-opacity-duration: 0.9;
 // --staggered-translate-y: 30px;
 // --staggered-translate-y-duration: 0.7;
+
+export type AnimationHandle = {
+  toggleShow: (current: Position, last: Position) => void;
+};
 
 const useObserver = ({ amount = 0.5, once = false }: ObserverOptions = {}): [
   RefObject<HTMLParagraphElement | null>,
@@ -70,6 +74,9 @@ type AnimateWordsProps = {
   fixed?: boolean;
   min?: number;
   max?: number;
+  reset?: boolean;
+  handleRef?: RefObject<unknown>;
+  active?: boolean;
 };
 
 type Position = "below" | "show" | "above";
@@ -77,10 +84,10 @@ type Position = "below" | "show" | "above";
 export function WordAnimation({
   text,
   className = "",
-  mode = "fade",
+  mode = "overflow",
   duration = 2,
   delay = 0,
-  unitDelay = 0.025,
+  unitDelay = 0.1,
   transformOffset = "110%",
   easing = "easeInOut",
   once = false,
@@ -88,8 +95,14 @@ export function WordAnimation({
   fixed = false,
   min = 0,
   max = 1,
+  reset = false,
+  active = true,
+  handleRef,
 }: AnimateWordsProps) {
-  const { height } = useStore((state) => state.viewport);
+  // const { height } = useStore((state) => state.viewport);
+  const height = useMemo(() => {
+    return window.innerHeight;
+  }, []);
   const { scrollY } = useScroll();
   const [state, setState] = useState<State>({ current: "below", last: "below" });
 
@@ -105,15 +118,17 @@ export function WordAnimation({
 
   const updateShow = useCallback(
     (scroll: number) => {
+      if (!active) return;
+
       let position = "below";
       const s = scroll / height;
       if (s < min) position = "below";
       else if (s < max) position = "show";
       else position = "above";
 
-      setState((s) => ({ current: position as Position, last: s.current }));
+      setState((s) => (s.current === position ? s : { current: position as Position, last: s.current }));
     },
-    [height, min, max]
+    [height, min, max, active]
   );
 
   useEffect(() => {
@@ -128,6 +143,20 @@ export function WordAnimation({
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (fixed) updateShow(latest);
   });
+
+  useImperativeHandle(
+    handleRef,
+    () => {
+      return {
+        toggleShow(current: Position, last: Position) {
+          setState(() => {
+            return { current, last };
+          });
+        },
+      };
+    },
+    []
+  );
 
   const transform = {
     below: `translate3d(0px, ${transformOffset}, 0px)`,
@@ -145,10 +174,18 @@ export function WordAnimation({
 
   const show = fixed ? state : position;
 
+  // useEffect(() => {
+  //   if (max === 0.25) console.log(fixed, new Date().toISOString(), show);
+  // }, [show, fixed, max]);
+
+  // useEffect(() => {
+  //   console.log(show);
+  // }, [show]);
+
   const variants = {
     initial: {
-      transform: transform.below,
-      opacity: opacity.below,
+      transform: transform[show.last],
+      opacity: opacity[show.last],
     },
     animate: (i: number) => ({
       transform: transform[show.current],
@@ -156,8 +193,14 @@ export function WordAnimation({
       transition: {
         duration,
         // delay: (state !== "above" ? i : splittedText.length - i) * unitDelay + delay,
-        delay: (show.last === "above" ? splittedText.length - i : i) * unitDelay + delay,
+        // delay: (show.last === "above" ? splittedText.length - i : i) * unitDelay + delay,
+        delay: i * unitDelay + delay,
         ease: easing,
+        // opacity: {
+        //   ease: "easeOut" as Easing,
+        //   duration: 2,
+        // },
+        // opacity: duration/2
       },
     }),
     // exit: {
@@ -180,19 +223,30 @@ export function WordAnimation({
     <div className="flex flex-col" ref={ref}>
       {splittedText.map((line, i) => {
         return (
-          <p key={`${i}_${line.join(" ")}`} className={clsx("flex flex-wrap justify-center", {}, className)}>
+          <p
+            key={`${i}_${line.join(" ")}`}
+            className={clsx("flex flex-wrap justify-center leading-[1]", {}, className)}
+          >
             {line.map((current, j) => {
+              const last = i === splittedText.length - 1 && j === line.length - 1;
+
               return (
                 <span
                   key={`${current.index}_${current.text}`}
-                  className={clsx("relative", {
-                    "overflow-hidden": mode === "overflow",
+                  className={clsx("relative -my-[0.08em] px-[0.1em]", {
+                    "overflow-y-hidden": mode === "overflow",
                   })}
                 >
-                  <motion.span custom={current.index} {...motionProps}>
+                  <motion.span
+                    custom={current.index}
+                    {...motionProps}
+                    onAnimationComplete={() => {
+                      if (last && reset) setState({ current: "below", last: "below" });
+                    }}
+                  >
                     <span className="overflow-visible">{current.text}</span>
                   </motion.span>
-                  {j < line.length - 1 && <span>{"\u00A0"}</span>}
+                  {/* {j < line.length - 1 && <span>{"\u00A0"}</span>} */}
                 </span>
               );
             })}

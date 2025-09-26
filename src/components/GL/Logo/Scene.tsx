@@ -7,7 +7,7 @@ import { fragmentShader } from "./shaders/fragment";
 
 import config from "../../../config.json";
 
-import { useStore } from "../../../stores/store";
+// import { useStore } from "../../../stores/store";
 import { ShaderMesh } from "../../../types";
 import { useLocation } from "react-router";
 import { useTexture } from "@react-three/drei";
@@ -17,12 +17,12 @@ import logoImage from "../../../assets/logo.png";
 
 const Scene = () => {
   const location = useLocation();
-  const setValue = useStore((state) => state.setValue);
+  // const setValue = useStore((state) => state.setValue);
   const ref = useRef<ShaderMesh>(null);
 
-  useEffect(() => {
-    if (ref.current) setValue("background", ref.current);
-  }, [ref, setValue]);
+  // useEffect(() => {
+  //   if (ref.current) setValue("background", ref.current);
+  // }, [ref, setValue]);
 
   const [logo] = useTexture([logoImage]);
 

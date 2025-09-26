@@ -28,8 +28,13 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
 
     for (let i = 0; i < 5; i++) {
       const time = randFloat(7, 9);
-      const randomX = Math.floor(randFloat(-dx, dx));
+      let randomX = Math.floor(randFloat(-dx, dx));
       const randomY = Math.floor(randFloat(-dy, dy));
+
+      if (layout) {
+        if (layout.colStart < 3) randomX = Math.abs(randomX);
+        else if (layout.colEnd > layout.grid - 2) randomX = -Math.abs(randomX);
+      }
 
       drift.push({
         time,
@@ -41,7 +46,7 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
     }
 
     return drift;
-  }, []);
+  }, [layout]);
 
   const [scope, animate] = useAnimate();
 
@@ -109,12 +114,15 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
     style.marginLeft = `${layout.marginLeft}%`;
   }
 
+  // console.log(style);
+
   return (
     <div
       className={clsx(
-        "cursor-pointer overflow-hidden relative flex items-center justify-center scale-100 hover:scale-110 hover:z-99 [transition:scale_1s_ease_0.1s,opacity_1s_ease_0.1s] w-full h-auto",
+        "cursor-pointer overflow-hidden relative flex items-center justify-center scale-100 hover:scale-105 hover:z-99 [transition:scale_1.5s_ease_0.1s,opacity_1s_ease_0.1s] h-auto max-h-[75dvh] w-fit",
         {
           "opacity-15": active && active !== project.id,
+          "z-10": project.index === 0,
         },
 
         className

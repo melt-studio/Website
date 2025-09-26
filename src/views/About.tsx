@@ -54,7 +54,7 @@ const About = () => {
       <title>MELT – About Us</title>
       <div className="flex flex-col">
         <Cover media={info.fields.splashImage}>
-          <div className="absolute w-full h-full top-0 left-0 flex items-center justify-center">
+          <div className="hidden md:flex absolute w-full h-full top-0 left-0 items-center justify-center">
             {/* <Copy copy={info.fields.splashText} feature className="text-light" /> */}
             <WordAnimation text={info.fields.splashText} className="feature text-light" />
           </div>

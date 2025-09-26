@@ -1,6 +1,6 @@
 import clsx from "clsx";
-import Markdown from "react-markdown";
-// import { WordAnimation } from "./WordAnimation";
+import { Easing } from "motion";
+import { motion } from "motion/react";
 
 export default function Copy({
   copy,
@@ -11,6 +11,20 @@ export default function Copy({
   feature?: boolean;
   className?: string;
 }) {
+  const lines = copy.split("\n").filter((line) => line.trim() !== "");
+
+  const variants = {
+    hidden: { opacity: 0, transform: "translateY(40px)" },
+    visible: {
+      opacity: 1,
+      transform: "translateY(0px)",
+      transition: {
+        duration: 1,
+        ease: "easeInOut" as Easing,
+      },
+    },
+  };
+
   return (
     <div
       className={clsx(
@@ -22,8 +36,11 @@ export default function Copy({
         className
       )}
     >
-      {/* <WordAnimation text={copy} className={feature ? "justify-center" : ""} /> */}
-      <Markdown>{copy}</Markdown>
+      {lines.map((line) => (
+        <motion.p key={line} variants={variants}>
+          {line}
+        </motion.p>
+      ))}
     </div>
   );
 }

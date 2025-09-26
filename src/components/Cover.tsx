@@ -3,6 +3,7 @@ import Video from "./Video";
 import Image from "./Image";
 import { ReactNode } from "react";
 import clsx from "clsx";
+import { useStore } from "../stores/store";
 
 type CoverProps = {
   media?: Media[];
@@ -11,6 +12,8 @@ type CoverProps = {
 };
 
 const Cover = ({ media, className, children }: CoverProps) => {
+  const viewport = useStore((state) => state.viewport);
+
   if (!media || !media[0]) return null;
 
   const getMedia = () => {
@@ -22,6 +25,11 @@ const Cover = ({ media, className, children }: CoverProps) => {
 
     if (type.includes("image/")) {
       const { width, height } = media[0] as ImageAirtable;
+
+      const imageAspect = width / height;
+      const viewportAspect = viewport.width / viewport.height;
+      const landscape = width / height > 1;
+
       return (
         <Image
           src={url}
@@ -30,7 +38,9 @@ const Cover = ({ media, className, children }: CoverProps) => {
           className={clsx(
             "object-cover",
             {
-              "w-full h-full": width / height > 1,
+              "w-full h-full": landscape,
+              "h-full w-auto": !landscape && imageAspect < viewportAspect,
+              "h-auto w-full": !landscape && imageAspect > viewportAspect,
             },
             className
           )}

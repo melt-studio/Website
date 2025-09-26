@@ -5,7 +5,7 @@ import Link from "./Link";
 // import { useMotionValueEvent, useScroll } from "motion/react";
 // import { useRef } from "react";
 // import { mapLinear, smoothstep } from "three/src/math/MathUtils.js";
-import CanvasLogo from "./GL/Logo/Wrapper";
+// import CanvasLogo from "./GL/Logo/Wrapper";
 import { Easing, motion, stagger } from "motion/react";
 
 const Footer = () => {
@@ -37,10 +37,14 @@ const Footer = () => {
   if (location.pathname.includes("/docs/") || location.pathname === "/dissolve") return null;
 
   const parentVariants = {
-    hidden: { opacity: 1, transform: "translateY(0px)", background: "#ecece9" },
+    hidden: {
+      opacity: 1,
+      transform: "translateY(0px)",
+      // background: "#c1c1c1"
+    },
     visible: {
       opacity: 1,
-      background: "#c1c1c1",
+      // background: "#c1c1c1",
       transform: "translateY(0px)",
       transition: {
         duration: 1,
@@ -64,13 +68,14 @@ const Footer = () => {
 
   return (
     <motion.footer
-      viewport={{ amount: 0.5, once: false }}
+      viewport={{ amount: 0.1, once: false }}
       initial="hidden"
       whileInView="visible"
       variants={parentVariants}
       // ref={footer}
       className={clsx(
-        "footer bg-mid flex flex-col uppercase transition-opacity duration-2000 h-screen relative z-5"
+        // "footer bg-mid flex flex-col uppercase transition-opacity duration-2000 h-screen relative z-5"
+        "footer bg-mid flex flex-col uppercase transition-opacity duration-2000 h-fit relative z-5"
         // {
         //   "opacity-0": showReel,
         //   "opacity-100": !showReel,
@@ -79,13 +84,13 @@ const Footer = () => {
     >
       <motion.div variants={childVariants} className="flex grow w-full flex-col overflow-hidden pt-15">
         {/* <div className="flex grow"> */}
-        <CanvasLogo />
+        {/* <CanvasLogo /> */}
         {/* </div> */}
       </motion.div>
-      <div className="flex flex-col gap-15 gap-30 p-sm pb-md md:p-md z-10 pt-20 md:pt-20">
+      <div className="flex flex-col gap-15 md:gap-30 p-sm pb-md md:p-md z-10 pt-20 md:pt-20">
         <motion.div variants={childVariants} className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4">
           <div className="">Melt Studio</div>
-          <div className="flex gap-4 justify-between">
+          <div className="flex flex-col md:flex-row gap-8 md:gap-4 justify-between">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col">
                 <div>Brooklyn, NY - Los Angeles</div>
@@ -93,7 +98,7 @@ const Footer = () => {
               </div>
               <Link to="mailto:hello@melt.works">hello@melt.works</Link>
             </div>
-            <div className="flex flex-col items-end">
+            <div className="flex flex-col md:items-end">
               <Link to="https://www.instagram.com/melt.works/" target="_blank">
                 Instagram
               </Link>

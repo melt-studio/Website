@@ -63,7 +63,7 @@ const Gradient = () => {
 
   useEffect(() => {
     if (ref.current && gradient) {
-      if (location.pathname === "/") {
+      if (location.pathname === "/" || location.pathname === "/about") {
         ref.current.material.uniforms.uTheme.value.x = 0;
         ref.current.material.uniforms.uMode.value.x = 0;
         gradient.style.opacity = "0%";
@@ -120,8 +120,12 @@ const Gradient = () => {
     }
   });
 
+  let visible = false;
+  if (location.pathname === "/dissolve") visible = true;
+  if (size.width >= 768 && !location.pathname.includes("/docs/")) visible = true;
+
   return (
-    <mesh ref={ref} visible={!location.pathname.includes("/docs/")}>
+    <mesh ref={ref} visible={visible}>
       <planeGeometry args={[viewport.width, viewport.height]} />
       <shaderMaterial
         vertexShader={vertexShader}

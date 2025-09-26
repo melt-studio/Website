@@ -138,15 +138,66 @@ const Gallery = ({ images, title }: GalleryProps) => {
       // initial={{ opacity: 0, transform: "translateY(40px)" }}
       initial="hidden"
       whileInView="visible"
-      className="flex flex-col gap-4 w-full"
+      className={clsx("flex flex-col w-full max-w-[2560px] mx-auto", {
+        "gap-4": !overflow,
+        "gap-2": overflow,
+      })}
       variants={parentVariants}
       // initial="hidden"
       // animate="visible"
     >
       {title && <div className="uppercase px-sm md:px-md">{title}</div>}
-      <div className="flex flex-col gap-0 w-full overflow-x-hidden relative">
+      <div
+        className={clsx("flex flex-col gap-3 w-full overflow-x-hidden relative", {
+          "mt-6": !title && overflow,
+        })}
+      >
+        {overflow && (
+          <div className="flex gap-2 justify-start px-2.5 sm:px-sm">
+            <div
+              onClick={handlePrev}
+              className={clsx(
+                "w-10 h-10 cursor-pointer rounded-full border border-mid flex items-center justify-center transition-all",
+                {
+                  "opacity-30": current === 0,
+                  "hover:border-dark/50 active:bg-mid/50 active:border-mid/50": current !== 0,
+                }
+              )}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                className="size-6 stroke-dark"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+              </svg>
+            </div>
+            <div
+              onClick={handleNext}
+              className={clsx(
+                "w-10 h-10 cursor-pointer rounded-full border border-mid flex items-center justify-center transition-all",
+                {
+                  "opacity-30": max,
+                  "hover:border-dark/50 active:bg-mid/50 active:border-mid/50": !max,
+                }
+              )}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                className="size-6 stroke-dark"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+              </svg>
+            </div>
+          </div>
+        )}
         <div className="overflow-x-scroll hide-scroll" ref={container}>
-          <div className="flex gap-2.5 pb-5 px-2.5 w-fit items-center" ref={gallery}>
+          <div className="flex gap-2.5 pb-5 px-2.5 w-fit items-start" ref={gallery}>
             {images.map((image, i) => {
               if (image.type.includes("video/")) {
                 const { id } = image as VideoAirtable & { caption?: string[] };
@@ -157,7 +208,7 @@ const Gallery = ({ images, title }: GalleryProps) => {
 
                     variants={childVariants}
                     key={`${id}_${i}`}
-                    className="w-[calc(100dvw_-_20px)] h-fit flex grow flex-col gap-2"
+                    className="w-[calc((100dvw_-_30px)/2)] h-fit flex grow flex-col gap-2"
                   >
                     <Video src={image.url} autoplay loop muted controls={false} />
                   </motion.div>
@@ -175,7 +226,7 @@ const Gallery = ({ images, title }: GalleryProps) => {
                     key={`${id}_${i}`}
                     className={clsx("relative flex grow flex-col gap-2", {
                       "w-[50dvw] md:w-[33dvw] max-w-[400px] h-fit": aspect < 1,
-                      "w-[calc(100dvw_-_20px)] h-auto": aspect >= 1,
+                      "w-[calc((100dvw_-_30px)/2)] h-auto": aspect >= 1,
                     })}
                   >
                     <Image
@@ -200,50 +251,6 @@ const Gallery = ({ images, title }: GalleryProps) => {
             })}
           </div>
         </div>
-        {overflow && (
-          <div className="flex gap-2 px-sm md:px-md justify-end">
-            <div
-              onClick={handlePrev}
-              className={clsx(
-                "w-10 h-10 cursor-pointer rounded-full bg-light flex items-center justify-center transition-all",
-                {
-                  "opacity-30": current === 0,
-                  "hover:bg-light/85 active:bg-light/70": current !== 0,
-                }
-              )}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                className="size-6 stroke-dark"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
-              </svg>
-            </div>
-            <div
-              onClick={handleNext}
-              className={clsx(
-                "w-10 h-10 cursor-pointer rounded-full bg-light flex items-center justify-center transition-all",
-                {
-                  "opacity-30": max,
-                  "hover:bg-light/85 active:bg-light/70": !max,
-                }
-              )}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                className="size-6 stroke-dark"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-              </svg>
-            </div>
-          </div>
-        )}
       </div>
     </motion.div>
   );
