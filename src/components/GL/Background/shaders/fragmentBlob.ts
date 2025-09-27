@@ -19,8 +19,10 @@ export const fragmentShaderBlob = /* glsl */ `
 
   uniform float PI;
   uniform float uMode;
-  uniform vec2 uTime;
+  uniform vec2 uHover;
+  uniform vec3 uTime;
   uniform vec2 uMouse;
+  uniform vec2 uPath;
   uniform vec2 uScroll;
   uniform vec4 uResolution;
   uniform sampler2D uVideo;
@@ -57,27 +59,35 @@ export const fragmentShaderBlob = /* glsl */ `
         
     // Blob ----------------------------- //
 
+    vec2 uv = vUv * 2. - 1.;
+    uv *= vec2(uResolution.x/uResolution.y, 1.);
+
     // Mouse coords
+    vec2 path = uPath;
     vec2 mouse = uMouse;
-    vec2 mouse2 = uMouse;
-    float time = uTime.x * .02 + 4.;
+    mouse *= vec2(uResolution.x/uResolution.y, 1.);
+
+    float time = uTime.z * .02 + 4.;
     // mouse += vec2(sin(time + sin(time * .5 + cos(time * .25))), cos(time + cos(time * .5 + sin(time * .5)))) * .5;
     // mouse = vec2(sin(time), cos(time)) * .5;
     // mouse += vec2(sin(time * 2.), cos(time * 2.)) * .25;
     // mouse -= vec2(sin(time * 3.), cos(time * 3.)) * .125;
 
-    float x = sin(time * 5.) * .5;
-    float y = sin(time * 4.) * .5;
-    x += sin(time * 6.) * .25;
-    y += sin(time * 5.) * .25;
-    x += sin(time * 10.) * .25;
-    y += sin(time * 8.) * .25;
-    mouse = vec2(x, y) * .666;
-    mouse *= vec2(uResolution.x/uResolution.y, 1.);
-    mouse2 *= vec2(uResolution.x/uResolution.y, 1.);
 
-    vec2 uv = vUv * 2. - 1.;
-    uv *= vec2(uResolution.x/uResolution.y, 1.);
+
+    // float x = sin(time * 5.) * .5;
+    // float y = sin(time * 4.) * .5;
+    // x += sin(time * 6.) * .25;
+    // y += sin(time * 5.) * .25;
+    // x += sin(time * 10.) * .25;
+    // y += sin(time * 8.) * .25;
+    // mouse = vec2(x, y) * .666;
+    path *= vec2(uResolution.x/uResolution.y, 1.);
+
+    float t3 = getTime(uTime.x, .5, uHover.y);
+    t3 = easeInOutCubic(t3);
+    float r_ = t3;
+    if (uHover.x == 0.) r_ = 1. - t3;
 
     // Scroll factor
     float sf = uScroll.y;
@@ -114,34 +124,50 @@ export const fragmentShaderBlob = /* glsl */ `
     float box = sdRoundedBox(uv, vidS, vec4(.015) * vidS.x);
     box = smoothstep(.0, .1, box);
 
+
     // Blob shape 
-    vec2 pb = uv - mouse;
-    float pbf = (sin(atan2(uv.y, uv.x + 10.) * PI * 40. - uTime.x * .333))*.075;
+    vec2 pb = uv - path;
+    float pbf = (sin(atan2(uv.y, uv.x + 10.) * PI * 40. - uTime.x * .2))*.075;
     float angle = atan(pb.y, pb.x);
-    float pfm = smoothstep(0., 1., length(uv - mouse2));
-    float pbf2 = mix(1., .6666, (sin(angle * 3. + uTime.x * .333 + mouse.x * PI * 4.)));
-    float pbf3 = mix(1., .6666, (sin(angle * 4. + uTime.x * .333 + mouse2.y * PI * 1.)));
+    float pfm = smoothstep(0., 1., length(uv - mouse));
+    float pbf2 = mix(1., .6666, (sin(angle * 3. + uTime.x * .2 + path.x * PI * 4.)));
+    float pbf3 = mix(1., .6666, (sin(angle * 4. + uTime.x * .2 + mouse.y * PI * 1.)));
     pb *= pbf2;
     pb *= mix(pbf3, 1., pfm);
     pb += pbf;
+
+    // // Blob shape 
+    // vec2 uv_ = mouse2;
+    // vec2 pb_ = uv_ - mouse;
+    // float pbf_ = (sin(atan2(uv_.y, uv_.x + 10.) * PI * 40. - uTime.x * .333))*.075;
+    // float angle_ = atan(pb_.y, pb_.x);
+    // float pfm_ = smoothstep(0., 1., length(uv - mouse2));
+    // float pbf2_ = mix(1., .6666, (sin(angle_ * 3. + uTime.x * .333 + mouse.x * PI * 4.)));
+    // float pbf3_ = mix(1., .6666, (sin(angle_ * 4. + uTime.x * .333 + mouse2.y * PI * 1.)));
+    // pb_ *= pbf2_;
+    // pb_ *= mix(pbf3_, 1., pfm_);
+    // pb_ += pbf_;
 
     // Empty shape
     float null = sdBox((vUv * 2. - 1.) + pbf, vec2(.0));
 
     float edge = sdRoundedBox(uv, (1.-margin*2./uResolution.xy)*vec2(uResolution.x/uResolution.y,1.), vec4(.1));
-    float r = sdCircle(pb, mix(.25, 1., t1) * t0);
+    float r = sdCircle(pb, mix(.25 + r_ * .05, 1., t1) * t0);
     r = smoothUnionSDF(mix(r, mix(v, box, t1), t1), mix(r, mix(v, box, t1), t1), .1);
     r = smoothUnionSDF(mix(r, null, sf), mix(r, null, sf), .1);
     r = mix(smoothIntersectSDF(r, edge, .1), r, t1);
     r = mix(smoothIntersectSDF(r, null, .1), r, t_);
-    r = smoothstep(0., mix(.01, .02, t1), r);
+    // r = smoothstep(0., mix(.01, .02, t1), r);
+    r = smoothstep(0., .005, r);
     r = mix(1., r, uVideoPlaying.z);
     r = mix(1., r, smoothstep(0., .5, t0));
 
+
     // Icon coords
-    vec2 m = mix(mouse, mouse2, t1);
+    vec2 m = mix(path, mouse, t1);
     vec2 puv = uv - m;
     puv *= mix(1., 1.25, sin(smoothstep(0., .2, t2) * PI));
+    puv *= mix(1.5, 1., r_);
 
     // Icon border
     float border = sdCircle(puv, mix(0., .0666, t0));

@@ -16,7 +16,7 @@ const ProjectImages = ({ images, gallery }: { images?: Media[]; gallery?: Media[
   }
 
   return (
-    <div className="flex flex-col w-full gap-10 max-w-[2560px] mx-auto">
+    <div className="flex flex-col w-full gap-10 md:gap-30 max-w-[2560px] mx-auto">
       {imagesBefore && imagesBefore.map((image) => <ProjectImage image={image} key={image.id} />)}
       {gallery && <Gallery images={gallery} />}
       {imagesAfter && imagesAfter.map((image) => <ProjectImage image={image} key={image.id} />)}

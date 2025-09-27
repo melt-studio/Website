@@ -100,7 +100,7 @@ const ProjectTiles = () => {
 
     while (count < projects.length) {
       const colsLast = rows.length > 0 ? rows[rows.length - 1].length : -1;
-      const options = [1, 2, 3].filter((i) => i !== colsLast);
+      const options = [1, 2].filter((i) => i !== colsLast);
       let cols;
       if (rows.length === 0) cols = 1;
       // else if (projects.length - count <= 3) cols = projects.length - count;
@@ -123,7 +123,7 @@ const ProjectTiles = () => {
         const off =
           i === 0
             ? Math.floor((w - w2) / 2) + getRandomInt(-1, 1, count + 200 - j + i + seed)
-            : getRandomInt(last && last.off + last.w2 === last.w ? 1 : 0, w - w2, count + 150 + j + i + seed);
+            : getRandomInt(last && last.off + last.w2 === last.w ? 2 : 0, w - w2, count + 150 + j + i + seed);
         const start = n2 + off + 1;
         const end = start + w2;
 
@@ -136,7 +136,7 @@ const ProjectTiles = () => {
           w,
           colStart: start,
           colEnd: end,
-          marginTop: getRandomInt(-10, 10, count + i + j + w - 2),
+          marginTop: getRandomInt(0, 10, count + i + j + w - 2),
           marginLeft: 0,
         });
         n -= w;
@@ -169,7 +169,7 @@ const ProjectTiles = () => {
       className={clsx("flex md:gap-10 pt-40 pb-40 w-full justify-around relative z-2 px-2 max-w-[2560px] mx-auto")}
       ref={projectTiles}
     >
-      <div className="grid grid-cols-[repeat(40,_1fr)] w-full h-auto items-start px-2.5 gap-y-[0.5rem] max-w-[1920px]">
+      <div className="grid grid-cols-[repeat(40,_1fr)] w-full h-auto items-start px-2.5 gap-y-[4rem] max-w-[1920px]">
         {projects.map((project, i) => (
           <ProjectTile key={project.id} project={project} layout={layout2[i]} active={active} setActive={setActive} />
         ))}

@@ -107,6 +107,7 @@ const Scroll = () => {
 
 const Wrapper = () => {
   const canvasContainer = useRef<HTMLDivElement | null>(null);
+  // const target = useRef<HTMLDivElement>(undefined);
   const location = useLocation();
 
   const docs = location.pathname.includes("/docs/");
@@ -131,11 +132,29 @@ const Wrapper = () => {
     }
   };
 
+  const target = document.getElementById("target");
+
   return (
     <>
       <Gradient />
       <Scroll />
       <Video />
+
+      {/* <div
+        ref={target}
+        className="w-full h-screen flex fixed top-0 left-0 items-center justify-center p-sm md:p-md z-100 cursor-default bg-red-500/50"
+        onClick={() => {
+          // console.log("click");
+          // if (expanded) hideVideo();
+          // else expandVideo();
+        }}
+        // onMouseEnter={() => {
+        //   if (blob) blob.material.uniforms.uHover.value = 1;
+        // }}
+        // onMouseLeave={() => {
+        //   if (blob) blob.material.uniforms.uHover.value = 0;
+        // }}
+      ></div> */}
 
       <div
         className={clsx(
@@ -151,7 +170,7 @@ const Wrapper = () => {
       >
         <IntroText />
 
-        <Canvas dpr={[1, 2]} gl={glSettings} onCreated={created}>
+        <Canvas dpr={[1, 2]} gl={glSettings} onCreated={created} eventSource={target || undefined}>
           {debug && <Perf position="bottom-right" />}
           {/* <OrthographicCamera makeDefault left={-0.5} right={0.5} top={0.5} bottom={-0.5} near={-1} far={1} manual /> */}
           <Scene />
