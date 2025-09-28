@@ -114,8 +114,6 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
     style.marginLeft = `${layout.marginLeft}%`;
   }
 
-  // console.log(style);
-
   return (
     <div
       className={clsx(

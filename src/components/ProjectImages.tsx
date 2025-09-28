@@ -7,7 +7,6 @@ const ProjectImages = ({ images, gallery }: { images?: Media[]; gallery?: Media[
 
   const galleryImage = images.find((image) => image.filename === "[project_gallery].png");
   const galleryLocation = galleryImage && images.indexOf(galleryImage);
-  // console.log(galleryLocation);
 
   const imagesBefore = images.slice(0, galleryLocation === undefined ? images.length : galleryLocation);
   let imagesAfter = null;

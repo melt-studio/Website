@@ -12,8 +12,6 @@ const AnimatedOutlet = () => {
     <AnimatePresence
       mode="wait"
       onExitComplete={() => {
-        // console.log("EXIT");
-
         const current = useStore.getState().pathname;
         if (current !== location.pathname) {
           setValue("pathname", location.pathname);
@@ -21,7 +19,6 @@ const AnimatedOutlet = () => {
 
         window.scrollTo({ top: 0 });
       }}
-      // propagate
     >
       <motion.div
         initial={{ opacity: 0 }}

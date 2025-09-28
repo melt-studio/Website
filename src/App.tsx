@@ -39,10 +39,6 @@ const App = () => {
     getData();
   }, [setValue]);
 
-  // useEffect(() => {
-  //   setValue("pathname", window.location.href);
-  // }, [setValue]);
-
   return (
     <BrowserRouter>
       <Routes>

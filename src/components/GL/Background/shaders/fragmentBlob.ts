@@ -68,20 +68,7 @@ export const fragmentShaderBlob = /* glsl */ `
     mouse *= vec2(uResolution.x/uResolution.y, 1.);
 
     float time = uTime.z * .02 + 4.;
-    // mouse += vec2(sin(time + sin(time * .5 + cos(time * .25))), cos(time + cos(time * .5 + sin(time * .5)))) * .5;
-    // mouse = vec2(sin(time), cos(time)) * .5;
-    // mouse += vec2(sin(time * 2.), cos(time * 2.)) * .25;
-    // mouse -= vec2(sin(time * 3.), cos(time * 3.)) * .125;
-
-
-
-    // float x = sin(time * 5.) * .5;
-    // float y = sin(time * 4.) * .5;
-    // x += sin(time * 6.) * .25;
-    // y += sin(time * 5.) * .25;
-    // x += sin(time * 10.) * .25;
-    // y += sin(time * 8.) * .25;
-    // mouse = vec2(x, y) * .666;
+    
     path *= vec2(uResolution.x/uResolution.y, 1.);
 
     float t3 = getTime(uTime.x, .5, uHover.y);
@@ -110,10 +97,7 @@ export const fragmentShaderBlob = /* glsl */ `
     // Video texture
     float margin = 10.;
     Tex vidUv0 = getTexUv(uResolution.xy, uVideoResolution.xy, false, margin);
-    // Tex vidUv1 = getTexUv(uResolution.xy, uVideoResolution.xy, false, margin);
-    // vec2 vidUv = mix(vidUv0.uv, vidUv1.uv, 1.-t1);
     vec2 vidUv = vidUv0.uv;
-    // vec2 vidSize = mix(vidUv0.size, vidUv1.size, 1.-t1);
     vec2 vidSize = vidUv0.size;
     float outside = 0.;
     if (vidUv.x < 0. || vidUv.x > 1. || vidUv.y < 0. || vidUv.y > 1.) outside = 1.; 
@@ -123,7 +107,6 @@ export const fragmentShaderBlob = /* glsl */ `
     // Rounded video mask
     float box = sdRoundedBox(uv, vidS, vec4(.015) * vidS.x);
     box = smoothstep(.0, .1, box);
-
 
     // Blob shape 
     vec2 pb = uv - path;
@@ -136,18 +119,6 @@ export const fragmentShaderBlob = /* glsl */ `
     pb *= mix(pbf3, 1., pfm);
     pb += pbf;
 
-    // // Blob shape 
-    // vec2 uv_ = mouse2;
-    // vec2 pb_ = uv_ - mouse;
-    // float pbf_ = (sin(atan2(uv_.y, uv_.x + 10.) * PI * 40. - uTime.x * .333))*.075;
-    // float angle_ = atan(pb_.y, pb_.x);
-    // float pfm_ = smoothstep(0., 1., length(uv - mouse2));
-    // float pbf2_ = mix(1., .6666, (sin(angle_ * 3. + uTime.x * .333 + mouse.x * PI * 4.)));
-    // float pbf3_ = mix(1., .6666, (sin(angle_ * 4. + uTime.x * .333 + mouse2.y * PI * 1.)));
-    // pb_ *= pbf2_;
-    // pb_ *= mix(pbf3_, 1., pfm_);
-    // pb_ += pbf_;
-
     // Empty shape
     float null = sdBox((vUv * 2. - 1.) + pbf, vec2(.0));
 
@@ -157,11 +128,9 @@ export const fragmentShaderBlob = /* glsl */ `
     r = smoothUnionSDF(mix(r, null, sf), mix(r, null, sf), .1);
     r = mix(smoothIntersectSDF(r, edge, .1), r, t1);
     r = mix(smoothIntersectSDF(r, null, .1), r, t_);
-    // r = smoothstep(0., mix(.01, .02, t1), r);
     r = smoothstep(0., .005, r);
     r = mix(1., r, uVideoPlaying.z);
     r = mix(1., r, smoothstep(0., .5, t0));
-
 
     // Icon coords
     vec2 m = mix(path, mouse, t1);
@@ -208,42 +177,14 @@ export const fragmentShaderBlob = /* glsl */ `
 
     // Output color ----------------------------- //
 
-    // float vidf = 1.-r;
-    // colVideo = mix(colVideo, bgMid, mix(0., 1., 1.-uVideoResolution.z));
-    // vec3 col = bgMid;
-    // col = mix(col, colGradient, mix(uTheme.x, 1., uTheme.y));
-    // col = mix(col, colVideo, vidf * (1.-sf));
-    // col = mix(col, bgLight, control * (1.-sf));
-
-    // // // Fade in
-    // // float t0 = getTime(time, 1., 0.);
-    // // col = mix(bgMid, col, t0);
-
-    // // Output alpha
-    // float a = vidf;
-    // a = max(a, control);
-    // a = mix(a, 1., sf);
-
-    // // float a = max(max(1.-r, control), mix(uTheme.x, 1., uTheme.y));
-
-    // gl_FragColor = vec4(col, a);
-
-
     // Alpha
     float alphaBlob = max(1.-r, control);
     alphaBlob *= 1. - smoothstep(.9, 1., sf);
-    // alphaBlob *= t_;
-    // float alphaGradient = mix(uTheme.x, 1., uTheme.y);
-    // float alpha = max(alphaBlob, alphaGradient);
-    // alpha = mix(0., alpha, t5);
 
-    // colVideo = mix(colVideo, bgMid, mix(0., 1., 1.-uVideoResolution.z));
     vec3 col = bgLight;
-    // col = mix(col, colGradient, alphaGradient);
     col = mix(col, colVideo, (1.-r) * (1.-sf));
     col = mix(col, mix(bgLight, bgMid, r), control * (1.-sf));
 
     gl_FragColor = vec4(col, alphaBlob);
-  // }
   }
 `;

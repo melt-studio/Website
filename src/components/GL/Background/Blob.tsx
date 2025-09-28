@@ -31,20 +31,6 @@ const Blob = () => {
 
   const { size, viewport } = useThree();
 
-  // const mouse = useMemo(() => new Vector2(), []);
-
-  // useEffect(() => {
-  //   const listener = (e: MouseEvent) => {
-  //     const { width, height } = useStore.getState().viewport;
-  //     const x = (e.clientX / width) * 2 - 1;
-  //     const y = (1 - e.clientY / height) * 2 - 1;
-  //     mouse.set(x, y);
-  //   };
-  //   window.addEventListener("mousemove", listener);
-
-  //   return () => window.removeEventListener("mousemove", listener);
-  // }, [mouse]);
-
   const tex = useMemo(() => {
     if (video) {
       const tex = new VideoTexture(video);
@@ -98,48 +84,21 @@ const Blob = () => {
     }
   }, [size]);
 
-  // useEffect(() => {
-  //   if (!blob.current) return;
-
-  //   console.log(pathname);
-
-  //   if (pathname === "/") {
-  //     blob.current.material.uniforms.uTime.value.y = blob.current.material.uniforms.uTime.value.x;
-  //     blob.current.material.uniforms.uMode.value = 1;
-  //     console.log(blob.current.material.uniforms.uTime.value.y);
-  //   }
-  // }, [pathname]);
-
   useEffect(() => {
     if (!blob.current) return;
-
-    // console.log(location.pathname);
 
     if (location.pathname !== "/") {
       blob.current.material.uniforms.uTime.value.y = blob.current.material.uniforms.uTime.value.x;
       blob.current.material.uniforms.uMode.value = 0;
-      // console.log(blob.current.material.uniforms.uTime.value.y);
     } else {
       blob.current.material.uniforms.uTime.value.y = blob.current.material.uniforms.uTime.value.x;
       blob.current.material.uniforms.uMode.value = 1;
-      // console.log(blob.current.material.uniforms.uTime.value.y);
     }
   }, [location.pathname]);
-
-  // const handleMouseMove = () => {
-
-  //       blob.current.material.uniforms.uMouse.value.x +=
-  //         (mouse.x - blob.current.material.uniforms.uMouse.value.x) * 0.15;
-  //       blob.current.material.uniforms.uMouse.value.y +=
-  //         (mouse.y - blob.current.material.uniforms.uMouse.value.y) * 0.15;
-  // }
 
   useFrame(({ pointer }, delta) => {
     if (blob.current) {
       blob.current.material.uniforms.uTime.value.x += delta;
-      // if (blob.current.material.uniforms.uHover.value === 0) {
-      // }
-      // blob.current.material.uniforms.uTime.value.y += delta;
 
       if (location.pathname === "/") {
         const s = window.scrollY / size.height;
@@ -169,19 +128,18 @@ const Blob = () => {
           y += Math.sin(time * 8) * 0.25;
           x *= 0.666;
           y *= 0.666;
+
           const d = blob.current.material.uniforms.uMouse.value.distanceTo(blob.current.material.uniforms.uPath.value);
-          // console.log(pointer);
+
           if (d > 0.333) {
             blob.current.material.uniforms.uTime.value.z += delta;
             blob.current.material.uniforms.uPath.value.set(x, y);
             if (blob.current.material.uniforms.uHover.value.x === 1) {
               blob.current.material.uniforms.uHover.value.set(0, blob.current.material.uniforms.uTime.value.x);
-              // console.log(blob.current.material.uniforms.uHover.value);
             }
           } else {
             if (blob.current.material.uniforms.uHover.value.x === 0) {
               blob.current.material.uniforms.uHover.value.set(1, blob.current.material.uniforms.uTime.value.x);
-              // console.log(blob.current.material.uniforms.uHover.value);
             }
           }
         }
@@ -241,7 +199,6 @@ const Blob = () => {
         if (!initial) setInitial(true);
       }}
     >
-      {/* // <mesh ref={blob} visible={true}> */}
       <planeGeometry args={[viewport.width, viewport.height]} />
       <shaderMaterial
         vertexShader={vertexShader}

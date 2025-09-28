@@ -1,28 +1,6 @@
 import { Easing, motion } from "motion/react";
 
 export default function List({ items }: { items: string[] }) {
-  // const variants = {
-  //   initial: {
-  //     opacity: 0,
-  //     transform: "translate3d(0px, 100%, 0px)",
-  //   },
-  //   animate: (i: number) => ({
-  //     opacity: 1,
-  //     transform: "translate3d(0px, 0%, 0px)",
-  //     transition: {
-  //       duration: 1,
-  //       delay: 1.5 + i * 0.25,
-  //       ease: "easeInOut" as Easing,
-  //     },
-  //   }),
-  // };
-
-  // const motionProps = {
-  //   variants,
-  //   initial: "initial",
-  //   animate: "animate",
-  // };
-
   const childVariants = {
     hidden: { opacity: 0, transform: "translateY(40px)" },
     visible: {

@@ -82,28 +82,6 @@ const Gallery = ({ images, title }: GalleryProps) => {
     }
   };
 
-  // const variants = {
-  //   initial: {
-  //     opacity: 0,
-  //     transform: "translate3d(50px, 0px, 0px)",
-  //   },
-  //   animate: (i: number) => ({
-  //     opacity: 1,
-  //     transform: "translate3d(0px, 0px, 0px)",
-  //     transition: {
-  //       duration: 1,
-  //       delay: 1 + i * 0.25,
-  //       ease: "easeInOut" as Easing,
-  //     },
-  //   }),
-  // };
-
-  // const motionProps = {
-  //   variants,
-  //   initial: "initial",
-  //   animate: "animate",
-  // };
-
   const parentVariants = {
     hidden: { opacity: 0, transform: "translateY(40px)" },
     visible: {
@@ -134,8 +112,6 @@ const Gallery = ({ images, title }: GalleryProps) => {
   return (
     <motion.div
       viewport={{ amount: 0.5, once: true }}
-      // transition={{ duration: 2, delay: 0, ease: "easeInOut", when: "beforeChildren" }}
-      // initial={{ opacity: 0, transform: "translateY(40px)" }}
       initial="hidden"
       whileInView="visible"
       className={clsx("flex flex-col w-full max-w-[2560px] mx-auto", {
@@ -143,8 +119,6 @@ const Gallery = ({ images, title }: GalleryProps) => {
         "gap-2": overflow,
       })}
       variants={parentVariants}
-      // initial="hidden"
-      // animate="visible"
     >
       {title && <div className="uppercase px-sm md:px-md">{title}</div>}
       <div
@@ -203,9 +177,6 @@ const Gallery = ({ images, title }: GalleryProps) => {
                 const { id } = image as VideoAirtable & { caption?: string[] };
                 return (
                   <motion.div
-                    // custom={i}
-                    // {...motionProps}
-
                     variants={childVariants}
                     key={`${id}_${i}`}
                     className="w-[calc((100dvw_-_30px)/2)] h-fit flex grow flex-col gap-2"
@@ -220,8 +191,6 @@ const Gallery = ({ images, title }: GalleryProps) => {
                 const aspect = thumbnails.large.width / thumbnails.large.height;
                 return (
                   <motion.div
-                    // custom={i}
-                    // {...motionProps}
                     variants={childVariants}
                     key={`${id}_${i}`}
                     className={clsx("relative flex grow flex-col gap-2", {

@@ -172,10 +172,7 @@ const DocumentContent = () => {
         {title}
         <div
           className={
-            embedUrl.includes("figma.com/proto")
-              ? // "absolute -left-12 -top-15 -right-12 -bottom-4" :
-                "absolute -left-12 -top-15 -right-12 -bottom-15"
-              : "w-full h-full"
+            embedUrl.includes("figma.com/proto") ? "absolute -left-12 -top-15 -right-12 -bottom-15" : "w-full h-full"
           }
         >
           <iframe src={embedUrl} allowFullScreen className="w-full h-full animate-[fadeIn_1s_ease-in-out] z-1" />
@@ -212,7 +209,6 @@ const DocumentMedia = ({ media }: { media: Media }) => {
     return <Video src={url} controls className="object-contain max-w-full max-h-full" />;
   } else if (type === "application/pdf") {
     return <embed src={url} className="w-full h-full" />;
-    // } else if (["image/png", "image/jpeg", "image/gif"].includes(type)) {
   } else if (type.includes("image")) {
     const { width, height } = media as ImageAirtable;
     return <Image src={url} width={width} height={height} className="object-contain max-w-full max-h-full" />;

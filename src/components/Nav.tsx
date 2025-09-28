@@ -58,7 +58,6 @@ const Nav = () => {
       )}
       {!dissolve && (
         <motion.div
-          // exit={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           initial={{ opacity: 0 }}
           transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
@@ -69,7 +68,6 @@ const Nav = () => {
             onClick={() => {
               if (location.pathname === "/" && projectTiles) projectTiles.scrollIntoView({ behavior: "smooth" });
             }}
-            // underline={false}
           >
             Work
           </Link>

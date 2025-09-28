@@ -1,5 +1,4 @@
 import clsx from "clsx";
-// import { useStore } from "../stores/store";
 import { useState } from "react";
 
 type ImageProps = {
@@ -13,10 +12,6 @@ type ImageProps = {
 
 const Image = ({ src, width, height, alt, className }: ImageProps) => {
   const [loaded, setLoaded] = useState(false);
-  // const viewport = useStore((state) => state.viewport);
-
-  // const imageAspect = width / height;
-  // const viewportAspect = viewport.width / viewport.height;
 
   return (
     <img
@@ -24,9 +19,6 @@ const Image = ({ src, width, height, alt, className }: ImageProps) => {
       className={clsx(
         "transition-opacity duration-1000",
         {
-          // "h-full w-auto": imageAspect < viewportAspect,
-          // "h-auto w-full": imageAspect > viewportAspect,
-          // "h-auto w-full": true,
           "opacity-0": !loaded,
           "opacity-100": loaded,
         },

@@ -43,10 +43,6 @@ const ProjectImage = ({ image }: { image: Media }) => {
     return null;
   };
 
-  // const aspect = image.type.includes("image/")
-  //   ? (image as ImageAirtable).width / (image as ImageAirtable).height
-  //   : null;
-
   return (
     <motion.div
       key={image.id}
@@ -54,13 +50,7 @@ const ProjectImage = ({ image }: { image: Media }) => {
       transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
       initial={{ opacity: 0, transform: "translateY(40px)" }}
       whileInView={{ opacity: 1, transform: "translateY(0px)" }}
-      className={clsx("h-fit relative px-2.5 w-full", {
-        // "w-2/3": sz === "[medium]",
-        // "w-full": !sz,
-        // "mr-auto": pos === "[left]",
-        // "ml-auto": pos === "[right]",
-        // "mx-auto": pos === "[center]",
-      })}
+      className="h-fit relative px-2.5 w-full"
     >
       {getMedia()}
     </motion.div>

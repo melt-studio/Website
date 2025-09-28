@@ -13,9 +13,6 @@
   --font-mono: ballinger-mono, ui-monospace, SFMono-Regular, Menlo, "Roboto Mono", monospace;
   --font-serif: TriestDT, serif;
 
-  /* --color-dark: oklch(0.22 0 0);
-  --color-mid: oklch(0.81 0 0);
-  --color-light: oklch(0.94 0 0); */
   --color-dark: #1b1b1b;
   --color-mid: #c1c1c1;
   --color-light: #ecece9;
@@ -25,44 +22,12 @@
 
   --breakpoint-3xl: 120rem;
 
-  @keyframes fade {
-    0% {
-      opacity: 0;
-    }
-    35% {
-      opacity: 0.8;
-    }
-    60% {
-      opacity: 0.8;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-
   @keyframes fadeIn {
     0% {
       opacity: 0;
-      /* transform: translateY(100%); */
     }
     100% {
       opaicty: 1;
-      /* transform: translateY(0); */
-    }
-  }
-
-  @keyframes fadeIn2 {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opaicty: 1;
-    }
-  }
-
-  @keyframes shimmer {
-    100% {
-      transform: translateX(100%);
     }
   }
 
@@ -72,21 +37,6 @@
     }
     100% {
       transform: rotate(360deg);
-    }
-  }
-
-  @keyframes inOut {
-    0% {
-      transform: translateY(100%);
-    }
-    25% {
-      transform: translateY(0%);
-    }
-    75% {
-      transform: translateY(0%);
-    }
-    100% {
-      transform: translateY(-100%);
     }
   }
 }

@@ -2,27 +2,13 @@ import ProjectTile from "./ProjectTile";
 import { useStore } from "../stores/store";
 import clsx from "clsx";
 import { useEffect, useMemo, useRef, useState } from "react";
-// import { MathUtils } from "three";
 import { seededRandom } from "three/src/math/MathUtils.js";
 import { Easing, motion } from "motion/react";
-// import { ProjectFormatted } from "../types";
-
-// export type TileLayout = {
-//   row: number;
-//   col: number;
-//   colSpan: number;
-//   colStart: number;
-//   colEnd: number;
-//   marginTop: number;
-//   marginLeft: number;
-// };
 
 export type TileLayout = {
   w: number;
   w2: number;
   off: number;
-  // start: number;
-  // end: number;
   row: number;
   colStart: number;
   colEnd: number;
@@ -44,51 +30,7 @@ const ProjectTiles = () => {
   const [active, setActive] = useState<string | null>(null);
   const projectTiles = useRef<HTMLDivElement | null>(null);
 
-  // const layout: TileLayout[] = useMemo(() => {
-  //   if (!projects) return [];
-
-  //   return projects.reduce((layout, project, i) => {
-  //     const row = Math.floor(project.index / 2);
-  //     const col = project.index % 2;
-  //     const cols = 34;
-  //     const gap = getRandomInt(2, 5, row);
-  //     const offLeft = getRandomInt(0, 4, row + 4) + 2;
-  //     const offRight = getRandomInt(0, 4, row + 8);
-  //     const available = cols - gap - offLeft;
-  //     let ratio = (seededRandom(row + 9) * 1) / 6 + 0.5;
-
-  //     const weight2 = seededRandom(row + 12) < 0.5;
-
-  //     if (weight2 && col === 0) ratio = 1 - ratio;
-
-  //     let colSpan, colStart, colEnd, marginTop, marginLeft;
-  //     if (col === 0) {
-  //       colSpan = Math.floor(available * ratio) + 1;
-  //       colStart = 1 + offLeft;
-  //       colEnd = colStart + colSpan;
-  //       marginTop = -getRandomInt(0, 10, project.index + row + col + 3);
-  //       marginLeft = getRandomInt(0, 10, project.index + row + col + 2);
-  //     } else {
-  //       const prev = layout[i - 1];
-  //       colSpan = available - prev.colSpan - offRight;
-  //       colStart = prev.colEnd + gap + 0;
-  //       colEnd = colStart + colSpan;
-  //       marginTop = getRandomInt(0, 10, project.index + row + col - 2);
-  //       marginLeft = -getRandomInt(0, 10, project.index + row + col - 1);
-  //     }
-  //     return layout.concat({
-  //       row,
-  //       col,
-  //       colSpan,
-  //       colStart,
-  //       colEnd,
-  //       marginTop,
-  //       marginLeft,
-  //     });
-  //   }, [] as TileLayout[]);
-  // }, [projects]);
-
-  const layout2: TileLayout[] = useMemo(() => {
+  const layout: TileLayout[] = useMemo(() => {
     if (!projects) return [];
 
     const rows: TileLayout[][] = [];
@@ -103,14 +45,10 @@ const ProjectTiles = () => {
       const options = [1, 2].filter((i) => i !== colsLast);
       let cols;
       if (rows.length === 0) cols = 1;
-      // else if (projects.length - count <= 3) cols = projects.length - count;
       else cols = options[getRandomInt(0, options.length - 1, rows.length + seed)];
       let n = grid;
       let n2 = 0;
-      // let row = []
       const i = rows.length;
-
-      // const rowProjects = projects.slice(count, count + cols);
 
       const row: TileLayout[] = [];
       for (let j = 0; j < cols; j++) {
@@ -127,7 +65,6 @@ const ProjectTiles = () => {
         const start = n2 + off + 1;
         const end = start + w2;
 
-        // row.push({ w, w2, off, start, end });
         row.push({
           grid,
           row: i,
@@ -147,11 +84,9 @@ const ProjectTiles = () => {
       rows.push(row);
     }
 
-    const layout2 = rows.flat();
+    const layout = rows.flat();
 
-    // console.log(layout2);
-
-    return layout2;
+    return layout;
   }, [projects]);
 
   useEffect(() => {
@@ -171,7 +106,7 @@ const ProjectTiles = () => {
     >
       <div className="grid grid-cols-[repeat(40,_1fr)] w-full h-auto items-start px-2.5 gap-y-[4rem] max-w-[1920px]">
         {projects.map((project, i) => (
-          <ProjectTile key={project.id} project={project} layout={layout2[i]} active={active} setActive={setActive} />
+          <ProjectTile key={project.id} project={project} layout={layout[i]} active={active} setActive={setActive} />
         ))}
       </div>
     </motion.div>

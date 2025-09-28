@@ -1,64 +1,7 @@
 import clsx from "clsx";
 import { Easing, motion, useMotionValueEvent, useScroll } from "motion/react";
-import { RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
-// import { useStore } from "../stores/store";
-
-type ObserverOptions = {
-  amount?: number;
-  once?: boolean;
-};
-
-type State = {
-  current: Position;
-  last: Position;
-};
-
-// --staggered-delay: 0.15;
-// --staggered-opacity-duration: 0.9;
-// --staggered-translate-y: 30px;
-// --staggered-translate-y-duration: 0.7;
-
-// export type AnimationHandle = {
-//   toggleShow: (current: Position, last: Position) => void;
-// };
-
-const useObserver = ({ amount = 0.5, once = false }: ObserverOptions = {}): [
-  RefObject<HTMLParagraphElement | null>,
-  state: State
-] => {
-  const ref = useRef<HTMLParagraphElement>(null);
-  const [initialized, setInitialized] = useState(false);
-  const [position, setPosition] = useState<State>({ current: "below", last: "below" });
-
-  const callback = useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      if (once && initialized) return;
-
-      const [entry] = entries;
-      if (entry.isIntersecting) {
-        setPosition((pos) => ({ current: "show", last: pos.current }));
-        setInitialized(true);
-      } else {
-        setPosition((pos) => ({ current: entry.boundingClientRect.y < 0 ? "above" : "below", last: pos.current }));
-      }
-    },
-    [once, initialized]
-  );
-
-  useEffect(() => {
-    const el = ref.current;
-    const observer = new IntersectionObserver(callback, {
-      threshold: amount,
-    });
-    if (el) observer.observe(el);
-
-    return () => {
-      if (el) observer.unobserve(el);
-    };
-  }, [amount, callback]);
-
-  return [ref, position];
-};
+import { useCallback, useEffect, useMemo, useState } from "react";
+import useObserver, { ObserverPosition, ObserverState } from "../helpers/useObserver";
 
 type AnimateWordsProps = {
   text: string;
@@ -75,20 +18,15 @@ type AnimateWordsProps = {
   min?: number;
   max?: number;
   reset?: boolean;
-  // handleRef?: RefObject<unknown>;
   active?: boolean;
 };
-
-type Position = "below" | "show" | "above";
 
 export function WordAnimation({
   text,
   className = "",
   mode = "overflow",
-  // duration = 2,
   duration = 1.5,
   delay = 0,
-  // unitDelay = 0.1,
   unitDelay = 0.075,
   transformOffset = "110%",
   easing = "easeInOut",
@@ -99,14 +37,12 @@ export function WordAnimation({
   max = 1,
   reset = false,
   active = true,
-}: // handleRef,
-AnimateWordsProps) {
-  // const { height } = useStore((state) => state.viewport);
+}: AnimateWordsProps) {
   const height = useMemo(() => {
     return window.innerHeight;
   }, []);
   const { scrollY } = useScroll();
-  const [state, setState] = useState<State>({ current: "below", last: "below" });
+  const [state, setState] = useState<ObserverState>({ current: "below", last: "below" });
 
   let index = 0;
   const splittedText = text
@@ -128,7 +64,7 @@ AnimateWordsProps) {
       else if (s < max) position = "show";
       else position = "above";
 
-      setState((s) => (s.current === position ? s : { current: position as Position, last: s.current }));
+      setState((s) => (s.current === position ? s : { current: position as ObserverPosition, last: s.current }));
     },
     [height, min, max, active]
   );
@@ -137,7 +73,7 @@ AnimateWordsProps) {
     if (fixed) updateShow(window.screenY);
   }, [updateShow, fixed]);
 
-  const [ref, position] = useObserver({
+  const [ref, position] = useObserver<HTMLDivElement>({
     amount,
     once,
   });
@@ -145,20 +81,6 @@ AnimateWordsProps) {
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (fixed) updateShow(latest);
   });
-
-  // useImperativeHandle(
-  //   handleRef,
-  //   () => {
-  //     return {
-  //       toggleShow(current: Position, last: Position) {
-  //         setState(() => {
-  //           return { current, last };
-  //         });
-  //       },
-  //     };
-  //   },
-  //   []
-  // );
 
   const transform = {
     below: `translate3d(0px, ${transformOffset}, 0px)`,
@@ -172,17 +94,7 @@ AnimateWordsProps) {
     above: mode === "fade" ? 0 : 1,
   };
 
-  // const state = fixed ? show : position;
-
   const show = fixed ? state : position;
-
-  // useEffect(() => {
-  //   if (max === 0.25) console.log(fixed, new Date().toISOString(), show);
-  // }, [show, fixed, max]);
-
-  // useEffect(() => {
-  //   console.log(position, state);
-  // }, [position, state]);
 
   const variants = {
     initial: {
@@ -194,31 +106,17 @@ AnimateWordsProps) {
       opacity: opacity[show.current],
       transition: {
         duration,
-        // delay: (state !== "above" ? i : splittedText.length - i) * unitDelay + delay,
-        // delay: (show.last === "above" ? splittedText.length - i : i) * unitDelay + delay,
         delay: i * unitDelay + delay,
         ease: easing,
-        // opacity: {
-        //   ease: "easeOut" as Easing,
-        //   duration: 2,
-        // },
-        // opacity: duration/2
       },
     }),
-    // exit: {
-    //   transform: transform.above,
-    //   opacity: opacity.above,
-    // },
   };
-
-  // console.log(state);
 
   const motionProps = {
     variants,
     initial: "initial",
     animate: "animate",
     className: "relative will-change-transform inline-block",
-    // exit: "exit",
   };
 
   return (
@@ -246,7 +144,6 @@ AnimateWordsProps) {
                     >
                       <span className="overflow-visible">{current.text}</span>
                     </motion.span>
-                    {/* {j < line.length - 1 && <span>{"\u00A0"}</span>} */}
                   </span>
                 );
               })}

@@ -28,7 +28,6 @@ const ProjectNav = () => {
         variants={variants}
         className="flex flex-col p-sm md:p-md uppercase gap-4 pt-10 md:pt-10"
       >
-        {/* <div className="w-full max-w-[2560px] mx-auto"> */}
         <div className="hidden md:grid grid-cols-2 md:grid-cols-[1fr_2fr] gap-4">
           {activeProject.prev && (
             <Link to={`/work/${activeProject.prev}`} invertUnderline>
@@ -63,7 +62,6 @@ const ProjectNav = () => {
             </Link>
           )}
         </div>
-        {/* </div> */}
       </motion.div>
     </div>
   );

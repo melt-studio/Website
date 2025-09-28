@@ -1,4 +1,3 @@
-// import { OrthographicCamera } from "@react-three/drei";
 import { Canvas, RootState } from "@react-three/fiber";
 import clsx from "clsx";
 import { Perf } from "r3f-perf";
@@ -8,7 +7,6 @@ import { useLocation } from "react-router";
 import reel from "../../../assets/reel.mp4";
 import { useStore } from "../../../stores/store";
 import Scene from "./Scene";
-// import { WordsPullUp } from "../../WordAnimation";
 import IntroText from "./IntroText";
 
 const debug = process.env.NODE_ENV === "debug";
@@ -107,14 +105,12 @@ const Scroll = () => {
 
 const Wrapper = () => {
   const canvasContainer = useRef<HTMLDivElement | null>(null);
-  // const target = useRef<HTMLDivElement>(undefined);
   const location = useLocation();
 
   const docs = location.pathname.includes("/docs/");
 
   const setValue = useStore((state) => state.setValue);
   const ready = useStore((state) => state.ready);
-  // const viewport = useStore((state) => state.viewport);
 
   const glSettings = {
     antialias: false,
@@ -140,22 +136,6 @@ const Wrapper = () => {
       <Scroll />
       <Video />
 
-      {/* <div
-        ref={target}
-        className="w-full h-screen flex fixed top-0 left-0 items-center justify-center p-sm md:p-md z-100 cursor-default bg-red-500/50"
-        onClick={() => {
-          // console.log("click");
-          // if (expanded) hideVideo();
-          // else expandVideo();
-        }}
-        // onMouseEnter={() => {
-        //   if (blob) blob.material.uniforms.uHover.value = 1;
-        // }}
-        // onMouseLeave={() => {
-        //   if (blob) blob.material.uniforms.uHover.value = 0;
-        // }}
-      ></div> */}
-
       <div
         className={clsx(
           "justify-center items-center h-dvh w-full text-white fixed top-0 left-0 z-0 transition-opacity duration-2000 pointer-events-none",
@@ -172,7 +152,6 @@ const Wrapper = () => {
 
         <Canvas dpr={[1, 2]} gl={glSettings} onCreated={created} eventSource={target || undefined}>
           {debug && <Perf position="bottom-right" />}
-          {/* <OrthographicCamera makeDefault left={-0.5} right={0.5} top={0.5} bottom={-0.5} near={-1} far={1} manual /> */}
           <Scene />
         </Canvas>
       </div>
