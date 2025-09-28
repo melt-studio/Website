@@ -55,8 +55,10 @@ const About = () => {
       <div className="flex flex-col">
         <Cover media={info.fields.splashImage}>
           <div className="hidden md:flex absolute w-full h-full top-0 left-0 items-center justify-center">
+            <div className="feature text-light">
+              <WordAnimation text={info.fields.splashText} />
+            </div>
             {/* <Copy copy={info.fields.splashText} feature className="text-light" /> */}
-            <WordAnimation text={info.fields.splashText} className="feature text-light" />
           </div>
         </Cover>
         <div className="content">
@@ -65,7 +67,9 @@ const About = () => {
               {Array.isArray(section.content) ? (
                 <List items={section.content} />
               ) : section.type === "feature" ? (
-                <WordAnimation text={section.content} className="feature" />
+                <div className="feature">
+                  <WordAnimation text={section.content} className="feature" />
+                </div>
               ) : (
                 <Copy copy={section.content} />
               )}

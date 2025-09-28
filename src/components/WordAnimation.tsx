@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Easing, motion, useMotionValueEvent, useScroll } from "motion/react";
-import { RefObject, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
+import { RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 // import { useStore } from "../stores/store";
 
 type ObserverOptions = {
@@ -18,9 +18,9 @@ type State = {
 // --staggered-translate-y: 30px;
 // --staggered-translate-y-duration: 0.7;
 
-export type AnimationHandle = {
-  toggleShow: (current: Position, last: Position) => void;
-};
+// export type AnimationHandle = {
+//   toggleShow: (current: Position, last: Position) => void;
+// };
 
 const useObserver = ({ amount = 0.5, once = false }: ObserverOptions = {}): [
   RefObject<HTMLParagraphElement | null>,
@@ -75,7 +75,7 @@ type AnimateWordsProps = {
   min?: number;
   max?: number;
   reset?: boolean;
-  handleRef?: RefObject<unknown>;
+  // handleRef?: RefObject<unknown>;
   active?: boolean;
 };
 
@@ -99,8 +99,8 @@ export function WordAnimation({
   max = 1,
   reset = false,
   active = true,
-  handleRef,
-}: AnimateWordsProps) {
+}: // handleRef,
+AnimateWordsProps) {
   // const { height } = useStore((state) => state.viewport);
   const height = useMemo(() => {
     return window.innerHeight;
@@ -146,19 +146,19 @@ export function WordAnimation({
     if (fixed) updateShow(latest);
   });
 
-  useImperativeHandle(
-    handleRef,
-    () => {
-      return {
-        toggleShow(current: Position, last: Position) {
-          setState(() => {
-            return { current, last };
-          });
-        },
-      };
-    },
-    []
-  );
+  // useImperativeHandle(
+  //   handleRef,
+  //   () => {
+  //     return {
+  //       toggleShow(current: Position, last: Position) {
+  //         setState(() => {
+  //           return { current, last };
+  //         });
+  //       },
+  //     };
+  //   },
+  //   []
+  // );
 
   const transform = {
     below: `translate3d(0px, ${transformOffset}, 0px)`,
@@ -181,8 +181,8 @@ export function WordAnimation({
   // }, [show, fixed, max]);
 
   // useEffect(() => {
-  //   console.log(show);
-  // }, [show]);
+  //   console.log(position, state);
+  // }, [position, state]);
 
   const variants = {
     initial: {
@@ -222,39 +222,38 @@ export function WordAnimation({
   };
 
   return (
-    <div className="flex flex-col" ref={ref}>
-      {splittedText.map((line, i) => {
-        return (
-          <p
-            key={`${i}_${line.join(" ")}`}
-            className={clsx("flex flex-wrap justify-center leading-[1]", {}, className)}
-          >
-            {line.map((current, j) => {
-              const last = i === splittedText.length - 1 && j === line.length - 1;
+    <div className={className} ref={ref}>
+      <div className="flex flex-col">
+        {splittedText.map((line, i) => {
+          return (
+            <p key={`${i}_${line.join(" ")}`} className="flex flex-wrap justify-center leading-[1]">
+              {line.map((current, j) => {
+                const last = i === splittedText.length - 1 && j === line.length - 1;
 
-              return (
-                <span
-                  key={`${current.index}_${current.text}`}
-                  className={clsx("relative -my-[0.08em] px-[0.1em]", {
-                    "overflow-y-hidden": mode === "overflow",
-                  })}
-                >
-                  <motion.span
-                    custom={current.index}
-                    {...motionProps}
-                    onAnimationComplete={() => {
-                      if (last && reset) setState({ current: "below", last: "below" });
-                    }}
+                return (
+                  <span
+                    key={`${current.index}_${current.text}`}
+                    className={clsx("relative -my-[0.08em] px-[0.1em]", {
+                      "overflow-y-hidden": mode === "overflow",
+                    })}
                   >
-                    <span className="overflow-visible">{current.text}</span>
-                  </motion.span>
-                  {/* {j < line.length - 1 && <span>{"\u00A0"}</span>} */}
-                </span>
-              );
-            })}
-          </p>
-        );
-      })}
+                    <motion.span
+                      custom={current.index}
+                      {...motionProps}
+                      onAnimationComplete={() => {
+                        if (last && reset) setState({ current: "below", last: "below" });
+                      }}
+                    >
+                      <span className="overflow-visible">{current.text}</span>
+                    </motion.span>
+                    {/* {j < line.length - 1 && <span>{"\u00A0"}</span>} */}
+                  </span>
+                );
+              })}
+            </p>
+          );
+        })}
+      </div>
     </div>
   );
 }

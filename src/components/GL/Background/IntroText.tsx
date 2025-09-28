@@ -1,33 +1,34 @@
 import clsx from "clsx";
-import { AnimationHandle, WordAnimation } from "../../WordAnimation";
+import { WordAnimation } from "../../WordAnimation";
 import { useStore } from "../../../stores/store";
 import { useLocation } from "react-router";
-import { useRef } from "react";
+// import { useRef } from "react";
 
 const IntroText = () => {
-  const { width } = useStore((state) => state.viewport);
+  // const { width } = useStore((state) => state.viewport);
   const pathname = useStore((state) => state.pathname);
   const location = useLocation();
 
-  const featureText = () => {
-    if (width >= 1920)
-      return `MELT is a creative\nstudio focused on branding & entertainment. We make ideas that stick.`;
-    if (width >= 1024)
-      return `MELT is a\ncreative studio\nfocused on branding & entertainment. We make ideas\nthat stick.`;
-    return `MELT is a creative studio focused on branding & entertainment. We make ideas that stick.`;
+  const blocks = [
+    {
+      className: "hidden 3xl:flex",
+      text: `MELT is a creative\nstudio focused on branding & entertainment. We make ideas that stick.`,
+    },
+    {
+      className: "hidden lg:flex 3xl:hidden",
+      text: `MELT is a\ncreative studio\nfocused on branding & entertainment. We make ideas\nthat stick.`,
+    },
+    {
+      className: "flex lg:hidden",
+      text: `MELT is a creative studio focused on branding & entertainment. We make ideas that stick.`,
+    },
+  ];
+
+  const animationProps = {
+    fixed: true,
+    max: 0.25,
+    active: pathname === "/",
   };
-
-  const animationRef = useRef<AnimationHandle>(null);
-
-  // useEffect(() => {
-  //   if (!animationRef.current) return;
-
-  //   if (location.pathname !== "/") animationRef.current.toggleShow("above", "show");
-  //   else {
-  //     animationRef.current.toggleShow("show", "below");
-  //     // animationRef.current.toggleShow("show", "below");
-  //   }
-  // }, [location.pathname]);
 
   return (
     <div
@@ -41,7 +42,25 @@ const IntroText = () => {
       // onTransitionEnd={() => console.log("end")}
     >
       <div className="feature text-dark" key={pathname === "/" ? "key-wordanimation-show" : "key-wordanimation-hide"}>
-        <WordAnimation text={featureText()} fixed max={0.25} handleRef={animationRef} active={pathname === "/"} />
+        {blocks.map((block) => (
+          <WordAnimation key={block.text} {...block} {...animationProps} />
+        ))}
+
+        {/* <WordAnimation
+          text={`MELT is a creative\nstudio focused on branding & entertainment. We make ideas that stick.`}
+          className="hidden 3xl:flex"
+          {...animationProps}
+        />
+        <WordAnimation
+          text={`MELT is a\ncreative studio\nfocused on branding & entertainment. We make ideas\nthat stick.`}
+          className="hidden lg:flex 3xl:hidden"
+          {...animationProps}
+        />
+        <WordAnimation
+          text={`MELT is a creative studio focused on branding & entertainment. We make ideas that stick.`}
+          className="flex lg:hidden"
+          {...animationProps}
+        /> */}
       </div>
     </div>
   );
