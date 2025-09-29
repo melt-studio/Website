@@ -26,9 +26,9 @@ const Gradient = () => {
         ref={gradient}
         data-name="gradient"
         className={clsx("bg-mid w-full h-full scale-100 opacity-0", {
-          "[transition:background-color_2s_ease_1s,opacity_2s_ease_1s,border-color_2s_ease_1s,scale_2s_ease_1s]":
+          "[transition:background-color_1.5s_ease_1s,opacity_1.5s_ease_1s,border-color_1.5s_ease_1s,scale_1.5s_ease_1s]":
             location.pathname === "/dissolve",
-          "[transition:background-color_2s_ease_0s,opacity_2s_ease_0s,border-color_2s_ease_0s,scale_2s_ease_0s]":
+          "[transition:background-color_1.5s_ease_0s,opacity_1.5s_ease_0s,border-color_1.5s_ease_0s,scale_1.5s_ease_0s]":
             location.pathname !== "/dissolve",
         })}
       ></div>

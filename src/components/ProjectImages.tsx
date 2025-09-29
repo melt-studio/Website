@@ -8,10 +8,14 @@ const ProjectImages = ({ images, gallery }: { images?: Media[]; gallery?: Media[
   const galleryImage = images.find((image) => image.filename === "[project_gallery].png");
   const galleryLocation = galleryImage && images.indexOf(galleryImage);
 
-  const imagesBefore = images.slice(0, galleryLocation === undefined ? images.length : galleryLocation);
+  const imagesBefore = images
+    .slice(0, galleryLocation === undefined ? images.length : galleryLocation)
+    .filter((image) => image.filename !== "[project_gallery].png");
   let imagesAfter = null;
   if (galleryLocation !== undefined && galleryLocation !== images.length - 1) {
-    imagesAfter = images.slice(galleryLocation + 1, images.length);
+    imagesAfter = images
+      .slice(galleryLocation + 1, images.length)
+      .filter((image) => image.filename !== "[project_gallery].png");
   }
 
   return (

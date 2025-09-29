@@ -125,7 +125,7 @@ export type ProjectFormatted = ProjectAirtable & {
   next: string | null;
   prev: string | null;
   contrast: {
-    hex: number;
+    hex: string;
     diff: number;
     diffAbs: number;
     contrast: number;

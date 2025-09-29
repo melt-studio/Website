@@ -50,13 +50,36 @@ const ProjectTiles = () => {
       let n2 = 0;
       const i = rows.length;
 
+      const ratios = projects.slice(count, count + cols).map((p) => {
+        const thumbnails = p.fields.projectThumbnail;
+        if (!thumbnails) return 0;
+
+        const thumb = thumbnails[0];
+        if (thumb.type.includes("image/")) {
+          const aspect = thumb.thumbnails.large.width / thumb.thumbnails.large.height;
+          return aspect;
+        }
+
+        return 0;
+      });
+
+      const hasLandscape = ratios.find((r) => r > 1);
+
       const row: TileLayout[] = [];
       for (let j = 0; j < cols; j++) {
+        const ratio = ratios[j];
+
         const last = j > 0 ? row[j - 1] : null;
-        const w = j === cols - 1 ? n : Math.floor(n / (cols - j)) + getRandomInt(-2, 2, count + seed);
+        let w;
+        if (j === cols - 1) w = n;
+        else if (hasLandscape) w = Math.floor(n / (cols - j)) + (ratio > 1 ? 2 : -2);
+        else w = Math.floor(n / (cols - j)) + getRandomInt(-2, 2, count + seed);
+
         const w2 =
           cols === 1
             ? getRandomInt(Math.floor(w / 3), Math.floor(w / 2), count + 50 + i + seed)
+            : ratio > 1
+            ? w - 1
             : getRandomInt(Math.floor(w / (cols === 2 ? 1.5 : 1.25)), w - 1, count + 50 + i + seed);
         const off =
           i === 0
@@ -100,7 +123,7 @@ const ProjectTiles = () => {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ amount: "some", once: false }}
-      transition={{ duration: 2, ease: "easeInOut" as Easing }}
+      transition={{ duration: 2, ease: "easeInOut" as Easing, delay: 1 }}
       className={clsx("flex md:gap-10 pt-40 pb-40 w-full justify-around relative z-2 px-2 max-w-[2560px] mx-auto")}
       ref={projectTiles}
     >

@@ -17,7 +17,7 @@ const ProjectImage = ({ image }: { image: Media }) => {
 
   const getMedia = () => {
     if (image.type.includes("video/")) {
-      return <Video src={image.url} className="w-full h-auto" />;
+      return <Video src={image.url} className="w-full h-auto max-h-[90dvh]" />;
     }
 
     if (image.type.includes("image/")) {
@@ -28,10 +28,11 @@ const ProjectImage = ({ image }: { image: Media }) => {
           src={image.url}
           width={width}
           height={height}
-          className={clsx("max-h-[90dvh]", {
+          className={clsx("", {
             "w-2/3": sz === "[medium]" && landscape,
-            "w-full": !sz && landscape,
-            "w-auto h-[90dvh]": !sz && !landscape,
+            // "object-contain": !sz && landscape,
+            // "h-full w-auto": !sz && !landscape,
+            "w-auto h-full": (sz && !landscape) || !sz,
             "mr-auto": pos === "[left]",
             "ml-auto": pos === "[right]",
             "mx-auto": pos === "[center]",
@@ -50,7 +51,7 @@ const ProjectImage = ({ image }: { image: Media }) => {
       transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
       initial={{ opacity: 0, transform: "translateY(40px)" }}
       whileInView={{ opacity: 1, transform: "translateY(0px)" }}
-      className="h-fit relative px-2.5 w-full"
+      className="h-fit relative px-2.5 w-full max-h-[90dvh] flex items-center justify-center"
     >
       {getMedia()}
     </motion.div>

@@ -7,6 +7,7 @@ import { Link } from "react-router";
 import { TileLayout } from "./ProjectTiles";
 import { randFloat } from "three/src/math/MathUtils.js";
 import { useAnimate } from "motion/react";
+import Video from "./Video";
 
 interface ProjectTileProps extends HTMLAttributes<HTMLDivElement> {
   project: ProjectFormatted;
@@ -82,7 +83,12 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
 
   if (!project.fields.projectThumbnail) return null;
 
-  const thumb = project.fields.projectThumbnail[0].thumbnails.large;
+  const thumb = project.fields.projectThumbnail[0];
+  let thumbnail = null;
+  if (thumb.type.includes("video/")) thumbnail = thumb;
+  else if (thumb.type.includes("image/")) thumbnail = thumb.thumbnails.large;
+
+  if (!thumbnail) return null;
 
   const handleMouseEnter = () => {
     setActive(project.id);
@@ -104,14 +110,16 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
     gradient.style.opacity = "0%";
   };
 
-  const style: CSSProperties = {
-    aspectRatio: thumb.width / thumb.height,
-  };
+  const style: CSSProperties = {};
 
   if (layout) {
     style.gridColumn = `${layout.colStart} / ${layout.colEnd}`;
     style.marginTop = `${layout.marginTop}%`;
     style.marginLeft = `${layout.marginLeft}%`;
+  }
+
+  if (thumbnail.width && thumbnail.height) {
+    style.aspectRatio = thumbnail.width / thumbnail.height;
   }
 
   return (
@@ -132,7 +140,10 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
       ref={scope}
     >
       <Link to={`/work/${project.fields.projectUrl.toLowerCase()}`} className="w-full h-full">
-        <Image src={thumb.url} alt={project.fields.name} width={thumb.width} height={thumb.height} />
+        {thumb.type.includes("image/") && (
+          <Image src={thumbnail.url} alt={project.fields.name} width={thumbnail.width} height={thumbnail.height} />
+        )}
+        {thumb.type.includes("video/") && <Video src={thumbnail.url} autoplay loop muted controls={false} />}
       </Link>
     </div>
   );

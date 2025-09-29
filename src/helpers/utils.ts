@@ -16,15 +16,15 @@ export const formatProjects = (projects: ProjectAirtable[]): ProjectFormatted[] 
 
     const colors = [
       {
-        hex: 0x1b1b1b,
+        hex: "#1b1b1b",
         label: "dark",
       },
       {
-        hex: 0xc1c1c1,
+        hex: "#c1c1c1",
         label: "mid",
       },
       {
-        hex: 0xecece9,
+        hex: "#ecece9",
         label: "light",
       },
     ];
@@ -45,7 +45,9 @@ export const formatProjects = (projects: ProjectAirtable[]): ProjectFormatted[] 
         ? above.sort((a, b) => a.diffAbs - b.diffAbs)[0]
         : contrast.sort((a, b) => a.diffAbs - b.diffAbs)[0];
 
-    const theme = project.fields.backgroundColor.split(",").map((c) => c.trim());
+    const theme = project.fields.backgroundColor
+      ? project.fields.backgroundColor.split(",").map((c) => c.trim())
+      : [colors[2].hex, colors[2].hex];
     const theme2: [string, string] = [theme[0], theme[1] ? theme[1] : theme[0]];
 
     return {
