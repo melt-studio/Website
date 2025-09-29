@@ -120,12 +120,12 @@ const Blob = () => {
 
         if (!expanded) {
           const time = blob.current.material.uniforms.uTime.value.z * 0.02 + 4;
-          let x = Math.sin(time * 5) * 0.5;
-          let y = Math.sin(time * 4) * 0.5;
-          x += Math.sin(time * 6) * 0.25;
-          y += Math.sin(time * 5) * 0.25;
-          x += Math.sin(time * 10) * 0.25;
-          y += Math.sin(time * 8) * 0.25;
+          let x = Math.sin(time * 3) * 0.5;
+          let y = Math.sin(time * 2) * 0.5;
+          // x += Math.sin(time * 6) * 0.25;
+          // y += Math.sin(time * 5) * 0.25;
+          // x += Math.sin(time * 10) * 0.25;
+          // y += Math.sin(time * 8) * 0.25;
           x *= 0.666;
           y *= 0.666;
 
