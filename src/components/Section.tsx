@@ -1,14 +1,15 @@
 import clsx from "clsx";
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { Easing, motion, stagger } from "motion/react";
 
 type SectionProps = {
   title?: string;
   type?: "column" | "feature";
+  style?: CSSProperties;
   children?: ReactNode;
 };
 
-function Section({ title, type, children }: SectionProps) {
+function Section({ title, type, style, children }: SectionProps) {
   const parentVariants = {
     hidden: { opacity: 0, transform: "translateY(40px)" },
     visible: {
@@ -28,6 +29,7 @@ function Section({ title, type, children }: SectionProps) {
       initial="hidden"
       whileInView="visible"
       className="w-full h-fit relative max-w-[2560px] mx-auto"
+      style={style}
       variants={parentVariants}
     >
       <div

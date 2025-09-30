@@ -205,11 +205,11 @@ const DocumentContent = () => {
 const DocumentMedia = ({ media }: { media: Media }) => {
   const { url, type } = media;
 
-  if (type.includes("video")) {
-    return <Video src={url} controls className="object-contain max-w-full max-h-full" />;
+  if (type.includes("video/")) {
+    return <Video src={url} controls className="object-contain max-w-full max-h-full" type={type} />;
   } else if (type === "application/pdf") {
     return <embed src={url} className="w-full h-full" />;
-  } else if (type.includes("image")) {
+  } else if (type.includes("image/")) {
     const { width, height } = media as ImageAirtable;
     return <Image src={url} width={width} height={height} className="object-contain max-w-full max-h-full" />;
   } else {

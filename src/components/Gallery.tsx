@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { CSSProperties, useEffect, useRef, useState } from "react";
 import { ImageAirtable, Media, VideoAirtable } from "../types";
 import Image from "./Image";
 import Video from "./Video";
@@ -9,6 +9,7 @@ import { motion, Easing, stagger } from "motion/react";
 type GalleryProps = {
   images: (Media & { caption?: string[] })[];
   title?: string;
+  style?: CSSProperties;
 };
 
 type Layout = {
@@ -17,7 +18,7 @@ type Layout = {
   overflow: boolean;
 };
 
-const Gallery = ({ images, title }: GalleryProps) => {
+const Gallery = ({ images, title, style }: GalleryProps) => {
   const container = useRef<HTMLDivElement | null>(null);
   const gallery = useRef<HTMLDivElement | null>(null);
   const viewport = useStore((state) => state.viewport);
@@ -119,6 +120,7 @@ const Gallery = ({ images, title }: GalleryProps) => {
         "gap-2": overflow,
       })}
       variants={parentVariants}
+      style={style}
     >
       {title && <div className="uppercase px-sm md:px-md">{title}</div>}
       <div
@@ -181,7 +183,7 @@ const Gallery = ({ images, title }: GalleryProps) => {
                     key={`${id}_${i}`}
                     className="w-[calc((100dvw_-_30px)/2)] h-fit flex grow flex-col gap-2"
                   >
-                    <Video src={image.url} autoplay loop muted controls={false} />
+                    <Video src={image.url} autoplay loop muted controls={false} type={image.type} />
                   </motion.div>
                 );
               }

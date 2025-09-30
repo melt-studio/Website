@@ -1,15 +1,12 @@
 import clsx from "clsx";
 
-import Copy from "../components/Copy";
 import Cover from "../components/Cover";
-import List from "../components/List";
-import ProjectImages from "../components/ProjectImages";
 import ProjectNav from "../components/ProjectNav";
-import Section from "../components/Section";
 import useProject from "../helpers/useProject";
 import { useStore } from "../stores/store";
 import { motion } from "motion/react";
 import { useEffect } from "react";
+import ProjectContent from "../components/ProjectContent";
 
 const Project = () => {
   useProject();
@@ -24,30 +21,15 @@ const Project = () => {
 
   if (!activeProject) return null;
 
-  const { splashImage, scope, copy, projectImages, copy2title, copy2, galleryImages } = activeProject.fields;
+  const { splashImage } = activeProject.fields;
 
   return (
     <>
       <title>{`MELT – ${activeProject.fields.name}`}</title>
       <div className="flex flex-col" key={activeProject.id}>
         <Cover media={splashImage} />
-        <div className="content">
-          <Section type="column">
-            <div className="my-4 md:my-0">
-              <List items={scope} />
-            </div>
-            <Copy copy={copy} />
-          </Section>
 
-          <ProjectImages images={projectImages} gallery={galleryImages} />
-
-          {copy2 && (
-            <Section type="column" title={copy2title}>
-              {!copy2title && <div></div>}
-              <Copy copy={copy2} />
-            </Section>
-          )}
-        </div>
+        <ProjectContent project={activeProject} />
 
         <motion.div
           initial={{ opacity: 0, transform: "translateY(100%)" }}

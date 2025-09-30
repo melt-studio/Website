@@ -20,7 +20,9 @@ const Cover = ({ media, className, children }: CoverProps) => {
     const { type, url } = media[0];
 
     if (type.includes("video/")) {
-      return <Video src={url} className="object-cover w-full h-full" muted autoplay loop controls={false} />;
+      return (
+        <Video src={url} className="object-cover w-full h-full" muted autoplay loop controls={false} type={type} />
+      );
     }
 
     if (type.includes("image/")) {

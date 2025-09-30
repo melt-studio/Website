@@ -58,6 +58,12 @@ const ProjectTiles = () => {
         if (thumb.type.includes("image/")) {
           const aspect = thumb.thumbnails.large.width / thumb.thumbnails.large.height;
           return aspect;
+        } else if (thumb.type.includes("video/")) {
+          const thumb2 = thumbnails[1];
+          if (thumb2 && thumb2.type.includes("image/")) {
+            const aspect = thumb2.thumbnails.large.width / thumb2.thumbnails.large.height;
+            return aspect;
+          }
         }
 
         return 0;

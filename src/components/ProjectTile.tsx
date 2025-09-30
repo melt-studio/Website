@@ -143,7 +143,9 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
         {thumb.type.includes("image/") && (
           <Image src={thumbnail.url} alt={project.fields.name} width={thumbnail.width} height={thumbnail.height} />
         )}
-        {thumb.type.includes("video/") && <Video src={thumbnail.url} autoplay loop muted controls={false} />}
+        {thumb.type.includes("video/") && (
+          <Video src={thumbnail.url} autoplay loop muted controls={false} type={thumb.type} />
+        )}
       </Link>
     </div>
   );
