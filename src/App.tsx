@@ -39,6 +39,10 @@ const App = () => {
     getData();
   }, [setValue]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

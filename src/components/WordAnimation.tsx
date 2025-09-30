@@ -25,7 +25,7 @@ export function WordAnimation({
   text,
   className = "",
   mode = "overflow",
-  duration = 1.5,
+  duration = 2,
   delay = 0,
   unitDelay = 0.075,
   transformOffset = "110%",
