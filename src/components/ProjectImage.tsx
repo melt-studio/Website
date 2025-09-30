@@ -47,28 +47,31 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
             onEnded={() => setPaused(true)}
             onPlay={() => setPaused(false)}
             onPause={() => setPaused(true)}
+            controls={false}
           />
 
-          <div className="hidden sm:block absolute w-15 h-15 left-1/2 top-1/2 -translate-1/2">
+          <div
+            className="hidden sm:block absolute inset-0 cursor-pointer"
+            onClick={() => {
+              if (!video.current) return;
+              if (paused) {
+                video.current.play();
+                setPaused(false);
+              } else {
+                video.current.pause();
+                setPaused(true);
+              }
+            }}
+          >
             <div className={clsx("flex items-center justify-center h-full")}>
               <div
                 className={clsx(
-                  "w-15 h-15 rounded-full transition-all duration-1000 border-2 border-light hover:scale-110 flex items-center justify-center pointer-events-all cursor-pointer",
+                  "w-15 h-15 rounded-full transition-all duration-1000 border-2 border-light group-hover:scale-110 flex items-center justify-center",
                   {
                     "opacity-100": paused,
                     "opacity-0 group-hover:opacity-100": !paused,
                   }
                 )}
-                onClick={() => {
-                  if (!video.current) return;
-                  if (paused) {
-                    video.current.play();
-                    setPaused(false);
-                  } else {
-                    video.current.pause();
-                    setPaused(true);
-                  }
-                }}
               >
                 {paused && (
                   <svg
