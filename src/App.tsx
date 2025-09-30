@@ -40,7 +40,8 @@ const App = () => {
   }, [setValue]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0 });
+    window.history.scrollRestoration = "manual";
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
 
   return (
