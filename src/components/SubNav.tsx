@@ -33,7 +33,7 @@ const SubNav = () => {
       )}
     >
       <div className="ml-auto">
-        <LogoDrippy />
+        <LogoDrippy className="w-8 h-8 relative top-1" />
       </div>
     </motion.nav>
   );

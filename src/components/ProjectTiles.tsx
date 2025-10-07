@@ -24,8 +24,12 @@ function getRandomInt(min: number, max: number, seed = 0) {
 }
 
 const ProjectTiles = () => {
-  const projects = useStore((state) => state.projects);
+  const allProjects = useStore((state) => state.projects);
   const setValue = useStore((state) => state.setValue);
+
+  const projects = allProjects.filter(
+    (project) => project.fields.projectThumbnail !== undefined && project.fields.projectThumbnail.length > 0
+  );
 
   const [active, setActive] = useState<string | null>(null);
   const projectTiles = useRef<HTMLDivElement | null>(null);

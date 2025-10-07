@@ -50,6 +50,14 @@ export const formatProjects = (projects: ProjectAirtable[]): ProjectFormatted[] 
       : [colors[2].hex, colors[2].hex];
     const theme2: [string, string] = [theme[0], theme[1] ? theme[1] : theme[0]];
 
+    const thumbnail =
+      project.fields.projectThumbnail &&
+      Array.isArray(project.fields.projectThumbnail) &&
+      project.fields.projectThumbnail.length > 0
+        ? project.fields.projectThumbnail[0]
+        : null;
+    const thumbnailAspectRatio = thumbnail ? thumbnail.width / thumbnail.height : 1;
+
     return {
       ...project,
       index,
@@ -57,7 +65,7 @@ export const formatProjects = (projects: ProjectAirtable[]): ProjectFormatted[] 
       prev,
       contrast: text,
       theme: theme2,
-      thumbnailAspectRatio: project.fields.projectThumbnail[0].width / project.fields.projectThumbnail[0].height,
+      thumbnailAspectRatio,
     };
   });
 
