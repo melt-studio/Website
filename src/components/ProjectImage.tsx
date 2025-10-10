@@ -24,9 +24,9 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
     if (image.type.includes("video/")) {
       return (
         <div
-          className={clsx("h-full max-h-[90dvh] relative group", {
-            "w-2/3": sz === "[medium]",
-            "w-full": !sz,
+          className={clsx("w-fit h-full max-h-[90dvh] relative group", {
+            // "w-2/3": sz === "[medium]",
+            // "w-fit": !sz,
             "mr-auto": pos === "[left]",
             "ml-auto": pos === "[right]",
             "mx-auto": pos === "[center]",
@@ -41,7 +41,7 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
             // "ml-auto": pos === "[right]",
             // "mx-auto": pos === "[center]",
             // })}
-            className="w-full h-full"
+            className="w-fit h-full"
             type={image.type}
             ref={video}
             onEnded={() => setPaused(true)}
@@ -114,9 +114,10 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
           height={height}
           className={clsx("", {
             "w-2/3": sz === "[medium]" && landscape,
+            "w-full h-auto": !sz && landscape,
             // "object-contain": !sz && landscape,
-            // "h-full w-auto": !sz && !landscape,
-            "w-auto h-full": (sz && !landscape) || !sz,
+            "h-full max-h-[90dvh] w-auto": !sz && !landscape,
+            "w-auto h-full": sz && !landscape,
             "mr-auto": pos === "[left]",
             "ml-auto": pos === "[right]",
             "mx-auto": pos === "[center]",
@@ -135,7 +136,7 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
       transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
       initial={{ opacity: 0, transform: "translateY(40px)" }}
       whileInView={{ opacity: 1, transform: "translateY(0px)" }}
-      className="h-fit relative px-2.5 w-full max-h-[90dvh] flex items-center justify-center"
+      className="h-fit relative px-2.5 w-full h-fit flex items-center justify-center"
       style={style}
     >
       {getMedia()}

@@ -7,16 +7,13 @@ import Controls from "./GL/Background/Controls";
 
 const Nav = () => {
   const location = useLocation();
-  const activeProject = useStore((state) => state.activeProject);
   const projectTiles = useStore((state) => state.projectTiles);
-  const { width } = useStore((state) => state.viewport);
-  const mobile = width < 768;
 
   const dissolve = location.pathname.includes("/dissolve");
   const docs = location.pathname.includes("/docs/");
 
-  const light = dissolve || (!mobile && activeProject?.contrast.label === "light");
-  const mid = docs || (!mobile && activeProject?.contrast.label === "mid");
+  const light = dissolve;
+  const mid = docs;
 
   return (
     <motion.nav

@@ -32,6 +32,8 @@ const Video = ({
 }: VideoProps) => {
   const [videoSize, setVideoSize] = useState<{ width: number; height: number } | null>(null);
 
+  if (!src) return null;
+
   return (
     <video
       ref={ref}

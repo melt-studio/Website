@@ -12,34 +12,45 @@ const About = () => {
 
   if (!aboutInfo[0]) return null;
 
-  const info = aboutInfo[0];
+  const { splashImage, splashText, whoWeAre, headline1, services, clients } = aboutInfo[0].fields;
 
   const sections: {
     title?: string;
     content: string | string[];
     type?: "column" | "feature";
-  }[] = [
-    {
+  }[] = [];
+
+  if (whoWeAre !== undefined) {
+    sections.push({
       title: "Who We Are",
-      content: aboutInfo[0].fields.whoWeAre,
+      content: whoWeAre,
       type: "column",
-    },
-    {
+    });
+  }
+
+  if (headline1 !== undefined) {
+    sections.push({
       title: "Headline 1",
-      content: aboutInfo[0].fields.headline1,
+      content: headline1,
       type: "feature",
-    },
-    {
+    });
+  }
+
+  if (services !== undefined) {
+    sections.push({
       title: "Services",
-      content: aboutInfo[0].fields.services,
+      content: services,
       type: "column",
-    },
-    {
+    });
+  }
+
+  if (clients !== undefined) {
+    sections.push({
       title: "Select Clients",
-      content: aboutInfo[0].fields.clients,
+      content: clients,
       type: "column",
-    },
-  ];
+    });
+  }
 
   const gallery = {
     images: team.map((member) => ({
@@ -53,12 +64,14 @@ const About = () => {
     <>
       <title>MELT – About Us</title>
       <div className="flex flex-col">
-        <Cover media={info.fields.splashImage}>
-          <div className="hidden md:flex absolute w-full h-full top-0 left-0 items-center justify-center">
-            <div className="feature text-light">
-              <WordAnimation text={info.fields.splashText} />
+        <Cover media={splashImage}>
+          {splashText && (
+            <div className="hidden md:flex absolute w-full h-full top-0 left-0 items-center justify-center">
+              <div className="feature text-light">
+                <WordAnimation text={splashText} />
+              </div>
             </div>
-          </div>
+          )}
         </Cover>
         <div className="content">
           {sections.map((section) => (

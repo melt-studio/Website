@@ -129,7 +129,7 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
         })}
       >
         {overflow && (
-          <div className="flex gap-2 justify-end px-2.5 sm:px-sm">
+          <div className="flex gap-2 justify-end px-2.5 sm:px-sm md:px-md">
             <div
               onClick={handlePrev}
               className={clsx(

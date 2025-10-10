@@ -11,6 +11,8 @@ export default function Copy({
   feature?: boolean;
   className?: string;
 }) {
+  if (!copy) return null;
+
   const lines = copy.split("\n").filter((line) => line.trim() !== "");
 
   const variants = {

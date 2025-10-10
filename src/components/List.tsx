@@ -1,6 +1,8 @@
 import { Easing, motion } from "motion/react";
 
 export default function List({ items }: { items: string[] }) {
+  if (!items) return null;
+
   const childVariants = {
     hidden: { opacity: 0, transform: "translateY(40px)" },
     visible: {

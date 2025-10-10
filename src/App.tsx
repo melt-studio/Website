@@ -19,22 +19,38 @@ const App = () => {
 
   useEffect(() => {
     const getProjects = async () => {
-      const projects: ProjectAirtable[] = await projectsService.getProjects();
-      const formattedProjects = formatProjects(projects);
-      setValue("projects", formattedProjects);
+      try {
+        const projects: ProjectAirtable[] = await projectsService.getProjects();
+        const formattedProjects = formatProjects(projects);
+        setValue("projects", formattedProjects);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     const getAbout = async () => {
-      const about: AboutAirtable[] = await aboutService.getAbout();
-      setValue("about", about);
+      try {
+        const about: AboutAirtable[] = await aboutService.getAbout();
+        setValue("about", about);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     const getTeam = async () => {
-      const team: TeamAirtable[] = await teamService.getTeam();
-      setValue("team", team);
+      try {
+        const team: TeamAirtable[] = await teamService.getTeam();
+        setValue("team", team);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
-    const getData = async () => await Promise.all([getProjects(), getAbout(), getTeam()]);
+    const getData = async () => {
+      await getProjects();
+      await getAbout();
+      await getTeam();
+    };
 
     getData();
   }, [setValue]);

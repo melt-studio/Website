@@ -54,41 +54,36 @@ const ProjectTiles = () => {
       let n2 = 0;
       const i = rows.length;
 
-      const ratios = projects.slice(count, count + cols).map((p) => {
+      const orientations = projects.slice(count, count + cols).map((p) => {
         const thumbnails = p.fields.projectThumbnail;
-        if (!thumbnails) return 0;
 
         const thumb = thumbnails[0];
         if (thumb.type.includes("image/")) {
           const aspect = thumb.thumbnails.large.width / thumb.thumbnails.large.height;
-          return aspect;
+          return aspect > 1 ? "landscape" : "portrait";
         } else if (thumb.type.includes("video/")) {
-          const thumb2 = thumbnails[1];
-          if (thumb2 && thumb2.type.includes("image/")) {
-            const aspect = thumb2.thumbnails.large.width / thumb2.thumbnails.large.height;
-            return aspect;
-          }
+          return thumb.filename.includes("[landscape]") ? "landscape" : "portrait";
         }
 
-        return 0;
+        return "portrait";
       });
 
-      const hasLandscape = ratios.find((r) => r > 1);
+      const hasLandscape = orientations.find((o) => o === "landscape");
 
       const row: TileLayout[] = [];
       for (let j = 0; j < cols; j++) {
-        const ratio = ratios[j];
+        const landscape = orientations[j] === "landscape";
 
         const last = j > 0 ? row[j - 1] : null;
         let w;
         if (j === cols - 1) w = n;
-        else if (hasLandscape) w = Math.floor(n / (cols - j)) + (ratio > 1 ? 2 : -2);
+        else if (hasLandscape) w = Math.floor(n / (cols - j)) + (landscape ? 2 : -2);
         else w = Math.floor(n / (cols - j)) + getRandomInt(-2, 2, count + seed);
 
         const w2 =
           cols === 1
             ? getRandomInt(Math.floor(w / 3), Math.floor(w / 2), count + 50 + i + seed)
-            : ratio > 1
+            : landscape
             ? w - 1
             : getRandomInt(Math.floor(w / (cols === 2 ? 1.5 : 1.25)), w - 1, count + 50 + i + seed);
         const off =

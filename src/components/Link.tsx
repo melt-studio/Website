@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import { ReactNode } from "react";
 import { Link as LinkRouter, useLocation } from "react-router";
-import { useStore } from "../stores/store";
 
 type LinkProps = {
   to: string;
@@ -31,10 +30,8 @@ const Link = ({
   const dissolve = location.pathname === "/dissolve";
   const docs = location.pathname.includes("/docs/");
 
-  const activeProject = useStore((state) => state.activeProject);
-
-  const light = activeProject?.contrast.label === "light" || dissolve;
-  const mid = activeProject?.contrast.label === "mid" || docs;
+  const light = dissolve;
+  const mid = docs;
 
   return (
     <LinkRouter

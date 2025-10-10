@@ -13,6 +13,8 @@ type ImageProps = {
 const Image = ({ src, width, height, alt, className }: ImageProps) => {
   const [loaded, setLoaded] = useState(false);
 
+  if (!src) return null;
+
   return (
     <img
       src={src}

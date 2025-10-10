@@ -17,6 +17,7 @@ const SubNav = () => {
 
   return (
     <motion.nav
+      key={location.pathname}
       initial={{ opacity: 0, transform: "translateY(100%)" }}
       animate={docs ? { opacity: 0, transform: "translateY(100%)" } : { opacity: 1, transform: "translateY(0)" }}
       transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
@@ -25,8 +26,7 @@ const SubNav = () => {
         {
           flex: !dissolve,
           "text-light fill-light hidden": dissolve,
-          "text-light fill-light": (projectPage && activeProject?.contrast.label) === "light",
-          "text-mid fill-mid": (projectPage && activeProject?.contrast.label === "mid") || docs,
+          "text-mid fill-mid": docs,
           "z-2": activeProject && projectPage,
           "z-4": !(activeProject && projectPage),
         }
