@@ -13,6 +13,7 @@ import { useStore } from "../../../stores/store";
 import { ShaderMesh } from "../../../types";
 import { useLocation } from "react-router";
 import { useTexture } from "@react-three/drei";
+import { themeColors } from "../../../helpers/utils";
 
 useTexture.preload(reel);
 
@@ -34,8 +35,8 @@ const Gradient = () => {
       uTime: { value: 0 },
       uColors: { value: config.controls.colors },
       uTheme: { value: new Vector3() },
-      uTheme0: { value: new Color() },
-      uTheme1: { value: new Color() },
+      uTheme0: { value: new Color(themeColors.light.hex) },
+      uTheme1: { value: new Color(themeColors.light.hex) },
       uWaves: { value: config.controls.waves },
       uDistortion: { value: config.controls.distortion },
       uResolution: {
@@ -67,8 +68,8 @@ const Gradient = () => {
         ref.current.material.uniforms.uTheme.value.x = 0;
         ref.current.material.uniforms.uMode.value.x = 0;
         gradient.style.opacity = "0%";
-        gradient.style.backgroundColor = "#ecece9";
-        gradient.style.borderColor = "#ecece9";
+        gradient.style.backgroundColor = themeColors.light.hex;
+        gradient.style.borderColor = themeColors.light.hex;
       } else {
         ref.current.material.uniforms.uTheme.value.x = 1;
         ref.current.material.uniforms.uMode.value.x = 1;

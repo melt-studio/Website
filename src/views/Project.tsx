@@ -7,6 +7,7 @@ import { useStore } from "../stores/store";
 import { motion } from "motion/react";
 import { useEffect } from "react";
 import ProjectContent from "../components/ProjectContent";
+import Placeholder from "../components/Placeholder";
 
 const Project = () => {
   useProject();
@@ -19,13 +20,14 @@ const Project = () => {
     };
   }, [setValue]);
 
-  if (!activeProject) return null;
+  if (!activeProject) return <Placeholder />;
 
   const { splashImage } = activeProject.fields;
 
   return (
     <>
       <title>{`MELT – ${activeProject.fields.name}`}</title>
+
       <div className="flex flex-col" key={activeProject.id}>
         <Cover media={splashImage} />
 

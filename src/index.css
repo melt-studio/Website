@@ -22,6 +22,8 @@
 
   --breakpoint-3xl: 120rem;
 
+  --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 1s infinite;
+
   @keyframes fadeIn {
     0% {
       opacity: 0;
@@ -37,6 +39,12 @@
     }
     100% {
       transform: rotate(360deg);
+    }
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: 0.25;
     }
   }
 }

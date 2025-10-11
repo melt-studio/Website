@@ -25,8 +25,6 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
       return (
         <div
           className={clsx("w-fit h-full max-h-[90dvh] relative group", {
-            // "w-2/3": sz === "[medium]",
-            // "w-fit": !sz,
             "mr-auto": pos === "[left]",
             "ml-auto": pos === "[right]",
             "mx-auto": pos === "[center]",
@@ -34,13 +32,6 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
         >
           <Video
             src={`${image.url}#t=0.001`}
-            // className={clsx("h-auto max-h-[90dvh]", {
-            // "w-2/3": sz === "[medium]",
-            // "w-full": !sz,
-            // "mr-auto": pos === "[left]",
-            // "ml-auto": pos === "[right]",
-            // "mx-auto": pos === "[center]",
-            // })}
             className="w-fit h-full"
             type={image.type}
             ref={video}
@@ -115,7 +106,6 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
           className={clsx("", {
             "w-2/3": sz === "[medium]" && landscape,
             "w-full h-auto": !sz && landscape,
-            // "object-contain": !sz && landscape,
             "h-full max-h-[90dvh] w-auto": !sz && !landscape,
             "w-auto h-full": sz && !landscape,
             "mr-auto": pos === "[left]",

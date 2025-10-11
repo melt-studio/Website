@@ -51,7 +51,7 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
     );
 
     setMax(false);
-  }, [viewport]);
+  }, [viewport, images]);
 
   const handlePrev = () => {
     if (!container.current || !gallery.current || !layout || current === 0) return;

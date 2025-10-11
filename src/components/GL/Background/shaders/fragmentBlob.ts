@@ -110,7 +110,7 @@ export const fragmentShaderBlob = /* glsl */ `
 
     // Blob shape 
     vec2 pb = uv - path;
-    float pbf = (sin(atan2(uv.y, uv.x + 10.) * PI * 40. - uTime.x * .2))*.075;
+    float pbf = (sin(atan2(uv.y, uv.x + 10.) * PI * 35. - uTime.x * .2))*.05;
     float angle = atan(pb.y, pb.x);
     float pfm = smoothstep(0., 1., length(uv - mouse));
     float pbf2 = mix(1., .6666, (sin(angle * 3. + uTime.x * .2 + path.x * PI * 4.)));

@@ -20,7 +20,6 @@ const Blob = () => {
   const pathname = useStore((state) => state.pathname);
   const scroll = useStore((state) => state.scroll);
   const video = useStore((state) => state.video);
-  // const ready = useStore((state) => state.ready);
   const blob = useRef<ShaderMesh>(null);
   const [expanded, setExpanded] = useState(false);
   const [initial, setInitial] = useState(false);

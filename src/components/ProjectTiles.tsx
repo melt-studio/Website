@@ -15,6 +15,7 @@ export type TileLayout = {
   marginTop: number;
   marginLeft: number;
   grid: number;
+  orientation: "landscape" | "portrait";
 };
 
 function getRandomInt(min: number, max: number, seed = 0) {
@@ -45,11 +46,7 @@ const ProjectTiles = () => {
     const seed = 123;
 
     while (count < projects.length) {
-      const colsLast = rows.length > 0 ? rows[rows.length - 1].length : -1;
-      const options = [1, 2].filter((i) => i !== colsLast);
-      let cols;
-      if (rows.length === 0) cols = 1;
-      else cols = options[getRandomInt(0, options.length - 1, rows.length + seed)];
+      const cols = (rows.length % 2) + 1;
       let n = grid;
       let n2 = 0;
       const i = rows.length;
@@ -68,28 +65,15 @@ const ProjectTiles = () => {
         return "portrait";
       });
 
-      const hasLandscape = orientations.find((o) => o === "landscape");
-
       const row: TileLayout[] = [];
       for (let j = 0; j < cols; j++) {
         const landscape = orientations[j] === "landscape";
 
-        const last = j > 0 ? row[j - 1] : null;
         let w;
         if (j === cols - 1) w = n;
-        else if (hasLandscape) w = Math.floor(n / (cols - j)) + (landscape ? 2 : -2);
-        else w = Math.floor(n / (cols - j)) + getRandomInt(-2, 2, count + seed);
-
-        const w2 =
-          cols === 1
-            ? getRandomInt(Math.floor(w / 3), Math.floor(w / 2), count + 50 + i + seed)
-            : landscape
-            ? w - 1
-            : getRandomInt(Math.floor(w / (cols === 2 ? 1.5 : 1.25)), w - 1, count + 50 + i + seed);
-        const off =
-          i === 0
-            ? Math.floor((w - w2) / 2) + getRandomInt(-1, 1, count + 200 - j + i + seed)
-            : getRandomInt(last && last.off + last.w2 === last.w ? 2 : 0, w - w2, count + 150 + j + i + seed);
+        else w = Math.floor(n / (cols - j));
+        const w2 = landscape ? 18 : 12;
+        const off = i === 0 ? Math.floor((w - w2) / 2) : getRandomInt(1, w - w2 - 1, count + 150 + j + i + seed);
         const start = n2 + off + 1;
         const end = start + w2;
 
@@ -101,8 +85,9 @@ const ProjectTiles = () => {
           w,
           colStart: start,
           colEnd: end,
-          marginTop: getRandomInt(0, 10, count + i + j + w - 2),
+          marginTop: getRandomInt(0, landscape && cols > 1 ? 20 : 10, count + i + j + w - 2),
           marginLeft: 0,
+          orientation: orientations[j],
         });
         n -= w;
         n2 += w;
@@ -132,7 +117,7 @@ const ProjectTiles = () => {
       className={clsx("flex md:gap-10 pt-40 pb-40 w-full justify-around relative z-2 px-2 max-w-[2560px] mx-auto")}
       ref={projectTiles}
     >
-      <div className="grid grid-cols-[repeat(40,_1fr)] w-full h-auto items-start px-2.5 gap-y-[4rem] max-w-[1920px]">
+      <div className="grid grid-cols-[repeat(40,_1fr)] w-full h-auto items-start px-2.5 gap-y-[4rem] max-w-[1920px] relative">
         {projects.map((project, i) => (
           <ProjectTile key={project.id} project={project} layout={layout[i]} active={active} setActive={setActive} />
         ))}

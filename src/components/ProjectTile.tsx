@@ -8,6 +8,7 @@ import { TileLayout } from "./ProjectTiles";
 import { randFloat } from "three/src/math/MathUtils.js";
 import { useAnimate } from "motion/react";
 import Video from "./Video";
+import { themeColors } from "../helpers/utils";
 
 interface ProjectTileProps extends HTMLAttributes<HTMLDivElement> {
   project: ProjectFormatted;
@@ -105,8 +106,8 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
 
     if (!background || !gradient || location.pathname !== "/") return null;
 
-    gradient.style.backgroundColor = "#ecece9";
-    gradient.style.borderColor = "#ecece9";
+    gradient.style.backgroundColor = themeColors.light.hex;
+    gradient.style.borderColor = themeColors.light.hex;
     gradient.style.opacity = "0%";
   };
 
@@ -125,7 +126,7 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
   return (
     <div
       className={clsx(
-        "cursor-pointer overflow-hidden relative flex items-center justify-center scale-100 hover:scale-105 hover:z-99 [transition:scale_1.5s_ease_0.1s,opacity_1s_ease_0.1s] h-auto max-h-[75dvh] w-fit",
+        "cursor-pointer overflow-hidden relative flex items-center justify-center scale-100 hover:scale-105 hover:z-99 [transition:scale_1.5s_ease_0.1s,opacity_1s_ease_0.1s] h-auto",
         {
           "opacity-0": active && active !== project.id,
           "z-10": project.index === 0,
@@ -141,7 +142,14 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
     >
       <Link to={`/work/${project.fields.projectUrl.toLowerCase()}`} className="w-full h-full">
         {thumb.type.includes("image/") && (
-          <Image src={thumbnail.url} alt={project.fields.name} width={thumbnail.width} height={thumbnail.height} />
+          <Image
+            src={thumbnail.url}
+            alt={project.fields.name}
+            width={thumbnail.width}
+            height={thumbnail.height}
+            className="w-full h-auto"
+            loading="lazy"
+          />
         )}
         {thumb.type.includes("video/") && (
           <Video src={thumbnail.url} autoplay loop muted controls={false} type={thumb.type} />

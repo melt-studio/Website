@@ -5,12 +5,13 @@ import Gallery from "../components/Gallery";
 import List from "../components/List";
 import Copy from "../components/Copy";
 import { WordAnimation } from "../components/WordAnimation";
+import Placeholder from "../components/Placeholder";
 
 const About = () => {
   const aboutInfo = useStore((state) => state.about);
   const team = useStore((state) => state.team);
 
-  if (!aboutInfo[0]) return null;
+  if (!aboutInfo[0]) return <Placeholder />;
 
   const { splashImage, splashText, whoWeAre, headline1, services, clients } = aboutInfo[0].fields;
 

@@ -5,6 +5,21 @@ const getBrightness = (color: Color) => {
   return color.r * 0.2126 + color.g * 0.7152 + color.b * 0.0722;
 };
 
+export const themeColors = {
+  dark: {
+    hex: "#1b1b1b",
+    label: "dark",
+  },
+  mid: {
+    hex: "#c1c1c1",
+    label: "mid",
+  },
+  light: {
+    hex: "#ecece9",
+    label: "light",
+  },
+};
+
 export const formatProjects = (projects: ProjectAirtable[]): ProjectFormatted[] => {
   const projectedFormatted = projects.map((project, i) => {
     const n = projects.length;
@@ -14,20 +29,7 @@ export const formatProjects = (projects: ProjectAirtable[]): ProjectFormatted[] 
     const primary = new Color(project.fields.backgroundColor.split(",")[0].trim());
     const brightness = getBrightness(primary);
 
-    const colors = [
-      {
-        hex: "#1b1b1b",
-        label: "dark",
-      },
-      {
-        hex: "#c1c1c1",
-        label: "mid",
-      },
-      {
-        hex: "#ecece9",
-        label: "light",
-      },
-    ];
+    const colors = Object.values(themeColors);
 
     const wcag = 4.5; // AAA = 7:1
 

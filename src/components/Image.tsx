@@ -8,9 +8,10 @@ type ImageProps = {
   alt?: string;
   cover?: boolean;
   className?: string;
+  loading?: "eager" | "lazy" | undefined;
 };
 
-const Image = ({ src, width, height, alt, className }: ImageProps) => {
+const Image = ({ src, width, height, alt, loading = "eager", className }: ImageProps) => {
   const [loaded, setLoaded] = useState(false);
 
   if (!src) return null;
@@ -26,12 +27,12 @@ const Image = ({ src, width, height, alt, className }: ImageProps) => {
         },
         className
       )}
-      loading="lazy"
       width={width}
       height={height}
       style={{ aspectRatio: width / height }}
       onLoad={() => setLoaded(true)}
       alt={alt}
+      loading={loading}
     />
   );
 };
