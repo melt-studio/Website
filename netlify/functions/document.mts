@@ -122,6 +122,7 @@ const formatDocument = (document: DocumentAirtable, full: boolean = false): Resp
 };
 
 const getDocument = async (pageUrl: any) => {
+  console.log(pageUrl);
   if (typeof pageUrl !== "string") return pass({ error: "Invalid document url" }, 400);
 
   try {
