@@ -1,24 +1,21 @@
+import clsx from "clsx";
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router";
+
+import Image from "../components/Image";
+import Video from "../components/Video";
 import documentService from "../services/document";
-import { Doc, DocMedia } from "../types";
-// import LogoFull from "../components/LogoFull";
+import { DocumentAirtableLocked, DocumentAirtableUnlocked, ImageAirtable, Media } from "../types";
 
 const Document = () => {
+  useEffect(() => {
+    document.documentElement.classList.add("page-docs");
+    return () => document.documentElement.classList.remove("page-docs");
+  }, []);
+
   return (
     <div className="w-screen h-screen">
       <div className="w-full h-full flex flex-col animate-[fadeIn_1s_ease-in-out] items-center">
-        {/* <div className="flex items-center gap-4 grow w-full h-fit p-4 justify-center relative z-2 h-15">
-          <a href="/">
-            <LogoFull height={25} />
-          </a>
-          <div className="px-4 absolute right-4">
-            <a className="uppercase text-sm font-mono font-light group relative" href="mailto:hello@melt.works">
-              <span>Say Hi</span>
-              <span className="h-px w-full bg-transparent absolute -bottom-1 left-0 group-hover:bg-white transition-colors"></span>
-            </a>
-          </div>
-        </div> */}
         <DocumentContent />
       </div>
     </div>
@@ -29,7 +26,7 @@ const DocumentContent = () => {
   const { path } = useParams();
   const navigate = useNavigate();
 
-  const [doc, setDoc] = useState<Doc | null>(null);
+  const [doc, setDoc] = useState<DocumentAirtableUnlocked | DocumentAirtableLocked | null>(null);
   const [password, setPassword] = useState("");
   const [checking, setChecking] = useState(false);
   const [invalid, setInvalid] = useState<string | null>(null);
@@ -39,11 +36,9 @@ const DocumentContent = () => {
   useEffect(() => {
     const getDocument = async (path: string) => {
       try {
-        const response: Doc = await documentService.getDocument(path);
+        const response: DocumentAirtableUnlocked | DocumentAirtableLocked = await documentService.getDocument(path);
         setDoc(response);
-        if (response.fields.title) document.title = `MELT – ${response.fields.title}`;
       } catch {
-        // console.log(error);
         navigate("/");
       }
     };
@@ -51,7 +46,7 @@ const DocumentContent = () => {
     if (path !== undefined) getDocument(path);
   }, [path, navigate]);
 
-  const handlePasswordSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
+  const handlePasswordSubmit = async (e: MouseEvent) => {
     e.preventDefault();
 
     if (!doc) return navigate("/");
@@ -70,7 +65,6 @@ const DocumentContent = () => {
       setInvalid(null);
       setChecking(false);
     } catch {
-      // console.log(error);
       setInvalid("Incorrect Password");
     }
 
@@ -84,14 +78,10 @@ const DocumentContent = () => {
 
   if (!doc)
     return (
-      <div className="flex flex-col gap-10 items-center justify-center w-full h-full pb-10 text-zinc-500">
-        Loading...
-      </div>
+      <div className="flex flex-col gap-10 items-center justify-center w-full h-full pb-0 text-mid">Loading...</div>
     );
 
-  const { locked, embedUrl, media } = doc.fields;
-
-  if (locked) {
+  if (doc.locked) {
     return (
       <div className="flex flex-col gap-10 items-center justify-center w-full h-full p-10 animate-[fadeIn_1s_ease-in-out]">
         <form className="flex items-center gap-2">
@@ -101,7 +91,7 @@ const DocumentContent = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="size-6 text-zinc-500"
+            className="size-6 text-mid"
           >
             <path
               strokeLinecap="round"
@@ -110,11 +100,15 @@ const DocumentContent = () => {
             />
           </svg>
 
-          <div className="relative flex flex-col gap-1">
+          <div className="relative flex flex-col gap-1 uppercase">
             <input
-              className={`border text-white outline-0 p-3 rounded-md bg-zinc-900 h-10 min-w-80 pr-10 transition-colors ${
-                invalid ? "border-red-500 focus:border-red-500" : "border-zinc-500 focus:border-zinc-500"
-              }`}
+              className={clsx(
+                "border text-dark outline-0 p-3 rounded-md bg-light h-10 min-w-80 pr-10 transition-colors",
+                {
+                  "border-red-500 focus:border-red-500": invalid,
+                  "border-light focus:border-light": !invalid,
+                }
+              )}
               type="text"
               placeholder="Password"
               value={password}
@@ -123,7 +117,7 @@ const DocumentContent = () => {
             />
 
             <button
-              className="w-8 h-8 border border-zinc-300 rounded-sm text-black flex items-center justify-center disabled:border-zinc-900 disabled:text-zinc-600 cursor-pointer disabled:cursor-default transition-colors outline-zinc-600 absolute top-1 right-1 overflow-hidden bg-zinc-300 hover:bg-zinc-200 disabled:bg-zinc-900"
+              className="w-8 h-8 border border-dark rounded-sm text-light flex items-center justify-center disabled:border-mid disabled:text-dark/30 cursor-pointer disabled:cursor-default transition-colors outline-dark absolute top-1 right-1 overflow-hidden bg-dark hover:bg-dark disabled:bg-mid"
               disabled={password.length === 0}
               onClick={handlePasswordSubmit}
             >
@@ -157,23 +151,28 @@ const DocumentContent = () => {
               )}
             </button>
 
-            {invalid && <div className="text-sm text-red-500 absolute -bottom-6 left-3">{invalid}</div>}
+            {invalid && <div className="text-sm text-red-500 font-medium absolute -bottom-6 left-3">{invalid}</div>}
           </div>
         </form>
       </div>
     );
   }
 
+  const { embedUrl, media } = (doc as DocumentAirtableUnlocked).fields;
+
   if (embedUrl === undefined && media === undefined) {
     return <Navigate to="/" />;
   }
 
+  const title = doc.fields.title ? <title>{`MELT – ${doc.fields.title}`}</title> : null;
+
   if (embedUrl) {
     return (
       <div className="w-full h-full relative">
+        {title}
         <div
           className={
-            embedUrl.includes("figma.com/proto") ? "absolute -left-12 -top-15 -right-12 -bottom-4" : "w-full h-full"
+            embedUrl.includes("figma.com/proto") ? "absolute -left-12 -top-15 -right-12 -bottom-15" : "w-full h-full"
           }
         >
           <iframe src={embedUrl} allowFullScreen className="w-full h-full animate-[fadeIn_1s_ease-in-out] z-1" />
@@ -183,29 +182,36 @@ const DocumentContent = () => {
   }
 
   if (media && media.length > 0) {
+    const pdf = media[0].type === "application/pdf";
+
     return (
       <div className="w-full h-full relative flex items-center justify-center">
+        {title}
         <div
-          className={`${
-            media[0].type === "application/pdf" ? "w-full h-full" : "absolute top-0 left-0 right-0 bottom-9"
-          } flex items-center justify-center`}
+          className={clsx("flex items-center justify-center", {
+            "w-full h-full": pdf,
+            "absolute top-0 left-0 right-0 bottom-0": !pdf,
+          })}
         >
-          <Media media={media[0]} />
+          <DocumentMedia media={media[0]} />
         </div>
       </div>
     );
   }
+
+  return null;
 };
 
-const Media = ({ media }: { media: DocMedia }) => {
+const DocumentMedia = ({ media }: { media: Media }) => {
   const { url, type } = media;
 
-  if (type === "video/mp4") {
-    return <video src={url} controls className="object-contain max-w-full max-h-full" />;
+  if (type.includes("video/")) {
+    return <Video src={url} controls className="object-contain max-w-full max-h-full" type={type} />;
   } else if (type === "application/pdf") {
     return <embed src={url} className="w-full h-full" />;
-  } else if (["image/png", "image/jpeg", "image/gif"].includes(type)) {
-    return <img src={url} className="object-contain max-w-full max-h-full" />;
+  } else if (type.includes("image/")) {
+    const { width, height } = media as ImageAirtable;
+    return <Image src={url} width={width} height={height} className="object-contain max-w-full max-h-full" />;
   } else {
     console.log("Unknown media type");
     return <Navigate to="/" />;

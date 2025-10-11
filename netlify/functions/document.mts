@@ -1,29 +1,68 @@
 import type { Context } from "@netlify/functions";
 import axios from "axios";
 
+type Thumbnail = {
+  url: string;
+  width: number;
+  height: number;
+};
+
+type File = {
+  id: string;
+  filename: string;
+  url: string;
+  size: number;
+  type: string;
+};
+
+type Image = File & {
+  height: number;
+  width: number;
+  thumbnails: {
+    small: Thumbnail;
+    large: Thumbnail;
+    full: Thumbnail;
+  };
+};
+
+type Video = File & {};
+
+type PDF = File & {
+  thumbnails: {
+    small: Thumbnail;
+    large: Thumbnail;
+  };
+};
+
+type Media = Image | Video | PDF;
+
 type DocumentFields = {
-  title?: string;
-  pageUrl?: string;
+  title: string;
+  pageUrl: string;
   embedUrl?: string;
-  media?: string;
+  media?: Media[];
   password?: string;
 };
 
-type DocumentMetadata = {
+type DocumentFieldsLocked = Omit<DocumentFields, "embedUrl" | "media" | "password">;
+
+type DocumentFieldsUnlocked = Omit<DocumentFields, "password">;
+
+type DocumentAirtableLocked = {
   id: string;
-  createdTime: string;
+  locked: boolean;
+  fields: DocumentFieldsLocked;
 };
 
-type DocumentAirtable = DocumentMetadata & {
+type DocumentAirtableUnlocked = {
+  id: string;
+  locked: boolean;
+  fields: DocumentFieldsUnlocked;
+};
+
+type DocumentAirtable = {
+  id: string;
   fields: DocumentFields;
-};
-
-type DocumentLocked = DocumentMetadata & {
-  fields: Omit<DocumentFields, "password" | "media" | "embedUrl" | "pageUrl"> & { locked: boolean };
-};
-
-type Document = DocumentMetadata & {
-  fields: Omit<DocumentFields, "password" | "pageUrl">;
 };
 
 const KEY = Netlify.env.get("REACT_APP_AIRTABLE_KEY");
@@ -50,28 +89,36 @@ export default async (req: Request, _context: Context) => {
 };
 
 const formatDocument = (document: DocumentAirtable, full: boolean = false): Response => {
-  const { id, createdTime, fields } = document;
-  const { password, embedUrl, media, title } = fields;
+  const { id, fields } = document;
+  const { password, embedUrl, media, title, pageUrl } = fields;
 
   if (!embedUrl && !media) return pass({ error: "Document has no content" }, 400);
 
-  const content =
-    !full && password !== undefined
-      ? {
-          locked: true,
-        }
-      : {
-          embedUrl,
-          media,
-        };
+  if (password === undefined || full) {
+    const documentUnlocked: DocumentAirtableUnlocked = {
+      id,
+      locked: false,
+      fields: {
+        embedUrl,
+        media,
+        title,
+        pageUrl,
+      },
+    };
 
-  const formattedDocument: Document | DocumentLocked = {
+    return pass(documentUnlocked);
+  }
+
+  const documentLocked: DocumentAirtableLocked = {
     id,
-    createdTime,
-    fields: { title, ...content },
+    locked: true,
+    fields: {
+      title,
+      pageUrl,
+    },
   };
 
-  return pass(formattedDocument);
+  return pass(documentLocked);
 };
 
 const getDocument = async (pageUrl: any) => {

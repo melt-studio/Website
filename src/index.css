@@ -1,29 +1,28 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: "Helvetica Neue";
-  src: url("/src/assets/fonts/HelveticaNeue-Regular.otf") format("opentype");
+  font-family: "TriestDT";
+  src: url("/src/assets/TriestDT-Roman.otf") format("opentype");
   font-weight: 400;
 }
 
-@theme {
-  --font-mono: "ballinger-mono", ui-monospace, SFMono-Regular, Menlo, "Roboto Mono", monospace;
-  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+@custom-variant docs (&:where(.page-docs *));
+@custom-variant dissolve (&:where(.page-dissolve *));
 
-  @keyframes fade {
-    0% {
-      opacity: 0;
-    }
-    35% {
-      opacity: 0.8;
-    }
-    60% {
-      opacity: 0.8;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
+@theme {
+  --font-mono: ballinger-mono, ui-monospace, SFMono-Regular, Menlo, "Roboto Mono", monospace;
+  --font-serif: TriestDT, serif;
+
+  --color-dark: #1b1b1b;
+  --color-mid: #c1c1c1;
+  --color-light: #ecece9;
+
+  --spacing-sm: 15px;
+  --spacing-md: 25px;
+
+  --breakpoint-3xl: 120rem;
+
+  --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 1s infinite;
 
   @keyframes fadeIn {
     0% {
@@ -42,6 +41,12 @@
       transform: rotate(360deg);
     }
   }
+
+  @keyframes pulse {
+    50% {
+      opacity: 0.25;
+    }
+  }
 }
 
 @layer base {
@@ -52,18 +57,42 @@
   }
 
   html {
-    @apply w-full h-dvh bg-black fixed overflow-hidden;
+    @apply w-full h-dvh bg-light text-dark;
   }
 
   body {
-    @apply w-full h-full m-0 p-0 text-white bg-black;
+    @apply w-full h-full m-0 p-0 bg-light text-dark fill-dark font-mono text-xs xl:text-sm tracking-tight transition-colors duration-500 antialiased in-[.page-docs]:bg-dark;
   }
 
   a {
     text-decoration: none;
   }
 
+  .feature {
+    @apply font-serif leading-[.85] tracking-[-0.04em] text-center
+    text-[14vw] 
+    md:text-[100px] 
+    xl:text-[125px] 
+    3xl:text-[135px]
+    md:max-w-[700px]
+    lg:max-w-[800px] 
+    xl:max-w-[1000px]  
+    3xl:max-w-[1520px];
+  }
+
   .control {
-    @apply uppercase font-mono tracking-tight flex items-center gap-2 h-10 md:h-8 w-60 md:w-fit rounded-full transition-colors duration-500 justify-center text-white/80;
+    @apply uppercase font-mono tracking-tight flex items-center gap-2 h-10 md:h-8 w-60 2xl:w-fit rounded-full transition-colors duration-500 justify-center text-white/80;
+  }
+
+  .content {
+    @apply flex flex-col bg-light gap-15 md:gap-60 pt-10 pb-20 md:pb-70 relative z-3;
+  }
+
+  .column {
+    @apply grid grid-rows-1 gap-4 md:grid-cols-[1fr_2fr];
+  }
+
+  .hide-scroll {
+    @apply [&::-webkit-scrollbar]:hidden;
   }
 }
