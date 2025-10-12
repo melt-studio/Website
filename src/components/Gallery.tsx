@@ -53,6 +53,8 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
     setMax(false);
   }, [viewport, images]);
 
+  if (images.length === 0) return null;
+
   const handlePrev = () => {
     if (!container.current || !gallery.current || !layout || current === 0) return;
 
@@ -107,8 +109,6 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
       },
     },
   };
-
-  if (!images) return null;
 
   return (
     <motion.div

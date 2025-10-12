@@ -10,6 +10,8 @@ type SectionProps = {
 };
 
 function Section({ title, type, style, children }: SectionProps) {
+  if (!children) return null;
+
   const parentVariants = {
     hidden: { opacity: 0, transform: "translateY(40px)" },
     visible: {

@@ -22,7 +22,7 @@
 
   --breakpoint-3xl: 120rem;
 
-  --animate-loading: rotate 2s cubic-bezier(0.4, 0, 0.6, 1) 2s infinite, fade-in 2s ease 1s both;
+  --animate-loading: rotate 2s cubic-bezier(0.4, 0, 0.6, 1) 1s infinite, fade-in 2s ease 0s both;
 
   @keyframes fade-in {
     0% {

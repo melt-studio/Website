@@ -5,6 +5,7 @@ import CanvasBackground from "./components/GL/Background/Wrapper";
 import { useEffect } from "react";
 import { useLocation } from "react-router";
 import { useStore } from "./stores/store";
+import Placeholder from "./components/Placeholder";
 
 const Layout = () => {
   const location = useLocation();
@@ -22,6 +23,7 @@ const Layout = () => {
       <CanvasBackground />
       <AnimatedOutlet />
       <SubNav />
+      <Placeholder />
     </div>
   );
 };

@@ -14,7 +14,7 @@ type CoverProps = {
 const Cover = ({ media, className, children }: CoverProps) => {
   const viewport = useStore((state) => state.viewport);
 
-  if (!media || !media[0]) return null;
+  if (!media || media.length === 0) return null;
 
   const getMedia = () => {
     const { type, url } = media[0];

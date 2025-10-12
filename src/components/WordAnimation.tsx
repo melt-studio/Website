@@ -119,6 +119,8 @@ export function WordAnimation({
     className: "relative will-change-transform inline-block",
   };
 
+  if (!text) return null;
+
   return (
     <div className={className} ref={ref}>
       <div className="flex flex-col">

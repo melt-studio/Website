@@ -11,7 +11,9 @@ const useProject = () => {
   const projectPage = name !== undefined && location.pathname.includes("/work/") && project !== undefined;
 
   useEffect(() => {
-    if (projectPage && useStore.getState().activeProject?.id !== project.id) setValue("activeProject", project);
+    if (projectPage && useStore.getState().activeProject?.id !== project.id) {
+      setValue("activeProject", project);
+    }
   }, [projectPage, project, setValue]);
 
   return null;

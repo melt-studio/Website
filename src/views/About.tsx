@@ -5,15 +5,15 @@ import Gallery from "../components/Gallery";
 import List from "../components/List";
 import Copy from "../components/Copy";
 import { WordAnimation } from "../components/WordAnimation";
-import Placeholder from "../components/Placeholder";
+// import Placeholder from "../components/Placeholder";
 
 const About = () => {
-  const aboutInfo = useStore((state) => state.about);
+  const about = useStore((state) => state.about);
   const team = useStore((state) => state.team);
 
-  if (!aboutInfo[0]) return <Placeholder />;
+  if (about.length === 0) return null;
 
-  const { splashImage, splashText, whoWeAre, headline1, services, clients } = aboutInfo[0].fields;
+  const { splashImage, splashText, whoWeAre, headline1, services, clients } = about[0].fields;
 
   const sections: {
     title?: string;
@@ -89,7 +89,7 @@ const About = () => {
             </Section>
           ))}
 
-          <Gallery {...gallery} />
+          {team.length > 0 && <Gallery {...gallery} />}
         </div>
       </div>
     </>

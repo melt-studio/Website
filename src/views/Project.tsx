@@ -7,7 +7,6 @@ import { useStore } from "../stores/store";
 import { motion } from "motion/react";
 import { useEffect } from "react";
 import ProjectContent from "../components/ProjectContent";
-import Placeholder from "../components/Placeholder";
 
 const Project = () => {
   useProject();
@@ -20,7 +19,7 @@ const Project = () => {
     };
   }, [setValue]);
 
-  if (!activeProject) return <Placeholder />;
+  if (!activeProject) return null;
 
   const { splashImage } = activeProject.fields;
 

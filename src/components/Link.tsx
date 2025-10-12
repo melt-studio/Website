@@ -27,6 +27,8 @@ const Link = ({
 }: LinkProps) => {
   const location = useLocation();
 
+  if (!children) return null;
+
   const dissolve = location.pathname === "/dissolve";
   const docs = location.pathname.includes("/docs/");
 

@@ -6,6 +6,7 @@ import Image from "../components/Image";
 import Video from "../components/Video";
 import documentService from "../services/document";
 import { DocumentAirtableLocked, DocumentAirtableUnlocked, ImageAirtable, Media } from "../types";
+import Placeholder from "../components/Placeholder";
 
 const Document = () => {
   useEffect(() => {
@@ -78,7 +79,9 @@ const DocumentContent = () => {
 
   if (!doc)
     return (
-      <div className="flex flex-col gap-10 items-center justify-center w-full h-full pb-0 text-mid">Loading...</div>
+      <div className="flex flex-col gap-10 items-center justify-center w-full h-full pb-0 text-mid fill-mid">
+        <Placeholder override />
+      </div>
     );
 
   if (doc.locked) {

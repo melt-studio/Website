@@ -82,7 +82,7 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
     myAnimation();
   }, [myAnimation]);
 
-  if (!project.fields.projectThumbnail) return null;
+  if (!project.fields.projectThumbnail || project.fields.projectThumbnail.length === 0) return null;
 
   const thumb = project.fields.projectThumbnail[0];
   let thumbnail = null;

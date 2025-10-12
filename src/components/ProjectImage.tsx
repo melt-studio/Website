@@ -13,7 +13,7 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
   const viewport = useStore((state) => state.viewport);
   const [paused, setPaused] = useState(true);
 
-  if (!image.type.includes("image/") && !image.type.includes("video/")) return null;
+  if (!image || (!image.type.includes("image/") && !image.type.includes("video/"))) return null;
 
   const size = image.filename.match(/(\[|^)(medium)(\]|$)/g);
   const sz = viewport.width >= 768 && size && size[size.length - 1];

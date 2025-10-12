@@ -108,6 +108,8 @@ const ProjectTiles = () => {
     }
   }, [projectTiles, setValue]);
 
+  if (projects.length === 0) return null;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
