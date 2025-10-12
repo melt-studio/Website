@@ -38,7 +38,7 @@ const Project = () => {
           animate={{ opacity: 1, transform: "translateY(0%)" }}
           transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
           className={clsx(
-            "nav bottom-0 left-0 w-fit h-fit fixed items-center justify-between p-sm md:p-md uppercase animate-[fadeIn_2s_ease_1] z-2"
+            "nav bottom-0 left-0 w-fit h-fit fixed items-center justify-between p-sm md:p-md uppercase animate-[fade-in_2s_ease_1] z-2"
           )}
         >
           {`${activeProject.fields.name}${activeProject.fields.client && ` | ${activeProject.fields.client}`}`}

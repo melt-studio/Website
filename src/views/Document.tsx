@@ -15,7 +15,7 @@ const Document = () => {
 
   return (
     <div className="w-screen h-screen">
-      <div className="w-full h-full flex flex-col animate-[fadeIn_1s_ease-in-out] items-center">
+      <div className="w-full h-full flex flex-col animate-[fade-in_1s_ease-in-out] items-center">
         <DocumentContent />
       </div>
     </div>
@@ -83,7 +83,7 @@ const DocumentContent = () => {
 
   if (doc.locked) {
     return (
-      <div className="flex flex-col gap-10 items-center justify-center w-full h-full p-10 animate-[fadeIn_1s_ease-in-out]">
+      <div className="flex flex-col gap-10 items-center justify-center w-full h-full p-10 animate-[fade-in_1s_ease-in-out]">
         <form className="flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -175,7 +175,7 @@ const DocumentContent = () => {
             embedUrl.includes("figma.com/proto") ? "absolute -left-12 -top-15 -right-12 -bottom-15" : "w-full h-full"
           }
         >
-          <iframe src={embedUrl} allowFullScreen className="w-full h-full animate-[fadeIn_1s_ease-in-out] z-1" />
+          <iframe src={embedUrl} allowFullScreen className="w-full h-full animate-[fade-in_1s_ease-in-out] z-1" />
         </div>
       </div>
     );

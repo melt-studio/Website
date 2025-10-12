@@ -22,9 +22,13 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
 
   const getMedia = () => {
     if (image.type.includes("video/")) {
+      const landscape = image.filename.match(/(\[|^)(landscape)(\]|$)/g);
+
       return (
         <div
-          className={clsx("w-fit h-full max-h-[90dvh] relative group", {
+          className={clsx("max-h-[90dvh] relative group", {
+            "w-fit h-full": !landscape,
+            "w-full h-fit": landscape,
             "mr-auto": pos === "[left]",
             "ml-auto": pos === "[right]",
             "mx-auto": pos === "[center]",
@@ -32,7 +36,7 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
         >
           <Video
             src={`${image.url}#t=0.001`}
-            className="w-fit h-full"
+            className={landscape ? "w-full h-fit" : "w-fit h-full"}
             type={image.type}
             ref={video}
             onEnded={() => setPaused(true)}
