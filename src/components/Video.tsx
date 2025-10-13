@@ -44,6 +44,7 @@ const Video = ({
       onLoadedMetadata={(e) => {
         const { videoWidth, videoHeight } = e.target as HTMLVideoElement;
         setVideoSize({ width: videoWidth, height: videoHeight });
+        if (ref && ref.current) ref.current.style.aspectRatio = `${videoWidth}/${videoHeight}`;
       }}
       className={clsx(
         "transition-opacity duration-1000",

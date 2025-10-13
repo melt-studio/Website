@@ -26,8 +26,8 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
 
       return (
         <div
-          className={clsx("max-h-[90dvh] relative group", {
-            "w-fit h-full": !landscape,
+          className={clsx("relative group", {
+            "w-fit h-full max-h-[90dvh]": !landscape,
             "w-full h-fit": landscape,
             "mr-auto": pos === "[left]",
             "ml-auto": pos === "[right]",
