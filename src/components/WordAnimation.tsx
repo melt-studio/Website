@@ -40,9 +40,6 @@ export function WordAnimation({
   active = true,
 }: AnimateWordsProps) {
   const { height } = useStore((state) => state.viewport);
-  // const height = useMemo(() => {
-  //   return Math.min(window.innerHeight
-  // }, []);
   const { scrollY } = useScroll();
   const [state, setState] = useState<ObserverState>({ current: "below", last: "below" });
 
@@ -72,8 +69,8 @@ export function WordAnimation({
   );
 
   useEffect(() => {
-    if (fixed) updateShow(window.screenY);
-  }, [updateShow, fixed]);
+    if (fixed) updateShow(scrollY.get());
+  }, [updateShow, fixed, scrollY]);
 
   const [ref, position] = useObserver<HTMLDivElement>({
     amount,
