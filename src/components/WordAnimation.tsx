@@ -1,7 +1,8 @@
 import clsx from "clsx";
 import { Easing, motion, useMotionValueEvent, useScroll } from "motion/react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useObserver, { ObserverPosition, ObserverState } from "../helpers/useObserver";
+import { useStore } from "../stores/store";
 
 type AnimateWordsProps = {
   text: string;
@@ -38,9 +39,7 @@ export function WordAnimation({
   reset = false,
   active = true,
 }: AnimateWordsProps) {
-  const height = useMemo(() => {
-    return window.innerHeight;
-  }, []);
+  const { height } = useStore((state) => state.viewport);
   const { scrollY } = useScroll();
   const [state, setState] = useState<ObserverState>({ current: "below", last: "below" });
 
@@ -70,8 +69,8 @@ export function WordAnimation({
   );
 
   useEffect(() => {
-    if (fixed) updateShow(window.screenY);
-  }, [updateShow, fixed]);
+    if (fixed) updateShow(scrollY.get());
+  }, [updateShow, fixed, scrollY]);
 
   const [ref, position] = useObserver<HTMLDivElement>({
     amount,
