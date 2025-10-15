@@ -25,6 +25,7 @@ const Nav = () => {
         {
           "text-light fill-light": light,
           "text-mid fill-mid": mid,
+          "mix-blend-difference text-light": !(light || mid),
         }
       )}
     >

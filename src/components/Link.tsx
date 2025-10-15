@@ -53,6 +53,7 @@ const Link = ({
               "scale-x-100": location.pathname === to && !hideSelected,
               "in-[.nav]:bg-light": light,
               "in-[.nav]:bg-mid": mid,
+              "in-[.nav]:mix-blend-difference in-[.nav]:bg-light": !(light || mid),
             })}
           ></span>
         )}
