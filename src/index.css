@@ -22,7 +22,7 @@
 
   --breakpoint-3xl: 120rem;
 
-  --animate-loading: rotate 2s cubic-bezier(0.4, 0, 0.6, 1) 1s infinite, fade-in 2s ease 0s both;
+  --animate-placeholder: fade-in 2s ease 0s both;
 
   @keyframes fade-in {
     0% {
@@ -30,15 +30,6 @@
     }
     100% {
       opaicty: 1;
-    }
-  }
-
-  @keyframes rotate {
-    0% {
-      transform: rotate(0);
-    }
-    100% {
-      transform: rotate(360deg);
     }
   }
 }

@@ -152,7 +152,15 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
           />
         )}
         {thumb.type.includes("video/") && (
-          <Video src={thumbnail.url} autoplay loop muted controls={false} type={thumb.type} />
+          <Video
+            src={thumbnail.url}
+            autoplay
+            loop
+            muted
+            controls={false}
+            type={thumb.type}
+            style={{ clipPath: "inset(2px 2px)" }}
+          />
         )}
       </Link>
     </div>

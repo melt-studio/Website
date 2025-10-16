@@ -1,8 +1,9 @@
 import clsx from "clsx";
 import { useStore } from "../stores/store";
-import LogoDrippy from "./LogoDrippy";
+import LogoDrippyDark from "../assets/drippy-dark.gif";
+import LogoDrippyLight from "../assets/drippy-light.gif";
 
-const Placeholder = ({ override = false }: { override?: boolean }) => {
+const Placeholder = ({ override = false, light = false }: { override?: boolean; light?: boolean }) => {
   const pathname = useStore((state) => state.pathname);
   const activeProject = useStore((state) => state.activeProject);
   const about = useStore((state) => state.about);
@@ -26,7 +27,7 @@ const Placeholder = ({ override = false }: { override?: boolean }) => {
         }
       )}
     >
-      <LogoDrippy className="w-15 h-15 animate-loading" />
+      <img src={light ? LogoDrippyLight : LogoDrippyDark} className="w-15 h-15 animate-placeholder" />
     </div>
   );
 };
