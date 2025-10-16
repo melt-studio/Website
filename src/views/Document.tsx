@@ -79,8 +79,8 @@ const DocumentContent = () => {
 
   if (!doc)
     return (
-      <div className="flex flex-col gap-10 items-center justify-center w-full h-full pb-0 text-mid fill-mid">
-        <Placeholder override />
+      <div className="flex flex-col gap-10 items-center justify-center w-full h-full pb-0 text-mid fill-mid mix-blend-difference">
+        <Placeholder override light />
       </div>
     );
 

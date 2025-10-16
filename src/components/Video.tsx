@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { RefObject, useState } from "react";
+import { CSSProperties, RefObject, useState } from "react";
 
 type VideoProps = {
   src: string;
@@ -14,6 +14,7 @@ type VideoProps = {
   onPlay?: () => void;
   onPause?: () => void;
   onEnded?: () => void;
+  style?: CSSProperties;
 };
 
 const Video = ({
@@ -29,6 +30,7 @@ const Video = ({
   onPlay,
   onPause,
   onEnded,
+  style,
 }: VideoProps) => {
   const [videoSize, setVideoSize] = useState<{ width: number; height: number } | null>(null);
 
@@ -58,6 +60,7 @@ const Video = ({
       autoPlay={autoplay}
       loop={loop}
       playsInline={playsInline}
+      style={style}
     >
       <source src={src} type={type} />
     </video>
