@@ -115,16 +115,60 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
       viewport={{ amount: 0.5, once: true }}
       initial="hidden"
       whileInView="visible"
-      className="flex flex-col w-full max-w-[2560px] mx-auto gap-4"
+      className="flex flex-col w-full max-w-[2560px] mx-auto gap-2"
       variants={parentVariants}
       style={style}
     >
       {title && <div className="uppercase px-sm md:px-md">{title}</div>}
       <div
-        className={clsx("flex flex-col gap-2 w-full overflow-x-hidden relative", {
+        className={clsx("flex flex-col gap-3 w-full overflow-x-hidden relative", {
           "mt-3": !title && overflow,
         })}
       >
+        {overflow && (
+          <div className="flex gap-2 justify-start px-2.5 sm:px-sm md:px-md">
+            <div
+              onClick={handlePrev}
+              className={clsx(
+                "w-10 h-10 cursor-pointer rounded-full border border-mid flex items-center justify-center transition-all",
+                {
+                  "opacity-30": current === 0,
+                  "hover:border-dark/50 active:bg-mid/50 active:border-mid/50": current !== 0,
+                }
+              )}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                className="size-6 stroke-dark"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+              </svg>
+            </div>
+            <div
+              onClick={handleNext}
+              className={clsx(
+                "w-10 h-10 cursor-pointer rounded-full border border-mid flex items-center justify-center transition-all",
+                {
+                  "opacity-30": max,
+                  "hover:border-dark/50 active:bg-mid/50 active:border-mid/50": !max,
+                }
+              )}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                className="size-6 stroke-dark"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+              </svg>
+            </div>
+          </div>
+        )}
         <div className="overflow-x-scroll hide-scroll" ref={container}>
           <div className="flex gap-2.5 pb-5 px-2.5 w-fit items-start" ref={gallery}>
             {images.map((image, i) => {
@@ -175,50 +219,6 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
             })}
           </div>
         </div>
-        {overflow && (
-          <div className="flex gap-2 justify-end px-2.5 sm:px-sm md:px-md">
-            <div
-              onClick={handlePrev}
-              className={clsx(
-                "w-10 h-10 cursor-pointer rounded-full border border-mid flex items-center justify-center transition-all",
-                {
-                  "opacity-30": current === 0,
-                  "hover:border-dark/50 active:bg-mid/50 active:border-mid/50": current !== 0,
-                }
-              )}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                className="size-6 stroke-dark"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
-              </svg>
-            </div>
-            <div
-              onClick={handleNext}
-              className={clsx(
-                "w-10 h-10 cursor-pointer rounded-full border border-mid flex items-center justify-center transition-all",
-                {
-                  "opacity-30": max,
-                  "hover:border-dark/50 active:bg-mid/50 active:border-mid/50": !max,
-                }
-              )}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                className="size-6 stroke-dark"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-              </svg>
-            </div>
-          </div>
-        )}
       </div>
     </motion.div>
   );
