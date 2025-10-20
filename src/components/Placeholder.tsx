@@ -20,7 +20,7 @@ const Placeholder = ({ override = false, light = false }: { override?: boolean; 
   return (
     <div
       className={clsx(
-        "fixed w-full h-screen flex items-center justify-center pointer-events-none transition-opacity duration-500",
+        "fixed w-full h-dvh flex items-center justify-center pointer-events-none transition-opacity duration-500",
         {
           "opacity-100": show,
           "opacity-0": !show,

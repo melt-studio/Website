@@ -163,6 +163,7 @@ const Blob = () => {
       blob.current.material.uniforms.uVideoPlaying.value.z,
       blob.current.material.uniforms.uVideoPlaying.value.w
     );
+    if (video.paused) video.play();
     video.muted = false;
     setExpanded(true);
   };
@@ -191,10 +192,14 @@ const Blob = () => {
       ref={blob}
       visible={pathname === "/" || location.pathname === "/"}
       onClick={() => {
+        if (!initial) setInitial(true);
         if (expanded) hideVideo();
         else expandVideo();
       }}
       onPointerEnter={() => {
+        if (!initial) setInitial(true);
+      }}
+      onPointerMove={() => {
         if (!initial) setInitial(true);
       }}
     >

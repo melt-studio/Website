@@ -15,7 +15,7 @@ const Document = () => {
   }, []);
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-full h-dvh">
       <div className="w-full h-full flex flex-col animate-[fade-in_1s_ease-in-out] items-center">
         <DocumentContent />
       </div>

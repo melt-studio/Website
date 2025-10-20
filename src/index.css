@@ -55,13 +55,13 @@
 
   .feature {
     @apply font-serif leading-[.85] tracking-[-0.04em] text-center
-    text-[14vw] 
-    md:text-[100px] 
-    xl:text-[125px] 
+    text-[14vw]
+    md:text-[100px]
+    xl:text-[125px]
     3xl:text-[135px]
     md:max-w-[700px]
-    lg:max-w-[800px] 
-    xl:max-w-[1000px]  
+    lg:max-w-[800px]
+    xl:max-w-[1000px]
     3xl:max-w-[1520px];
   }
 

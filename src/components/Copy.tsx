@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Easing } from "motion";
-import { motion } from "motion/react";
+import { motion, stagger } from "motion/react";
 
 export default function Copy({
   copy,
@@ -27,8 +27,22 @@ export default function Copy({
     },
   };
 
+  const parentVariants = {
+    hidden: { opacity: 0, transform: "translateY(40px)" },
+    visible: {
+      opacity: 1,
+      transform: "translateY(0px)",
+      transition: {
+        duration: 1,
+        delayChildren: stagger(0.25, { startDelay: 0 }),
+        ease: "easeInOut" as Easing,
+      },
+    },
+  };
+
   return (
-    <div
+    <motion.div
+      variants={parentVariants}
       className={clsx(
         "flex flex-col gap-4",
         {
@@ -43,6 +57,6 @@ export default function Copy({
           {line}
         </motion.p>
       ))}
-    </div>
+    </motion.div>
   );
 }
