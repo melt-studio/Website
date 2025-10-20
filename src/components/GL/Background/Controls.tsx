@@ -45,12 +45,10 @@ const Controls = () => {
 
   return (
     <motion.div
-      initial={{ transform: "translate3d(0px, -100%, 0px)", opacity: 0 }}
+      initial={{ transform: "translate3d(0px, 100%, 0px)", opacity: 0 }}
       animate={{ transform: "translate3d(0px, 0%, 0px)", opacity: 1 }}
       transition={{ duration: 2, delay: 2 }}
-      className={
-        "h-fit gap-2 justify-center flex flex-col grow 2xl:flex-row md:items-center font-light text-xs 2xl:gap-4 relative md:-top-1.5"
-      }
+      className="h-fit gap-2 justify-center flex flex-col w-fit text-xs lg:flex-row md:items-center"
     >
       <div className={controlStyle}>
         <Slider {...sliderColors} />
