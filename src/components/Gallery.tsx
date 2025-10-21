@@ -115,21 +115,18 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
       viewport={{ amount: 0.5, once: true }}
       initial="hidden"
       whileInView="visible"
-      className={clsx("flex flex-col w-full max-w-[2560px] mx-auto", {
-        "gap-4": !overflow,
-        "gap-2": overflow,
-      })}
+      className="flex flex-col w-full max-w-[2560px] mx-auto gap-2"
       variants={parentVariants}
       style={style}
     >
       {title && <div className="uppercase px-sm md:px-md">{title}</div>}
       <div
         className={clsx("flex flex-col gap-3 w-full overflow-x-hidden relative", {
-          "mt-6": !title && overflow,
+          "mt-3": !title && overflow,
         })}
       >
         {overflow && (
-          <div className="flex gap-2 justify-end px-2.5 sm:px-sm md:px-md">
+          <div className="flex gap-2 justify-start px-2.5 sm:px-sm md:px-md">
             <div
               onClick={handlePrev}
               className={clsx(

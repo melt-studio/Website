@@ -63,7 +63,7 @@ const Video = () => {
   }, [video, setValue]);
 
   return (
-    <div className="opacity-0 fixed right-px bottom-px w-px h-px -z-1 pointer-events-none overflow-hidden">
+    <div className="opacity-0 fixed right-px top-px w-px h-px -z-1 pointer-events-none overflow-hidden">
       <video
         ref={video}
         src={reel}

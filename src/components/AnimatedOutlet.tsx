@@ -28,7 +28,7 @@ const AnimatedOutlet = () => {
         key={location.pathname}
         className="relative w-full h-fit flex flex-col"
       >
-        <div className="min-h-screen w-full relative flex flex-col h-fit">{element}</div>
+        <div className="min-h-dvh w-full relative flex flex-col h-fit">{element}</div>
         <Footer />
       </motion.div>
     </AnimatePresence>

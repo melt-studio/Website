@@ -30,9 +30,9 @@ const Nav = () => {
       )}
     >
       <div
-        className={clsx("hidden md:flex", {
-          "w-1/4": dissolve,
-          "w-1/3": !dissolve,
+        className={clsx("hidden", {
+          "w-1/4 lg:flex": dissolve,
+          "w-1/3 md:flex": !dissolve,
         })}
       >
         <div className="flex w-full">

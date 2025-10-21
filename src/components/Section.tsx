@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { CSSProperties, ReactNode } from "react";
-import { Easing, motion, stagger } from "motion/react";
+import { Easing, motion } from "motion/react";
 
 type SectionProps = {
   title?: string;
@@ -12,14 +12,13 @@ type SectionProps = {
 function Section({ title, type, style, children }: SectionProps) {
   if (!children) return null;
 
-  const parentVariants = {
+  const childVariants = {
     hidden: { opacity: 0, transform: "translateY(40px)" },
     visible: {
       opacity: 1,
       transform: "translateY(0px)",
       transition: {
         duration: 1,
-        delayChildren: stagger(0.25, { startDelay: 0 }),
         ease: "easeInOut" as Easing,
       },
     },
@@ -32,7 +31,6 @@ function Section({ title, type, style, children }: SectionProps) {
       whileInView="visible"
       className="w-full h-fit relative max-w-[2560px] mx-auto"
       style={style}
-      variants={parentVariants}
     >
       <div
         className={clsx("px-sm md:px-md", {
@@ -40,7 +38,11 @@ function Section({ title, type, style, children }: SectionProps) {
           "flex w-full items-center justify-center grow": type === "feature",
         })}
       >
-        {title && type !== "feature" && <div className="uppercase">{title}</div>}
+        {title && type !== "feature" && (
+          <motion.div variants={childVariants} className="uppercase">
+            {title}
+          </motion.div>
+        )}
         {children}
       </div>
     </motion.div>

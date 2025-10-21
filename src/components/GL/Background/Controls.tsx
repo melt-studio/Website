@@ -41,7 +41,7 @@ const Controls = () => {
     },
   };
 
-  const controlStyle = "control pl-6 md:pl-4.5 pr-1 md:pr-0 bg-white/10 hover:bg-white/40";
+  const controlStyle = "control pl-6 md:pl-3 xl:pl-4 pr-1 md:pr-0 bg-white/10 hover:bg-white/40";
 
   return (
     <motion.div
@@ -49,7 +49,7 @@ const Controls = () => {
       animate={{ transform: "translate3d(0px, 0%, 0px)", opacity: 1 }}
       transition={{ duration: 2, delay: 2 }}
       className={
-        "h-fit gap-2 justify-center flex flex-col grow 2xl:flex-row md:items-center font-light text-xs 2xl:gap-4 relative md:-top-1.5"
+        "h-fit gap-1.5 xl:gap-2 justify-center flex flex-col grow lg:flex-row items-start lg:items-center text-xs relative md:-top-2"
       }
     >
       <div className={controlStyle}>

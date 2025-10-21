@@ -81,7 +81,7 @@ const About = () => {
                 <List items={section.content} />
               ) : section.type === "feature" ? (
                 <div className="feature">
-                  <WordAnimation text={section.content} className="feature" />
+                  <WordAnimation text={section.content} />
                 </div>
               ) : (
                 <Copy copy={section.content} />

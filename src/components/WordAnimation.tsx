@@ -20,6 +20,11 @@ type AnimateWordsProps = {
   max?: number;
   reset?: boolean;
   active?: boolean;
+  keyframe?: boolean;
+  keyframeSettings?: {
+    delay: number;
+    duration: number;
+  };
 };
 
 export function WordAnimation({
@@ -38,10 +43,12 @@ export function WordAnimation({
   max = 1,
   reset = false,
   active = true,
+  keyframe = false,
 }: AnimateWordsProps) {
   const { height } = useStore((state) => state.viewport);
   const { scrollY } = useScroll();
   const [state, setState] = useState<ObserverState>({ current: "below", last: "below" });
+  const [keyframeExit, setKeyframeExit] = useState(false);
 
   let index = 0;
   const splittedText = text
@@ -69,8 +76,8 @@ export function WordAnimation({
   );
 
   useEffect(() => {
-    if (fixed) updateShow(scrollY.get());
-  }, [updateShow, fixed, scrollY]);
+    if (fixed && !keyframe) updateShow(scrollY.get());
+  }, [updateShow, fixed, scrollY, keyframe]);
 
   const [ref, position] = useObserver<HTMLDivElement>({
     amount,
@@ -78,7 +85,7 @@ export function WordAnimation({
   });
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (fixed) updateShow(latest);
+    if (fixed && !keyframe) updateShow(latest);
   });
 
   const transform = {
@@ -97,12 +104,12 @@ export function WordAnimation({
 
   const variants = {
     initial: {
-      transform: transform[show.last],
-      opacity: opacity[show.last],
+      transform: transform[keyframe ? "below" : show.last],
+      opacity: opacity[keyframe ? "below" : show.last],
     },
     animate: (i: number) => ({
-      transform: transform[show.current],
-      opacity: opacity[show.current],
+      transform: transform[keyframe ? (keyframeExit ? "above" : "show") : show.current],
+      opacity: opacity[keyframe ? (keyframeExit ? "above" : "show") : show.current],
       transition: {
         duration,
         delay: i * unitDelay + delay,
@@ -140,7 +147,10 @@ export function WordAnimation({
                       custom={current.index}
                       {...motionProps}
                       onAnimationComplete={() => {
-                        if (last && reset) setState({ current: "below", last: "below" });
+                        if (!last) return;
+
+                        if (keyframe) setKeyframeExit(true);
+                        else if (reset) setState({ current: "below", last: "below" });
                       }}
                     >
                       <span className="overflow-visible">{current.text}</span>

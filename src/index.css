@@ -55,18 +55,18 @@
 
   .feature {
     @apply font-serif leading-[.85] tracking-[-0.04em] text-center
-    text-[14vw] 
-    md:text-[100px] 
-    xl:text-[125px] 
+    text-[14vw]
+    md:text-[100px]
+    xl:text-[125px]
     3xl:text-[135px]
     md:max-w-[700px]
-    lg:max-w-[800px] 
-    xl:max-w-[1000px]  
+    lg:max-w-[800px]
+    xl:max-w-[1000px]
     3xl:max-w-[1520px];
   }
 
   .control {
-    @apply uppercase font-mono tracking-tight flex items-center gap-2 h-10 md:h-8 w-60 2xl:w-fit rounded-full transition-colors duration-500 justify-center text-white/80;
+    @apply uppercase font-mono tracking-tight flex items-center gap-2 h-10 md:h-8 w-60 lg:w-fit rounded-full transition-colors duration-500 justify-center text-white/80;
   }
 
   .content {

@@ -55,7 +55,7 @@ const Cover = ({ media, className, children }: CoverProps) => {
 
   return (
     <div
-      className="flex items-center justify-center w-full h-fit md:h-screen relative z-2 pt-12 md:pt-0 relative"
+      className="flex items-center justify-center w-full h-fit md:h-dvh relative z-2 pt-12 md:pt-0 relative"
       key={media[0].url}
     >
       {getMedia()}
