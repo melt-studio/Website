@@ -43,9 +43,6 @@ const Gradient = () => {
         value: new Vector4(0, 0, 1024, 1024),
       },
       PI: { value: Math.PI },
-      uMode: {
-        value: new Vector4(),
-      },
     };
 
     return [uniforms];
@@ -64,15 +61,13 @@ const Gradient = () => {
 
   useEffect(() => {
     if (ref.current && gradient) {
-      if (location.pathname === "/" || location.pathname === "/about") {
+      if (location.pathname === "/" || location.pathname === "/work" || location.pathname === "/about") {
         ref.current.material.uniforms.uTheme.value.x = 0;
-        ref.current.material.uniforms.uMode.value.x = 0;
         gradient.style.opacity = "0%";
         gradient.style.backgroundColor = themeColors.light.hex;
         gradient.style.borderColor = themeColors.light.hex;
       } else {
         ref.current.material.uniforms.uTheme.value.x = 1;
-        ref.current.material.uniforms.uMode.value.x = 1;
         gradient.style.opacity = "100%";
 
         if (location.pathname.includes("/work/") && activeProject) {
@@ -81,7 +76,7 @@ const Gradient = () => {
         }
       }
 
-      if (location.pathname === "/" || location.pathname.includes("/work/")) {
+      if (location.pathname === "/" || location.pathname === "/work" || location.pathname.includes("/work/")) {
         gradient.style.scale = "1";
       } else {
         gradient.style.scale = "0";

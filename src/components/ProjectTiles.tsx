@@ -1,7 +1,7 @@
 import ProjectTile from "./ProjectTile";
 import { useStore } from "../stores/store";
 import clsx from "clsx";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { seededRandom } from "three/src/math/MathUtils.js";
 import { Easing, motion } from "motion/react";
 
@@ -26,14 +26,14 @@ function getRandomInt(min: number, max: number, seed = 0) {
 
 const ProjectTiles = () => {
   const allProjects = useStore((state) => state.projects);
-  const setValue = useStore((state) => state.setValue);
+  // const setValue = useStore((state) => state.setValue);
 
   const projects = allProjects.filter(
     (project) => project.fields.projectThumbnail !== undefined && project.fields.projectThumbnail.length > 0
   );
 
   const [active, setActive] = useState<string | null>(null);
-  const projectTiles = useRef<HTMLDivElement | null>(null);
+  // const projectTiles = useRef<HTMLDivElement | null>(null);
 
   const layout: TileLayout[] = useMemo(() => {
     if (!projects) return [];
@@ -102,11 +102,11 @@ const ProjectTiles = () => {
     return layout;
   }, [projects]);
 
-  useEffect(() => {
-    if (projectTiles.current) {
-      setValue("projectTiles", projectTiles.current);
-    }
-  }, [projectTiles, setValue]);
+  // useEffect(() => {
+  //   if (projectTiles.current) {
+  //     setValue("projectTiles", projectTiles.current);
+  //   }
+  // }, [projectTiles, setValue]);
 
   if (projects.length === 0) return null;
 
@@ -115,9 +115,9 @@ const ProjectTiles = () => {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ amount: "some", once: false }}
-      transition={{ duration: 2, ease: "easeInOut" as Easing, delay: 1 }}
+      transition={{ duration: 2, ease: "easeInOut" as Easing, delay: 0 }}
       className={clsx("flex md:gap-10 pt-40 pb-40 w-full justify-around relative z-2 px-2 max-w-[2560px] mx-auto")}
-      ref={projectTiles}
+      // ref={projectTiles}
     >
       <div className="grid grid-cols-[repeat(40,_1fr)] w-full h-auto items-start px-2.5 gap-y-[4rem] max-w-[1920px] relative">
         {projects.map((project, i) => (

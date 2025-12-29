@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import ProjectHighlights from "../components/ProjectHighlights";
+import ProjectTiles from "../components/ProjectTiles";
 
-const Home = () => {
+const Work = () => {
   useEffect(() => {
     document.documentElement.classList.add("page-home");
     return () => document.documentElement.classList.remove("page-home");
@@ -9,12 +9,12 @@ const Home = () => {
 
   return (
     <>
-      <title>MELT</title>
-      <div className="flex flex-col mt-[110dvh]">
-        <ProjectHighlights />
+      <title>MELT – Work</title>
+      <div className="flex flex-col">
+        <ProjectTiles />
       </div>
     </>
   );
 };
 
-export default Home;
+export default Work;

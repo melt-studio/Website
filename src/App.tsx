@@ -12,6 +12,7 @@ import About from "./views/About";
 import Dissolve from "./views/Dissolve";
 import Document from "./views/Document";
 import Home from "./views/Home";
+import Work from "./views/Work";
 import Project from "./views/Project";
 
 const App = () => {
@@ -65,6 +66,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/work" element={<Work />} />
           <Route path="/about" element={<About />} />
           <Route path="/dissolve" element={<Dissolve />} />
           <Route path="/work/:name" element={<Project />} />

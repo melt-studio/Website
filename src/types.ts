@@ -54,16 +54,14 @@ type ProjectFields = {
   copy: string;
   copy2title: string;
   copy2: string;
-  // tag: string;
   projectThumbnail: ImageAirtable[];
   splashImage: Media[];
-  // coverThumb: Media[];
   projectImages: Media[];
   galleryImages: Media[];
-  // approachCopy: string;
-  // approachMedia: Media[];
   backgroundColor: string;
-  // textColor: string;
+  highlighted: boolean;
+  highlightThumbnail: ImageAirtable[];
+  highlightCopy: string;
 };
 
 export type ProjectAirtable = AirtableRecords & {

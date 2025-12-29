@@ -173,7 +173,8 @@ export const getTexUv = /* glsl */ `
 
     float screenAspect = screenRes.x/screenRes.y;
     float texAspect = texRes.x/texRes.y;
-    bool fitWidth2 = screenAspect < texAspect;
+    // bool fitWidth2 = screenAspect < texAspect;
+    bool fitWidth2 = screenAspect > texAspect;
 
     float scale = 1. - margin * 2. / (fitWidth2 ? screen.x : screen.y);
     if (cover) scale = texAspect/screenAspect;

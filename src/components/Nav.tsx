@@ -1,13 +1,13 @@
 import clsx from "clsx";
 import { useLocation } from "react-router";
 import { motion } from "motion/react";
-import { useStore } from "../stores/store";
+// import { useStore } from "../stores/store";
 import Link from "./Link";
 import Controls from "./GL/Background/Controls";
 
 const Nav = () => {
   const location = useLocation();
-  const projectTiles = useStore((state) => state.projectTiles);
+  // const projectTiles = useStore((state) => state.projectTiles);
 
   const dissolve = location.pathname.includes("/dissolve");
   const docs = location.pathname.includes("/docs/");
@@ -61,11 +61,14 @@ const Nav = () => {
           transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
           className="w-full md:w-2/3 flex items-center justify-between"
         >
+          <div className={"flex md:hidden"}>
+            <Link to="/">Home</Link>
+          </div>
           <Link
-            to="/"
-            onClick={() => {
-              if (location.pathname === "/" && projectTiles) projectTiles.scrollIntoView({ behavior: "smooth" });
-            }}
+            to="/work"
+            // onClick={() => {
+            //   if (location.pathname === "/" && projectTiles) projectTiles.scrollIntoView({ behavior: "smooth" });
+            // }}
           >
             Work
           </Link>
