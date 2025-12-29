@@ -86,7 +86,7 @@ const ProjectHighlight = ({ project, className }: ProjectHighlightProps) => {
     >
       <Link
         to={`/work/${project.fields.projectUrl.toLowerCase()}`}
-        className="w-full h-full relative flex items-center justify-center group"
+        className="w-full h-full relative flex items-center justify-center group overflow-hidden rounded-[10px] md:rounded-[20px]"
       >
         <motion.div
           variants={viewport.width < 768 ? imageVariants : undefined}
@@ -121,19 +121,25 @@ const ProjectHighlight = ({ project, className }: ProjectHighlightProps) => {
         </motion.div>
 
         <motion.div
-          variants={viewport.width < 768 ? overlayVariants : undefined}
+          variants={viewport.width < 768 && thumb ? overlayVariants : undefined}
           transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
           viewport={{ amount: 0.75, once: false }}
           whileInView="visible"
           initial="hidden"
-          className="absolute inset-0 md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-1000"
+          className={clsx("absolute inset-0", {
+            "md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-1000": thumb,
+          })}
           style={{
             backgroundImage: `linear-gradient(${project.theme[0]}50 0%, ${project.theme[1]} 100%)`,
           }}
         >
-          <div className="absolute inset-0 flex items-center justify-center md:translate-y-10 md:group-hover:translate-y-0 md:transition-transform md:duration-1000">
+          <div
+            className={clsx("absolute inset-0 flex items-center justify-center", {
+              "md:translate-y-10 md:group-hover:translate-y-0 md:transition-transform md:duration-1000": thumb,
+            })}
+          >
             <motion.div
-              variants={viewport.width < 768 ? titleVariants : undefined}
+              variants={viewport.width < 768 && thumb ? titleVariants : undefined}
               transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
               className="absolute feature px-4 py-2 text-light"
             >

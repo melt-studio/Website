@@ -22,8 +22,8 @@ const ProjectHighlights = () => {
   const projects = allProjects.filter((project) => project.fields.highlighted);
 
   const variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
+    hidden: { opacity: 0, transform: "translateY(20px)" },
+    visible: { opacity: 1, transform: "translateY(0)" },
   };
 
   return (
