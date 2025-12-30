@@ -7,6 +7,7 @@ const Controls = () => {
   const background = useStore((state) => state.background);
   const setValue = useStore((state) => state.setValue);
   const { colors, waves, distortion } = useStore((state) => state.controls);
+  const viewport = useStore((state) => state.viewport);
 
   const sliderColors = {
     label: "Color",
@@ -45,7 +46,10 @@ const Controls = () => {
 
   return (
     <motion.div
-      initial={{ transform: "translate3d(0px, -100%, 0px)", opacity: 0 }}
+      initial={{
+        transform: viewport.width < 768 ? "translate3d(0px, 25%, 0px)" : "translate3d(0px, 100%, 0px)",
+        opacity: 0,
+      }}
       animate={{ transform: "translate3d(0px, 0%, 0px)", opacity: 1 }}
       transition={{ duration: 2, delay: 2 }}
       className={

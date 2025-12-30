@@ -124,9 +124,8 @@ export const fragmentShaderBlob = /* glsl */ `
     float null = sdBox((vUv * 2. - 1.) + pbf, vec2(.0));
 
     float edge = sdRoundedBox(uv, (1.-margin*2./uResolution.xy)*vec2(uResolution.x/uResolution.y,1.), vec4(.1));
-    // float blobR = .25;
-    float blobR = .35;
-    float r = sdCircle(pb, mix(blobR + r_ * .05, 1., t1) * t0);
+    float blobR = .25;
+    float r = sdCircle(pb, mix(blobR + r_ * .1, 1., t1) * t0);
     r = smoothUnionSDF(mix(r, mix(v, box, t1), t1), mix(r, mix(v, box, t1), t1), .1);
     r = smoothUnionSDF(mix(r, null, sf), mix(r, null, sf), .1);
     r = mix(smoothIntersectSDF(r, edge, .1), r, t1);

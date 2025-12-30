@@ -16,7 +16,6 @@ interface ProjectHighlightProps extends HTMLAttributes<HTMLDivElement> {
 const ProjectHighlight = ({ project, className }: ProjectHighlightProps) => {
   const background = useStore((state) => state.background);
   const gradient = useStore((state) => state.gradient);
-  const viewport = useStore((state) => state.viewport);
 
   let thumb,
     thumbnail = null;
@@ -46,38 +45,26 @@ const ProjectHighlight = ({ project, className }: ProjectHighlightProps) => {
     style.aspectRatio = thumbnail.width / thumbnail.height;
   }
 
-  const overlayVariants = {
+  const tileVariants = {
     hidden: {
       opacity: 0,
+      transform: "translateY(40px)",
     },
     visible: {
       opacity: 1,
-    },
-  };
-
-  const titleVariants = {
-    hidden: { transform: "translateY(40px)" },
-    visible: {
       transform: "translateY(0px)",
-    },
-  };
-
-  const imageVariants = {
-    hidden: { transform: "scale(100%)" },
-    visible: {
-      transform: "scale(105%)",
     },
   };
 
   return (
     <motion.div
-      variants={overlayVariants}
-      transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
+      variants={tileVariants}
+      transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
       viewport={{ amount: 0.1, once: false }}
       whileInView="visible"
       initial="hidden"
       className={clsx(
-        "cursor-pointer overflow-hidden relative flex items-center justify-center h-auto min-h-[50vh] w-full rounded-[10px] md:rounded-[20px] bg-light",
+        "cursor-pointer overflow-hidden relative flex items-center justify-center h-auto min-h-[50vh] md:h-[1080px] w-full rounded-[10px] md:rounded-[20px] bg-mid",
         className
       )}
       style={style}
@@ -88,21 +75,14 @@ const ProjectHighlight = ({ project, className }: ProjectHighlightProps) => {
         to={`/work/${project.fields.projectUrl.toLowerCase()}`}
         className="w-full h-full relative flex items-center justify-center group overflow-hidden rounded-[10px] md:rounded-[20px]"
       >
-        <motion.div
-          variants={viewport.width < 768 ? imageVariants : undefined}
-          transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
-          viewport={{ amount: 0.75, once: false }}
-          whileInView="visible"
-          initial="hidden"
-          className="md:scale-100 md:group-hover:scale-105 md:transition-transform md:duration-1000 relative flex items-center justify-center w-full h-full"
-        >
+        <div className="scale-100 group-hover:scale-105 transition-transform duration-2000 relative flex items-center justify-center w-full h-full">
           {thumb && thumb.type.includes("image/") && thumbnail && (
             <Image
               src={thumbnail.url}
               alt={project.fields.name}
               width={thumbnail.width}
               height={thumbnail.height}
-              className="w-auto object-cover h-full"
+              className="w-full object-cover h-full"
               loading="lazy"
             />
           )}
@@ -118,41 +98,13 @@ const ProjectHighlight = ({ project, className }: ProjectHighlightProps) => {
               style={{ clipPath: "inset(2px 2px)" }}
             />
           )}
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={viewport.width < 768 && thumb ? overlayVariants : undefined}
-          transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
-          viewport={{ amount: 0.75, once: false }}
-          whileInView="visible"
-          initial="hidden"
-          className={clsx("absolute inset-0", {
-            "md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-1000": thumb,
-          })}
-          style={{
-            backgroundImage: `linear-gradient(${project.theme[0]}50 0%, ${project.theme[1]} 100%)`,
-          }}
-        >
-          <div
-            className={clsx("absolute inset-0 flex items-center justify-center", {
-              "md:translate-y-10 md:group-hover:translate-y-0 md:transition-transform md:duration-1000": thumb,
-            })}
-          >
-            <motion.div
-              variants={viewport.width < 768 && thumb ? titleVariants : undefined}
-              transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
-              className="absolute feature px-4 py-2 text-light"
-            >
-              {project.fields.name}
-            </motion.div>
+        <div className="absolute inset-0">
+          <div className="nav -bottom-2 -left-2 w-fit h-fit absolute items-center justify-between p-sm md:p-md uppercase z-2 text-light fill-light mix-blend-difference">
+            {`${project.fields.name}${project.fields.client && ` | ${project.fields.client}`}`}
           </div>
-
-          {project.fields.client && (
-            <div className="nav -bottom-2 -left-2 w-fit h-fit absolute items-center justify-between p-sm md:p-md uppercase z-2 text-light fill-light">
-              {project.fields.client}
-            </div>
-          )}
-        </motion.div>
+        </div>
       </Link>
     </motion.div>
   );

@@ -1,13 +1,13 @@
 import clsx from "clsx";
 import { useLocation } from "react-router";
-import { motion } from "motion/react";
-// import { useStore } from "../stores/store";
+import { Easing, motion } from "motion/react";
 import Link from "./Link";
 import Controls from "./GL/Background/Controls";
+import { useStore } from "../stores/store";
 
 const Nav = () => {
   const location = useLocation();
-  // const projectTiles = useStore((state) => state.projectTiles);
+  const viewport = useStore((state) => state.viewport);
 
   const dissolve = location.pathname.includes("/dissolve");
   const docs = location.pathname.includes("/docs/");
@@ -15,21 +15,64 @@ const Nav = () => {
   const light = dissolve;
   const mid = docs;
 
+  const childVariants = {
+    hidden: { opacity: 0, transform: "translateY(100%)" },
+    visible: {
+      opacity: 1,
+      transform: "translateY(0%)",
+    },
+  };
+
+  const links = [
+    {
+      to: "/",
+      label: "Home",
+      className: "flex md:hidden",
+      hidden: viewport.width >= 768,
+    },
+    {
+      to: "/work",
+      label: "Work",
+    },
+    {
+      to: "/about",
+      label: "About Us",
+    },
+    {
+      to: "mailto:hello@melt.works",
+      label: "Contact",
+      target: "_blank",
+      className: "hidden md:flex",
+      hidden: viewport.width < 768,
+    },
+    {
+      to: "/dissolve",
+      label: "Dissolve",
+    },
+  ];
+
   return (
-    <motion.nav
-      initial={{ opacity: 0, transform: "translateY(-100%)" }}
-      animate={docs ? { opacity: 0, transform: "translateY(-100%)" } : { opacity: 1, transform: "translateY(0)" }}
-      transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
+    <nav
       className={clsx(
-        "nav flex top-0 left-0 w-full h-fit md:h-22 fixed items-start justify-between p-sm md:p-md uppercase z-99 transition-colors duration-2000 gap-4",
+        "nav flex top-0 left-0 w-full h-fit md:h-22 fixed items-start justify-between p-sm md:p-md uppercase z-99 transition-all duration-2000 gap-4",
         {
           "text-light fill-light": light,
           "text-mid fill-mid": mid,
           "mix-blend-difference text-light": !(light || mid),
+          "opacity-0": docs,
+          "opacity-100": !docs,
         }
       )}
     >
-      <div
+      <motion.div
+        variants={childVariants}
+        initial="hidden"
+        animate="visible"
+        transition={{
+          duration: 1,
+          delay: 0,
+          ease: "easeInOut" as Easing,
+        }}
         className={clsx("hidden", {
           "w-1/4 lg:flex": dissolve,
           "w-1/3 md:flex": !dissolve,
@@ -40,7 +83,7 @@ const Nav = () => {
             Melt is a Creative Studio
           </Link>
         </div>
-      </div>
+      </motion.div>
       {dissolve && (
         <motion.div
           transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
@@ -49,37 +92,46 @@ const Nav = () => {
           className="flex grow items-start justify-between"
         >
           <Controls />
-          <div className="flex w-1/4 justify-end">
+          <motion.div
+            className="flex w-1/4 justify-end"
+            variants={childVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{
+              duration: 2,
+              delay: 2.5,
+              ease: "easeInOut" as Easing,
+            }}
+          >
             <Link to="/">Home</Link>
-          </div>
+          </motion.div>
         </motion.div>
       )}
       {!dissolve && (
-        <motion.div
-          animate={{ opacity: 1 }}
-          initial={{ opacity: 0 }}
-          transition={{ duration: 1, delay: 0, ease: "easeInOut" }}
-          className="w-full md:w-2/3 flex items-center justify-between"
-        >
-          <div className={"flex md:hidden"}>
-            <Link to="/">Home</Link>
-          </div>
-          <Link
-            to="/work"
-            // onClick={() => {
-            //   if (location.pathname === "/" && projectTiles) projectTiles.scrollIntoView({ behavior: "smooth" });
-            // }}
-          >
-            Work
-          </Link>
-          <Link to="/about">About Us</Link>
-          <Link to="mailto:hello@melt.works" target="_blank">
-            Contact
-          </Link>
-          <Link to="/dissolve">Dissolve</Link>
-        </motion.div>
+        <div className="w-full md:w-2/3 flex items-center justify-between">
+          {links
+            .filter((link) => !link.hidden)
+            .map((link, i) => (
+              <motion.div
+                key={link.label}
+                variants={childVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{
+                  duration: 1,
+                  delay: 0.2 * (i + (viewport.width < 768 ? 0 : 1)),
+                  ease: "easeInOut" as Easing,
+                }}
+                className={link.className}
+              >
+                <Link to={link.to} target={link.target}>
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
+        </div>
       )}
-    </motion.nav>
+    </nav>
   );
 };
 
