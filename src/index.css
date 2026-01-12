@@ -42,7 +42,7 @@
   }
 
   html {
-    @apply w-full h-dvh bg-light text-dark;
+    @apply w-full h-dvh bg-light text-dark relative;
   }
 
   body {
@@ -63,6 +63,17 @@
     lg:max-w-[800px]
     xl:max-w-[1000px]
     3xl:max-w-[1520px];
+  }
+
+  @media (height < 900px) {
+    .feature {
+      @apply text-[14vw]
+      md:text-[100px]
+      3xl:text-[135px]
+      md:max-w-[700px]
+      lg:max-w-[800px]
+      3xl:max-w-[1520px];
+    }
   }
 
   .control {

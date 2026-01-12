@@ -1,7 +1,8 @@
 import ProjectHighlight from "./ProjectHighlight";
 import { useStore } from "../stores/store";
-import { Easing, motion } from "motion/react";
+import { Easing, motion, useMotionValueEvent, useScroll } from "motion/react";
 import Link from "./Link";
+import { useState } from "react";
 
 export type TileLayout = {
   w: number;
@@ -16,8 +17,21 @@ export type TileLayout = {
   orientation: "landscape" | "portrait";
 };
 
+export type ScrollDirection = "down" | "up";
+
 const ProjectHighlights = () => {
   const allProjects = useStore((state) => state.projects);
+
+  const [scrollDirection, setScrollDirection] = useState<ScrollDirection>("up");
+
+  const { scrollYProgress } = useScroll();
+
+  useMotionValueEvent(scrollYProgress, "change", (current) => {
+    const prev = scrollYProgress.getPrevious();
+    if (!prev) return;
+    const diff = current - prev;
+    setScrollDirection(diff > 0 ? "down" : "up");
+  });
 
   const projects = allProjects.filter(
     (project) =>
@@ -35,12 +49,12 @@ const ProjectHighlights = () => {
       whileInView={{ opacity: 1 }}
       viewport={{ amount: "some", once: false }}
       transition={{ duration: 2, ease: "easeInOut" as Easing, delay: 0 }}
-      className={"flex flex-col pt-60 md:pt-40 pb-20 w-full z-10 max-w-[2560px] mx-auto"}
+      className="flex flex-col pt-60 md:pt-40 pb-20 w-full z-10 max-w-[2560px] mx-auto"
     >
       <div className="flex flex-col px-2 w-full">
         <div className="w-full h-auto flex flex-col gap-2 relative">
           {projects.map((project) => (
-            <ProjectHighlight key={project.id} project={project} />
+            <ProjectHighlight key={project.id} project={project} scrollDirection={scrollDirection} />
           ))}
         </div>
       </div>
@@ -50,10 +64,9 @@ const ProjectHighlights = () => {
         viewport={{ amount: 0.1, once: false }}
         whileInView="visible"
         initial="hidden"
-        className="px-sm md:px-md w-full grid grid-cols-1 md:grid-cols-[1fr] gap-4 my-10"
+        className="px-sm md:px-md w-full flex flex-col gap-4 my-10"
       >
-        <div></div>
-        <div className="uppercase w-fit">
+        <div className="uppercase w-fit ml-auto">
           <Link to="/work">More Projects</Link>
         </div>
       </motion.div>

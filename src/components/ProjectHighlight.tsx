@@ -7,13 +7,15 @@ import { Link } from "react-router";
 import Video from "./Video";
 import { themeColors } from "../helpers/utils";
 import { motion } from "motion/react";
+import { ScrollDirection } from "./ProjectHighlights";
 
 interface ProjectHighlightProps extends HTMLAttributes<HTMLDivElement> {
   project: ProjectFormatted;
+  scrollDirection: ScrollDirection;
   className?: string;
 }
 
-const ProjectHighlight = ({ project, className }: ProjectHighlightProps) => {
+const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighlightProps) => {
   const background = useStore((state) => state.background);
   const gradient = useStore((state) => state.gradient);
 
@@ -48,7 +50,7 @@ const ProjectHighlight = ({ project, className }: ProjectHighlightProps) => {
   const tileVariants = {
     hidden: {
       opacity: 0,
-      transform: "translateY(40px)",
+      transform: scrollDirection === "down" ? "translateY(-40px)" : "translateY(40px)",
     },
     visible: {
       opacity: 1,
@@ -64,7 +66,7 @@ const ProjectHighlight = ({ project, className }: ProjectHighlightProps) => {
       whileInView="visible"
       initial="hidden"
       className={clsx(
-        "cursor-pointer overflow-hidden relative flex items-center justify-center h-auto min-h-[50vh] md:h-[1080px] w-full rounded-[10px] md:rounded-[20px] bg-mid",
+        "cursor-pointer overflow-hidden relative flex items-center justify-center h-auto min-h-[50vh] max-h-[75vh] md:h-[1080px] w-full rounded-[10px] md:rounded-[20px] bg-mid",
         className
       )}
       style={style}
