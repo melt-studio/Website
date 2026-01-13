@@ -1,7 +1,7 @@
 import { useStore } from "../stores/store";
 import Cover from "../components/Cover";
 import Section from "../components/Section";
-import Gallery from "../components/Gallery";
+import Gallery from "../components/GallerySticky";
 import List from "../components/List";
 import Copy from "../components/Copy";
 import { WordAnimation } from "../components/WordAnimation";

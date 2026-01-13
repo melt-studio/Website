@@ -1,6 +1,6 @@
 import { ProjectFormatted } from "../types";
 import Copy from "./Copy";
-import Gallery from "./Gallery";
+import Gallery from "./GallerySticky";
 import List from "./List";
 import ProjectImage from "./ProjectImage";
 import Section from "./Section";
