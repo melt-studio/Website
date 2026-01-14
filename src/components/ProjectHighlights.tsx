@@ -39,8 +39,14 @@ const ProjectHighlights = () => {
   );
 
   const variants = {
-    hidden: { opacity: 0, transform: "translateY(20px)" },
-    visible: { opacity: 1, transform: "translateY(0px)" },
+    hidden: {
+      opacity: 0,
+      transform: scrollDirection === "down" ? "translateY(-20px)" : "translateY(20px)",
+    },
+    visible: {
+      opacity: 1,
+      transform: "translateY(0px)",
+    },
   };
 
   return (
@@ -51,6 +57,18 @@ const ProjectHighlights = () => {
       transition={{ duration: 2, ease: "easeInOut" as Easing, delay: 0 }}
       className="flex flex-col pt-60 md:pt-40 pb-20 w-full z-10 max-w-[2560px] mx-auto"
     >
+      <motion.div
+        variants={variants}
+        transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
+        viewport={{ amount: 0.1, once: false }}
+        whileInView="visible"
+        initial="hidden"
+        className="px-sm md:px-md w-full flex flex-col gap-4 my-10"
+      >
+        <div className="uppercase w-fit">
+          <Link to="/work">Recent Projects</Link>
+        </div>
+      </motion.div>
       <div className="flex flex-col px-2 w-full">
         <div className="w-full h-auto flex flex-col gap-2 relative">
           {projects.map((project) => (

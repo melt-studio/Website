@@ -66,7 +66,7 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
       whileInView="visible"
       initial="hidden"
       className={clsx(
-        "cursor-pointer overflow-hidden relative flex items-center justify-center h-auto min-h-[50vh] max-h-[75vh] md:h-[1080px] w-full rounded-[10px] md:rounded-[20px] bg-mid",
+        "cursor-pointer overflow-hidden relative flex items-center justify-center h-[90dvh] w-full rounded-[10px] md:rounded-[20px] bg-mid",
         className
       )}
       style={style}
@@ -102,11 +102,11 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
           )}
         </div>
 
-        <div className="absolute inset-0">
+        {/* <div className="absolute inset-0">
           <div className="nav -bottom-2 -left-2 w-fit h-fit absolute items-center justify-between p-sm md:p-md uppercase z-2 text-light fill-light mix-blend-difference">
             {`${project.fields.name}${project.fields.client && ` | ${project.fields.client}`}`}
           </div>
-        </div>
+        </div> */}
       </Link>
     </motion.div>
   );
