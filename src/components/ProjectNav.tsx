@@ -8,10 +8,13 @@ const ProjectNav = () => {
   if (!activeProject) return null;
 
   const variants = {
-    hidden: { opacity: 0, transform: "translateY(20px)" },
+    hidden: {
+      opacity: 0,
+      // transform: "translateY(20px)"
+    },
     visible: {
       opacity: 1,
-      transform: "translateY(0px)",
+      // transform: "translateY(0px)",
       transition: {
         duration: 1,
         ease: "easeInOut" as Easing,

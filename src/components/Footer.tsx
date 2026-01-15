@@ -1,7 +1,7 @@
-import clsx from "clsx";
 import { useLocation } from "react-router";
 import Link from "./Link";
 import { Easing, motion, stagger } from "motion/react";
+import clsx from "clsx";
 
 const Footer = () => {
   const location = useLocation();
@@ -17,7 +17,22 @@ const Footer = () => {
       transform: "translateY(0px)",
       transition: {
         duration: 1,
-        delayChildren: stagger(0.25, { startDelay: 0.5 }),
+        delayChildren: stagger(0.25, { startDelay: 0 }),
+        ease: "easeInOut" as Easing,
+      },
+    },
+  };
+
+  const bgVariants = {
+    hidden: {
+      opacity: 0,
+      transform: "scaleY(0%)",
+    },
+    visible: {
+      opacity: 1,
+      transform: "scaleY(100%)",
+      transition: {
+        duration: 2,
         ease: "easeInOut" as Easing,
       },
     },
@@ -30,6 +45,7 @@ const Footer = () => {
       transform: "translateY(0px)",
       transition: {
         duration: 1,
+        delay: 1,
         ease: "easeInOut" as Easing,
       },
     },
@@ -37,12 +53,15 @@ const Footer = () => {
 
   return (
     <motion.footer
-      viewport={{ amount: 0.1, once: false }}
+      viewport={{ amount: 0, once: false }}
       initial="hidden"
       whileInView="visible"
       variants={parentVariants}
-      className={clsx("footer bg-mid flex flex-col uppercase transition-opacity duration-2000 h-fit relative z-5")}
+      className={clsx("footer flex flex-col uppercase transition-opacity duration-2000 h-fit relative z-5", {
+        "bg-light": location.pathname.includes("/work/"),
+      })}
     >
+      <motion.div variants={bgVariants} className="absolute inset-0 bg-mid origin-bottom" />
       <motion.div variants={childVariants} className="flex grow w-full flex-col overflow-hidden pt-15"></motion.div>
       <div className="flex flex-col gap-15 md:gap-30 p-sm pb-md md:p-md z-10 pt-20 md:pt-20">
         <motion.div variants={childVariants} className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4">

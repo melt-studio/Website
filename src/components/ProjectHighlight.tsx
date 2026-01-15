@@ -50,7 +50,7 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
   const tileVariants = {
     hidden: {
       opacity: 0,
-      transform: scrollDirection === "down" ? "translateY(-40px)" : "translateY(40px)",
+      transform: scrollDirection === "down" ? "translateY(-100px)" : "translateY(100px)",
     },
     visible: {
       opacity: 1,
@@ -62,11 +62,11 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
     <motion.div
       variants={tileVariants}
       transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
-      viewport={{ amount: 0.1, once: false }}
+      viewport={{ amount: 0, once: false }}
       whileInView="visible"
       initial="hidden"
       className={clsx(
-        "cursor-pointer overflow-hidden relative flex items-center justify-center h-[90dvh] w-full rounded-[10px] md:rounded-[20px] bg-mid",
+        "cursor-pointer overflow-hidden relative flex items-center justify-center h-[90dvh] w-full rounded-[20px] md:rounded-[50px] bg-mid",
         className
       )}
       style={style}

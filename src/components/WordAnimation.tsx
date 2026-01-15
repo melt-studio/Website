@@ -25,6 +25,8 @@ type AnimateWordsProps = {
     delay: number;
     duration: number;
   };
+  scroll?: boolean;
+  scrollFactor?: number;
 };
 
 export function WordAnimation({
@@ -44,6 +46,8 @@ export function WordAnimation({
   reset = false,
   active = true,
   keyframe = false,
+  scroll = false,
+  scrollFactor = 1,
 }: AnimateWordsProps) {
   const { height } = useStore((state) => state.viewport);
   const { scrollY } = useScroll();
@@ -85,7 +89,13 @@ export function WordAnimation({
   });
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (fixed && !keyframe) updateShow(latest);
+    if (fixed && !keyframe) {
+      updateShow(latest);
+
+      if (scroll && ref.current) {
+        ref.current.style.transform = `translate3d(0px, -${latest * scrollFactor}px, 0px)`;
+      }
+    }
   });
 
   const transform = {
@@ -129,7 +139,7 @@ export function WordAnimation({
 
   return (
     <div className={className} ref={ref}>
-      <div className="flex flex-col">
+      <div className="flex flex-col will-change-transform">
         {splittedText.map((line, i) => {
           return (
             <p key={`${i}_${line.join(" ")}`} className="flex flex-wrap justify-center leading-[1]">

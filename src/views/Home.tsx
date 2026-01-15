@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <>
       <title>MELT</title>
-      <div className="flex flex-col mt-[110dvh]">
+      <div className="flex flex-col mt-[100dvh]">
         <ProjectHighlights />
       </div>
     </>
