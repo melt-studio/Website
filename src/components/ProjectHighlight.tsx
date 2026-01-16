@@ -96,7 +96,7 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
               muted
               controls={false}
               type={thumb.type}
-              className="object-cover h-full w-auto"
+              className="object-cover h-full w-full"
               style={{ clipPath: "inset(2px 2px)" }}
             />
           )}

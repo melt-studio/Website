@@ -62,7 +62,8 @@
     md:max-w-[700px]
     lg:max-w-[800px]
     xl:max-w-[1000px]
-    3xl:max-w-[1520px];
+    3xl:max-w-[1520px]
+    [&.cover]:3xl:max-w-[1260px];
   }
 
   @media (height < 900px) {
@@ -72,7 +73,8 @@
       3xl:text-[135px]
       md:max-w-[700px]
       lg:max-w-[800px]
-      3xl:max-w-[1520px];
+      3xl:max-w-[1520px]
+      [&.cover]:3xl:max-w-[1260px];
     }
   }
 

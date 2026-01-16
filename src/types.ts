@@ -62,6 +62,7 @@ type ProjectFields = {
   highlighted: boolean;
   highlightThumbnail: ImageAirtable[];
   highlightCopy: string;
+  highlightHideSplash: boolean;
 };
 
 export type ProjectAirtable = AirtableRecords & {

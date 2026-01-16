@@ -7,21 +7,34 @@ import { useStore } from "../stores/store";
 
 type CoverProps = {
   media?: Media[];
+  hideSplash?: boolean;
   className?: string;
   children?: ReactNode;
 };
 
-const Cover = ({ media, className, children }: CoverProps) => {
+const Cover = ({ media, hideSplash, className, children }: CoverProps) => {
   const viewport = useStore((state) => state.viewport);
 
-  if (!media || media.length === 0) return null;
+  const hasMedia = media && media.length > 0;
 
   const getMedia = () => {
+    if (!hasMedia) return null;
+
     const { type, url } = media[0];
 
     if (type.includes("video/")) {
       return (
-        <Video src={url} className="object-cover w-full h-full" muted autoplay loop controls={false} type={type} />
+        <Video
+          src={url}
+          className={clsx("object-cover w-full h-full", {
+            "md:hidden": hideSplash,
+          })}
+          muted
+          autoplay
+          loop
+          controls={false}
+          type={type}
+        />
       );
     }
 
@@ -43,6 +56,7 @@ const Cover = ({ media, className, children }: CoverProps) => {
               "w-full h-full": landscape,
               "h-full w-auto": !landscape && imageAspect < viewportAspect,
               "h-auto w-full": !landscape && imageAspect > viewportAspect,
+              "md:hidden": hideSplash,
             },
             className
           )}
@@ -55,8 +69,11 @@ const Cover = ({ media, className, children }: CoverProps) => {
 
   return (
     <div
-      className="flex items-center justify-center w-full h-fit md:h-dvh relative z-2 pt-12 md:pt-0 relative"
-      key={media[0].url}
+      className={clsx("flex items-center justify-center w-full h-fit md:h-dvh relative z-2 pt-12 md:pt-0 relative", {
+        // "h-fit": hasMedia,
+        // "h-dvh": !hasMedia,
+      })}
+      key={(hasMedia && media[0].url) || undefined}
     >
       {getMedia()}
       {children}

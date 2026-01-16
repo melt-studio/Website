@@ -29,10 +29,10 @@ const Project = () => {
       <title>{`MELT – ${activeProject.fields.name}`}</title>
 
       <div className="flex flex-col" key={activeProject.id}>
-        <Cover media={splashImage}>
+        <Cover media={splashImage} hideSplash={activeProject.fields.highlightHideSplash}>
           {activeProject.fields.highlighted && activeProject.fields.highlightCopy && (
             <div className="hidden md:flex absolute w-full h-full top-0 left-0 items-center justify-center">
-              <div className="feature text-light">
+              <div className="feature text-light cover">
                 <WordAnimation text={activeProject.fields.highlightCopy} />
               </div>
             </div>
