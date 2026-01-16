@@ -69,10 +69,7 @@ const Cover = ({ media, hideSplash, className, children }: CoverProps) => {
 
   return (
     <div
-      className={clsx("flex items-center justify-center w-full h-fit md:h-dvh relative z-2 pt-12 md:pt-0 relative", {
-        // "h-fit": hasMedia,
-        // "h-dvh": !hasMedia,
-      })}
+      className="flex items-center justify-center w-full h-fit md:h-dvh relative z-2 pt-12 md:pt-0 relative"
       key={(hasMedia && media[0].url) || undefined}
     >
       {getMedia()}
