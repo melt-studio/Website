@@ -74,7 +74,7 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
       whileInView="visible"
       initial="hidden"
       className={clsx(
-        "cursor-pointer overflow-hidden relative flex items-center justify-center h-[40vh] md:h-[50vh] lg:h-[60vh] xl:h-[75vh] 2xl:h-[90vh] w-full rounded-[20px] md:rounded-[50px] md:hover:rounded-[100px] transition-all duration-1000 bg-mid",
+        "cursor-pointer overflow-hidden relative flex items-center justify-center h-[40vh] md:h-[50vh] lg:h-[60vh] xl:h-[75vh] 2xl:h-[90vh] w-full rounded-[20px] md:rounded-[50px] md:hover:rounded-[100px] [transition:border-radius_1s] bg-mid",
         className
       )}
       style={style}
