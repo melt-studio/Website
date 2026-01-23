@@ -27,6 +27,9 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
     else if (thumb.type.includes("image/")) thumbnail = thumb.thumbnails.large;
   }
 
+  const position = thumb ? thumb.filename.match(/(\[|^)(left|center|right)(\]|$)/g) : null;
+  const pos = position && position[position.length - 1];
+
   const handleMouseEnter = () => {
     if (!background || !gradient || location.pathname !== "/") return null;
 
@@ -58,6 +61,11 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
     },
   };
 
+  const thumbClassName = clsx("w-full h-full object-cover", {
+    "object-right": pos === "[right]",
+    "object-left": pos === "[left]",
+  });
+
   return (
     <motion.div
       variants={tileVariants}
@@ -66,7 +74,7 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
       whileInView="visible"
       initial="hidden"
       className={clsx(
-        "cursor-pointer overflow-hidden relative flex items-center justify-center h-[90dvh] w-full rounded-[20px] md:rounded-[50px] bg-mid",
+        "cursor-pointer overflow-hidden relative flex items-center justify-center h-[40vh] md:h-[50vh] lg:h-[60vh] xl:h-[75vh] 2xl:h-[90vh] w-full rounded-[20px] md:rounded-[50px] md:hover:rounded-[100px] transition-all duration-1000 bg-mid",
         className
       )}
       style={style}
@@ -77,14 +85,14 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
         to={`/work/${project.fields.projectUrl.toLowerCase()}`}
         className="w-full h-full relative flex items-center justify-center group overflow-hidden rounded-[10px] md:rounded-[20px]"
       >
-        <div className="scale-100 group-hover:scale-105 transition-transform duration-2000 relative flex items-center justify-center w-full h-full">
+        <div className="scale-101 group-hover:scale-105 transition-transform duration-2000 relative flex items-center justify-center w-full h-full">
           {thumb && thumb.type.includes("image/") && thumbnail && (
             <Image
               src={thumbnail.url}
               alt={project.fields.name}
               width={thumbnail.width}
               height={thumbnail.height}
-              className="w-full object-cover h-full"
+              className={thumbClassName}
               loading="lazy"
             />
           )}
@@ -96,14 +104,14 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
               muted
               controls={false}
               type={thumb.type}
-              className="object-cover h-full w-full"
-              style={{ clipPath: "inset(2px 2px)" }}
+              className={thumbClassName}
+              // style={{ clipPath: "inset(2px 2px)" }}
             />
           )}
         </div>
 
-        {/* <div className="absolute inset-0">
-          <div className="nav -bottom-2 -left-2 w-fit h-fit absolute items-center justify-between p-sm md:p-md uppercase z-2 text-light fill-light mix-blend-difference">
+        {/* <div className="absolute inset-0 flex items-end justify-bottom">
+          <div className="nav w-full h-fit p-sm md:p-md uppercase text-center z-2 text-light fill-light mix-blend-difference">
             {`${project.fields.name}${project.fields.client && ` | ${project.fields.client}`}`}
           </div>
         </div> */}

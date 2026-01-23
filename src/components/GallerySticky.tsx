@@ -78,7 +78,7 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
 
   return (
     <motion.div
-      viewport={{ amount: 0.1, once: true }}
+      viewport={{ amount: 0, once: true }}
       initial="hidden"
       whileInView="visible"
       className="flex flex-col w-full max-w-[2560px] mx-auto gap-2 h-[150dvh]"

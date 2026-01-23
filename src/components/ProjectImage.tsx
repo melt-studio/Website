@@ -15,7 +15,7 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
 
   if (!image || (!image.type.includes("image/") && !image.type.includes("video/"))) return null;
 
-  const size = image.filename.match(/(\[|^)(medium)(\]|$)/g);
+  const size = image.filename.match(/(\[|^)(small|medium)(\]|$)/g);
   const sz = viewport.width >= 768 && size && size[size.length - 1];
   const position = image.filename.match(/(\[|^)(left|center|right)(\]|$)/g);
   const pos = position && position[position.length - 1];
@@ -109,6 +109,7 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
           height={height}
           className={clsx("", {
             "w-2/3": sz === "[medium]" && landscape,
+            "w-2/5": sz === "[small]" && landscape,
             "w-full h-auto": !sz && landscape,
             "h-full max-h-[90dvh] w-auto": !sz && !landscape,
             "w-auto h-full": sz && !landscape,

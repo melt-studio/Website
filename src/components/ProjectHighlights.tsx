@@ -50,10 +50,10 @@ const ProjectHighlights = () => {
   };
 
   return (
-    <div className="flex flex-col pt-60 md:pt-40 pb-20 w-full z-10 max-w-[2560px] mx-auto">
+    <div className="flex flex-col pt-60 md:pt-40 pb-20 w-full z-4 max-w-[2560px] mx-auto">
       <motion.div
         variants={textVariants}
-        transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
+        transition={{ duration: 2, delay: 1.5, ease: "easeInOut" }}
         viewport={{ amount: 0.1, once: false }}
         whileInView="visible"
         initial="hidden"
@@ -70,14 +70,14 @@ const ProjectHighlights = () => {
       </div>
       <motion.div
         variants={textVariants}
-        transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
+        transition={{ duration: 2, delay: 1, ease: "easeInOut" }}
         viewport={{ amount: 0.1, once: false }}
         whileInView="visible"
         initial="hidden"
         className="px-sm md:px-md w-full flex flex-col gap-4 my-10"
       >
         <div className="uppercase w-fit ml-auto">
-          <Link to="/work">More Projects</Link>
+          <Link to="/work">All Projects</Link>
         </div>
       </motion.div>
     </div>
