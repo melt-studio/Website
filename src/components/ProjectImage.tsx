@@ -43,6 +43,8 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
             onPlay={() => setPaused(false)}
             onPause={() => setPaused(true)}
             controls={false}
+            autoplay
+            loop
           />
 
           <div
