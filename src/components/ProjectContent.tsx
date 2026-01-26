@@ -24,7 +24,7 @@ const ProjectContent = ({ project }: { project: ProjectFormatted }) => {
   return (
     <div className="content">
       <Section type="column">
-        <div className="my-4 md:my-0">{scope && <List items={scope} />}</div>
+        <div className="mb-4 md:my-0">{scope && <List items={scope} />}</div>
         {copy ? <Copy copy={copy} /> : <div></div>}
       </Section>
 

@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import { ReactNode } from "react";
 import { Link as LinkRouter, useLocation } from "react-router";
+import { useStore } from "../stores/store";
+import config from "../config.json";
 
 type LinkProps = {
   to: string;
@@ -27,6 +29,8 @@ const Link = ({
 }: LinkProps) => {
   const location = useLocation();
 
+  const viewport = useStore((state) => state.viewport);
+
   if (!children) return null;
 
   const dissolve = location.pathname === "/dissolve";
@@ -34,6 +38,9 @@ const Link = ({
 
   const light = dissolve;
   const mid = docs;
+
+  let inverted = invertUnderline;
+  if (viewport.width < config.breakpoints.mobile) inverted = !inverted;
 
   return (
     <LinkRouter
@@ -47,14 +54,17 @@ const Link = ({
         {children}
         {underline && (
           <span
-            className={clsx("w-full h-px absolute bottom-px flex [transition:background-color_2s,_scale_.3s] bg-dark", {
-              "scale-x-100 group-hover:scale-x-0": invertUnderline,
-              "scale-x-0 group-hover:scale-x-100": !invertUnderline,
-              "scale-x-100": location.pathname === to && !hideSelected,
-              "in-[.nav]:bg-light": light,
-              "in-[.nav]:bg-mid": mid,
-              "in-[.nav]:mix-blend-difference in-[.nav]:bg-light": !(light || mid),
-            })}
+            className={clsx(
+              "w-full h-px absolute bottom-px flex [transition:background-color_2s,_scale_.3s] bg-dark in-[.footer]:bg-mid",
+              {
+                "scale-x-100 group-hover:scale-x-0": inverted,
+                "scale-x-0 group-hover:scale-x-100": !inverted,
+                "scale-x-100": location.pathname === to && !hideSelected,
+                "in-[.nav]:bg-light": light,
+                "in-[.nav]:bg-mid": mid,
+                "in-[.nav]:mix-blend-difference in-[.nav]:bg-light": !(light || mid),
+              }
+            )}
           ></span>
         )}
       </div>

@@ -61,9 +61,9 @@ const Footer = () => {
         "bg-light": location.pathname.includes("/work/"),
       })}
     >
-      <motion.div variants={bgVariants} className="absolute inset-0 bg-mid origin-bottom" />
+      <motion.div variants={bgVariants} className="absolute inset-0 bg-dark origin-bottom" />
       <motion.div variants={childVariants} className="flex grow w-full flex-col overflow-hidden pt-15"></motion.div>
-      <div className="flex flex-col gap-15 md:gap-30 p-sm pb-md md:p-md z-10 pt-20 md:pt-20">
+      <div className="flex flex-col gap-15 md:gap-30 p-sm pb-md md:p-md z-10 pt-20 md:pt-20 text-mid">
         <motion.div variants={childVariants} className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4">
           <div className="">Melt Studio</div>
           <div className="flex flex-col md:flex-row gap-8 md:gap-4 justify-between">
@@ -74,7 +74,7 @@ const Footer = () => {
               </div>
               <Link to="mailto:hello@melt.works">hello@melt.works</Link>
             </div>
-            <div className="flex flex-col md:items-end">
+            <div className="flex flex-col md:items-end gap-0.5 md:gap-0">
               <Link to="https://www.instagram.com/melt.works/" target="_blank">
                 Instagram
               </Link>

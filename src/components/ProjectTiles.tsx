@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { useMemo, useState } from "react";
 import { seededRandom } from "three/src/math/MathUtils.js";
 import { Easing, motion } from "motion/react";
+import config from "../config.json";
 
 export type TileLayout = {
   w: number;
@@ -46,7 +47,7 @@ const ProjectTiles = () => {
     const seed = 123;
 
     while (count < projects.length) {
-      const cols = viewport.width < 768 ? 1 : (rows.length % 2) + 1;
+      const cols = viewport.width < config.breakpoints.mobile ? 1 : (rows.length % 2) + 1;
       let n = grid;
       let n2 = 0;
       const i = rows.length;
@@ -73,7 +74,7 @@ const ProjectTiles = () => {
         if (j === cols - 1) w = n;
         else w = Math.floor(n / (cols - j));
         let w2 = landscape ? 18 : 12;
-        if (viewport.width < 768) {
+        if (viewport.width < config.breakpoints.mobile) {
           w2 = landscape ? 30 : 20;
         }
         const off = i === 0 ? Math.floor((w - w2) / 2) : getRandomInt(1, w - w2 - 1, count + 150 + j + i + seed);
@@ -90,7 +91,7 @@ const ProjectTiles = () => {
           colEnd: end,
           marginTop: getRandomInt(
             0,
-            landscape && cols > 1 ? (viewport.width < 768 ? 10 : 20) : 10,
+            landscape && cols > 1 ? (viewport.width < config.breakpoints.mobile ? 10 : 20) : 10,
             count + i + j + w - 2
           ),
           marginLeft: 0,

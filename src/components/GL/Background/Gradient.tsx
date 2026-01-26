@@ -118,7 +118,7 @@ const Gradient = () => {
 
   let visible = false;
   if (location.pathname === "/dissolve") visible = true;
-  if (size.width >= 768 && !location.pathname.includes("/docs/")) visible = true;
+  if (size.width >= config.breakpoints.mobile && !location.pathname.includes("/docs/")) visible = true;
 
   return (
     <mesh ref={ref} visible={visible}>

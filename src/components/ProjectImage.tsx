@@ -5,6 +5,7 @@ import Video from "./Video";
 import { motion } from "motion/react";
 import { useStore } from "../stores/store";
 import { CSSProperties, useRef, useState } from "react";
+import config from "../config.json";
 
 type ProjectImageProps = { image: Media; style?: CSSProperties };
 
@@ -16,7 +17,7 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
   if (!image || (!image.type.includes("image/") && !image.type.includes("video/"))) return null;
 
   const size = image.filename.match(/(\[|^)(small|medium)(\]|$)/g);
-  const sz = viewport.width >= 768 && size && size[size.length - 1];
+  const sz = viewport.width >= config.breakpoints.mobile && size && size[size.length - 1];
   const position = image.filename.match(/(\[|^)(left|center|right)(\]|$)/g);
   const pos = position && position[position.length - 1];
 

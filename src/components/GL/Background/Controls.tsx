@@ -1,7 +1,8 @@
 import Audio from "../../Audio";
 import Slider from "../../Slider";
 import { useStore } from "../../../stores/store";
-import { motion } from "motion/react";
+import { Easing, motion, stagger } from "motion/react";
+import config from "../../../config.json";
 
 const Controls = () => {
   const background = useStore((state) => state.background);
@@ -44,28 +45,54 @@ const Controls = () => {
 
   const controlStyle = "control pl-6 md:pl-3 xl:pl-4 pr-1 md:pr-0 bg-white/10 hover:bg-white/40";
 
+  const parentVariants = {
+    hidden: { opacity: 1 },
+    show: {
+      opacity: 1,
+      transition: {
+        duration: 0,
+        delayChildren: stagger(0.333, { startDelay: 2.5 }),
+        ease: "easeInOut" as Easing,
+      },
+    },
+  };
+
+  const childVariants = {
+    hidden: {
+      opacity: 0,
+      transform:
+        viewport.width < config.breakpoints.mobile ? "translate3d(0px, 25%, 0px)" : "translate3d(0px, 100%, 0px)",
+    },
+    show: {
+      transform: "translate3d(0px, 0%, 0px)",
+      opacity: 1,
+      transition: {
+        duration: 2,
+      },
+    },
+  };
+
   return (
     <motion.div
-      initial={{
-        transform: viewport.width < 768 ? "translate3d(0px, 25%, 0px)" : "translate3d(0px, 100%, 0px)",
-        opacity: 0,
-      }}
-      animate={{ transform: "translate3d(0px, 0%, 0px)", opacity: 1 }}
-      transition={{ duration: 2, delay: 2 }}
+      variants={parentVariants}
+      initial="hidden"
+      animate="show"
       className={
-        "h-fit gap-1.5 xl:gap-2 justify-center flex flex-col grow lg:flex-row items-start lg:items-center text-xs relative md:-top-2"
+        "h-fit gap-1.5 xl:gap-2 justify-center flex flex-col grow lg:flex-row items-center text-xs relative md:-top-2 xl:-top-1.5"
       }
     >
-      <div className={controlStyle}>
+      <motion.div variants={childVariants} className={controlStyle}>
         <Slider {...sliderColors} />
-      </div>
-      <div className={controlStyle}>
+      </motion.div>
+      <motion.div variants={childVariants} className={controlStyle}>
         <Slider {...sliderWaves} />
-      </div>
-      <div className={controlStyle}>
+      </motion.div>
+      <motion.div variants={childVariants} className={controlStyle}>
         <Slider {...sliderDistortion} />
-      </div>
-      <Audio />
+      </motion.div>
+      <motion.div variants={childVariants}>
+        <Audio />{" "}
+      </motion.div>
     </motion.div>
   );
 };

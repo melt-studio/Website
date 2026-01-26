@@ -23,7 +23,7 @@ const ProjectNav = () => {
   };
 
   return (
-    <div className="footer bg-light relative z-5">
+    <div className="bg-light relative z-5">
       <motion.div
         whileInView="visible"
         viewport={{ amount: 0.5, once: true }}

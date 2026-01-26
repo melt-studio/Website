@@ -1,7 +1,7 @@
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { ImageAirtable, Media, VideoAirtable } from "../types";
 import Image from "./Image";
-import Video from "./Video";
+import Video, { VideoSize } from "./Video";
 import { useStore } from "../stores/store";
 import clsx from "clsx";
 import { motion, Easing, stagger, useScroll, useMotionValueEvent } from "motion/react";
@@ -21,6 +21,7 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
 
   const [scrollable, setScrollable] = useState(0);
   const [width, setWidth] = useState(0);
+  const [videoSize, setVideoSize] = useState<VideoSize>(null);
 
   useEffect(() => {
     if (!gallery.current || !container.current || !ref.current) return;
@@ -28,13 +29,18 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
     container.current.scrollTo({ left: 0 });
 
     setWidth(gallery.current.offsetWidth);
-    setScrollable(gallery.current.offsetWidth - container.current.offsetWidth);
+
+    const scrollable = gallery.current.offsetWidth - container.current.offsetWidth;
+    setScrollable(scrollable);
+
+    const current = Number(gallery.current.dataset.current);
+    gallery.current.style.transform = `translateX(${-current * scrollable}px)`;
 
     const top = viewport.height / 2 - gallery.current.offsetHeight / 2;
     if (stickyContainer.current) {
       stickyContainer.current.style.top = `${top}px`;
     }
-  }, [viewport, images]);
+  }, [viewport, images, videoSize]);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -43,6 +49,7 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
     if (!container.current || !gallery.current) return;
+    gallery.current.dataset.current = `${current}`;
     gallery.current.style.transform = `translateX(${-current * scrollable}px)`;
   });
 
@@ -76,6 +83,14 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
     },
   };
 
+  const videoAspect = (videoSize && videoSize.width / videoSize.height) || 1;
+
+  const mediaSizing = (aspect: number) =>
+    clsx("relative flex grow flex-col gap-2", {
+      "w-[80dvw] md:w-[50dvw] max-w-[500px] h-fit": aspect < 1,
+      "w-[calc((100dvw_-_30px)/1.25)] h-fit": aspect >= 1,
+    });
+
   return (
     <motion.div
       viewport={{ amount: 0, once: true }}
@@ -95,7 +110,7 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
         {title && <div className="uppercase px-sm md:px-md">{title}</div>}
 
         <div className="overflow-x-hidden hide-scroll" ref={container}>
-          <div className="flex gap-2.5 pb-5 px-2.5 w-fit items-start" ref={gallery}>
+          <div className="flex gap-2.5 pb-5 px-2.5 w-fit items-start" ref={gallery} data-current="0">
             {images.map((image, i) => {
               if (image.type.includes("video/")) {
                 const { id } = image as VideoAirtable & { caption?: string[] };
@@ -103,9 +118,18 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
                   <motion.div
                     variants={childVariants}
                     key={`${id}_${i}`}
-                    className="w-[calc((100dvw_-_30px)/2)] h-fit flex grow flex-col gap-2"
+                    // className="w-[calc((100dvw_-_30px)/1.25)] h-fit flex grow flex-col gap-2"
+                    className={mediaSizing(videoAspect)}
                   >
-                    <Video src={image.url} autoplay loop muted controls={false} type={image.type} />
+                    <Video
+                      src={image.url}
+                      autoplay
+                      loop
+                      muted
+                      controls={false}
+                      type={image.type}
+                      setSize={setVideoSize}
+                    />
                   </motion.div>
                 );
               }
@@ -114,14 +138,7 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
                 const { id, thumbnails, caption } = image as ImageAirtable & { caption?: string[] };
                 const aspect = thumbnails.large.width / thumbnails.large.height;
                 return (
-                  <motion.div
-                    variants={childVariants}
-                    key={`${id}_${i}`}
-                    className={clsx("relative flex grow flex-col gap-2", {
-                      "w-[50dvw] md:w-[33dvw] max-w-[400px] h-fit": aspect < 1,
-                      "w-[calc((100dvw_-_30px)/2)] h-auto": aspect >= 1,
-                    })}
-                  >
+                  <motion.div variants={childVariants} key={`${id}_${i}`} className={mediaSizing(aspect)}>
                     <Image
                       src={thumbnails.large.url}
                       width={thumbnails.large.width}

@@ -1,4 +1,4 @@
-import { ProjectFormatted } from "../types";
+import { ImageAirtable, ProjectFormatted } from "../types";
 import Image from "./Image";
 import { useStore } from "../stores/store";
 import { CSSProperties, HTMLAttributes } from "react";
@@ -15,6 +15,35 @@ interface ProjectHighlightProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
+const getThumbPos = (thumbnail: ImageAirtable | undefined): CSSProperties => {
+  if (!thumbnail) return {};
+
+  const { filename } = thumbnail;
+
+  const posExp = /(\[|^)(left|center|right)(\]|$)/g;
+  const position = filename.match(posExp);
+  const pos = position && position[position.length - 1];
+
+  const posXExp = /(\[|^)(x\d{1,3})(\]|$)/g;
+  const posYExp = /(\[|^)(y\d{1,3})(\]|$)/g;
+  const positionX = filename.match(posXExp);
+  const positionY = filename.match(posYExp);
+  const posX = positionX && positionX[positionX.length - 1];
+  const posY = positionY && positionY[positionY.length - 1];
+  const pX = posX ? posX.replace(/[[x\]]/g, "") : null;
+  const pY = posY ? posY.replace(/[[y\]]/g, "") : null;
+
+  let objectPos = null;
+  if ((pX && !isNaN(Number(pX))) || (pY && !isNaN(Number(pY)))) {
+    objectPos = `${Math.min(Math.max(Number(pX), 0), 100) || 0}% ${Math.min(Math.max(Number(pY), 0), 100) || 0}%`;
+  } else if (pos) {
+    if (pos === "[right]") objectPos = "right";
+    else if (pos === "[left]") objectPos = "left";
+  }
+
+  return objectPos ? { objectPosition: objectPos } : {};
+};
+
 const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighlightProps) => {
   const background = useStore((state) => state.background);
   const gradient = useStore((state) => state.gradient);
@@ -27,8 +56,7 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
     else if (thumb.type.includes("image/")) thumbnail = thumb.thumbnails.large;
   }
 
-  const position = thumb ? thumb.filename.match(/(\[|^)(left|center|right)(\]|$)/g) : null;
-  const pos = position && position[position.length - 1];
+  const objectPos = getThumbPos(thumb);
 
   const handleMouseEnter = () => {
     if (!background || !gradient || location.pathname !== "/") return null;
@@ -61,11 +89,6 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
     },
   };
 
-  const thumbClassName = clsx("w-full h-full object-cover", {
-    "object-right": pos === "[right]",
-    "object-left": pos === "[left]",
-  });
-
   return (
     <motion.div
       variants={tileVariants}
@@ -74,7 +97,7 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
       whileInView="visible"
       initial="hidden"
       className={clsx(
-        "cursor-pointer overflow-hidden relative flex items-center justify-center h-[40vh] md:h-[50vh] lg:h-[60vh] xl:h-[75vh] 2xl:h-[90vh] w-full rounded-[20px] md:rounded-[50px] md:hover:rounded-[100px] [transition:border-radius_1s] bg-mid",
+        "cursor-pointer overflow-hidden relative flex items-center justify-center h-[50vh] md:h-[60vh] lg:h-[75vh] xl:h-[85vh] 2xl:h-[90vh] w-full rounded-[20px] md:rounded-[50px] md:hover:rounded-[100px] [transition:border-radius_1s] bg-mid",
         className
       )}
       style={style}
@@ -92,8 +115,9 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
               alt={project.fields.name}
               width={thumbnail.width}
               height={thumbnail.height}
-              className={thumbClassName}
+              className="w-full h-full object-cover"
               loading="lazy"
+              style={objectPos}
             />
           )}
           {thumb && thumb.type.includes("video/") && thumbnail && (
@@ -104,7 +128,8 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
               muted
               controls={false}
               type={thumb.type}
-              className={thumbClassName}
+              className="w-full h-full object-cover"
+              style={objectPos}
               // style={{ clipPath: "inset(2px 2px)" }}
             />
           )}

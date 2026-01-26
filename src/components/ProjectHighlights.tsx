@@ -57,7 +57,7 @@ const ProjectHighlights = () => {
         viewport={{ amount: 0.1, once: false }}
         whileInView="visible"
         initial="hidden"
-        className="px-sm md:px-md w-full flex flex-col gap-4 my-10"
+        className="px-sm md:px-md w-full flex flex-col gap-4 my-10 items-center md:items-start"
       >
         <div className="uppercase w-fit">Featured Projects</div>
       </motion.div>
@@ -74,9 +74,9 @@ const ProjectHighlights = () => {
         viewport={{ amount: 0.1, once: false }}
         whileInView="visible"
         initial="hidden"
-        className="px-sm md:px-md w-full flex flex-col gap-4 my-10"
+        className="px-sm md:px-md w-full flex flex-col gap-4 my-10 items-center md:items-end"
       >
-        <div className="uppercase w-fit ml-auto">
+        <div className="uppercase w-fit">
           <Link to="/work">All Projects</Link>
         </div>
       </motion.div>

@@ -159,6 +159,7 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
             muted
             controls={false}
             type={thumb.type}
+            className="w-full h-auto"
             style={{ clipPath: "inset(2px 2px)" }}
           />
         )}

@@ -21,7 +21,7 @@ const Audio = () => {
           paused ? "bg-white/10 hover:bg-white/40" : "bg-white/30 hover:bg-white/40"
         }`}
       >
-        {paused ? "Meditate Off" : "Meditate On"}
+        {paused ? "Meditate On" : "Meditate Off"}
       </button>
 
       <audio ref={audioRef} src={track} hidden loop />

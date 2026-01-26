@@ -4,6 +4,7 @@ import { Easing, motion } from "motion/react";
 import Link from "./Link";
 import Controls from "./GL/Background/Controls";
 import { useStore } from "../stores/store";
+import config from "../config.json";
 
 const Nav = () => {
   const location = useLocation();
@@ -28,7 +29,7 @@ const Nav = () => {
       to: "/",
       label: "Home",
       className: "flex md:hidden",
-      hidden: viewport.width >= 768,
+      hidden: viewport.width >= config.breakpoints.mobile,
     },
     {
       to: "/work",
@@ -43,13 +44,15 @@ const Nav = () => {
       label: "Contact",
       target: "_blank",
       className: "hidden md:flex",
-      hidden: viewport.width < 768,
+      hidden: viewport.width < config.breakpoints.mobile,
     },
     {
       to: "/dissolve",
       label: "Dissolve",
     },
   ];
+
+  const homeFull = "Melt is a Creative Studio";
 
   return (
     <nav
@@ -74,13 +77,12 @@ const Nav = () => {
           ease: "easeInOut" as Easing,
         }}
         className={clsx("hidden", {
-          "w-1/4 lg:flex": dissolve,
           "w-1/3 md:flex": !dissolve,
         })}
       >
         <div className="flex w-full">
           <Link to="/" underline={false}>
-            Melt is a Creative Studio
+            {homeFull}
           </Link>
         </div>
       </motion.div>
@@ -91,20 +93,27 @@ const Nav = () => {
           animate={{ opacity: 1 }}
           className="flex grow items-start justify-between"
         >
-          <Controls />
           <motion.div
-            className="flex w-1/4 justify-end"
+            className="flex w-1/4"
             variants={childVariants}
             initial="hidden"
             animate="visible"
             transition={{
               duration: 2,
-              delay: 2.5,
+              delay: 2,
               ease: "easeInOut" as Easing,
             }}
           >
-            <Link to="/">Home</Link>
+            <Link to="/" className="flex xl:hidden">
+              Home
+            </Link>
+            <Link to="/" className="hidden xl:flex">
+              {homeFull}
+            </Link>
           </motion.div>
+          <Controls />
+          <div className="w-1/4 flex xl:hidden justify-end invisible pointer-events-none">Home</div>
+          <div className="w-1/4 hidden xl:flex justify-end invisible pointer-events-none">{homeFull}</div>
         </motion.div>
       )}
       {!dissolve && (
@@ -119,7 +128,7 @@ const Nav = () => {
                 animate="visible"
                 transition={{
                   duration: 1,
-                  delay: 0.2 * (i + (viewport.width < 768 ? 0 : 1)),
+                  delay: 0.2 * (i + (viewport.width < config.breakpoints.mobile ? 0 : 1)),
                   ease: "easeInOut" as Easing,
                 }}
                 className={link.className}
