@@ -21,6 +21,7 @@
   --spacing-md: 25px;
 
   --breakpoint-3xl: 120rem;
+  /* --breakpoint-4xl: 120rem; */
 
   --animate-placeholder: fade-in 2s ease 0s both;
 
@@ -46,7 +47,7 @@
   }
 
   body {
-    @apply w-full h-full m-0 p-0 bg-light text-dark fill-dark font-mono text-xs xl:text-sm tracking-tight transition-colors duration-500 antialiased in-[.page-docs]:bg-dark;
+    @apply w-full h-full m-0 p-0 bg-light text-dark fill-dark font-mono text-xs xl:text-sm 3xl:text-base tracking-tight transition-colors duration-500 antialiased in-[.page-docs]:bg-dark;
   }
 
   a {
