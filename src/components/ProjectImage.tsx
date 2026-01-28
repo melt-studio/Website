@@ -41,7 +41,7 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
         <div className={clsx("relative group", getLayout(landscape))}>
           <Video
             src={`${image.url}#t=0.001`}
-            className={landscape ? "w-full h-fit" : "w-fit h-full"}
+            className={landscape ? "w-full h-fit" : "w-fit h-full max-h-[90dvh]"}
             type={image.type}
             ref={video}
             onEnded={() => setPaused(true)}
