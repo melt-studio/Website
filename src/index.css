@@ -109,7 +109,7 @@
   }
 
   .control {
-    @apply uppercase font-mono tracking-tight flex items-center gap-2 h-10 md:h-8 w-60 lg:w-fit rounded-full transition-colors duration-500 justify-center text-white/80;
+    @apply uppercase font-mono tracking-tight flex items-center gap-2 h-10 md:h-8 w-60 2xl:w-fit rounded-full transition-colors duration-500 justify-center text-white/80;
   }
 
   .content {

@@ -81,7 +81,7 @@ const Controls = () => {
       initial="hidden"
       animate="show"
       className={
-        "h-fit gap-1.5 xl:gap-2 justify-center items-center flex flex-col grow lg:flex-row text-xs relative md:-top-2 xl:-top-1.5"
+        "h-fit gap-1.5 2xl:gap-2 justify-center items-center flex flex-col grow 2xl:flex-row text-xs relative 2xl:-top-1.5"
       }
     >
       <motion.div variants={childVariants} className={controlStyle}>
@@ -94,7 +94,7 @@ const Controls = () => {
         <Slider {...sliderDistortion} />
       </motion.div>
       <motion.div variants={childVariants}>
-        <Audio />{" "}
+        <Audio />
       </motion.div>
     </motion.div>
   );

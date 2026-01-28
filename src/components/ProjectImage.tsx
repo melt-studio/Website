@@ -23,11 +23,11 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
   const position = image.filename.match(/(\[|^)(left|center|right)(\]|$)/g);
   const pos = position && position[position.length - 1];
 
-  const getLayout = (landscape: boolean) => ({
+  const getLayout = (landscape: boolean, video: boolean = false) => ({
     "w-auto h-full max-h-[90dvh]": !landscape,
     "w-2/5": sz === "[small]" && landscape,
     "w-2/3": sz === "[medium]" && landscape,
-    "w-full": !sz && landscape,
+    "w-full": (!video && !sz && landscape) || (video && sz === "[full]" && landscape),
     "mr-auto": pos === "[left]",
     "ml-auto": pos === "[right]",
     "mx-auto": !pos,
@@ -38,7 +38,7 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
       const landscape = videoSize ? videoSize.width / videoSize.height > 1 : true;
 
       return (
-        <div className={clsx("relative group", getLayout(landscape))}>
+        <div className={clsx("relative group", getLayout(landscape, true))}>
           <Video
             src={`${image.url}#t=0.001`}
             className={landscape ? "w-full h-fit" : "w-fit h-full max-h-[90dvh]"}

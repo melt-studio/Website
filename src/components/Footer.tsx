@@ -49,9 +49,28 @@ const Footer = () => {
     },
   };
 
+  const caption = "Making ideas that stick.";
+
+  const details = {
+    address: "Brooklyn, NY - Los Angeles",
+    tel: "917.768.2955",
+  };
+
+  const emailLink = {
+    to: "mailto:hello@melt.works",
+    label: "hello@melt.works",
+  };
+
+  const socialLinks = [
+    { to: "https://www.instagram.com/melt.works/", label: "Instagram" },
+    { to: "https://www.linkedin.com/company/meltstudionyc", label: "LinkedIn" },
+  ];
+
+  const copyright = `© ${new Date().getFullYear()} MELT`;
+
   const getFeature = () => {
     let data: { label?: string; link?: { to: string; label: string }; text?: string } = {
-      text: "Get in touch",
+      link: { to: emailLink.to, label: "Get in touch" },
     };
 
     if (pathname?.includes("/works/") && activeProject && activeProject.next) {
@@ -102,29 +121,32 @@ const Footer = () => {
         <motion.div variants={childVariants} className="flex flex-col w-full grow justify-center">
           {getFeature()}
         </motion.div>
-        <motion.div variants={childVariants} className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4">
-          <div className="">Melt Studio</div>
-          <div className="flex flex-col md:flex-row gap-8 md:gap-4 justify-between">
+
+        <motion.div
+          variants={childVariants}
+          className="grid grid-cols-[1fr_2fr] gap-12 md:gap-4 justify-between items-end"
+        >
+          <div className="font-medium order-2 col-span-2 md:col-span-1 flex justify-between">
+            <div>{caption}</div>
+            <div className="block md:hidden">{copyright}</div>
+          </div>
+          <div className="flex grow justify-between col-span-2 md:col-span-1 order-1 md:order-3 items-start md:items-end">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col">
-                <div>Brooklyn, NY - Los Angeles</div>
-                <div>917.768.2955</div>
+                <div>{details.address}</div>
+                <div>{details.tel}</div>
               </div>
-              <Link to="mailto:hello@melt.works">hello@melt.works</Link>
+              <Link to={emailLink.to}>{emailLink.label}</Link>
             </div>
-            <div className="flex flex-col md:items-end gap-0.5 md:gap-0">
-              <Link to="https://www.instagram.com/melt.works/" target="_blank">
-                Instagram
-              </Link>
-              <Link to="https://www.linkedin.com/company/meltstudionyc" target="_blank">
-                LinkedIn
-              </Link>
+            <div className="flex flex-col gap-0.5 md:gap-0 items-end md:items-start">
+              {socialLinks.map((link) => (
+                <Link key={link.to} to={link.to} target="_blank">
+                  {link.label}
+                </Link>
+              ))}
             </div>
+            <div className="font-medium hidden md:block">{copyright}</div>
           </div>
-        </motion.div>
-        <motion.div variants={childVariants} className="flex justify-between font-medium">
-          <div>Making ideas that stick.</div>
-          <div>© 2025 MELT</div>
         </motion.div>
       </div>
     </motion.footer>

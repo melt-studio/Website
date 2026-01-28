@@ -55,7 +55,7 @@ const Link = ({
         {underline && (
           <span
             className={clsx(
-              "w-full h-px absolute bottom-px flex [transition:background-color_2s,_scale_.3s] bg-dark in-[.footer]:bg-mid",
+              "w-full h-px absolute bottom-0 flex [transition:background-color_2s,_scale_.3s] bg-dark in-[.footer]:bg-mid",
               {
                 "scale-x-100 group-hover:scale-x-0": inverted,
                 "scale-x-0 group-hover:scale-x-100": !inverted,
