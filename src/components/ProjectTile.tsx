@@ -94,7 +94,7 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
   const handleMouseEnter = () => {
     setActive(project.id);
 
-    if (!background || !gradient || location.pathname !== "/work") return null;
+    if (!background || !gradient || location.pathname !== "/works") return null;
 
     gradient.style.backgroundColor = project.theme[0];
     gradient.style.borderColor = project.theme[1];
@@ -104,7 +104,7 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
   const handleMouseLeave = () => {
     setActive(null);
 
-    if (!background || !gradient || location.pathname !== "/work") return null;
+    if (!background || !gradient || location.pathname !== "/works") return null;
 
     gradient.style.backgroundColor = themeColors.light.hex;
     gradient.style.borderColor = themeColors.light.hex;
@@ -140,7 +140,7 @@ const ProjectTile = ({ project, layout, className, active, setActive, ...props }
       onMouseLeave={handleMouseLeave}
       ref={scope}
     >
-      <Link to={`/work/${project.fields.projectUrl.toLowerCase()}`} className="w-full h-full">
+      <Link to={`/works/${project.fields.projectUrl.toLowerCase()}`} className="w-full h-full">
         {thumb.type.includes("image/") && (
           <Image
             src={thumbnail.url}

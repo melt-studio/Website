@@ -9,6 +9,9 @@ const Controls = () => {
   const setValue = useStore((state) => state.setValue);
   const { colors, waves, distortion } = useStore((state) => state.controls);
   const viewport = useStore((state) => state.viewport);
+  const pathname = useStore((state) => state.pathname);
+
+  if (pathname !== "/dissolve") return null;
 
   const sliderColors = {
     label: "Color",
@@ -51,7 +54,7 @@ const Controls = () => {
       opacity: 1,
       transition: {
         duration: 0,
-        delayChildren: stagger(0.333, { startDelay: 2.5 }),
+        delayChildren: stagger(0.333, { startDelay: 2.5 + 7.5 }),
         ease: "easeInOut" as Easing,
       },
     },
@@ -78,7 +81,7 @@ const Controls = () => {
       initial="hidden"
       animate="show"
       className={
-        "h-fit gap-1.5 xl:gap-2 justify-center flex flex-col grow lg:flex-row items-center text-xs relative md:-top-2 xl:-top-1.5"
+        "h-fit gap-1.5 xl:gap-2 justify-center items-center flex flex-col grow lg:flex-row text-xs relative md:-top-2 xl:-top-1.5"
       }
     >
       <motion.div variants={childVariants} className={controlStyle}>

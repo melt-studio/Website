@@ -46,7 +46,7 @@ const Link = ({
     <LinkRouter
       to={to}
       target={target}
-      className={clsx(className, {}, "w-fit")}
+      className={clsx(className, "w-fit")}
       viewTransition={viewTransition}
       onClick={onClick}
     >

@@ -1,11 +1,13 @@
-import { useLocation } from "react-router";
 import Link from "./Link";
 import { Easing, motion, stagger } from "motion/react";
 import clsx from "clsx";
+import { useStore } from "../stores/store";
 
 const Footer = () => {
-  const location = useLocation();
-  if (location.pathname.includes("/docs/") || location.pathname === "/dissolve") return null;
+  const activeProject = useStore((state) => state.activeProject);
+  const pathname = useStore((state) => state.pathname);
+
+  if (pathname?.includes("/docs/") || pathname === "/dissolve") return null;
 
   const parentVariants = {
     hidden: {
@@ -26,15 +28,11 @@ const Footer = () => {
   const bgVariants = {
     hidden: {
       opacity: 0,
-      transform: "scaleY(0%)",
+      // transform: "scaleY(50%)",
     },
     visible: {
       opacity: 1,
-      transform: "scaleY(100%)",
-      transition: {
-        duration: 2,
-        ease: "easeInOut" as Easing,
-      },
+      // transform: "scaleY(100%)",
     },
   };
 
@@ -51,19 +49,59 @@ const Footer = () => {
     },
   };
 
+  const getFeature = () => {
+    let data: { label?: string; link?: { to: string; label: string }; text?: string } = {
+      text: "Get in touch",
+    };
+
+    if (pathname?.includes("/works/") && activeProject && activeProject.next) {
+      data = {
+        label: "Next Project",
+        link: { to: `/works/${activeProject.next.url}`, label: activeProject.next.name },
+      };
+    }
+
+    if (pathname === "/") {
+      data = { link: { to: "/works", label: "View all projects" } };
+    }
+
+    return (
+      <div className="flex flex-col gap-5 w-full">
+        {data.label && <div>{data.label}</div>}
+        <div className="feature normal-case flex w-full">
+          {data.link && (
+            <Link to={data.link.to} className="text-left">
+              {data.link.label}
+            </Link>
+          )}
+          {data.text && <div>{data.text}</div>}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <motion.footer
-      viewport={{ amount: 0, once: false }}
+      viewport={{ amount: 0.5, once: false }}
       initial="hidden"
       whileInView="visible"
       variants={parentVariants}
-      className={clsx("footer flex flex-col uppercase transition-opacity duration-2000 h-fit relative z-5", {
-        "bg-light": location.pathname.includes("/work/"),
+      className={clsx("footer flex flex-col uppercase transition-opacity duration-2000 h-dvh relative z-5 text-mid", {
+        "bg-light": pathname?.includes("/works/"),
       })}
     >
-      <motion.div variants={bgVariants} className="absolute inset-0 bg-dark origin-bottom" />
-      <motion.div variants={childVariants} className="flex grow w-full flex-col overflow-hidden pt-15"></motion.div>
-      <div className="flex flex-col gap-15 md:gap-30 p-sm pb-md md:p-md z-10 pt-20 md:pt-20 text-mid">
+      <motion.div
+        variants={bgVariants}
+        transition={{
+          duration: 2,
+          ease: "easeInOut" as Easing,
+        }}
+        className="absolute inset-0 bg-dark origin-bottom scale-y-1000 pointer-events-none"
+      />
+      <div className="flex flex-col gap-15 md:gap-30 p-sm pb-md md:p-md z-10 pt-20 md:pt-20 h-full">
+        <motion.div variants={childVariants} className="flex flex-col w-full grow justify-center">
+          {getFeature()}
+        </motion.div>
         <motion.div variants={childVariants} className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4">
           <div className="">Melt Studio</div>
           <div className="flex flex-col md:flex-row gap-8 md:gap-4 justify-between">

@@ -105,7 +105,7 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
       onMouseLeave={handleMouseLeave}
     >
       <Link
-        to={`/work/${project.fields.projectUrl.toLowerCase()}`}
+        to={`/works/${project.fields.projectUrl.toLowerCase()}`}
         className="w-full h-full relative flex items-center justify-center group overflow-hidden rounded-[10px] md:rounded-[20px]"
       >
         <div className="scale-101 group-hover:scale-105 transition-transform duration-2000 relative flex items-center justify-center w-full h-full">

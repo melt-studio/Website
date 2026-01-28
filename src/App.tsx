@@ -66,10 +66,10 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/work" element={<Work />} />
+          <Route path="/works" element={<Work />} />
           <Route path="/about" element={<About />} />
           <Route path="/dissolve" element={<Dissolve />} />
-          <Route path="/work/:name" element={<Project />} />
+          <Route path="/works/:name" element={<Project />} />
           <Route path="/docs/:path" element={<Document />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 import Cover from "../components/Cover";
-import ProjectNav from "../components/ProjectNav";
+// import ProjectNav from "../components/ProjectNav";
 import useProject from "../helpers/useProject";
 import { useStore } from "../stores/store";
 import { motion } from "motion/react";
@@ -52,7 +52,7 @@ const Project = () => {
           {`${activeProject.fields.name}${activeProject.fields.client && ` | ${activeProject.fields.client}`}`}
         </motion.div>
 
-        <ProjectNav />
+        {/* <ProjectNav /> */}
       </div>
     </>
   );

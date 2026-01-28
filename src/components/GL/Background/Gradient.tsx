@@ -61,7 +61,7 @@ const Gradient = () => {
 
   useEffect(() => {
     if (ref.current && gradient) {
-      if (location.pathname === "/" || location.pathname === "/work" || location.pathname === "/about") {
+      if (location.pathname === "/" || location.pathname === "/works" || location.pathname === "/about") {
         ref.current.material.uniforms.uTheme.value.x = 0;
         gradient.style.opacity = "0%";
         gradient.style.backgroundColor = themeColors.light.hex;
@@ -70,13 +70,13 @@ const Gradient = () => {
         ref.current.material.uniforms.uTheme.value.x = 1;
         gradient.style.opacity = "100%";
 
-        if (location.pathname.includes("/work/") && activeProject) {
+        if (location.pathname.includes("/works/") && activeProject) {
           gradient.style.backgroundColor = activeProject.theme[0];
           gradient.style.borderColor = activeProject.theme[1];
         }
       }
 
-      if (location.pathname === "/" || location.pathname === "/work" || location.pathname.includes("/work/")) {
+      if (location.pathname === "/" || location.pathname === "/works" || location.pathname.includes("/works/")) {
         gradient.style.scale = "1";
       } else {
         gradient.style.scale = "0";

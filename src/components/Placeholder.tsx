@@ -13,8 +13,8 @@ const Placeholder = ({ override = false, light = false }: { override?: boolean; 
   if (!pathname) return null;
 
   const show =
-    (pathname.includes("/work/") && !activeProject) ||
-    (pathname === "/work" && projects.length === 0) ||
+    (pathname.includes("/works/") && !activeProject) ||
+    (pathname === "/works" && projects.length === 0) ||
     (pathname === "/about" && about.length === 0) ||
     (pathname === "/dissolve" && !ready) ||
     override;

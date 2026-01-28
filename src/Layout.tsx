@@ -18,7 +18,7 @@ const Layout = () => {
   }, [location.pathname, setValue]);
 
   return (
-    <div className="flex flex-col grow w-full h-dvh">
+    <div className="flex flex-col grow w-full h-full min-h-dvh">
       <Nav />
       <CanvasBackground />
       <AnimatedOutlet />

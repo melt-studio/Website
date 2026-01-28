@@ -1,7 +1,7 @@
 import ProjectHighlight from "./ProjectHighlight";
 import { useStore } from "../stores/store";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
-import Link from "./Link";
+// import Link from "./Link";
 import { useState } from "react";
 
 export type TileLayout = {
@@ -68,7 +68,7 @@ const ProjectHighlights = () => {
           ))}
         </div>
       </div>
-      <motion.div
+      {/* <motion.div
         variants={textVariants}
         transition={{ duration: 2, delay: 1, ease: "easeInOut" }}
         viewport={{ amount: 0.1, once: false }}
@@ -77,9 +77,9 @@ const ProjectHighlights = () => {
         className="px-sm md:px-md w-full flex flex-col gap-4 my-10 items-center md:items-end"
       >
         <div className="uppercase w-fit">
-          <Link to="/work">All Projects</Link>
+          <Link to="/works">All Projects</Link>
         </div>
-      </motion.div>
+      </motion.div> */}
     </div>
   );
 };

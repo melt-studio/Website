@@ -8,7 +8,7 @@ const SubNav = () => {
   const location = useLocation();
   const activeProject = useStore((state) => state.activeProject);
 
-  const projectPage = location.pathname.includes("/work/");
+  const projectPage = location.pathname.includes("/works/");
   const dissolve = location.pathname === "/dissolve";
   const docs = location.pathname.includes("/docs/");
 

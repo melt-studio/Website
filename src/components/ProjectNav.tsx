@@ -33,7 +33,7 @@ const ProjectNav = () => {
       >
         <div className="hidden md:grid grid-cols-2 md:grid-cols-[1fr_2fr] gap-4">
           {activeProject.prev && (
-            <Link to={`/work/${activeProject.prev}`} invertUnderline>
+            <Link to={`/works/${activeProject.prev.url}`} invertUnderline>
               {`< Previous`}
             </Link>
           )}
@@ -43,7 +43,7 @@ const ProjectNav = () => {
             </Link>
             {activeProject.next && (
               <div>
-                <Link to={`/work/${activeProject.next}`} invertUnderline>
+                <Link to={`/works/${activeProject.next.url}`} invertUnderline>
                   {`Next >`}
                 </Link>
               </div>
@@ -52,7 +52,7 @@ const ProjectNav = () => {
         </div>
         <div className="flex md:hidden gap-4 justify-between items-center w-full">
           {activeProject.prev && (
-            <Link to={`/work/${activeProject.prev}`} invertUnderline className="mr-auto">
+            <Link to={`/works/${activeProject.prev.url}`} invertUnderline className="mr-auto">
               {`< Previous`}
             </Link>
           )}
@@ -60,7 +60,7 @@ const ProjectNav = () => {
             Close
           </Link>
           {activeProject.next && (
-            <Link to={`/work/${activeProject.next}`} invertUnderline className="ml-auto">
+            <Link to={`/works/${activeProject.next.url}`} invertUnderline className="ml-auto">
               {`Next >`}
             </Link>
           )}
