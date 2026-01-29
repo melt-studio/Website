@@ -16,7 +16,7 @@ export default function Copy({
   const lines = copy.split("\n").filter((line) => line.trim() !== "");
 
   const variants = {
-    hidden: { opacity: 0, transform: "translateY(40px)" },
+    hidden: { opacity: 0, transform: "translateY(-40px)" },
     visible: {
       opacity: 1,
       transform: "translateY(0px)",
@@ -28,7 +28,7 @@ export default function Copy({
   };
 
   const parentVariants = {
-    hidden: { opacity: 0, transform: "translateY(40px)" },
+    hidden: { opacity: 0, transform: "translateY(-40px)" },
     visible: {
       opacity: 1,
       transform: "translateY(0px)",

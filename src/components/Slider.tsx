@@ -17,7 +17,7 @@ const Slider = ({ label, value, onChange, step = 0.01, min = 0, max = 1 }: Slide
   return (
     <div className="flex items-center grow justify-between md:justify-around">
       {label && <label>{label}</label>}
-      <div className="flex items-center relative h-10 w-40 lg:w-30 xl:w-40 lg:-ml-2 lg:-mr-1 xl:mx-0">
+      <div className="flex items-center relative h-10 w-40 2xl:w-40 lg:-ml-2 lg:-mr-1 xl:mx-0">
         <div className="h-px absolute left-5 right-5 bg-white pointer-events-none"></div>
         <div className="h-10 absolute left-5 right-5 pointer-events-none">
           <div

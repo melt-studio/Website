@@ -54,16 +54,15 @@ type ProjectFields = {
   copy: string;
   copy2title: string;
   copy2: string;
-  // tag: string;
   projectThumbnail: ImageAirtable[];
   splashImage: Media[];
-  // coverThumb: Media[];
   projectImages: Media[];
   galleryImages: Media[];
-  // approachCopy: string;
-  // approachMedia: Media[];
   backgroundColor: string;
-  // textColor: string;
+  highlighted: boolean;
+  highlightThumbnail: ImageAirtable[];
+  highlightCopy: string;
+  highlightHideSplash: boolean;
 };
 
 export type ProjectAirtable = AirtableRecords & {
@@ -79,6 +78,7 @@ type AboutFields = {
   services: string[];
   clients: string[];
   headline2: string;
+  tagline: string[];
 };
 
 export type AboutAirtable = AirtableRecords & {
@@ -122,8 +122,8 @@ export type DocumentAirtableUnlocked = {
 export type ProjectFormatted = ProjectAirtable & {
   theme: [string, string];
   index: number;
-  next: string | null;
-  prev: string | null;
+  next: { name: string; url: string } | null;
+  prev: { name: string; url: string } | null;
   contrast: {
     hex: string;
     diff: number;

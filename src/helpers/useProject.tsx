@@ -8,7 +8,7 @@ const useProject = () => {
   const { name } = useParams();
   const project = projects.find((p) => name !== undefined && p.fields.projectUrl.toLowerCase() === name.toLowerCase());
   const location = useLocation();
-  const projectPage = name !== undefined && location.pathname.includes("/work/") && project !== undefined;
+  const projectPage = name !== undefined && location.pathname.includes("/works/") && project !== undefined;
 
   useEffect(() => {
     if (projectPage && useStore.getState().activeProject?.id !== project.id) {

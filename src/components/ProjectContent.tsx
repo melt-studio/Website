@@ -1,6 +1,6 @@
 import { ProjectFormatted } from "../types";
 import Copy from "./Copy";
-import Gallery from "./Gallery";
+import Gallery from "./GallerySticky";
 import List from "./List";
 import ProjectImage from "./ProjectImage";
 import Section from "./Section";
@@ -24,7 +24,7 @@ const ProjectContent = ({ project }: { project: ProjectFormatted }) => {
   return (
     <div className="content">
       <Section type="column">
-        <div className="my-4 md:my-0">{scope && <List items={scope} />}</div>
+        <div className="mb-4 md:my-0">{scope && <List items={scope} />}</div>
         {copy ? <Copy copy={copy} /> : <div></div>}
       </Section>
 

@@ -43,9 +43,6 @@ const Gradient = () => {
         value: new Vector4(0, 0, 1024, 1024),
       },
       PI: { value: Math.PI },
-      uMode: {
-        value: new Vector4(),
-      },
     };
 
     return [uniforms];
@@ -64,24 +61,22 @@ const Gradient = () => {
 
   useEffect(() => {
     if (ref.current && gradient) {
-      if (location.pathname === "/" || location.pathname === "/about") {
+      if (location.pathname === "/" || location.pathname === "/works" || location.pathname === "/about") {
         ref.current.material.uniforms.uTheme.value.x = 0;
-        ref.current.material.uniforms.uMode.value.x = 0;
         gradient.style.opacity = "0%";
         gradient.style.backgroundColor = themeColors.light.hex;
         gradient.style.borderColor = themeColors.light.hex;
       } else {
         ref.current.material.uniforms.uTheme.value.x = 1;
-        ref.current.material.uniforms.uMode.value.x = 1;
         gradient.style.opacity = "100%";
 
-        if (location.pathname.includes("/work/") && activeProject) {
+        if (location.pathname.includes("/works/") && activeProject) {
           gradient.style.backgroundColor = activeProject.theme[0];
           gradient.style.borderColor = activeProject.theme[1];
         }
       }
 
-      if (location.pathname === "/" || location.pathname.includes("/work/")) {
+      if (location.pathname === "/" || location.pathname === "/works" || location.pathname.includes("/works/")) {
         gradient.style.scale = "1";
       } else {
         gradient.style.scale = "0";
@@ -123,7 +118,7 @@ const Gradient = () => {
 
   let visible = false;
   if (location.pathname === "/dissolve") visible = true;
-  if (size.width >= 768 && !location.pathname.includes("/docs/")) visible = true;
+  if (size.width >= config.breakpoints.mobile && !location.pathname.includes("/docs/")) visible = true;
 
   return (
     <mesh ref={ref} visible={visible}>

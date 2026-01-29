@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 
 type ImageProps = {
   src: string;
@@ -9,9 +9,10 @@ type ImageProps = {
   cover?: boolean;
   className?: string;
   loading?: "eager" | "lazy" | undefined;
+  style?: CSSProperties;
 };
 
-const Image = ({ src, width, height, alt, loading = "eager", className }: ImageProps) => {
+const Image = ({ src, width, height, alt, loading = "eager", className, style = {} }: ImageProps) => {
   const [loaded, setLoaded] = useState(false);
 
   if (!src) return null;
@@ -29,7 +30,7 @@ const Image = ({ src, width, height, alt, loading = "eager", className }: ImageP
       )}
       width={width}
       height={height}
-      style={{ aspectRatio: width / height }}
+      style={{ aspectRatio: width / height, ...style }}
       onLoad={() => setLoaded(true)}
       alt={alt}
       loading={loading}

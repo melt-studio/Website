@@ -1,4 +1,4 @@
-import { getTexUv, map, rand, smoothUnionSDF, zuc } from "./utils";
+import { map, rand, smoothUnionSDF, zuc } from "./utils";
 
 export const fragmentShaderGrad = /* glsl */ `
   varying vec2 vUv;
@@ -12,9 +12,7 @@ export const fragmentShaderGrad = /* glsl */ `
   uniform vec3 uTheme;
   uniform vec3 uTheme0;
   uniform vec3 uTheme1;
-  uniform vec4 uMode;
-
-  ${getTexUv}
+  
   ${map}
   ${smoothUnionSDF}
   ${rand}

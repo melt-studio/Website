@@ -13,7 +13,7 @@ function Section({ title, type, style, children }: SectionProps) {
   if (!children) return null;
 
   const childVariants = {
-    hidden: { opacity: 0, transform: "translateY(40px)" },
+    hidden: { opacity: 0, transform: "translateY(-40px)" },
     visible: {
       opacity: 1,
       transform: "translateY(0px)",

@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import { CSSProperties, RefObject, useState } from "react";
 
+export type VideoSize = { width: number; height: number } | null;
+
 type VideoProps = {
   src: string;
   type: string;
@@ -15,6 +17,7 @@ type VideoProps = {
   onPause?: () => void;
   onEnded?: () => void;
   style?: CSSProperties;
+  setSize?: (size: VideoSize) => void;
 };
 
 const Video = ({
@@ -31,8 +34,9 @@ const Video = ({
   onPause,
   onEnded,
   style,
+  setSize,
 }: VideoProps) => {
-  const [videoSize, setVideoSize] = useState<{ width: number; height: number } | null>(null);
+  const [videoSize, setVideoSize] = useState<VideoSize>(null);
 
   if (!src) return null;
 
@@ -45,8 +49,10 @@ const Video = ({
       onPause={onPause}
       onLoadedMetadata={(e) => {
         const { videoWidth, videoHeight } = e.target as HTMLVideoElement;
-        setVideoSize({ width: videoWidth, height: videoHeight });
+        const videoSize = { width: videoWidth, height: videoHeight };
+        setVideoSize(videoSize);
         if (ref && ref.current) ref.current.style.aspectRatio = `${videoWidth}/${videoHeight}`;
+        if (setSize) setSize(videoSize);
       }}
       className={clsx(
         "transition-opacity duration-1000",

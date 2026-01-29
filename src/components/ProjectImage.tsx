@@ -1,48 +1,56 @@
 import clsx from "clsx";
 import { ImageAirtable, Media } from "../types";
 import Image from "./Image";
-import Video from "./Video";
+import Video, { VideoSize } from "./Video";
 import { motion } from "motion/react";
 import { useStore } from "../stores/store";
 import { CSSProperties, useRef, useState } from "react";
+import config from "../config.json";
 
 type ProjectImageProps = { image: Media; style?: CSSProperties };
 
 const ProjectImage = ({ image, style }: ProjectImageProps) => {
   const video = useRef<HTMLVideoElement | null>(null);
   const viewport = useStore((state) => state.viewport);
+  const [videoSize, setVideoSize] = useState<VideoSize>(null);
   const [paused, setPaused] = useState(true);
 
   if (!image || (!image.type.includes("image/") && !image.type.includes("video/"))) return null;
 
-  const size = image.filename.match(/(\[|^)(medium)(\]|$)/g);
-  const sz = viewport.width >= 768 && size && size[size.length - 1];
+  const size = image.filename.match(/(\[|^)(small|medium|full)(\]|$)/g);
+  const sz =
+    viewport.width >= config.breakpoints.mobile && size && size[size.length - 1] ? size[size.length - 1] : null;
   const position = image.filename.match(/(\[|^)(left|center|right)(\]|$)/g);
   const pos = position && position[position.length - 1];
 
+  const getLayout = (landscape: boolean, video: boolean = false) => ({
+    "w-auto h-full max-h-[90dvh]": !landscape,
+    "w-2/5": sz === "[small]" && landscape,
+    "w-2/3": sz === "[medium]" && landscape,
+    "w-full": (!video && !sz && landscape) || (video && sz === "[full]" && landscape),
+    "mr-auto": pos === "[left]",
+    "ml-auto": pos === "[right]",
+    "mx-auto": !pos,
+  });
+
   const getMedia = () => {
     if (image.type.includes("video/")) {
-      const landscape = image.filename.match(/(\[|^)(landscape)(\]|$)/g);
+      const landscape = videoSize ? videoSize.width / videoSize.height > 1 : true;
 
       return (
-        <div
-          className={clsx("relative group", {
-            "w-fit h-full max-h-[90dvh]": !landscape,
-            "w-full h-fit": landscape,
-            "mr-auto": pos === "[left]",
-            "ml-auto": pos === "[right]",
-            "mx-auto": pos === "[center]",
-          })}
-        >
+        <div className={clsx("relative group", getLayout(landscape, true))}>
           <Video
             src={`${image.url}#t=0.001`}
-            className={landscape ? "w-full h-fit" : "w-fit h-full"}
+            className={landscape ? "w-full h-fit" : "w-fit h-full max-h-[90dvh]"}
             type={image.type}
             ref={video}
             onEnded={() => setPaused(true)}
             onPlay={() => setPaused(false)}
             onPause={() => setPaused(true)}
             controls={false}
+            autoplay
+            loop
+            setSize={setVideoSize}
           />
 
           <div
@@ -102,22 +110,7 @@ const ProjectImage = ({ image, style }: ProjectImageProps) => {
       const { width, height } = image as ImageAirtable;
       const landscape = width / height > 1;
 
-      return (
-        <Image
-          src={image.url}
-          width={width}
-          height={height}
-          className={clsx("", {
-            "w-2/3": sz === "[medium]" && landscape,
-            "w-full h-auto": !sz && landscape,
-            "h-full max-h-[90dvh] w-auto": !sz && !landscape,
-            "w-auto h-full": sz && !landscape,
-            "mr-auto": pos === "[left]",
-            "ml-auto": pos === "[right]",
-            "mx-auto": pos === "[center]",
-          })}
-        />
-      );
+      return <Image src={image.url} width={width} height={height} className={clsx("", getLayout(landscape))} />;
     }
 
     return null;

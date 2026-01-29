@@ -1,9 +1,10 @@
 import ProjectTile from "./ProjectTile";
 import { useStore } from "../stores/store";
 import clsx from "clsx";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { seededRandom } from "three/src/math/MathUtils.js";
 import { Easing, motion } from "motion/react";
+import config from "../config.json";
 
 export type TileLayout = {
   w: number;
@@ -26,14 +27,14 @@ function getRandomInt(min: number, max: number, seed = 0) {
 
 const ProjectTiles = () => {
   const allProjects = useStore((state) => state.projects);
-  const setValue = useStore((state) => state.setValue);
+  const viewport = useStore((state) => state.viewport);
 
   const projects = allProjects.filter(
     (project) => project.fields.projectThumbnail !== undefined && project.fields.projectThumbnail.length > 0
   );
 
   const [active, setActive] = useState<string | null>(null);
-  const projectTiles = useRef<HTMLDivElement | null>(null);
+  // const projectTiles = useRef<HTMLDivElement | null>(null);
 
   const layout: TileLayout[] = useMemo(() => {
     if (!projects) return [];
@@ -46,7 +47,7 @@ const ProjectTiles = () => {
     const seed = 123;
 
     while (count < projects.length) {
-      const cols = (rows.length % 2) + 1;
+      const cols = viewport.width < config.breakpoints.mobile ? 1 : (rows.length % 2) + 1;
       let n = grid;
       let n2 = 0;
       const i = rows.length;
@@ -72,7 +73,10 @@ const ProjectTiles = () => {
         let w;
         if (j === cols - 1) w = n;
         else w = Math.floor(n / (cols - j));
-        const w2 = landscape ? 18 : 12;
+        let w2 = landscape ? 18 : 12;
+        if (viewport.width < config.breakpoints.mobile) {
+          w2 = landscape ? 30 : 20;
+        }
         const off = i === 0 ? Math.floor((w - w2) / 2) : getRandomInt(1, w - w2 - 1, count + 150 + j + i + seed);
         const start = n2 + off + 1;
         const end = start + w2;
@@ -85,7 +89,11 @@ const ProjectTiles = () => {
           w,
           colStart: start,
           colEnd: end,
-          marginTop: getRandomInt(0, landscape && cols > 1 ? 20 : 10, count + i + j + w - 2),
+          marginTop: getRandomInt(
+            0,
+            landscape && cols > 1 ? (viewport.width < config.breakpoints.mobile ? 10 : 20) : 10,
+            count + i + j + w - 2
+          ),
           marginLeft: 0,
           orientation: orientations[j],
         });
@@ -100,13 +108,13 @@ const ProjectTiles = () => {
     const layout = rows.flat();
 
     return layout;
-  }, [projects]);
+  }, [projects, viewport]);
 
-  useEffect(() => {
-    if (projectTiles.current) {
-      setValue("projectTiles", projectTiles.current);
-    }
-  }, [projectTiles, setValue]);
+  // useEffect(() => {
+  //   if (projectTiles.current) {
+  //     setValue("projectTiles", projectTiles.current);
+  //   }
+  // }, [projectTiles, setValue]);
 
   if (projects.length === 0) return null;
 
@@ -115,9 +123,9 @@ const ProjectTiles = () => {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ amount: "some", once: false }}
-      transition={{ duration: 2, ease: "easeInOut" as Easing, delay: 1 }}
-      className={clsx("flex md:gap-10 pt-40 pb-40 w-full justify-around relative z-2 px-2 max-w-[2560px] mx-auto")}
-      ref={projectTiles}
+      transition={{ duration: 2, ease: "easeInOut" as Easing, delay: 0 }}
+      className={clsx("flex md:gap-10 pt-30 pb-40 w-full justify-around relative z-2 px-2 max-w-[2560px] mx-auto")}
+      // ref={projectTiles}
     >
       <div className="grid grid-cols-[repeat(40,_1fr)] w-full h-auto items-start px-2.5 gap-y-[4rem] max-w-[1920px] relative">
         {projects.map((project, i) => (

@@ -146,7 +146,7 @@ const Blob = () => {
     }
 
     if (styleScroll && scroll) {
-      const max = 0.25;
+      const max = 0.3;
       const s = window.scrollY / size.height;
       if (s < max) scroll.style.opacity = "0";
       else scroll.style.opacity = "1";

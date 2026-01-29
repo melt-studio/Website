@@ -6,13 +6,15 @@ import LogoDrippyLight from "../assets/drippy-light.gif";
 const Placeholder = ({ override = false, light = false }: { override?: boolean; light?: boolean }) => {
   const pathname = useStore((state) => state.pathname);
   const activeProject = useStore((state) => state.activeProject);
+  const projects = useStore((state) => state.projects);
   const about = useStore((state) => state.about);
   const ready = useStore((state) => state.ready);
 
   if (!pathname) return null;
 
   const show =
-    (pathname.includes("/work/") && !activeProject) ||
+    (pathname.includes("/works/") && !activeProject) ||
+    (pathname === "/works" && projects.length === 0) ||
     (pathname === "/about" && about.length === 0) ||
     (pathname === "/dissolve" && !ready) ||
     override;

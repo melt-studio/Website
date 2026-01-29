@@ -4,10 +4,10 @@ export default function List({ items }: { items: string[] }) {
   if (items.length === 0) return null;
 
   const childVariants = {
-    hidden: { opacity: 0, transform: "translateY(40px)" },
+    hidden: { opacity: 0, transform: "translateY(-40%)" },
     visible: {
       opacity: 1,
-      transform: "translateY(0px)",
+      transform: "translateY(0%)",
       transition: {
         duration: 1,
         ease: "easeInOut" as Easing,
@@ -16,7 +16,7 @@ export default function List({ items }: { items: string[] }) {
   };
 
   const parentVariants = {
-    hidden: { opacity: 0, transform: "translateY(40px)" },
+    hidden: { opacity: 0, transform: "translateY(-40px)" },
     visible: {
       opacity: 1,
       transform: "translateY(0px)",

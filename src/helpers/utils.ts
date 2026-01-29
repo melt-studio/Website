@@ -24,8 +24,10 @@ export const formatProjects = (projects: ProjectAirtable[]): ProjectFormatted[] 
   const projectedFormatted = projects.map((project, i) => {
     const n = projects.length;
     const index = i;
-    const next = n > 0 ? projects[(index + 1) % n].fields.projectUrl.toLowerCase() : null;
-    const prev = n > 0 ? projects[(index - 1 + n) % n].fields.projectUrl.toLowerCase() : null;
+    const nx = n > 0 ? projects[(index + 1) % n] : null;
+    const pv = n > 0 ? projects[(index - 1 + n) % n] : null;
+    const next = nx ? { name: nx.fields.name, url: nx.fields.projectUrl.toLowerCase() } : null;
+    const prev = pv ? { name: pv.fields.name, url: pv.fields.projectUrl.toLowerCase() } : null;
     const primary = new Color(project.fields.backgroundColor.split(",")[0].trim());
     const brightness = getBrightness(primary);
 

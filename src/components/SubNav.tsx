@@ -8,7 +8,7 @@ const SubNav = () => {
   const location = useLocation();
   const activeProject = useStore((state) => state.activeProject);
 
-  const projectPage = location.pathname.includes("/work/");
+  const projectPage = location.pathname.includes("/works/");
   const dissolve = location.pathname === "/dissolve";
   const docs = location.pathname.includes("/docs/");
 
@@ -16,8 +16,8 @@ const SubNav = () => {
 
   return (
     <motion.nav
-      initial={{ opacity: 0, transform: "translateY(100%)" }}
-      animate={hide ? { opacity: 0, transform: "translateY(100%)" } : { opacity: 1, transform: "translateY(0)" }}
+      initial={{ opacity: 0, transform: "translateY(-100%)" }}
+      animate={hide ? { opacity: 0, transform: "translateY(-100%)" } : { opacity: 1, transform: "translateY(0)" }}
       transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
       className={clsx(
         "nav bottom-0 right-0 w-fit h-fit fixed items-center justify-between p-sm md:p-md uppercase animate-[fade-in_2s_ease_1] pointer-events-none mix-blend-difference text-light fill-light",

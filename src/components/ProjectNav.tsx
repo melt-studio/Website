@@ -8,10 +8,13 @@ const ProjectNav = () => {
   if (!activeProject) return null;
 
   const variants = {
-    hidden: { opacity: 0, transform: "translateY(20px)" },
+    hidden: {
+      opacity: 0,
+      // transform: "translateY(20px)"
+    },
     visible: {
       opacity: 1,
-      transform: "translateY(0px)",
+      // transform: "translateY(0px)",
       transition: {
         duration: 1,
         ease: "easeInOut" as Easing,
@@ -20,7 +23,7 @@ const ProjectNav = () => {
   };
 
   return (
-    <div className="footer bg-light relative z-5">
+    <div className="bg-light relative z-5">
       <motion.div
         whileInView="visible"
         viewport={{ amount: 0.5, once: true }}
@@ -30,7 +33,7 @@ const ProjectNav = () => {
       >
         <div className="hidden md:grid grid-cols-2 md:grid-cols-[1fr_2fr] gap-4">
           {activeProject.prev && (
-            <Link to={`/work/${activeProject.prev}`} invertUnderline>
+            <Link to={`/works/${activeProject.prev.url}`} invertUnderline>
               {`< Previous`}
             </Link>
           )}
@@ -40,7 +43,7 @@ const ProjectNav = () => {
             </Link>
             {activeProject.next && (
               <div>
-                <Link to={`/work/${activeProject.next}`} invertUnderline>
+                <Link to={`/works/${activeProject.next.url}`} invertUnderline>
                   {`Next >`}
                 </Link>
               </div>
@@ -49,7 +52,7 @@ const ProjectNav = () => {
         </div>
         <div className="flex md:hidden gap-4 justify-between items-center w-full">
           {activeProject.prev && (
-            <Link to={`/work/${activeProject.prev}`} invertUnderline className="mr-auto">
+            <Link to={`/works/${activeProject.prev.url}`} invertUnderline className="mr-auto">
               {`< Previous`}
             </Link>
           )}
@@ -57,7 +60,7 @@ const ProjectNav = () => {
             Close
           </Link>
           {activeProject.next && (
-            <Link to={`/work/${activeProject.next}`} invertUnderline className="ml-auto">
+            <Link to={`/works/${activeProject.next.url}`} invertUnderline className="ml-auto">
               {`Next >`}
             </Link>
           )}

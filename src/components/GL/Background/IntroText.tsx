@@ -24,8 +24,11 @@ const IntroText = () => {
 
   const animationProps = {
     fixed: true,
-    max: 0.25,
+    max: 0.3,
     active: pathname === "/",
+    amount: 0,
+    scroll: true,
+    scrollFactor: 0.5,
   };
 
   return (

@@ -32,5 +32,8 @@
     "colors": 0,
     "waves": 0.5,
     "distortion": 0
+  },
+  "breakpoints": {
+    "mobile": 768
   }
 }
