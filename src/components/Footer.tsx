@@ -37,13 +37,26 @@ const Footer = () => {
   };
 
   const childVariants = {
-    hidden: { opacity: 0, transform: "translateY(20px)" },
+    hidden: { opacity: 0, transform: "translateY(-20px)" },
     visible: {
       opacity: 1,
       transform: "translateY(0px)",
       transition: {
         duration: 1,
         delay: 1,
+        ease: "easeInOut" as Easing,
+      },
+    },
+  };
+
+  const featureVariants = {
+    hidden: { opacity: 0, transform: "translateY(-40px)" },
+    visible: {
+      opacity: 1,
+      transform: "translateY(0px)",
+      transition: {
+        duration: 1.5,
+        delay: 1.5,
         ease: "easeInOut" as Easing,
       },
     },
@@ -118,7 +131,7 @@ const Footer = () => {
         className="absolute inset-0 bg-dark origin-bottom scale-y-1000 pointer-events-none"
       />
       <div className="flex flex-col gap-15 md:gap-30 p-sm pb-md md:p-md z-10 pt-20 md:pt-20 h-full">
-        <motion.div variants={childVariants} className="flex flex-col w-full grow justify-center">
+        <motion.div variants={featureVariants} className="flex flex-col w-full grow justify-center">
           {getFeature()}
         </motion.div>
 

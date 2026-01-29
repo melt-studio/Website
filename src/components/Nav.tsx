@@ -5,26 +5,33 @@ import Link from "./Link";
 import Controls from "./GL/Background/Controls";
 import { useStore } from "../stores/store";
 import config from "../config.json";
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { mapLinear } from "three/src/math/MathUtils.js";
 
 type TextAnimationProps = {
   root?: string;
+  placeholder: string;
   lines?: string[];
   letter?: boolean;
   direction?: "up" | "down";
 };
 
-const TextAnimation = ({ root = "", lines, letter = false, direction = "up" }: TextAnimationProps) => {
+const TextAnimation = ({
+  root = "",
+  lines,
+  placeholder = "",
+  letter = false,
+  direction = "up",
+}: TextAnimationProps) => {
   const linesRef = useRef<HTMLDivElement>(null);
   const viewport = useStore((state) => state.viewport);
   const [widths, setWidths] = useState<number[]>([]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!linesRef.current) return;
     const lineNodes: NodeListOf<HTMLSpanElement> = linesRef.current.querySelectorAll("span.line");
     setWidths([...lineNodes].map((line) => line.offsetWidth));
-  }, [viewport]);
+  }, [viewport, lines]);
 
   useAnimationFrame((time) => {
     if (!lines || !linesRef.current) return;
@@ -62,7 +69,7 @@ const TextAnimation = ({ root = "", lines, letter = false, direction = "up" }: T
     });
   });
 
-  if (!lines) return null;
+  if (!lines || !widths) return placeholder;
 
   let linesSplit = lines.map((word) => word.split(letter ? "" : " "));
   const max = Math.max(...linesSplit.map((line) => line.length));
@@ -120,7 +127,7 @@ const Nav = () => {
   const taglines = about[0] ? about[0].fields.tagline : undefined;
 
   const childVariants = {
-    hidden: { opacity: 0, transform: "translateY(100%)" },
+    hidden: { opacity: 0, transform: "translateY(-100%)" },
     visible: {
       opacity: 1,
       transform: "translateY(0%)",
@@ -199,6 +206,7 @@ const Nav = () => {
             {taglines ? (
               <TextAnimation
                 root={homeLabel.root}
+                placeholder={homeLabel.default}
                 lines={taglines}
                 direction="down"
                 // letter={true}

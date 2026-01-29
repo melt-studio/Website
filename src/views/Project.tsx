@@ -42,7 +42,7 @@ const Project = () => {
         <ProjectContent project={activeProject} />
 
         <motion.div
-          initial={{ opacity: 0, transform: "translateY(100%)" }}
+          initial={{ opacity: 0, transform: "translateY(-100%)" }}
           animate={{ opacity: 1, transform: "translateY(0%)" }}
           transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
           className={clsx(

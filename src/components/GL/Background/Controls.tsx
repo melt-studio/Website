@@ -64,7 +64,7 @@ const Controls = () => {
     hidden: {
       opacity: 0,
       transform:
-        viewport.width < config.breakpoints.mobile ? "translate3d(0px, 25%, 0px)" : "translate3d(0px, 100%, 0px)",
+        viewport.width < config.breakpoints.mobile ? "translate3d(0px, -25%, 0px)" : "translate3d(0px, -100%, 0px)",
     },
     show: {
       transform: "translate3d(0px, 0%, 0px)",

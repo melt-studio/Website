@@ -99,9 +99,9 @@ export function WordAnimation({
   });
 
   const transform = {
-    below: `translate3d(0px, ${transformOffset}, 0px)`,
+    below: `translate3d(0px, -${transformOffset}, 0px)`,
     show: "translate3d(0px, 0%, 0px)",
-    above: `translate3d(0px, -${transformOffset}, 0px)`,
+    above: keyframe ? `translate3d(0px, ${transformOffset}, 0px)` : `translate3d(0px, -${transformOffset}, 0px)`,
   };
 
   const opacity = {
@@ -122,7 +122,7 @@ export function WordAnimation({
       opacity: opacity[keyframe ? (keyframeExit ? "above" : "show") : show.current],
       transition: {
         duration,
-        delay: i * unitDelay + delay,
+        delay: keyframe && keyframeExit ? (splittedText.length - i) * unitDelay + delay : i * unitDelay + delay,
         ease: easing,
       },
     }),
