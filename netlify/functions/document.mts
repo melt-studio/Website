@@ -66,7 +66,7 @@ type DocumentAirtable = {
 };
 
 const KEY = Netlify.env.get("REACT_APP_AIRTABLE_KEY");
-const APP = Netlify.env.get("REACT_APP_AIRTABLE_APP");
+const APP = Netlify.env.get("REACT_APP_AIRTABLE_APP_DOCUMENTS");
 const TABLE = Netlify.env.get("REACT_APP_AIRTABLE_TABLE_DOCUMENTS");
 const URL = `${APP}/${TABLE}`;
 
