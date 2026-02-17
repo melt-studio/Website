@@ -170,13 +170,13 @@ const Nav = () => {
   return (
     <nav
       className={clsx(
-        "nav flex top-0 left-0 w-full fixed items-start justify-between p-sm md:p-md uppercase z-99 transition-[colors,_opacity] duration-2000",
+        "nav top-0 left-0 w-full fixed items-start justify-between p-sm md:p-md uppercase z-99 transition-[colors,_opacity] duration-2000",
         {
           "text-light fill-light": light,
           "text-mid fill-mid": mid,
           "mix-blend-difference text-light": !(light || mid),
-          "opacity-0": docs,
-          "opacity-100": !docs,
+          hidden: docs,
+          flex: !docs,
           "h-full gap-0 flex-col 2xl:flex-row": dissolve,
           "h-fit md:h-22 gap-4": !dissolve,
         }
