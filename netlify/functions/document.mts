@@ -134,7 +134,7 @@ const getDocument = async (pageUrl: any) => {
 
     const match = (response.data.records as DocumentAirtable[]).find(
       (document) =>
-        document.fields.pageUrl !== undefined && document.fields.pageUrl.toLowerCase() === pageUrl.toLowerCase()
+        document.fields.pageUrl !== undefined && document.fields.pageUrl.toLowerCase().trim() === pageUrl.toLowerCase()
     );
 
     if (!match) return pass({ error: "Document not found" }, 404);
