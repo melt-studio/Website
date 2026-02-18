@@ -170,15 +170,17 @@ const DocumentContent = () => {
   const title = doc.fields.title ? <title>{`MELT – ${doc.fields.title}`}</title> : null;
 
   if (embedUrl) {
+    const embedUrl_ = embedUrl.replace("figma.com/deck/", "figma.com/proto/");
+
     return (
-      <div className="w-full h-full relative">
+      <div className="w-full h-full relative overflow-hidden">
         {title}
         <div
           className={
-            embedUrl.includes("figma.com/proto") ? "absolute -left-12 -top-15 -right-12 -bottom-15" : "w-full h-full"
+            embedUrl.includes("figma.com/proto/") ? "absolute -left-12 -top-15 -right-12 -bottom-15" : "w-full h-full"
           }
         >
-          <iframe src={embedUrl} allowFullScreen className="w-full h-full animate-[fade-in_1s_ease-in-out] z-1" />
+          <iframe src={embedUrl_} allowFullScreen className="w-full h-full animate-[fade-in_1s_ease-in-out] z-1" />
         </div>
       </div>
     );
