@@ -175,11 +175,7 @@ const DocumentContent = () => {
     return (
       <div className="w-full h-full relative overflow-hidden">
         {title}
-        <div
-          className={
-            embedUrl.includes("figma.com/proto/") ? "absolute -left-12 -top-15 -right-12 -bottom-15" : "w-full h-full"
-          }
-        >
+        <div className={embedUrl.includes("figma.com/proto/") ? "w-full h-full" : "w-full h-full px-12 py-15"}>
           <iframe src={embedUrl_} allowFullScreen className="w-full h-full animate-[fade-in_1s_ease-in-out] z-1" />
         </div>
       </div>
@@ -195,7 +191,7 @@ const DocumentContent = () => {
         <div
           className={clsx("flex items-center justify-center", {
             "w-full h-full": pdf,
-            "absolute top-0 left-0 right-0 bottom-0": !pdf,
+            "absolute top-15 left-12 right-12 bottom-15": !pdf,
           })}
         >
           <DocumentMedia media={media[0]} />
