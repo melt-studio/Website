@@ -191,7 +191,7 @@ const DocumentContent = () => {
         <div
           className={clsx("flex items-center justify-center", {
             "w-full h-full": pdf,
-            "absolute top-15 left-12 right-12 bottom-15": !pdf,
+            "absolute inset-y-15 inset-x-12": !pdf,
           })}
         >
           <DocumentMedia media={media[0]} />
