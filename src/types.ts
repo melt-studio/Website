@@ -62,6 +62,7 @@ type ProjectFields = {
   highlighted: boolean;
   highlightThumbnail: ImageAirtable[];
   highlightCopy: string;
+  highlightCopyColor: string;
   highlightHideSplash: boolean;
 };
 
@@ -100,10 +101,11 @@ type DocumentFields = {
   pageUrl: string;
   embedUrl?: string;
   media?: Media[];
+  pdf?: Media[];
   password?: string;
 };
 
-type DocumentFieldsLocked = Omit<DocumentFields, "embedUrl" | "media" | "password">;
+type DocumentFieldsLocked = Omit<DocumentFields, "embedUrl" | "media" | "pdf" | "password">;
 
 type DocumentFieldsUnlocked = Omit<DocumentFields, "password">;
 

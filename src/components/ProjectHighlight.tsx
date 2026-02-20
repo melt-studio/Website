@@ -1,17 +1,18 @@
 import { ImageAirtable, ProjectFormatted } from "../types";
 import Image from "./Image";
 import { useStore } from "../stores/store";
-import { CSSProperties, HTMLAttributes } from "react";
+import { CSSProperties, HTMLAttributes, useEffect } from "react";
 import clsx from "clsx";
 import { Link } from "react-router";
 import Video from "./Video";
 import { themeColors } from "../helpers/utils";
 import { motion } from "motion/react";
-import { ScrollDirection } from "./ProjectHighlights";
+import useObserver from "../helpers/useObserver";
 
 interface ProjectHighlightProps extends HTMLAttributes<HTMLDivElement> {
   project: ProjectFormatted;
-  scrollDirection: ScrollDirection;
+  index: number;
+  updateActive: (index: number, position: string) => void;
   className?: string;
 }
 
@@ -44,7 +45,7 @@ const getThumbPos = (thumbnail: ImageAirtable | undefined): CSSProperties => {
   return objectPos ? { objectPosition: objectPos } : {};
 };
 
-const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighlightProps) => {
+const ProjectHighlight = ({ project, index, updateActive, className }: ProjectHighlightProps) => {
   const background = useStore((state) => state.background);
   const gradient = useStore((state) => state.gradient);
 
@@ -55,6 +56,15 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
     if (thumb.type.includes("video/")) thumbnail = thumb;
     else if (thumb.type.includes("image/")) thumbnail = thumb.thumbnails.large;
   }
+
+  const [ref, position] = useObserver<HTMLDivElement>({
+    amount: index === 0 ? 0 : 0.1,
+    once: false,
+  });
+
+  useEffect(() => {
+    updateActive(index, position.current);
+  }, [position, updateActive, index]);
 
   const objectPos = getThumbPos(thumb);
 
@@ -78,26 +88,27 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
     style.aspectRatio = thumbnail.width / thumbnail.height;
   }
 
-  const tileVariants = {
-    hidden: {
-      opacity: 0,
-      transform: scrollDirection === "down" ? "translateY(-100px)" : "translateY(100px)",
-    },
-    visible: {
-      opacity: 1,
-      transform: "translateY(0px)",
-    },
-  };
+  // const tileVariants = {
+  //   hidden: {
+  //     opacity: 0,
+  //     transform: scrollDirection === "down" ? "translateY(-100px)" : "translateY(100px)",
+  //   },
+  //   visible: {
+  //     opacity: 1,
+  //     transform: "translateY(0px)",
+  //   },
+  // };
 
   return (
     <motion.div
-      variants={tileVariants}
-      transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
-      viewport={{ amount: 0, once: false }}
-      whileInView="visible"
-      initial="hidden"
+      ref={ref}
+      // variants={tileVariants}
+      // transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
+      // viewport={{ amount: 0, once: false }}
+      // whileInView="visible"
+      // initial="hidden"
       className={clsx(
-        "cursor-pointer overflow-hidden relative flex items-center justify-center h-[50vh] md:h-[60vh] lg:h-[75vh] xl:h-[85vh] 2xl:h-[90vh] w-full rounded-[20px] md:rounded-[50px] md:hover:rounded-[100px] [transition:border-radius_1s] bg-mid",
+        "cursor-pointer overflow-hidden flex items-center justify-center h-[100vh] w-full bg-mid sticky top-0",
         className
       )}
       style={style}
@@ -106,7 +117,7 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
     >
       <Link
         to={`/works/${project.fields.projectUrl.toLowerCase()}`}
-        className="w-full h-full relative flex items-center justify-center group overflow-hidden rounded-[10px] md:rounded-[20px]"
+        className="w-full h-full relative flex items-center justify-center group overflow-hidden "
       >
         <div className="scale-101 group-hover:scale-105 transition-transform duration-2000 relative flex items-center justify-center w-full h-full">
           {thumb && thumb.type.includes("image/") && thumbnail && (
@@ -134,12 +145,6 @@ const ProjectHighlight = ({ project, scrollDirection, className }: ProjectHighli
             />
           )}
         </div>
-
-        {/* <div className="absolute inset-0 flex items-end justify-bottom">
-          <div className="nav w-full h-fit p-sm md:p-md uppercase text-center z-2 text-light fill-light mix-blend-difference">
-            {`${project.fields.name}${project.fields.client && ` | ${project.fields.client}`}`}
-          </div>
-        </div> */}
       </Link>
     </motion.div>
   );

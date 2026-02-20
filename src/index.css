@@ -70,7 +70,7 @@
   }
 
   body {
-    @apply w-full min-h-dvh h-fit m-0 p-0 bg-light text-dark fill-dark font-mono text-xs xl:text-sm tracking-tight transition-colors duration-500 antialiased in-[.page-docs]:bg-black;
+    @apply w-full min-h-dvh h-fit m-0 p-0 bg-light text-dark fill-dark font-mono text-xs xl:text-sm tracking-tight transition-colors duration-500 antialiased in-[.page-docs]:bg-dark;
   }
 
   a {
@@ -113,7 +113,7 @@
   }
 
   .content {
-    @apply flex flex-col bg-light gap-15 md:gap-60 pt-10 pb-20 md:pb-70 relative z-3;
+    @apply flex flex-col bg-light gap-15 md:gap-60 pt-10 pb-[100dvh] relative z-3;
   }
 
   .column {

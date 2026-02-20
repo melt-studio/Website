@@ -102,7 +102,7 @@ const Gallery = ({ images, title, style }: GalleryProps) => {
       ref={ref}
     >
       <div
-        className={clsx("flex flex-col gap-3 w-full overflow-x-hidden relative sticky", {
+        className={clsx("flex flex-col gap-3 w-full overflow-x-hidden sticky", {
           "mt-3": !title,
         })}
         ref={stickyContainer}

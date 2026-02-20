@@ -1,66 +1,31 @@
 import Link from "./Link";
-import { Easing, motion, stagger } from "motion/react";
+import { useMotionValueEvent, useScroll } from "motion/react";
 import clsx from "clsx";
 import { useStore } from "../stores/store";
+import { useRef, useState } from "react";
 
 const Footer = () => {
   const activeProject = useStore((state) => state.activeProject);
   const pathname = useStore((state) => state.pathname);
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  const [visible, setVisible] = useState(false);
+
+  const { scrollYProgress } = useScroll();
+
+  useMotionValueEvent(scrollYProgress, "change", (current) => {
+    if (!ref.current) return;
+
+    const page = window.innerHeight / (document.body.scrollHeight - window.innerHeight);
+    if (current > 1 - page * 0.5) {
+      if (!visible) setVisible(true);
+    } else {
+      if (visible) setVisible(false);
+    }
+  });
+
   if (pathname?.includes("/docs/") || pathname === "/dissolve") return null;
-
-  const parentVariants = {
-    hidden: {
-      opacity: 1,
-      transform: "translateY(0px)",
-    },
-    visible: {
-      opacity: 1,
-      transform: "translateY(0px)",
-      transition: {
-        duration: 1,
-        delayChildren: stagger(0.25, { startDelay: 0 }),
-        ease: "easeInOut" as Easing,
-      },
-    },
-  };
-
-  const bgVariants = {
-    hidden: {
-      opacity: 0,
-      // transform: "scaleY(50%)",
-    },
-    visible: {
-      opacity: 1,
-      // transform: "scaleY(100%)",
-    },
-  };
-
-  const childVariants = {
-    hidden: { opacity: 0, transform: "translateY(-20px)" },
-    visible: {
-      opacity: 1,
-      transform: "translateY(0px)",
-      transition: {
-        duration: 1,
-        delay: 1,
-        ease: "easeInOut" as Easing,
-      },
-    },
-  };
-
-  const featureVariants = {
-    hidden: { opacity: 0, transform: "translateY(-40px)" },
-    visible: {
-      opacity: 1,
-      transform: "translateY(0px)",
-      transition: {
-        duration: 1.5,
-        delay: 1.5,
-        ease: "easeInOut" as Easing,
-      },
-    },
-  };
 
   const caption = "Making ideas that stick.";
 
@@ -113,31 +78,31 @@ const Footer = () => {
   };
 
   return (
-    <motion.footer
-      viewport={{ amount: 0.5, once: false }}
-      initial="hidden"
-      whileInView="visible"
-      variants={parentVariants}
-      className={clsx("footer flex flex-col uppercase transition-opacity duration-2000 h-dvh relative z-5 text-mid", {
-        "bg-light": pathname?.includes("/works/"),
-      })}
+    <footer
+      ref={ref}
+      className={clsx(
+        "footer flex flex-col uppercase transition-opacity duration-1000 h-dvh fixed inset-0 z-5 text-mid bg-dark",
+        {
+          "opacity-0 pointer-events-none": !visible,
+        }
+      )}
     >
-      <motion.div
-        variants={bgVariants}
-        transition={{
-          duration: 2,
-          ease: "easeInOut" as Easing,
-        }}
-        className="absolute inset-0 bg-dark origin-bottom scale-y-1000 pointer-events-none"
-      />
       <div className="flex flex-col gap-15 md:gap-30 p-sm pb-md md:p-md z-10 pt-20 md:pt-20 h-full">
-        <motion.div variants={featureVariants} className="flex flex-col w-full grow justify-center">
+        <div
+          className={clsx("flex flex-col w-full grow justify-center transition-all duration-2000", {
+            "opacity-0 -translate-y-[40px]": !visible,
+          })}
+        >
           {getFeature()}
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={childVariants}
-          className="grid grid-cols-[1fr_2fr] gap-12 md:gap-4 justify-between items-end"
+        <div
+          className={clsx(
+            "grid grid-cols-[1fr_2fr] gap-12 md:gap-4 justify-between items-end transition-all duration-2000 delay-500",
+            {
+              "opacity-0 -translate-y-[40px]": !visible,
+            }
+          )}
         >
           <div className="font-medium order-2 col-span-2 md:col-span-1 flex justify-between">
             <div>{caption}</div>
@@ -160,9 +125,9 @@ const Footer = () => {
             </div>
             <div className="font-medium hidden md:block">{copyright}</div>
           </div>
-        </motion.div>
+        </div>
       </div>
-    </motion.footer>
+    </footer>
   );
 };
 

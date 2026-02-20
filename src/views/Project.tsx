@@ -32,7 +32,16 @@ const Project = () => {
         <Cover media={splashImage} hideSplash={activeProject.fields.highlightHideSplash}>
           {activeProject.fields.highlighted && activeProject.fields.highlightCopy && (
             <div className="hidden md:flex absolute w-full h-full top-0 left-0 items-center justify-center">
-              <div className="feature text-light cover">
+              <div
+                className="feature text-light cover"
+                style={
+                  activeProject.fields.highlightCopyColor
+                    ? {
+                        color: activeProject.fields.highlightCopyColor,
+                      }
+                    : {}
+                }
+              >
                 <WordAnimation text={activeProject.fields.highlightCopy} />
               </div>
             </div>
