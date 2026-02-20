@@ -12,7 +12,8 @@ import useObserver from "../helpers/useObserver";
 interface ProjectHighlightProps extends HTMLAttributes<HTMLDivElement> {
   project: ProjectFormatted;
   index: number;
-  updateActive: (index: number, position: string) => void;
+  last: boolean;
+  updateActive: (index: number, position: string) => number;
   className?: string;
 }
 
@@ -45,7 +46,7 @@ const getThumbPos = (thumbnail: ImageAirtable | undefined): CSSProperties => {
   return objectPos ? { objectPosition: objectPos } : {};
 };
 
-const ProjectHighlight = ({ project, index, updateActive, className }: ProjectHighlightProps) => {
+const ProjectHighlight = ({ project, index, last, updateActive, className }: ProjectHighlightProps) => {
   const background = useStore((state) => state.background);
   const gradient = useStore((state) => state.gradient);
 
@@ -88,27 +89,30 @@ const ProjectHighlight = ({ project, index, updateActive, className }: ProjectHi
     style.aspectRatio = thumbnail.width / thumbnail.height;
   }
 
-  // const tileVariants = {
-  //   hidden: {
-  //     opacity: 0,
-  //     transform: scrollDirection === "down" ? "translateY(-100px)" : "translateY(100px)",
-  //   },
-  //   visible: {
-  //     opacity: 1,
-  //     transform: "translateY(0px)",
-  //   },
-  // };
+  const tileVariants = {
+    hidden: {
+      opacity: 0,
+      transform: "translateY(100px)",
+    },
+    visible: {
+      opacity: 1,
+      transform: "translateY(0px)",
+    },
+  };
 
   return (
     <motion.div
       ref={ref}
-      // variants={tileVariants}
-      // transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
-      // viewport={{ amount: 0, once: false }}
-      // whileInView="visible"
-      // initial="hidden"
+      variants={tileVariants}
+      transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
+      viewport={{ amount: 0.1, once: false }}
+      whileInView="visible"
+      initial="hidden"
       className={clsx(
-        "cursor-pointer overflow-hidden flex items-center justify-center h-[100vh] w-full bg-mid sticky top-0",
+        "cursor-pointer overflow-hidden flex items-center justify-center h-[100vh] w-full bg-mid top-0 will-change-transform",
+        {
+          sticky: !last,
+        },
         className
       )}
       style={style}

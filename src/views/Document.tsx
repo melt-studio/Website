@@ -173,7 +173,9 @@ const DocumentContent = () => {
   const title = doc.fields.title ? <title>{`MELT – ${doc.fields.title}`}</title> : null;
 
   if (embedUrl) {
-    const embedUrl_ = embedUrl.replace("figma.com/deck/", "figma.com/proto/");
+    const embedUrl_ = embedUrl
+      .replace("figma.com/deck/", "figma.com/proto/")
+      .replace("&scaling=scale-down", "&scaling=contain");
 
     const downloadPdf = async () => {
       if (!(pdf && pdf[0] && pdf[0].type === "application/pdf")) return;
@@ -190,7 +192,7 @@ const DocumentContent = () => {
       const margin = 48;
       const hasPdf = pdf && pdf[0] && pdf[0].type === "application/pdf";
       const pdfThumb = hasPdf ? (pdf[0] as PDFAirtable).thumbnails.large : null;
-      const button = viewport.width < 768 ? 48 : 40;
+      const button = 40;
       const space = {
         width: viewport.width - margin * 2,
         height: hasPdf ? viewport.height - button - margin * 2 : viewport.height - margin * 2,
@@ -213,19 +215,26 @@ const DocumentContent = () => {
     return (
       <div className="w-full h-full relative p-12 flex items-center">
         {title}
-        <div className="flex flex-col gap-2 justify-center mx-auto w-fit h-fit">
-          <iframe
-            src={embedUrl_}
-            allowFullScreen
-            className="z-1 bg-black mx-auto"
+        <div className="flex flex-col gap-4 justify-center mx-auto w-fit h-fit">
+          <div
+            className="z-1 bg-black mx-auto overflow-hidden relative"
             style={{ animation: "fade-in 1s ease-in-out 1s both", ...embedSize() }}
-          />
+          >
+            <div
+              className={clsx({
+                "w-full h-full": !embedUrl.includes("figma.com/proto/"),
+                "absolute -inset-x-12 -inset-y-15": embedUrl.includes("figma.com/proto/"),
+              })}
+            >
+              <iframe src={embedUrl_} className="w-full h-full" allowFullScreen />
+            </div>
+          </div>
 
           {pdf && pdf[0] && pdf[0].type === "application/pdf" && (
             <div className="">
               <button
                 onClick={downloadPdf}
-                className="control ml-auto px-6 w-fit h-10 md:h-8 bg-black hover:bg-light/10 cursor-pointer"
+                className="uppercase ml-auto px-3 w-fit h-6 bg-black hover:bg-light/10 cursor-pointer font-mono tracking-tight flex items-center gap-2 rounded-full transition-colors duration-500 justify-center text-light text-xs"
                 style={{ animation: "fade-in 1s ease-in-out 2s both" }}
               >
                 Download PDF
