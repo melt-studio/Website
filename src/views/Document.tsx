@@ -203,7 +203,7 @@ const DocumentContent = () => {
               "w-fit h-auto max-h-full": viewport.width / viewport.height < 16 / 9,
               "w-full h-full": viewport.width / viewport.height >= 16 / 9,
             })}
-            style={{ animation: "fade-in 1s ease-in-out 1s both" }}
+            style={{ animation: "fade-in 1s ease-in-out 1s both", width: "-webkit-fill-available" }}
           />
 
           {pdf && pdf[0] && pdf[0].type === "application/pdf" && (
