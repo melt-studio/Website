@@ -5,7 +5,7 @@ import { Navigate, useNavigate, useParams } from "react-router";
 import Image from "../components/Image";
 import Video from "../components/Video";
 import documentService from "../services/document";
-import { DocumentAirtableLocked, DocumentAirtableUnlocked, ImageAirtable, Media } from "../types";
+import { DocumentAirtableLocked, DocumentAirtableUnlocked, ImageAirtable, Media, PDFAirtable } from "../types";
 import Placeholder from "../components/Placeholder";
 import { useStore } from "../stores/store";
 
@@ -186,31 +186,46 @@ const DocumentContent = () => {
       a.click();
     };
 
+    const embedSize = () => {
+      const margin = 48;
+      const hasPdf = pdf && pdf[0] && pdf[0].type === "application/pdf";
+      const pdfThumb = hasPdf ? (pdf[0] as PDFAirtable).thumbnails.large : null;
+      const button = viewport.width < 768 ? 48 : 40;
+      const space = {
+        width: viewport.width - margin * 2,
+        height: hasPdf ? viewport.height - button - margin * 2 : viewport.height - margin * 2,
+      };
+      const spaceAspect = space.width / space.height;
+      const embedAspect = pdfThumb ? pdfThumb.width / pdfThumb.height : 16 / 9;
+      if (spaceAspect > embedAspect) {
+        return {
+          width: space.height * embedAspect,
+          height: space.height,
+        };
+      } else {
+        return {
+          width: space.width,
+          height: space.width / embedAspect,
+        };
+      }
+    };
+
     return (
-      <div className="w-full h-full relative">
+      <div className="w-full h-full relative p-12 flex items-center">
         {title}
-        <div
-          className={clsx("flex flex-col gap-2 justify-center mx-auto", {
-            "w-full h-full": viewport.width / viewport.height < 16 / 9,
-            "w-fit h-full": viewport.width / viewport.height >= 16 / 9,
-            "px-12 py-15": true,
-          })}
-        >
+        <div className="flex flex-col gap-2 justify-center mx-auto w-fit h-fit">
           <iframe
             src={embedUrl_}
             allowFullScreen
-            className={clsx("aspect-[16/9] z-1 mx-auto", {
-              "w-fit h-auto max-h-full": viewport.width / viewport.height < 16 / 9,
-              "w-full h-full": viewport.width / viewport.height >= 16 / 9,
-            })}
-            style={{ animation: "fade-in 1s ease-in-out 1s both", width: "-webkit-fill-available" }}
+            className="z-1 bg-black mx-auto"
+            style={{ animation: "fade-in 1s ease-in-out 1s both", ...embedSize() }}
           />
 
           {pdf && pdf[0] && pdf[0].type === "application/pdf" && (
             <div className="">
               <button
                 onClick={downloadPdf}
-                className="control ml-auto px-6 w-fit bg-black hover:bg-light/10 cursor-pointer"
+                className="control ml-auto px-6 w-fit h-10 md:h-8 bg-black hover:bg-light/10 cursor-pointer"
                 style={{ animation: "fade-in 1s ease-in-out 2s both" }}
               >
                 Download PDF
@@ -231,7 +246,7 @@ const DocumentContent = () => {
         <div
           className={clsx("flex items-center justify-center", {
             "w-full h-full": pdf,
-            "absolute inset-y-15 inset-x-12": !pdf,
+            "absolute inset-12": !pdf,
           })}
         >
           <DocumentMedia media={media[0]} />
