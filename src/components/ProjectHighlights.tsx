@@ -35,8 +35,10 @@ const ProjectHighlights = () => {
   return (
     <div className="flex flex-col pt-60 md:pt-40 pb-0 w-full z-4 max-w-[2560px] mx-auto">
       {projects.length > 0 && active >= 0 && (
-        <div className="p-sm z-5 text-light md:p-md w-full flex flex-col gap-0 text-light uppercase fixed bottom-0 left-0 mix-blend-difference pointer-events-none">
-          <div>Featured Project | {projects[active].fields.name}</div>
+        <div className="z-5 text-light w-full flex flex-col gap-0 text-light uppercase fixed bottom-0 left-0 mix-blend-difference pointer-events-none">
+          <div className="p-sm md:p-md max-w-[2560px] mx-auto w-full">
+            Featured Project | {projects[active].fields.name}
+          </div>
         </div>
       )}
 
