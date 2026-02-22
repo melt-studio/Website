@@ -18,7 +18,7 @@ const Footer = () => {
     if (!ref.current) return;
 
     const page = window.innerHeight / (document.body.scrollHeight - window.innerHeight);
-    if (current > 1 - page * 0.5) {
+    if (current > 1 - page * 0.25) {
       if (!visible) setVisible(true);
     } else {
       if (visible) setVisible(false);

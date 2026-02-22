@@ -1,19 +1,17 @@
 import { ImageAirtable, ProjectFormatted } from "../types";
 import Image from "./Image";
 import { useStore } from "../stores/store";
-import { CSSProperties, HTMLAttributes, useEffect } from "react";
+import { CSSProperties, HTMLAttributes } from "react";
 import clsx from "clsx";
 import { Link } from "react-router";
 import Video from "./Video";
 import { themeColors } from "../helpers/utils";
-import { motion } from "motion/react";
-import useObserver from "../helpers/useObserver";
 
 interface ProjectHighlightProps extends HTMLAttributes<HTMLDivElement> {
   project: ProjectFormatted;
   index: number;
-  last: boolean;
-  updateActive: (index: number, position: string) => number;
+  active: number;
+  count: number;
   className?: string;
 }
 
@@ -46,7 +44,7 @@ const getThumbPos = (thumbnail: ImageAirtable | undefined): CSSProperties => {
   return objectPos ? { objectPosition: objectPos } : {};
 };
 
-const ProjectHighlight = ({ project, index, last, updateActive, className }: ProjectHighlightProps) => {
+const ProjectHighlight = ({ project, index, active, count, className }: ProjectHighlightProps) => {
   const background = useStore((state) => state.background);
   const gradient = useStore((state) => state.gradient);
 
@@ -57,15 +55,6 @@ const ProjectHighlight = ({ project, index, last, updateActive, className }: Pro
     if (thumb.type.includes("video/")) thumbnail = thumb;
     else if (thumb.type.includes("image/")) thumbnail = thumb.thumbnails.large;
   }
-
-  const [ref, position] = useObserver<HTMLDivElement>({
-    amount: index === 0 ? 0 : 0.1,
-    once: false,
-  });
-
-  useEffect(() => {
-    updateActive(index, position.current);
-  }, [position, updateActive, index]);
 
   const objectPos = getThumbPos(thumb);
 
@@ -89,29 +78,16 @@ const ProjectHighlight = ({ project, index, last, updateActive, className }: Pro
     style.aspectRatio = thumbnail.width / thumbnail.height;
   }
 
-  const tileVariants = {
-    hidden: {
-      opacity: 0,
-      transform: "translateY(100px)",
-    },
-    visible: {
-      opacity: 1,
-      transform: "translateY(0px)",
-    },
-  };
-
   return (
-    <motion.div
-      ref={ref}
-      variants={tileVariants}
-      transition={{ duration: 2, delay: 0, ease: "easeInOut" }}
-      viewport={{ amount: 0.1, once: false }}
-      whileInView="visible"
-      initial="hidden"
+    <div
       className={clsx(
-        "cursor-pointer overflow-hidden flex items-center justify-center h-[100vh] w-full bg-mid top-0 will-change-transform",
+        "cursor-pointer overflow-hidden flex items-center justify-center h-[100vh] w-full bg-mid top-0 inset-0 will-change-transform transition-all duration-3000 ease-in-out fixed",
         {
-          sticky: !last,
+          "opacity-0": active !== index,
+          "pointer-events-none": active > index,
+          "translate-y-full": active < index,
+          "-translate-y-0": active > index && index !== count - 1,
+          "-translate-y-full": active > index && index === count - 1,
         },
         className
       )}
@@ -121,7 +97,7 @@ const ProjectHighlight = ({ project, index, last, updateActive, className }: Pro
     >
       <Link
         to={`/works/${project.fields.projectUrl.toLowerCase()}`}
-        className="w-full h-full relative flex items-center justify-center group overflow-hidden "
+        className="w-full h-full relative flex items-center justify-center group overflow-hidden"
       >
         <div className="scale-101 group-hover:scale-105 transition-transform duration-2000 relative flex items-center justify-center w-full h-full">
           {thumb && thumb.type.includes("image/") && thumbnail && (
@@ -145,12 +121,11 @@ const ProjectHighlight = ({ project, index, last, updateActive, className }: Pro
               type={thumb.type}
               className="w-full h-full object-cover"
               style={objectPos}
-              // style={{ clipPath: "inset(2px 2px)" }}
             />
           )}
         </div>
       </Link>
-    </motion.div>
+    </div>
   );
 };
 

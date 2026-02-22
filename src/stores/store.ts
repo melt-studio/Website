@@ -8,7 +8,7 @@ type State = {
   blob: ShaderMesh | null;
   gradient: HTMLDivElement | null;
   scroll: HTMLDivElement | null;
-  // projectTiles: HTMLDivElement | null;
+  highlightsVisible: boolean;
   ready: boolean;
   reel: VideoAirtable | null;
   video: HTMLVideoElement | null;
@@ -39,7 +39,7 @@ const initialState = {
   scroll: null,
   video: null,
   videoPlaying: false,
-  // projectTiles: null,
+  highlightsVisible: false,
   reel: null,
   showReel: false,
   ready: false,

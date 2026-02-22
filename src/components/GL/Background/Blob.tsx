@@ -11,6 +11,7 @@ import { useStore } from "../../../stores/store";
 import { ShaderMesh } from "../../../types";
 import { useLocation } from "react-router";
 import { useTexture } from "@react-three/drei";
+import { lerp } from "three/src/math/MathUtils.js";
 
 useTexture.preload(reel);
 
@@ -19,6 +20,7 @@ const Blob = () => {
   const setValue = useStore((state) => state.setValue);
   const pathname = useStore((state) => state.pathname);
   const scroll = useStore((state) => state.scroll);
+  const highlightsVisible = useStore((state) => state.highlightsVisible);
   const video = useStore((state) => state.video);
   const blob = useRef<ShaderMesh>(null);
   const [expanded, setExpanded] = useState(false);
@@ -64,9 +66,7 @@ const Blob = () => {
       uPath: {
         value: new Vector2(),
       },
-      uScroll: {
-        value: new Vector2(),
-      },
+      uScroll: { value: 0 },
     };
 
     return [uniformsBlob];
@@ -100,13 +100,7 @@ const Blob = () => {
       blob.current.material.uniforms.uTime.value.x += delta;
 
       if (location.pathname === "/") {
-        const s = window.scrollY / size.height;
-        blob.current.material.uniforms.uScroll.value.x += (s - blob.current.material.uniforms.uScroll.value.x) * 0.05;
-
-        const fold = 0.0;
-        const height = 1;
-
-        if (s >= fold + height && expanded) {
+        if (highlightsVisible && expanded) {
           hideVideo();
         }
 
@@ -145,13 +139,13 @@ const Blob = () => {
       }
     }
 
-    if (styleScroll && scroll) {
-      const max = 0.3;
-      const s = window.scrollY / size.height;
-      if (s < max) scroll.style.opacity = "0";
-      else scroll.style.opacity = "1";
-      const o = styleScroll.getPropertyValue("opacity");
-      if (blob.current) blob.current.material.uniforms.uScroll.value.y = o;
+    if (blob.current) {
+      if (scroll && styleScroll) {
+        scroll.style.opacity = highlightsVisible ? "1" : "0";
+        const o = styleScroll.getPropertyValue("opacity");
+        blob.current.material.uniforms.uScroll.value = o;
+        blob.current.position.y = lerp(0, viewport.height / 2, Number(o));
+      }
     }
   });
 
