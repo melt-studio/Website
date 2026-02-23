@@ -13,6 +13,9 @@
   --font-mono: ballinger-mono, ui-monospace, SFMono-Regular, Menlo, "Roboto Mono", monospace;
   --font-serif: TriestDT, serif;
 
+  --text-xssm: 0.8125rem;
+  --text-xssm--line-height: calc(1.125 / 0.8125);
+
   --color-dark: #1b1b1b;
   --color-mid: #c1c1c1;
   --color-light: #ecece9;
@@ -70,7 +73,7 @@
   }
 
   body {
-    @apply w-full min-h-dvh h-fit m-0 p-0 bg-light text-dark fill-dark font-mono text-xs xl:text-sm tracking-tight transition-colors duration-500 antialiased in-[.page-docs]:bg-black;
+    @apply w-full min-h-dvh h-fit m-0 p-0 bg-light text-dark fill-dark font-mono text-xs lg:text-xssm 3xl:text-sm tracking-tight transition-colors duration-500 antialiased in-[.page-docs]:bg-dark;
   }
 
   a {
@@ -113,7 +116,7 @@
   }
 
   .content {
-    @apply flex flex-col bg-light gap-15 md:gap-60 pt-10 pb-20 md:pb-70 relative z-3;
+    @apply flex flex-col bg-light gap-15 md:gap-60 pt-10 pb-[100dvh] relative z-3;
   }
 
   .column {

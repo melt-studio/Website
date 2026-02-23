@@ -13,6 +13,7 @@ type LinkProps = {
   invertUnderline?: boolean;
   hideSelected?: boolean;
   viewTransition?: boolean;
+  download?: boolean;
   children: ReactNode;
 };
 
@@ -25,6 +26,7 @@ const Link = ({
   onClick,
   hideSelected = false,
   viewTransition = false,
+  download = false,
   children,
 }: LinkProps) => {
   const location = useLocation();
@@ -49,6 +51,7 @@ const Link = ({
       className={clsx(className, "w-fit")}
       viewTransition={viewTransition}
       onClick={onClick}
+      download={download}
     >
       <div className="group relative w-fit">
         {children}

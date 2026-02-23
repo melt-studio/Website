@@ -1,8 +1,8 @@
 import ProjectHighlight from "./ProjectHighlight";
 import { useStore } from "../stores/store";
-import { motion, useMotionValueEvent, useScroll } from "motion/react";
-// import Link from "./Link";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useMotionValueEvent, useScroll } from "motion/react";
+import clsx from "clsx";
 
 export type TileLayout = {
   w: number;
@@ -17,20 +17,17 @@ export type TileLayout = {
   orientation: "landscape" | "portrait";
 };
 
-export type ScrollDirection = "down" | "up";
-
 const ProjectHighlights = () => {
   const allProjects = useStore((state) => state.projects);
+  const setValue = useStore((state) => state.setValue);
 
-  const [scrollDirection, setScrollDirection] = useState<ScrollDirection>("up");
+  const [active, setActive] = useState(-1);
 
-  const { scrollYProgress } = useScroll();
+  const ref = useRef<HTMLDivElement>(null);
 
-  useMotionValueEvent(scrollYProgress, "change", (current) => {
-    const prev = scrollYProgress.getPrevious();
-    if (!prev) return;
-    const diff = current - prev;
-    setScrollDirection(diff > 0 ? "down" : "up");
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end end"],
   });
 
   const projects = allProjects.filter(
@@ -38,48 +35,63 @@ const ProjectHighlights = () => {
       project.fields.highlighted && project.fields.highlightThumbnail && project.fields.highlightThumbnail.length > 0
   );
 
-  const textVariants = {
-    hidden: {
-      opacity: 0,
-      // transform: scrollDirection === "down" ? "translateY(-20px)" : "translateY(20px)",
-    },
-    visible: {
-      opacity: 1,
-      // transform: "translateY(0px)",
-    },
-  };
+  useMotionValueEvent(scrollYProgress, "change", (current) => {
+    const index = Math.floor(current * projects.length);
+    if (current > 0) setValue("highlightsVisible", true);
+    else setValue("highlightsVisible", false);
+    if (current === 0) setActive(-1);
+    else if (index !== active) setActive(index);
+  });
+
+  const activeClamp = Math.max(0, Math.min(active, projects.length - 1));
+  const activeProject = projects[active] ? projects[active] : null;
 
   return (
-    <div className="flex flex-col pt-60 md:pt-40 pb-20 w-full z-4 max-w-[2560px] mx-auto">
-      <motion.div
-        variants={textVariants}
-        transition={{ duration: 2, delay: 1.5, ease: "easeInOut" }}
-        viewport={{ amount: 0.1, once: false }}
-        whileInView="visible"
-        initial="hidden"
-        className="px-sm md:px-md w-full flex flex-col gap-4 my-10 items-center md:items-start"
-      >
-        <div className="uppercase w-fit">Featured Projects</div>
-      </motion.div>
-      <div className="flex flex-col px-2 w-full">
-        <div className="w-full h-auto flex flex-col gap-2 relative">
-          {projects.map((project) => (
-            <ProjectHighlight key={project.id} project={project} scrollDirection={scrollDirection} />
+    <div className="flex flex-col pt-60 pb-0 w-full z-4 max-w-[2560px] mx-auto">
+      {projects.length > 0 && (
+        <div
+          className={clsx(
+            "z-5 text-light w-full flex flex-col gap-0 text-light uppercase fixed bottom-0 left-0 mix-blend-difference pointer-events-none transition-all ease-in-out duration-2000 h-fit",
+            {
+              "opacity-0 -translate-y-[20px]": !activeProject,
+            }
+          )}
+        >
+          <div className="p-sm md:p-md max-w-[2560px] mx-auto w-full flex whitespace-pre flex-col md:flex-row">
+            <div>
+              Featured Project<span className="hidden md:inline"> | </span>
+            </div>
+            <div className="relative flex grow overflow-hidden">
+              <div className="invisible">{projects[activeClamp].fields.name}</div>
+              {projects.map((p, i) => (
+                <div
+                  key={p.fields.name}
+                  className={clsx("absolute w-fit flex grow transition-transform ease-in-out duration-2000", {
+                    "-translate-y-full": activeClamp > i,
+                    "translate-y-full": activeClamp < i,
+                  })}
+                >
+                  {p.fields.name}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="flex flex-col px-0 w-full">
+        <div
+          ref={ref}
+          className="w-full h-auto flex flex-col gap-0 relative"
+          style={{
+            height: `${projects.length * 100}vh`,
+          }}
+        >
+          {projects.map((project, i) => (
+            <ProjectHighlight key={project.id} project={project} index={i} count={projects.length} active={active} />
           ))}
         </div>
       </div>
-      {/* <motion.div
-        variants={textVariants}
-        transition={{ duration: 2, delay: 1, ease: "easeInOut" }}
-        viewport={{ amount: 0.1, once: false }}
-        whileInView="visible"
-        initial="hidden"
-        className="px-sm md:px-md w-full flex flex-col gap-4 my-10 items-center md:items-end"
-      >
-        <div className="uppercase w-fit">
-          <Link to="/works">All Projects</Link>
-        </div>
-      </motion.div> */}
     </div>
   );
 };

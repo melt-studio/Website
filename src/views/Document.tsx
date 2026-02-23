@@ -5,8 +5,9 @@ import { Navigate, useNavigate, useParams } from "react-router";
 import Image from "../components/Image";
 import Video from "../components/Video";
 import documentService from "../services/document";
-import { DocumentAirtableLocked, DocumentAirtableUnlocked, ImageAirtable, Media } from "../types";
+import { DocumentAirtableLocked, DocumentAirtableUnlocked, ImageAirtable, Media, PDFAirtable } from "../types";
 import Placeholder from "../components/Placeholder";
+import { useStore } from "../stores/store";
 
 const Document = () => {
   useEffect(() => {
@@ -31,6 +32,8 @@ const DocumentContent = () => {
   const [password, setPassword] = useState("");
   const [checking, setChecking] = useState(false);
   const [invalid, setInvalid] = useState<string | null>(null);
+
+  const viewport = useStore((state) => state.viewport);
 
   if (path === undefined) navigate("/");
 
@@ -103,7 +106,7 @@ const DocumentContent = () => {
             />
           </svg>
 
-          <div className="relative flex flex-col gap-1 uppercase">
+          <div className="relative flex flex-col gap-1">
             <input
               className={clsx(
                 "border text-dark outline-0 p-3 rounded-md bg-light h-10 min-w-80 pr-10 transition-colors",
@@ -161,7 +164,7 @@ const DocumentContent = () => {
     );
   }
 
-  const { embedUrl, media } = (doc as DocumentAirtableUnlocked).fields;
+  const { embedUrl, media, pdf } = (doc as DocumentAirtableUnlocked).fields;
 
   if (embedUrl === undefined && media === undefined) {
     return <Navigate to="/" />;
@@ -170,13 +173,74 @@ const DocumentContent = () => {
   const title = doc.fields.title ? <title>{`MELT – ${doc.fields.title}`}</title> : null;
 
   if (embedUrl) {
-    const embedUrl_ = embedUrl.replace("figma.com/deck/", "figma.com/proto/");
+    const embedUrl_ = embedUrl
+      .replace("figma.com/deck/", "figma.com/proto/")
+      .replace("&scaling=scale-down", "&scaling=contain");
+
+    const downloadPdf = async () => {
+      if (!(pdf && pdf[0] && pdf[0].type === "application/pdf")) return;
+      const a = document.createElement("a");
+      const data = await fetch(pdf[0].url);
+      const blob = await data.blob();
+      const blobData = URL.createObjectURL(blob);
+      a.href = blobData;
+      a.download = pdf[0].filename;
+      a.click();
+    };
+
+    const embedSize = () => {
+      const margin = 48;
+      const hasPdf = pdf && pdf[0] && pdf[0].type === "application/pdf";
+      const pdfThumb = hasPdf ? (pdf[0] as PDFAirtable).thumbnails.large : null;
+      const button = 40;
+      const space = {
+        width: viewport.width - margin * 2,
+        height: hasPdf ? viewport.height - button - margin * 2 : viewport.height - margin * 2,
+      };
+      const spaceAspect = space.width / space.height;
+      const embedAspect = pdfThumb ? pdfThumb.width / pdfThumb.height : 16 / 9;
+      if (spaceAspect > embedAspect) {
+        return {
+          width: space.height * embedAspect,
+          height: space.height,
+        };
+      } else {
+        return {
+          width: space.width,
+          height: space.width / embedAspect,
+        };
+      }
+    };
 
     return (
-      <div className="w-full h-full relative overflow-hidden">
+      <div className="w-full h-full relative p-12 flex items-center">
         {title}
-        <div className={embedUrl.includes("figma.com/proto/") ? "w-full h-full" : "w-full h-full px-12 py-15"}>
-          <iframe src={embedUrl_} allowFullScreen className="w-full h-full animate-[fade-in_1s_ease-in-out] z-1" />
+        <div className="flex flex-col gap-4 justify-center mx-auto w-fit h-fit">
+          <div
+            className="z-1 bg-black mx-auto overflow-hidden relative"
+            style={{ animation: "fade-in 1s ease-in-out 1s both", ...embedSize() }}
+          >
+            <div
+              className={clsx({
+                "w-full h-full": !embedUrl.includes("figma.com/proto/"),
+                "absolute -inset-x-12 -inset-y-15": embedUrl.includes("figma.com/proto/"),
+              })}
+            >
+              <iframe src={embedUrl_} className="w-full h-full" allowFullScreen />
+            </div>
+          </div>
+
+          {pdf && pdf[0] && pdf[0].type === "application/pdf" && (
+            <div className="">
+              <button
+                onClick={downloadPdf}
+                className="uppercase ml-auto px-3 w-fit h-6 bg-black hover:bg-light/10 cursor-pointer font-mono tracking-tight flex items-center gap-2 rounded-full transition-colors duration-500 justify-center text-light text-xs"
+                style={{ animation: "fade-in 1s ease-in-out 2s both" }}
+              >
+                Download PDF
+              </button>
+            </div>
+          )}
         </div>
       </div>
     );
@@ -191,7 +255,7 @@ const DocumentContent = () => {
         <div
           className={clsx("flex items-center justify-center", {
             "w-full h-full": pdf,
-            "absolute inset-y-15 inset-x-12": !pdf,
+            "absolute inset-12": !pdf,
           })}
         >
           <DocumentMedia media={media[0]} />

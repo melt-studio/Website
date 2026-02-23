@@ -10,7 +10,7 @@ const Work = () => {
   return (
     <>
       <title>MELT – Work</title>
-      <div className="flex flex-col">
+      <div className="flex flex-col pb-[100dvh]">
         <ProjectTiles />
       </div>
     </>

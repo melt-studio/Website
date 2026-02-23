@@ -105,9 +105,6 @@ const Scroll = () => {
 
 const Wrapper = () => {
   const canvasContainer = useRef<HTMLDivElement | null>(null);
-  const location = useLocation();
-
-  const docs = location.pathname.includes("/docs/");
 
   const setValue = useStore((state) => state.setValue);
   const ready = useStore((state) => state.ready);
@@ -138,12 +135,10 @@ const Wrapper = () => {
 
       <div
         className={clsx(
-          "justify-center items-center h-dvh w-full text-white fixed top-0 left-0 z-0 transition-opacity duration-2000 pointer-events-none",
+          "justify-center items-center h-dvh w-full text-white fixed top-0 left-0 z-0 transition-opacity duration-2000 pointer-events-none flex",
           {
             "opacity-100": ready,
             "opacity-0": !ready,
-            hidden: docs,
-            flex: !docs,
           }
         )}
         ref={canvasContainer}

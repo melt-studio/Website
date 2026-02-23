@@ -23,7 +23,7 @@ export const fragmentShaderBlob = /* glsl */ `
   uniform vec3 uTime;
   uniform vec2 uMouse;
   uniform vec2 uPath;
-  uniform vec2 uScroll;
+  uniform float uScroll;
   uniform vec4 uResolution;
   uniform sampler2D uVideo;
   uniform vec4 uVideoPlaying;
@@ -77,7 +77,7 @@ export const fragmentShaderBlob = /* glsl */ `
     if (uHover.x == 0.) r_ = 1. - t3;
 
     // Scroll factor
-    float sf = uScroll.y;
+    float sf = uScroll;
 
     // Page load transition time
     float t_ = getTime(uTime.x, 1.5, uTime.y + 2. * uMode);

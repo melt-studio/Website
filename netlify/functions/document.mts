@@ -41,10 +41,11 @@ type DocumentFields = {
   pageUrl: string;
   embedUrl?: string;
   media?: Media[];
+  pdf?: Media[];
   password?: string;
 };
 
-type DocumentFieldsLocked = Omit<DocumentFields, "embedUrl" | "media" | "password">;
+type DocumentFieldsLocked = Omit<DocumentFields, "embedUrl" | "media" | "pdf" | "password">;
 
 type DocumentFieldsUnlocked = Omit<DocumentFields, "password">;
 
@@ -90,7 +91,7 @@ export default async (req: Request, _context: Context) => {
 
 const formatDocument = (document: DocumentAirtable, full: boolean = false): Response => {
   const { id, fields } = document;
-  const { password, embedUrl, media, title, pageUrl } = fields;
+  const { password, embedUrl, media, pdf, title, pageUrl } = fields;
 
   if (!embedUrl && !media) return pass({ error: "Document has no content" }, 400);
 
@@ -101,6 +102,7 @@ const formatDocument = (document: DocumentAirtable, full: boolean = false): Resp
       fields: {
         embedUrl,
         media,
+        pdf,
         title,
         pageUrl,
       },

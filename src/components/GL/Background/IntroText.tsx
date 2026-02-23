@@ -2,10 +2,17 @@ import clsx from "clsx";
 import { WordAnimation } from "../../WordAnimation";
 import { useStore } from "../../../stores/store";
 import { useLocation } from "react-router";
+import { useEffect } from "react";
 
 const IntroText = () => {
   const pathname = useStore((state) => state.pathname);
+  const setValue = useStore((state) => state.setValue);
+  const highlightsVisible = useStore((state) => state.highlightsVisible);
   const location = useLocation();
+
+  useEffect(() => {
+    if (pathname !== "/") setValue("highlightsVisible", false);
+  }, [pathname, setValue]);
 
   const blocks = [
     {
@@ -27,16 +34,17 @@ const IntroText = () => {
     max: 0.3,
     active: pathname === "/",
     amount: 0,
-    scroll: true,
-    scrollFactor: 0.5,
+    // scroll: true,
+    // scrollFactor: 0.5,
   };
 
   return (
     <div
       className={clsx(
-        "w-full h-full fixed top-0 left-0 flex items-center justify-center z-0 p-sm md:p-md transition-opacity duration-1000 opacity-0",
+        "w-full h-full fixed top-0 left-0 flex items-center justify-center z-0 p-sm md:p-md transition-all duration-3500 opacity-0 ease-in-out",
         {
           "opacity-100": pathname === "/" && location.pathname === "/",
+          "-translate-y-[75vh]": highlightsVisible,
         }
       )}
     >
