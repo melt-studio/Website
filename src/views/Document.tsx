@@ -192,7 +192,7 @@ const DocumentContent = () => {
       const margin = 48;
       const hasPdf = pdf && pdf[0] && pdf[0].type === "application/pdf";
       const pdfThumb = hasPdf ? (pdf[0] as PDFAirtable).thumbnails.large : null;
-      const button = 40;
+      const button = viewport.width < 1920 ? 40 : 48;
       const space = {
         width: viewport.width - margin * 2,
         height: hasPdf ? viewport.height - button - margin * 2 : viewport.height - margin * 2,
@@ -234,7 +234,7 @@ const DocumentContent = () => {
             <div className="">
               <button
                 onClick={downloadPdf}
-                className="uppercase ml-auto px-3 w-fit h-6 bg-black hover:bg-light/20 cursor-pointer font-mono tracking-tight flex items-center gap-2 rounded-full transition-colors duration-500 justify-center text-light text-xs"
+                className="uppercase ml-auto px-3 3xl:px-4 w-fit h-6 3xl:h-8 bg-light hover:bg-light/80 cursor-pointer font-mono tracking-tight flex items-center gap-2 rounded-full transition-colors duration-500 justify-center text-dark text-xs 3xl:text-xssm"
                 style={{ animation: "fade-in 1s ease-in-out 2s both" }}
               >
                 Download PDF
