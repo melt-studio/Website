@@ -234,7 +234,7 @@ const DocumentContent = () => {
             <div className="">
               <button
                 onClick={downloadPdf}
-                className="uppercase ml-auto px-3 3xl:px-4 w-fit h-6 3xl:h-8 bg-light hover:bg-light/80 cursor-pointer font-mono tracking-tight flex items-center gap-2 rounded-full transition-colors duration-500 justify-center text-dark text-xs 3xl:text-xssm"
+                className="uppercase ml-auto px-3 3xl:px-4 w-fit h-6 3xl:h-8 bg-light/15 hover:bg-light cursor-pointer font-mono tracking-tight flex items-center gap-2 rounded-full transition-colors duration-500 justify-center text-light hover:text-dark text-xs 3xl:text-xssm"
                 style={{ animation: "fade-in 1s ease-in-out 2s both" }}
               >
                 Download PDF
